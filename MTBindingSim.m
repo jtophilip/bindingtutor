@@ -1,5 +1,5 @@
 function varargout = MTBindingSim(varargin)
-% MTBINDINGSIM M-file for MTBindingSim.fig
+% MTBindingSim - plot microtubule binding curves under various conditions
 %      MTBINDINGSIM, by itself, creates a new MTBINDINGSIM or raises the existing
 %      singleton*.
 %
@@ -18,37 +18,33 @@ function varargout = MTBindingSim(varargin)
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %       
-%   mtbindingsim is a program to plot bidning curves under various
+%   mtbindingsim is a program to plot binding curves under various
 %   conditions, particularly those encountered in microtubule binding or
 %   other polymer binding situations.
-%
-%   Copywright 2010 University of Notre Dame
-%   Written by Julia Philip, jphilip@nd.edu
-%
-%   Version history:
-%   1.0 mtbindingsim is an interactive GUI which allows the user to plot
-%   binding curves for several differnt models with user-specified
-%   parameters and also compare the curves predicted by different models or
-%   input parameters. 
-%   The purpose of this program is to assist researchers
-%   in developing intution about how different models of binding will be
-%   manifest in binding data. 
-%   The currently supported binding models are: a
-%   simple binding of two molecules binding each other, "classical"
-%   cooperativity, a model where a protein binds the microtuble at the seam
-%   and the lattice with different affinities, and a model where a
-%   microtubule binding protein can bind either the microtubule or a
-%   microtubule bound protein.
-%   The user can choose two different modes of collecting biding data:
-%   holding the protein of interest constant and varying the microtubule
-%   concentration, or holding the microtubule concentration constant and
-%   varying the concentration of the protein of interest.
-%
+% 
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help MTBindingSim
+% Copyright (C) 2010  University of Notre Dame
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-% Last Modified by GUIDE v2.5 13-Apr-2010 18:12:32
+% Author:
+%   Julia Philip <jphilip@nd.edu>
+%
+% Version history:
+% - 0.5: Initial version
+
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
