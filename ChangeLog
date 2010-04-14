@@ -1,0 +1,14 @@
+2010-04-13 22:46  (early revision before Google Code import)
+
+	* COPYING, MTBindingSim.m, cooperativity.m, first_order.m: Code is now
+	  licensed GPL.
+
+2010-04-13 22:25  (early revision before Google Code import)
+
+	* ., MTBindingSim.fig, MTBindingSim.m, cooperativity.m, first_order.m:
+	  Initial input of source code.
+
+2010-04-13 21:41  (early revision before Google Code import)
+
+	* .: Create initial project directories.
+

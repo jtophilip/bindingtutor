@@ -3,20 +3,22 @@ function [Frac, Bfree, Abound] = first_order(Btot, Atot, KD)
 % binding where the total concentrations of A and B are Atot and Btot and
 % the disassociation constant is KD.
 
+% This file is part of MTBindingSim.
+%
 % Copyright (C) 2010  University of Notre Dame
 %
-% This program is free software: you can redistribute it and/or modify
+% MTBindingSim is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation, either version 3 of the License, or
 % (at your option) any later version.
 %
-% This program is distributed in the hope that it will be useful,
+% MTBindingSim is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
 % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 % GNU General Public License for more details.
 %
 % You should have received a copy of the GNU General Public License
-% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+% along with MTBindingSim.  If not, see <http://www.gnu.org/licenses/>.
 
 % Author:
 %   Julia Philip <jphilip@nd.edu>
