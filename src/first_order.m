@@ -1,6 +1,6 @@
-function [Frac, Bfree, Abound] = first_order(Btot, Atot, KD)
-% A function which calculates the biding of A to B assuming first order
-% binding where the total concentrations of A and B are Atot and Btot and
+function [Frac, MTfree, Abound] = first_order(MTtot, Atot, KD)
+% A function which calculates the biding of A to MT assuming first order
+% binding where the total concentrations of A and MT are Atot and Btot and
 % the disassociation constant is KD.
 
 % This file is part of MTBindingSim.
@@ -29,11 +29,11 @@ function [Frac, Bfree, Abound] = first_order(Btot, Atot, KD)
 
 % Declares variables, creating symbolic versions of KD, Atot, and Btot to
 % be used in the solver
-syms A kd bt at
+syms A kd mtt at
 
 % Solves for free and bound A
-A1 = solve(A + (1/kd)*A*bt/(1 + (1/kd)*A)- at, A);
-Afree = subs(A1(1), {kd bt at}, {KD Btot Atot});
+A1 = solve(A + (1/kd)*A*mtt/(1 + (1/kd)*A)- at, A);
+Afree = subs(A1(1), {kd mtt at}, {KD MTtot Atot});
 Abound = Atot - Afree;
 
 % Solves for fraciton of A bound
@@ -41,7 +41,7 @@ f = (Abound)./Atot;
 Frac = real(f);
 
 % Solves for free B
-b = Btot./(1 + (1/KD).*(Afree));
-Bfree = real(b);
+mt = MTtot./(1 + (1/KD).*(Afree));
+MTfree = real(mt);
 
 end
