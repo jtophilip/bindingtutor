@@ -1013,14 +1013,22 @@ switch get(handles.curve1, 'Value')
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
-                       % Function to get fraction A bound and free MT 
+                       % Calculates fraction of A bound and free MT
+                       [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
+                       
+                       y = Frac;
+                       x = MTfree;
                        
                        xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
                         
                     case 'total'
                         
-                        % Function to get fraction A bound
+                        % Calculates fraction of A bound and free MT
+                        [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
+                       
+                        y = Frac;
+                        x = xvals;
                         
                         xaxis = '[MT] total';
                         yaxis = 'Fraction of A bound';
@@ -1049,13 +1057,17 @@ switch get(handles.curve1, 'Value')
                 
                 % Gets the value for KA and ensures that it's a positive
                 % number
-                KM = str2double(get(handles.input3_1, 'String'));
+                KA = str2double(get(handles.input3_1, 'String'));
                 
-                if isnan(KM) || KM <= 0
+                if isnan(KA) || KA <= 0
                     errordlg([get(handles.label3_1, 'String'), ' must be a number greater than 0']); 
                 end
                 
-                % Function to get the concentration of A bound
+                % Calculates the concentration of A bound
+                [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
+                
+                y = Abound;
+                x =xvals;
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
