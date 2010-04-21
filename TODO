@@ -1,17 +1,14 @@
 TODO for v1.0:
 
- * change existing calculation programs to solve outside the loop
-   * test whether you can use subs with a vector and get a vector result
-
  * write remaining biding model programs
+
+ * write code to graph second curve
+
+ * write code to calculate differences and display them
 
  * test Tau binding/number of binding sites model--is the model in the paper 
 the same as ours if you divide Kd by n?
    * change solver programs to accept n OR
    * write a model to simulate using their equation
-
- * write code to graph second curve
-
- * write code to calculate differences and display them
 
  * write model for 2 MAPs bind MT-bound MAP
