@@ -93,6 +93,7 @@ handles.color = 0;
 % mode button groups
 set(handles.exp_mode, 'SelectionChangeFcn', @exp_mode_SelectionChangeFcn);
 set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
+
 % Update handles structure
 guidata(hObject, handles);
 
