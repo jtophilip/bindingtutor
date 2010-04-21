@@ -79,10 +79,6 @@ function MTBindingSim_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for MTBindingSim
 handles.output = hObject;
 
-% Creates the figure toolbar on the GUI so that images can be manipulated
-% and saved
-set(hObject,'toolbar','figure');
-
 % Clears the axes
 cla(handles.axes, 'reset');
 
@@ -97,8 +93,9 @@ set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes MTBindingSim wait for user response (see UIRESUME)
-% uiwait(handles.figure1);
+% Creates the figure toolbar on the GUI so that images can be manipulated
+% and saved
+create_toolbar(hObject);
 
 
 % --- Outputs from this function are returned to the command line.
@@ -110,6 +107,40 @@ function varargout = MTBindingSim_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
+
+function create_toolbar(hObject)
+% hObject    handle to figure
+
+% First, disable the standard toolbar
+set(hObject, 'Toolbar', 'figure');
+
+% Create a new toolbar
+toolbar = findall(hObject, 'Type', 'uitoolbar');
+
+% Remove buttons
+h = findall(toolbar, 'Tag', 'Standard.NewFigure');
+delete(h);
+h = findall(toolbar, 'Tag', 'Standard.FileOpen');
+delete(h);
+h = findall(toolbar, 'Tag', 'Standard.EditPlot');
+delete(h);
+h = findall(toolbar, 'Tag', 'Exploration.Rotate');
+delete(h);
+h = findall(toolbar, 'Tag', 'Exploration.DataCursor');
+delete(h);
+h = findall(toolbar, 'Tag', 'Exploration.Brushing');
+delete(h);
+h = findall(toolbar, 'Tag', 'DataManager.Linking');
+delete(h);
+h = findall(toolbar, 'Tag', 'Annotation.InsertColorbar');
+delete(h);
+h = findall(toolbar, 'Tag', 'Annotation.InsertLegend');
+delete(h);
+h = findall(toolbar, 'Tag', 'Plottools.PlottoolsOff');
+delete(h);
+h = findall(toolbar, 'Tag', 'Plottools.PlottoolsOn');
+delete(h);
 
 
 
