@@ -35,7 +35,8 @@ syms A kd mtt at p
 % Calculates free and bound A
 A1 = solve(A + ((2/kd)*A + (4/(p*(kd^2)))*A^2)*mtt/(1 + (2/kd)*A + (2/(p*(kd^2)))*A^2)-at, A);
 Afree = subs(A1(1), {kd at mtt p}, {KD Atot MTtot P});
-Abound = Atot - Afree;
+AB = Atot - Afree;
+Abound = real(AB);
 
 % Calculates the fraction of A bound
 f = Abound./Atot;

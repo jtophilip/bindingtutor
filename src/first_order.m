@@ -34,7 +34,8 @@ syms A kd mtt at
 % Solves for free and bound A
 A1 = solve(A + (1/kd)*A*mtt/(1 + (1/kd)*A)- at, A);
 Afree = subs(A1(1), {kd mtt at}, {KD MTtot Atot});
-Abound = Atot - Afree;
+AB = Atot - Afree;
+Abound = real(AB);
 
 % Solves for fraciton of A bound
 f = (Abound)./Atot;

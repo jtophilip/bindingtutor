@@ -45,6 +45,6 @@ Frac = real(f);
 % Calculates free seam and lattice
 s = ST./(1+(1/KS).*Afree);
 l = LT./(1 + (1/KL).*Afree);
-MTfree = real(s) + real(l);
+MTfree = real(s) + real(l)
 
 end
