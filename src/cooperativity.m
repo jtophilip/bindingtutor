@@ -38,11 +38,11 @@ Afree = subs(A1(1), {kd at bt p}, {KD Atot Btot P});
 Abound = Atot - Afree;
 
 % Calculates the fraction of A bound
-f = Abound/Atot;
+f = Abound./Atot;
 Frac = real(f);
 
 % Calculates free B
-b = Btot/(1 + (2/KD)*Afree + (2/(P*KD))*Afree^2);
+b = Btot./(1 + (2/KD).*Afree + (2/(P*KD)).*Afree.^2);
 Bfree = real(b);
 
 end

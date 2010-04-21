@@ -37,11 +37,11 @@ Afree = subs(A1(1), {kd bt at}, {KD Btot Atot});
 Abound = Atot - Afree;
 
 % Solves for fraciton of A bound
-f = (Abound)/Atot;
+f = (Abound)./Atot;
 Frac = real(f);
 
 % Solves for free B
-b = Btot/(1 + (1/KD)*(Afree));
+b = Btot./(1 + (1/KD).*(Afree));
 Bfree = real(b);
 
 end

@@ -690,7 +690,7 @@ end
 
 % Creates a vector of values for x
 interval = (xmax - xmin)/points;
-x = xmin:interval:xmax;
+xvals = xmin:interval:xmax;
 
 % Determines the parameters selected for curve1
 switch get(handles.curve1, 'Value')
@@ -722,18 +722,9 @@ switch get(handles.curve1, 'Value')
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
-                       % Creates empty vectors frac and MTfree of the same size as x
-                       [a, b] = size(x);
-                       frac = zeros(a,b);
-                       MTfree= zeros(a,b);
-                       
-                       %Steps through x, calculating the value of frac and
-                       %MTfree at each point and adding them to the vectors
-                       for n = 1:b
-                           [F,MT, A] = first_order(x(n), Atot, KD);
-                           frac(n) = F;
-                           MTfree(n) = MT;
-                       end
+                       %Calculates the value of frac, MTfree, and Abound at
+                       %each value of x
+                       [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
                        
                        y = frac;
                        x = MTfree;
@@ -742,22 +733,16 @@ switch get(handles.curve1, 'Value')
                        yaxis = 'Fraction of A bound';
                        
                     case 'total'
-                        
-                        % Creates empty vector frac of the same size as x
-                       [a, b] = size(x);
-                       frac = zeros(a,b);
                        
-                       % Steps through x, calculating the value of frac
-                       % at each point and adding it to the vector
-                       for n = 1:b
-                           [F,MT, A] = first_order(x(n), Atot, KD);
-                           frac(n) = F;
-                       end
+                       % Calculates the value of frac, MTfree, and Abound
+                       [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                      
                        
                        y = frac;
-                        
-                        xaxis = '[MT] total';
-                        yaxis = 'Fraction of A bound';
+                       x = xvals; 
+                       
+                       xaxis = '[MT] total';
+                       yaxis = 'Fraction of A bound';
                         
                     otherwise
                 end
@@ -780,19 +765,13 @@ switch get(handles.curve1, 'Value')
                 if isnan(KD) || KD <= 0
                     errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
                 end
-                
-                % Creates empty vector Abound of the same size as x
-                [a, b] = size(x);
-                Abound = zeros(a,b);
-                       
-                % Steps through x, calculating the value of frac
-                % at each point and adding it to the vector
-                for n = 1:b
-                    [F,MT,A] = first_order(MTtot, x(n), KD);
-                    Abound(n) = A;
-                end
+               
+                % Calculates frac, MTfree, and Abound
+                [frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
+
                        
                 y = Abound;
+                x = xvals;
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
@@ -835,19 +814,10 @@ switch get(handles.curve1, 'Value')
                 % Determines whether the X-axis is free MT or total MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
-                        
-                       % Creates empty vectors frac and MTfree of the same size as x
-                       [a, b] = size(x);
-                       frac = zeros(a,b);
-                       MTfree= zeros(a,b);
-                       
-                       %Steps through x, calculating the value of frac and
-                       %MTfree at each point and adding them to the vectors
-                       for n = 1:b
-                           [F,MT, A] = cooperativity(x(n), Atot, KD, p);
-                           frac(n) = F;
-                           MTfree(n) = MT;
-                       end
+                     
+                        % Calculates frac, MTfree, and Abound
+                        [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                      
                        
                        y = frac;
                        x = MTfree;
@@ -856,22 +826,16 @@ switch get(handles.curve1, 'Value')
                        yaxis = 'Fraction of A bound';
                         
                     case 'total'
-                        
-                         % Creates empty vector frac of the same size as x
-                       [a, b] = size(x);
-                       frac = zeros(a,b);
                        
-                       % Steps through x, calculating the value of frac
-                       % at each point and adding it to the vector
-                       for n = 1:b
-                           [F,MT, A] = cooperativity(x(n), Atot, KD, p);
-                           frac(n) = F;
-                       end
+                       % Calculates frac, MTfree, and Abound
+                       [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+
                        
                        y = frac;
+                       x = xvals;
                         
-                        xaxis = '[MT] total';
-                        yaxis = 'Fraction of A bound';
+                       xaxis = '[MT] total';
+                       yaxis = 'Fraction of A bound';
                         
                     otherwise
                 end
@@ -902,20 +866,14 @@ switch get(handles.curve1, 'Value')
                 if isnan(p) || p <= 0
                     errordlg([get(handles.label3_1, 'String'), ' must be a number greater than 0']); 
                 end
-                
-                
-                % Creates empty vector Abound of the same size as x
-                [a, b] = size(x);
-                Abound = zeros(a,b);
                        
                 % Steps through x, calculating the value of frac
                 % at each point and adding it to the vector
-                for n = 1:b
-                    [F,MT,A] = cooperativity(MTtot, x(n), KD, p);
-                    Abound(n) = A;
-                end
+                [frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
+
                        
                 y = Abound;
+                x = xvals;
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
