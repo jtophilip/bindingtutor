@@ -718,27 +718,27 @@ switch get(handles.curve1, 'Value')
                     errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
                 end
                 
-                % Determines whether the X-axis is free B or total B
+                % Determines whether the X-axis is free MT or total MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
-                       % Creates empty vectors frac and Bfree of the same size as x
+                       % Creates empty vectors frac and MTfree of the same size as x
                        [a, b] = size(x);
                        frac = zeros(a,b);
-                       Bfree= zeros(a,b);
+                       MTfree= zeros(a,b);
                        
                        %Steps through x, calculating the value of frac and
-                       %Bfree at each point and adding them to the vectors
+                       %MTfree at each point and adding them to the vectors
                        for n = 1:b
-                           [F,B, A] = first_order(x(n), Atot, KD);
+                           [F,MT, A] = first_order(x(n), Atot, KD);
                            frac(n) = F;
-                           Bfree(n) = B;
+                           MTfree(n) = MT;
                        end
                        
                        y = frac;
-                       x = Bfree;
+                       x = MTfree;
 
-                       xaxis = '[B] free';
+                       xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
                        
                     case 'total'
@@ -750,13 +750,13 @@ switch get(handles.curve1, 'Value')
                        % Steps through x, calculating the value of frac
                        % at each point and adding it to the vector
                        for n = 1:b
-                           [F,B, A] = first_order(x(n), Atot, KD);
+                           [F,MT, A] = first_order(x(n), Atot, KD);
                            frac(n) = F;
                        end
                        
                        y = frac;
                         
-                        xaxis = '[B] total';
+                        xaxis = '[MT] total';
                         yaxis = 'Fraction of A bound';
                         
                     otherwise
@@ -765,11 +765,11 @@ switch get(handles.curve1, 'Value')
             % Saturation mode is selected
             case 'saturation'
                 
-                % Gets the value for [B] total and ensures that it's a
+                % Gets the value for [MT] total and ensures that it's a
                 % positive number
-                Btot = str2double(get(handles.input1_1, 'String'));
+                MTtot = str2double(get(handles.input1_1, 'String'));
                 
-                if isnan(Btot) || Btot < 0
+                if isnan(MTtot) || MTtot < 0
                     errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
                 end
                 
@@ -788,7 +788,7 @@ switch get(handles.curve1, 'Value')
                 % Steps through x, calculating the value of frac
                 % at each point and adding it to the vector
                 for n = 1:b
-                    [F,B,A] = first_order(Btot, x(n), KD);
+                    [F,MT,A] = first_order(MTtot, x(n), KD);
                     Abound(n) = A;
                 end
                        
@@ -832,27 +832,27 @@ switch get(handles.curve1, 'Value')
                     errordlg([get(handles.label3_1, 'String'), ' must be a number']); 
                 end
                 
-                % Determines whether the X-axis is free B or total B
+                % Determines whether the X-axis is free MT or total MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
-                       % Creates empty vectors frac and Bfree of the same size as x
+                       % Creates empty vectors frac and MTfree of the same size as x
                        [a, b] = size(x);
                        frac = zeros(a,b);
-                       Bfree= zeros(a,b);
+                       MTfree= zeros(a,b);
                        
                        %Steps through x, calculating the value of frac and
-                       %Bfree at each point and adding them to the vectors
+                       %MTfree at each point and adding them to the vectors
                        for n = 1:b
-                           [F,B, A] = cooperativity(x(n), Atot, KD, p);
+                           [F,MT, A] = cooperativity(x(n), Atot, KD, p);
                            frac(n) = F;
-                           Bfree(n) = B;
+                           MTfree(n) = MT;
                        end
                        
                        y = frac;
-                       x = Bfree;
+                       x = MTfree;
                        
-                       xaxis = '[B] free';
+                       xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
                         
                     case 'total'
@@ -864,13 +864,13 @@ switch get(handles.curve1, 'Value')
                        % Steps through x, calculating the value of frac
                        % at each point and adding it to the vector
                        for n = 1:b
-                           [F,B, A] = cooperativity(x(n), Atot, KD, p);
+                           [F,MT, A] = cooperativity(x(n), Atot, KD, p);
                            frac(n) = F;
                        end
                        
                        y = frac;
                         
-                        xaxis = '[B] total';
+                        xaxis = '[MT] total';
                         yaxis = 'Fraction of A bound';
                         
                     otherwise
@@ -879,11 +879,11 @@ switch get(handles.curve1, 'Value')
             % Saturation mode is selected
             case 'saturation'
                 
-                % Gets the value for [B] total and ensures that it's a
+                % Gets the value for [MT] total and ensures that it's a
                 % positive number
-                Btot = str2double(get(handles.input1_1, 'String'));
+                MTtot = str2double(get(handles.input1_1, 'String'));
                 
-                if isnan(Btot) || Btot < 0
+                if isnan(MTtot) || MTtot < 0
                     errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
                 end
                 
@@ -899,8 +899,8 @@ switch get(handles.curve1, 'Value')
                 % number
                 p = str2double(get(handles.input3_1, 'String'));
                 
-                if isnan(p)
-                    errordlg([get(handles.label3_1, 'String'), ' must be a number']); 
+                if isnan(p) || p <= 0
+                    errordlg([get(handles.label3_1, 'String'), ' must be a number greater than 0']); 
                 end
                 
                 
@@ -911,7 +911,7 @@ switch get(handles.curve1, 'Value')
                 % Steps through x, calculating the value of frac
                 % at each point and adding it to the vector
                 for n = 1:b
-                    [F,B,A] = cooperativity(Btot, x(n), KD, p);
+                    [F,MT,A] = cooperativity(MTtot, x(n), KD, p);
                     Abound(n) = A;
                 end
                        
@@ -1176,7 +1176,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                         case 'free'
 
-                           % Function to get fraction A bound and free B 
+                           % Function to get fraction A bound and free MT 
 
                         case 'total'
 
@@ -1188,11 +1188,11 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % Saturation mode is selected
                 case 'saturation'
 
-                    % Gets the value for [B] total and ensures that it's a
+                    % Gets the value for [MT] total and ensures that it's a
                     % positive number
-                    Btot = str2double(get(handles.input1_2, 'String'));
+                    MTtot = str2double(get(handles.input1_2, 'String'));
 
-                    if isnan(Btot) || Btot < 0
+                    if isnan(MTtot) || MTtot < 0
                         errordlg(['Please enter a positive number for ', get(handles.label1_2, 'String')]); 
                     end
 
@@ -1241,11 +1241,11 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         errordlg([get(handles.label3_2, 'String'), ' must be a number']); 
                     end
 
-                    % Determines whether the X-axis is free B or total B
+                    % Determines whether the X-axis is free MT or total MT
                     switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                         case 'free'
 
-                           % Function to get fraction A bound and free B 
+                           % Function to get fraction A bound and free MT 
 
                         case 'total'
 
@@ -1257,11 +1257,11 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % Saturation mode is selected
                 case 'saturation'
 
-                    % Gets the value for [B] total and ensures that it's a
+                    % Gets the value for [MT] total and ensures that it's a
                     % positive number
-                    Btot = str2double(get(handles.input1_2, 'String'));
+                    MTtot = str2double(get(handles.input1_2, 'String'));
 
-                    if isnan(Btot) || Btot < 0
+                    if isnan(MTtot) || Mttot < 0
                         errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
                     end
 
@@ -1737,15 +1737,15 @@ inputboxes_display1(hObject, 2);
 handles = guidata(hObject);
 
 % Sets the equation and model text
-set(handles.model1, 'String', 'A + B <-> AB');
-set(handles.equation1, 'String', 'KD = [A][B]/[AB]');
+set(handles.model1, 'String', 'A + MT <-> AMT');
+set(handles.equation1, 'String', 'KD = [A][MT]/[AMT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'on');
 
 % Sets labels for the visible input boxes
-set(handles.label_xmin, 'String', '[B] total min');
-set(handles.label_xmax, 'String', '[B] total max');
+set(handles.label_xmin, 'String', '[MT] total min ');
+set(handles.label_xmax, 'String', '[MT] total max ');
 set(handles.label1_1, 'String', '[A] total');
 set(handles.label2_1, 'String', 'KD');
 
@@ -1762,8 +1762,8 @@ inputboxes_display1(hObject, 2);
 handles = guidata(hObject);
 
 % Sets the equation and model text
-set(handles.model1, 'String', 'A + B <-> AB');
-set(handles.equation1, 'String', 'KD = [A](2[B])/[AB]');
+set(handles.model1, 'String', 'A + MT <-> AMT');
+set(handles.equation1, 'String', 'KD = [A][MT]/[AMT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'off');
@@ -1771,7 +1771,7 @@ set(handles.tot_free, 'Visible', 'off');
 %Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
 set(handles.label_xmax, 'String', '[A] total max ');
-set(handles.label1_1, 'String', '[B] total ');
+set(handles.label1_1, 'String', '[MT] total ');
 set(handles.label2_1, 'String', 'KD ');
 
 % Updates the handles structure
@@ -1789,15 +1789,15 @@ inputboxes_display1(hObject, 3);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-set(handles.model1, 'String', 'A + B <-> AB, A + AB <-> A2B');
-set(handles.equation1, 'String', 'KD = [A](2[B])/[AB], p*KD = [A][AB]/[A2B]');
+set(handles.model1, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
+set(handles.equation1, 'String', 'KD = [A](2[MT])/[AMT], p*KD = [A][AMT]/[A2MT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'on');
                 
 % Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[B] total min ');
-set(handles.label_xmax, 'String', '[B] total max ');
+set(handles.label_xmin, 'String', '[MT] total min ');
+set(handles.label_xmax, 'String', '[MT] total max ');
 set(handles.label1_1, 'String', '[A] total ');
 set(handles.label2_1, 'String', 'KD ');
 set(handles.label3_1, 'String', 'p ');
@@ -1819,8 +1819,8 @@ inputboxes_display1(hObject, 3);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-set(handles.model1, 'String', 'A + B <-> AB, A + AB <-> A2B');
-set(handles.equation1, 'String', 'KD = [A][B]/[AB], p*KD = [A][AB]/[A2B]');
+set(handles.model1, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
+set(handles.equation1, 'String', 'KD = [A][MT]/[AMT], p*KD = [A][AMT]/[A2MT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'off');
@@ -1828,7 +1828,7 @@ set(handles.tot_free, 'Visible', 'off');
 %Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
 set(handles.label_xmax, 'String', '[A] total max ');
-set(handles.label1_1, 'String', '[B] total ');
+set(handles.label1_1, 'String', '[MT] total ');
 set(handles.label2_1, 'String', 'KD ');
 set(handles.label3_1, 'String', 'p ');
 
@@ -1861,8 +1861,6 @@ set(handles.label_xmax, 'String', '[MT] total max ');
 set(handles.label1_1, 'String', '[A] total ');
 set(handles.label2_1, 'String', 'KS ');
 set(handles.label3_1, 'String', 'KL ');
-set(handles.total, 'String', 'Total MT');
-set(handles.free, 'String', 'Free MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -1917,8 +1915,6 @@ set(handles.label_xmax, 'String', '[MT] total max ');
 set(handles.label1_1, 'String', '[A] total ');
 set(handles.label2_1, 'String', 'KM ');
 set(handles.label3_1, 'String', 'KA ');
-set(handles.total, 'String', 'Total MT');
-set(handles.free, 'String', 'Free MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -1962,8 +1958,8 @@ inputboxes_display2(hObject, 2);
 handles = guidata(hObject);
 
 % Sets the equation and model text
-set(handles.model2, 'String', 'A + B <-> AB');
-set(handles.equation2, 'String', 'KD = [A][B]/[AB]');
+set(handles.model2, 'String', 'A + MT <-> AMT');
+set(handles.equation2, 'String', 'KD = [A][MT]/[AMT]');
 
 % Sets labels for the visible input boxes
 set(handles.label1_2, 'String', '[A] total');
@@ -1982,12 +1978,12 @@ inputboxes_display2(hObject, 2);
 handles = guidata(hObject);
 
 % Sets the equation and model text
-set(handles.model2, 'String', 'A + B <-> AB');
-set(handles.equation2, 'String', 'KD = [A][B]/[AB]');
+set(handles.model2, 'String', 'A + MT <-> AMT');
+set(handles.equation2, 'String', 'KD = [A][MT]/[AMT]');
 
 
 % Sets labels for the input boxes
-set(handles.label1_2, 'String', '[B] total ');
+set(handles.label1_2, 'String', '[MT] total ');
 set(handles.label2_2, 'String', 'KD ');
 
 % Updates the handles structure
@@ -2005,8 +2001,8 @@ inputboxes_display2(hObject, 3);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-set(handles.model2, 'String', 'A + B <-> AB, A + AB <-> A2B');
-set(handles.equation2, 'String', 'KD = [A](2[B])/[AB], p*KD = [A][AB]/[A2B]');
+set(handles.model2, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
+set(handles.equation2, 'String', 'KD = [A](2[MT])/[AMT], p*KD = [A][AMT]/[A2MT]');
 
                 
 % Sets labels for the input boxes
@@ -2031,11 +2027,11 @@ inputboxes_display2(hObject, 3);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-set(handles.model2, 'String', 'A + B <-> AB, A + AB <-> A2B');
-set(handles.equation2, 'String', 'KD = [A](2[B])/[AB], p*KD = [A][AB]/[A2B]');
+set(handles.model2, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
+set(handles.equation2, 'String', 'KD = [A](2[MT])/[AMT], p*KD = [A][AMT]/[A2MT]');
 
 %Sets labels for the input boxes
-set(handles.label1_2, 'String', '[B] total ');
+set(handles.label1_2, 'String', '[MT] total ');
 set(handles.label2_2, 'String', 'KD ');
 set(handles.label3_2, 'String', 'p ');
 
