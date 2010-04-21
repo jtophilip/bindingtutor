@@ -1,7 +1,7 @@
-function [Frac, MTfree, Abound] = first_order(MTtot, Atot, KD)
-% A function which calculates the biding of A to MT assuming first order
-% binding where the total concentrations of A and MT are Atot and Btot and
-% the disassociation constant is KD.
+function [Frac, MTfree, Abound] = seam_lattice(MTtot, Atot, KS, KL)
+% A function which calculates the binding of A to MT assuming that A binds
+% to the seam of the MT with disassociation constant KS and the lattice of
+% the MT with disassociatio nconstant KL.
 
 % This file is part of MTBindingSim.
 %
@@ -26,22 +26,25 @@ function [Frac, MTfree, Abound] = first_order(MTtot, Atot, KD)
 % Version history:
 % - 0.5: Initial version
 
+% Declares symbolic variables to be used in the solver
+syms A ks kl st lat at
 
-% Declares variables, creating symbolic versions of KD, Atot, and Btot to
-% be used in the solver
-syms A kd mtt at
+% Calculates total concentrations of seam and lattice
+ST = MTtot./13;
+LT = MTtot.*12./13;
 
-% Solves for free and bound A
-A1 = solve(A + (1/kd)*A*mtt/(1 + (1/kd)*A)- at, A);
-Afree = subs(A1(1), {kd mtt at}, {KD MTtot Atot});
+% Calculates free and bound A
+A1 = solve(A + (1/ks)*A*st/(1 + (1/ks)*A) + (1/kl)*A*lat/(1 + (1/kl)*A) - at, A);
+Afree = subs(A1(1), {at st lat ks kl}, {Atot ST LT KS KL});
 Abound = Atot - Afree;
 
-% Solves for fraciton of A bound
-f = (Abound)./Atot;
+% Calculates the fraction of A bound
+f = Abound./Atot;
 Frac = real(f);
 
-% Solves for free MT
-mt = MTtot./(1 + (1/KD).*(Afree));
-MTfree = real(mt);
+% Calculates free seam and lattice
+s = ST./(1+(1/KS).*Afree);
+l = LT./(1 + (1/KL).*Afree);
+MTfree = real(s) + real(l);
 
 end

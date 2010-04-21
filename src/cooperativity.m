@@ -41,7 +41,7 @@ Abound = Atot - Afree;
 f = Abound./Atot;
 Frac = real(f);
 
-% Calculates free B
+% Calculates free MT
 mt = MTtot./(1 + (2/KD).*Afree + (2/(P*KD)).*Afree.^2);
 MTfree = real(mt);
 

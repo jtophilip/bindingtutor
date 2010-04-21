@@ -917,14 +917,20 @@ switch get(handles.curve1, 'Value')
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
-                       % Function to get fraction A bound and free MT 
+                       % Calculates fraction of A bound and free MT
+                       [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                       y = Frac;
+                       x = MTfree;
                        
                        xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
                         
                     case 'total'
                         
-                        % Function to get fraction A bound
+                        % Calculates fraction of A bound and MT free
+                        [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                        y = Frac;
+                        x = xvals;
                         
                         xaxis = '[MT] total';
                         yaxis = 'Fraction of A bound';
@@ -959,7 +965,10 @@ switch get(handles.curve1, 'Value')
                     errordlg([get(handles.label3_1, 'String'), ' must be a number greater than 0']); 
                 end
                 
-                % Function to get the concentration of A bound
+                % Calculates concentration of A bound and MT free
+                [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
+                y = Abound;
+                x = xvals;
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
