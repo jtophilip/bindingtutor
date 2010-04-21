@@ -1114,17 +1114,7 @@ handles.color = handles.color +1;
 % Determines if comparision mode is selected and calculates and graphs the
 % second curve
 if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
-    % Retreives xmin and xmax
-    xmin = str2double(get(handles.input_xmin, 'String'));
-    xmax = str2double(get(handles.input_xmax, 'String'));
     
-    % Retreives the number of points to graph
-    points = str2double(get(handles.input_points, 'String'));
-    
-    % Creates a vector of values for x
-    interval = (xmax - xmin)/points;
-    x = xmin:interval:xmax;
-   
     % Determines the parameters selected for curve1
     switch get(handles.curve2, 'Value')
         % First order binding
@@ -1156,10 +1146,18 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'free'
 
                            % Function to get fraction A bound and free MT 
+                           [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                           
+                           y = Frac;
+                           x = MTfree;
 
                         case 'total'
 
-                            % Function to get fraction A bound
+                           % Function to get fraction A bound
+                           [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                           
+                           y = Frac
+                           X = xvals;
 
                         otherwise
                     end
@@ -1184,6 +1182,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     end
 
                     % Function to get the concentration of A bound
+                    [Frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
+                    
+                    y = Abound;
+                    x = xvals;
 
                 otherwise
             end
@@ -1216,8 +1218,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     % number
                     p = str2double(get(handles.input3_2, 'String'));
 
-                    if isnan(p)
-                        errordlg([get(handles.label3_2, 'String'), ' must be a number']); 
+                    if isnan(p) || p <= 0
+                        errordlg([get(handles.label3_2, 'String'), ' must be a number greater than 0']); 
                     end
 
                     % Determines whether the X-axis is free MT or total MT
@@ -1225,10 +1227,18 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'free'
 
                            % Function to get fraction A bound and free MT 
+                           [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                           
+                           y = Frac;
+                           x = MTfree;
 
                         case 'total'
 
                             % Function to get fraction A bound
+                            [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                           
+                           y = Frac;
+                           x = xvals;
 
                         otherwise
                     end
@@ -1240,7 +1250,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     % positive number
                     MTtot = str2double(get(handles.input1_2, 'String'));
 
-                    if isnan(MTtot) || Mttot < 0
+                    if isnan(MTtot) || MTtot < 0
                         errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
                     end
 
@@ -1261,6 +1271,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     end
 
                     % Function to get the concentration of A bound
+                    [Frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
+                    
+                    y = Abound;
+                    x = xvals;
 
                 otherwise
             end
@@ -1302,10 +1316,18 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'free'
 
                            % Function to get fraction A bound and free MT 
+                           [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                           
+                           y = Frac;
+                           x = MTfree;
 
                         case 'total'
 
                             % Function to get fraction A bound
+                            [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                           
+                            y = Frac;
+                            x = xvals;
 
                         otherwise
                     end
@@ -1338,6 +1360,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     end
 
                     % Function to get the concentration of A bound
+                    [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
+                    
+                    y = Abound;
+                    x = xvals;
 
                 otherwise
             end
@@ -1380,10 +1406,18 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'free'
 
                            % Function to get fraction A bound and free MT 
+                           [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
+                           
+                           y = Frac;
+                           x = MTfree;
 
                         case 'total'
 
                             % Function to get fraction A bound
+                            [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
+                           
+                            y = Frac;
+                            x = xvals;
 
                         otherwise
                     end
@@ -1409,13 +1443,17 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 
                     % Gets the value for KA and ensures that it's a positive
                     % number
-                    KM = str2double(get(handles.input3_2, 'String'));
+                    KA = str2double(get(handles.input3_2, 'String'));
 
-                    if isnan(KM) || KM <= 0
+                    if isnan(KA) || KA <= 0
                         errordlg([get(handles.label3_2, 'String'), ' must be a number greater than 0']); 
                     end
 
                     % Function to get the concentration of A bound
+                    [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
+                    
+                    y = Abound;
+                    x = xvals;
 
                 otherwise
             end
@@ -1424,13 +1462,9 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         otherwise
     end
 
-    y = x.^2;
-
     %plots the x and y data
     hold on
     h = plot(x,y);
-    %xlabel(xaxis);
-    %ylabel(yaxis);
 
     % Rotates through the availble MatLab colors, colors the plot, and
     % displays the color in the color readout
