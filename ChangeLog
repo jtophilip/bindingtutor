@@ -1,3 +1,27 @@
+2010-04-21 23:23  (early revision before Google Code import)
+
+	* src/MTBindingSim.m, src/seam_lattice.m: Updated the comparision
+	  display parameters to display more precise information.
+
+2010-04-21 23:17  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Trimming unnecessary buttons out of uitoolbar.
+	  Works on R2010a, others?
+
+2010-04-21 23:14  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Fixed a bug in the defaul
+	  GUI display.
+
+2010-04-21 22:38  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.fig, src/MTBindingSim.m, src/seam_lattice.m:
+	  Added code to calculate and display differences between two curves.
+
+2010-04-21 21:43  (early revision before Google Code import)
+
+	* ChangeLog: Updated ChangeLog.
+
 2010-04-21 18:47  (early revision before Google Code import)
 
 	* src/MTBindingSim.m: Added graphing for the second curve in comparision
