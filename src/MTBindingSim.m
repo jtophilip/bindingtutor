@@ -1562,7 +1562,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     
     % Displays the differences between the curves
     
-    set(handles.result, 'String', {['Average absolute difference: ' num2str(avgdiff)] ; ['Average percent difference: ' num2str(avgper) '%'] ; ['Maximum absolute difference is ' num2str(maxdiff) ' at ' num2str(xmaxdiff)] ; ['Maxmum percent difference is ' num2str(maxper) '% at ' num2str(xmaxper)]})
+    set(handles.result, 'String', {['Average absolute difference: ' num2str(avgdiff)] ;...
+        ['Average percent difference: ' num2str(avgper) '%'] ;...
+        ['Maximum absolute difference is ' num2str(maxdiff) ' at ' num2str(xmaxdiff) ' ' xaxis] ;...
+        ['Maxmum percent difference is ' num2str(maxper) '% at ' num2str(xmaxper) ' ' xaxis]})
     
 end
 
