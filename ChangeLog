@@ -1,3 +1,37 @@
+2010-04-21 18:47  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Added graphing for the second curve in comparision
+	  mode.
+
+2010-04-21 18:10  (early revision before Google Code import)
+
+	* TODO: Updated to do list.
+
+2010-04-21 18:09  (early revision before Google Code import)
+
+	* src/MAP_bind.m, src/MTBindingSim.m: Added a function to calculate
+	  binding for the MAPs bind MT-bound MAPs case.
+
+2010-04-21 17:56  (early revision before Google Code import)
+
+	* src/cooperativity.m, src/first_order.m, src/seam_lattice.m: Made sure
+	  that all values passed out of calculation functions are real.
+
+2010-04-21 17:49  (early revision before Google Code import)
+
+	* src/MTBindingSim.m, src/cooperativity.m, src/first_order.m,
+	  src/seam_lattice.m: Added a function to calculate seam and lattice
+	  binding
+
+2010-04-21 17:26  (early revision before Google Code import)
+
+	* src/cooperativity.m, src/first_order.m: Changed binding programs to
+	  have MT instead of B
+
+2010-04-21 17:19  (early revision before Google Code import)
+
+	* ChangeLog: Updated ChangeLog.
+
 2010-04-21 17:16  (early revision before Google Code import)
 
 	* TODO: Updated todo list
