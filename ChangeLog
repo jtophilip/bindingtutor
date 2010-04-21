@@ -1,3 +1,46 @@
+2010-04-21 17:16  (early revision before Google Code import)
+
+	* TODO: Updated todo list
+
+2010-04-21 17:10  (early revision before Google Code import)
+
+	* TODO, todo.rtf: Plain-text-ized the TODO.
+
+2010-04-21 16:06  (early revision before Google Code import)
+
+	* src/MTBindingSim.m, src/cooperativity.m, src/first_order.m: Changed
+	  solving code to eliminate the for loop.
+
+2010-04-21 15:39  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig, todo.rtf: Changed bindng mode options to Vary
+	  [MT] and Vary [A]
+
+2010-04-21 15:38  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m, todo.rtf: Changed all Bs to
+	  MTs
+
+2010-04-21 15:21  (early revision before Google Code import)
+
+	* todo.rtf: Added a to do list.
+
+2010-04-14 01:26  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig: Fixed a bug regarding the path of the
+	  SelectionChangeFcn callbacks. See MathWorks Technical Solution
+	  1-9NXKJ3, along with 1-179FO3. Need to test this on other machines; is
+	  this really fixed?
+
+2010-04-14 00:30  (early revision before Google Code import)
+
+	* ., AUTHORS, ChangeLog, MTBindingSim.fig, MTBindingSim.m, Makefile,
+	  NEWS, README, THANKS, build, build/authors.xml, build/svn2cl.sh,
+	  build/svn2cl.xsl, cooperativity.m, first_order.m, src,
+	  src/MTBindingSim.fig, src/MTBindingSim.m, src/cooperativity.m,
+	  src/first_order.m: Restructured the source code to match standard
+	  source layout. Added host of standard first-level documentation.
+
 2010-04-13 22:46  (early revision before Google Code import)
 
 	* COPYING, MTBindingSim.m, cooperativity.m, first_order.m: Code is now
