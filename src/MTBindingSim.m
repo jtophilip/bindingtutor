@@ -726,8 +726,8 @@ switch get(handles.curve1, 'Value')
                        %each value of x
                        [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
                        
-                       y = frac;
-                       x = MTfree;
+                       y1 = frac;
+                       x1 = MTfree;
 
                        xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
@@ -738,8 +738,8 @@ switch get(handles.curve1, 'Value')
                        [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
                       
                        
-                       y = frac;
-                       x = xvals; 
+                       y1 = frac;
+                       x1 = xvals; 
                        
                        xaxis = '[MT] total';
                        yaxis = 'Fraction of A bound';
@@ -770,8 +770,8 @@ switch get(handles.curve1, 'Value')
                 [frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
 
                        
-                y = Abound;
-                x = xvals;
+                y1 = Abound;
+                x1 = xvals;
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
@@ -819,8 +819,8 @@ switch get(handles.curve1, 'Value')
                         [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
                       
                        
-                       y = frac;
-                       x = MTfree;
+                       y1 = frac;
+                       x1 = MTfree;
                        
                        xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
@@ -831,8 +831,8 @@ switch get(handles.curve1, 'Value')
                        [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
 
                        
-                       y = frac;
-                       x = xvals;
+                       y1 = frac;
+                       x1 = xvals;
                         
                        xaxis = '[MT] total';
                        yaxis = 'Fraction of A bound';
@@ -872,8 +872,8 @@ switch get(handles.curve1, 'Value')
                 [frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
 
                        
-                y = Abound;
-                x = xvals;
+                y1 = Abound;
+                x1 = xvals;
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
@@ -919,8 +919,8 @@ switch get(handles.curve1, 'Value')
                         
                        % Calculates fraction of A bound and free MT
                        [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
-                       y = Frac;
-                       x = MTfree;
+                       y1 = Frac;
+                       x1 = MTfree;
                        
                        xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
@@ -929,8 +929,8 @@ switch get(handles.curve1, 'Value')
                         
                         % Calculates fraction of A bound and MT free
                         [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
-                        y = Frac;
-                        x = xvals;
+                        y1 = Frac;
+                        x1 = xvals;
                         
                         xaxis = '[MT] total';
                         yaxis = 'Fraction of A bound';
@@ -967,8 +967,8 @@ switch get(handles.curve1, 'Value')
                 
                 % Calculates concentration of A bound and MT free
                 [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
-                y = Abound;
-                x = xvals;
+                y1 = Abound;
+                x1 = xvals;
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
@@ -1016,8 +1016,8 @@ switch get(handles.curve1, 'Value')
                        % Calculates fraction of A bound and free MT
                        [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
                        
-                       y = Frac;
-                       x = MTfree;
+                       y1 = Frac;
+                       x1 = MTfree;
                        
                        xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
@@ -1027,8 +1027,8 @@ switch get(handles.curve1, 'Value')
                         % Calculates fraction of A bound and free MT
                         [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
                        
-                        y = Frac;
-                        x = xvals;
+                        y1 = Frac;
+                        x1 = xvals;
                         
                         xaxis = '[MT] total';
                         yaxis = 'Fraction of A bound';
@@ -1066,8 +1066,8 @@ switch get(handles.curve1, 'Value')
                 % Calculates the concentration of A bound
                 [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
                 
-                y = Abound;
-                x =xvals;
+                y1 = Abound;
+                x1 =xvals;
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
@@ -1081,7 +1081,7 @@ end
 
 %plots the x and y data
 hold on
-h = plot(x,y);
+h = plot(x1,y1);
 xlabel(xaxis);
 ylabel(yaxis);
 
@@ -1148,16 +1148,16 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            % Function to get fraction A bound and free MT 
                            [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
                            
-                           y = Frac;
-                           x = MTfree;
+                           y2 = Frac;
+                           x2 = MTfree;
 
                         case 'total'
 
                            % Function to get fraction A bound
                            [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
                            
-                           y = Frac
-                           X = xvals;
+                           y2 = Frac;
+                           x2 = xvals;
 
                         otherwise
                     end
@@ -1184,8 +1184,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     % Function to get the concentration of A bound
                     [Frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
                     
-                    y = Abound;
-                    x = xvals;
+                    y2 = Abound;
+                    x2 = xvals;
 
                 otherwise
             end
@@ -1229,16 +1229,16 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            % Function to get fraction A bound and free MT 
                            [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
                            
-                           y = Frac;
-                           x = MTfree;
+                           y2 = Frac;
+                           x2 = MTfree;
 
                         case 'total'
 
-                            % Function to get fraction A bound
-                            [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                           % Function to get fraction A bound
+                           [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
                            
-                           y = Frac;
-                           x = xvals;
+                           y2 = Frac;
+                           x2 = xvals;
 
                         otherwise
                     end
@@ -1273,8 +1273,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     % Function to get the concentration of A bound
                     [Frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
                     
-                    y = Abound;
-                    x = xvals;
+                    y2 = Abound;
+                    x2 = xvals;
 
                 otherwise
             end
@@ -1318,16 +1318,16 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            % Function to get fraction A bound and free MT 
                            [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
                            
-                           y = Frac;
-                           x = MTfree;
+                           y2 = Frac;
+                           x2 = MTfree;
 
                         case 'total'
 
                             % Function to get fraction A bound
                             [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
                            
-                            y = Frac;
-                            x = xvals;
+                            y2 = Frac;
+                            x2 = xvals;
 
                         otherwise
                     end
@@ -1362,8 +1362,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     % Function to get the concentration of A bound
                     [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
                     
-                    y = Abound;
-                    x = xvals;
+                    y2 = Abound;
+                    x2 = xvals;
 
                 otherwise
             end
@@ -1408,16 +1408,16 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            % Function to get fraction A bound and free MT 
                            [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
                            
-                           y = Frac;
-                           x = MTfree;
+                           y2 = Frac;
+                           x2 = MTfree;
 
                         case 'total'
 
                             % Function to get fraction A bound
                             [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
                            
-                            y = Frac;
-                            x = xvals;
+                            y2 = Frac;
+                            x2 = xvals;
 
                         otherwise
                     end
@@ -1452,8 +1452,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     % Function to get the concentration of A bound
                     [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
                     
-                    y = Abound;
-                    x = xvals;
+                    y2 = Abound;
+                    x2 = xvals;
 
                 otherwise
             end
@@ -1464,7 +1464,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 
     %plots the x and y data
     hold on
-    h = plot(x,y);
+    h = plot(x2,y2);
 
     % Rotates through the availble MatLab colors, colors the plot, and
     % displays the color in the color readout
@@ -1492,7 +1492,45 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     end
     handles.color = handles.color +1;
     
-    % Put code to do comparisions here
+    % Computes and displays the difference between the two curves
+    
+    % Computes absolute and percent differences, then calculates the
+    % average and maximum values of each
+    diff = abs(y1-y2);
+    per = 100*diff./(1/2.*(y1 + y2));
+    
+    % Finds the maximum average and percent difference and their locations
+    [a,b] = size(x1);
+    
+    maxdiff = 0;
+    maxper = 0;
+    xmaxdiff = 0;
+    xmaxper = 0;
+    
+    for n = 1:b
+        if isnan(diff(n))
+            diff(n) = 0;
+        end
+        if isnan(per(n))
+            per(n) = 0;
+        end
+        if diff(n) > maxdiff
+            maxdiff = diff(n);
+            xmaxdiff = x1(n);
+        end
+        if per(n) > maxper
+            maxper = per(n);
+            xmaxper = x1(n);
+        end
+        
+    end
+    
+    avgdiff = mean(diff);
+    avgper = mean(per);
+    
+    % Displays the differences between the curves
+    
+    set(handles.result, 'String', {['Average absolute difference: ' num2str(avgdiff)] ; ['Average percent difference: ' num2str(avgper) '%'] ; ['Maximum absolute difference is ' num2str(maxdiff) ' at ' num2str(xmaxdiff)] ; ['Maxmum percent difference is ' num2str(maxper) '% at ' num2str(xmaxper)]})
     
 end
 

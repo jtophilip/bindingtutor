@@ -36,7 +36,8 @@ LT = MTtot.*12./13;
 % Calculates free and bound A
 A1 = solve(A + (1/ks)*A*st/(1 + (1/ks)*A) + (1/kl)*A*lat/(1 + (1/kl)*A) - at, A);
 Afree = subs(A1(1), {at st lat ks kl}, {Atot ST LT KS KL});
-Abound = Atot - Afree;
+AB = Atot - Afree;
+Abound = real(AB);
 
 % Calculates the fraction of A bound
 f = Abound./Atot;
