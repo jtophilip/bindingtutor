@@ -1,3 +1,21 @@
+2010-04-27 16:02  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Attempted to clear out and
+	  clean up GUIDE-generated callbacks.
+
+2010-04-27 15:33  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Added proper graph-saving.
+
+2010-04-21 23:50  (early revision before Google Code import)
+
+	* ChangeLog: Updated ChangeLog.
+
+2010-04-21 23:49  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Reprogrammed save button to call custom callback.
+	  Callback is half-done, currently saves whole figure.
+
 2010-04-21 23:23  (early revision before Google Code import)
 
 	* src/MTBindingSim.m, src/seam_lattice.m: Updated the comparision
