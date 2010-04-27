@@ -2433,6 +2433,21 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
+function newfigure = make_graph_only_figure(hFigure)
+% hFigure    handle to parent figure
+
+% Get guidata from parent
+handles = guidata(hFigure);
+
+% Make a new figure
+newfigure = figure;
+
+% Make a copy of the axes
+parentaxes = handles.axes;
+newaxes = axes;
+copyobj(allchild(parentaxes), newaxes);
+
+
 function save_graph_Callback(hObject, eventdata, handles)
 % hObject    handle to input_points (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -2461,7 +2476,15 @@ if isequal(filename, 0)
     return
 end
 
-% FIXME: create figure window with only graph before saving
-saveas(gcf, [pathname filesep filename])
+% Create a new graph-only figure
+oldfigure = gcf;
+newfigure = make_graph_only_figure(gcf);
+
+% Save this new figure out
+saveas(newfigure, [pathname filesep filename]);
+
+% Close the new figure, reactivate old figure
+close(newfigure);
+figure(oldfigure);
 
 
