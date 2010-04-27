@@ -149,51 +149,6 @@ set(h, 'ClickedCallback', @save_graph_Callback);
 
 
 
-function input_xmin_Callback(hObject, eventdata, handles)
-% hObject    handle to input_xmin (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input_xmin as text
-%        str2double(get(hObject,'String')) returns contents of input_xmin as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function input_xmin_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input_xmin (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function input_xmax_Callback(hObject, eventdata, handles)
-% hObject    handle to input_xmax (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input_xmax as text
-%        str2double(get(hObject,'String')) returns contents of input_xmax as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function input_xmax_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input_xmax (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
 % --- Executes on selection change in curve1.
 function curve1_Callback(hObject, eventdata, handles)
 % hObject    handle to curve1 (see GCBO)
@@ -271,170 +226,6 @@ switch get(handles.curve1, 'Value')
     otherwise
 end
 
-
-
-
-% --- Executes during object creation, after setting all properties.
-function curve1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to curve1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: popupmenu controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function input1_1_Callback(hObject, eventdata, handles)
-% hObject    handle to input1_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input1_1 as text
-%        str2double(get(hObject,'String')) returns contents of input1_1 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function input1_1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input1_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function input2_1_Callback(hObject, eventdata, handles)
-% hObject    handle to input2_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input2_1 as text
-%        str2double(get(hObject,'String')) returns contents of input2_1 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function input2_1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input2_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function input3_1_Callback(hObject, eventdata, handles)
-% hObject    handle to input3_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input3_1 as text
-%        str2double(get(hObject,'String')) returns contents of input3_1 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function input3_1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input3_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function input4_1_Callback(hObject, eventdata, handles)
-% hObject    handle to input4_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input4_1 as text
-%        str2double(get(hObject,'String')) returns contents of input4_1 as a double
-
-% This input reserved for future versions
-
-
-% --- Executes during object creation, after setting all properties.
-function input4_1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input4_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-% This input reserved for future versions
-
-
-
-function input5_1_Callback(hObject, eventdata, handles)
-% hObject    handle to input5_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input5_1 as text
-%        str2double(get(hObject,'String')) returns contents of input5_1 as a double
-
-% This input reserved for future versions
-
-
-% --- Executes during object creation, after setting all properties.
-function input5_1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input5_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-% This input reserved for future versions
-
-
-
-function input6_1_Callback(hObject, eventdata, handles)
-% hObject    handle to input6_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input6_1 as text
-%        str2double(get(hObject,'String')) returns contents of input6_1 as a double
-
-% This input reserved for future versions
-
-
-% --- Executes during object creation, after setting all properties.
-function input6_1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input6_1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-% This input reserved for future versions
 
 
 % --- Executes on selection change in curve2.
@@ -516,172 +307,6 @@ end
 
 
 
-% --- Executes during object creation, after setting all properties.
-function curve2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to curve2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: popupmenu controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function input1_2_Callback(hObject, eventdata, handles)
-% hObject    handle to input1_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input1_2 as text
-%        str2double(get(hObject,'String')) returns contents of input1_2 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function input1_2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input1_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function input2_2_Callback(hObject, eventdata, handles)
-% hObject    handle to input2_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input2_2 as text
-%        str2double(get(hObject,'String')) returns contents of input2_2 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function input2_2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input2_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function input3_2_Callback(hObject, eventdata, handles)
-% hObject    handle to input3_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input3_2 as text
-%        str2double(get(hObject,'String')) returns contents of input3_2 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function input3_2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input3_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function input4_2_Callback(hObject, eventdata, handles)
-% hObject    handle to input4_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input4_2 as text
-%        str2double(get(hObject,'String')) returns contents of input4_2 as a double
-
-% This input reserved for future versions
-
-
-% --- Executes during object creation, after setting all properties.
-function input4_2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input4_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-% This input reserved for future versions
-
-
-
-function input5_2_Callback(hObject, eventdata, handles)
-% hObject    handle to input5_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input5_2 as text
-%        str2double(get(hObject,'String')) returns contents of input5_2 as a double
-
-% This input reserved for future versions of MTBindingSim
-
-
-% --- Executes during object creation, after setting all properties.
-function input5_2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input5_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-% This input reserved for future versions of MTBindingSim
-
-
-
-function input6_2_Callback(hObject, eventdata, handles)
-% hObject    handle to input6_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input6_2 as text
-%        str2double(get(hObject,'String')) returns contents of input6_2 as a double
-
-% This input reserved for future versions of MTBindingSim
-
-
-
-% --- Executes during object creation, after setting all properties.
-function input6_2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input6_2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-% This input reserved for future versions of MTBindingSim
-
-
-
-% --- Executes on button press in graph.
 function graph_Callback(hObject, eventdata, handles)
 % hObject    handle to graph (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -1581,8 +1206,6 @@ enableButtons(hObject);
 
 
 
-
-% --- Executes on button press in clear.
 function clear_Callback(hObject, eventdata, handles)
 % hObject    handle to clear (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -1601,6 +1224,8 @@ set(handles.color2, 'String', '');
 
 % Updates the handles
 guidata(hObject, handles);
+
+
 
 function exp_mode_SelectionChangeFcn(hObject, eventdata)
 
@@ -1817,6 +1442,7 @@ switch get(eventdata.NewValue, 'Tag')
 end
 
 
+
 function first_order_binding_labels1(hObject)
 % Function to update the apperence of MTBindingSim for the case where the
 % first function is first order binding in binding mode
@@ -1843,6 +1469,8 @@ set(handles.label2_1, 'String', 'KD');
 % Updates the handles structure
 guidata(hObject, handles);
 
+
+
 function first_order_saturation_labels1(hObject)
 % Function to update the appearence of binding_BUI for the case where the
 % frist function is first oder binding in saturation mode
@@ -1867,6 +1495,7 @@ set(handles.label2_1, 'String', 'KD ');
 
 % Updates the handles structure
 guidata(hObject, handles);
+
 
 
 function cooperativity_binding_labels1(hObject)
@@ -1899,6 +1528,8 @@ set(handles.units3_1, 'Visible', 'off');
 % Updates the handles structure
 guidata(hObject, handles);
 
+
+
 function cooperativity_saturation_labels1(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is cooperative binding in saturation mode
@@ -1929,6 +1560,8 @@ set(handles.units3_1, 'Visible', 'off');
 % Updates the handles structure
 guidata(hObject, handles);
 
+
+
 function seam_binding_labels1(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
 % first function is seam and lattice binding in binding mode
@@ -1955,6 +1588,8 @@ set(handles.label3_1, 'String', 'KL ');
 
 % Updates the handles structure
 guidata(hObject, handles);
+
+
 
 function seam_saturation_labels1(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
@@ -1983,6 +1618,8 @@ set(handles.label3_1, 'String', 'KL ');
 % Updates the handles structure
 guidata(hObject, handles);
 
+
+
 function MAP_binding_labels1(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is the MAPs bind to MT-bound MAPs model in binding mode
@@ -2009,7 +1646,9 @@ set(handles.label3_1, 'String', 'KA ');
 
 % Updates the handles structure
 guidata(hObject, handles);
-                
+
+
+
 function MAP_saturation_labels1(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is the MAPs bind to MT-bound MAPs model in saturation mode
@@ -2037,7 +1676,8 @@ set(handles.label3_1, 'String', 'KA ');
 % Updates the handles structure
 guidata(hObject, handles);
 
-       
+
+
 function first_order_binding_labels2(hObject)
 % Function to update the apperence of MTBindingSim for the case where the
 % first function is first order binding in binding mode
@@ -2059,6 +1699,8 @@ set(handles.label2_2, 'String', 'KD');
 % Updates the handles structure
 guidata(hObject, handles);
 
+
+
 function first_order_saturation_labels2(hObject)
 % Function to update the appearence of binding_BUI for the case where the
 % frist function is first oder binding in saturation mode
@@ -2079,6 +1721,7 @@ set(handles.label2_2, 'String', 'KD ');
 
 % Updates the handles structure
 guidata(hObject, handles);
+
 
 
 function cooperativity_binding_labels2(hObject)
@@ -2107,6 +1750,8 @@ set(handles.units3_2, 'Visible', 'off');
 % Updates the handles structure
 guidata(hObject, handles);
 
+
+
 function cooperativity_saturation_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is cooperative binding in saturation mode
@@ -2132,6 +1777,8 @@ set(handles.units3_2, 'Visible', 'off');
 % Updates the handles structure
 guidata(hObject, handles);
 
+
+
 function seam_binding_labels2(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
 % first function is seam and lattice binding in binding mode
@@ -2153,6 +1800,8 @@ set(handles.label3_2, 'String', 'KL ');
 
 % Updates the handles structure
 guidata(hObject, handles);
+
+
 
 function seam_saturation_labels2(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
@@ -2176,6 +1825,8 @@ set(handles.label3_2, 'String', 'KL ');
 % Updates the handles structure
 guidata(hObject, handles);
 
+
+
 function MAP_binding_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is the MAPs bind to MT-bound MAPs model in binding mode
@@ -2197,6 +1848,8 @@ set(handles.label3_2, 'String', 'KA ');
 
 % Updates the handles structure
 guidata(hObject, handles);
+
+
                 
 function MAP_saturation_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
@@ -2219,6 +1872,8 @@ set(handles.label3_2, 'String', 'KA ');
 
 % Updates the handles structure
 guidata(hObject, handles);
+
+
 
 function inputboxes_display1(hObject, num)
 % Sets the visibility of the input boxes for the first curve
@@ -2288,6 +1943,8 @@ end
 
 % Updates the handles structure
 guidata(hObject, handles);
+
+
 
 function inputboxes_display2(hObject, num)
 % Sets the visibility of the input boxes for the second curve
@@ -2359,6 +2016,8 @@ end
 % Updates the handles structure
 guidata(hObject, handles);
 
+
+
 function disableButtons(hObject)
 
 %change the mouse cursor to an hourglass
@@ -2409,28 +2068,6 @@ guidata(hObject, handles);
 
 drawnow;
 
-
-
-function input_points_Callback(hObject, eventdata, handles)
-% hObject    handle to input_points (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of input_points as text
-%        str2double(get(hObject,'String')) returns contents of input_points as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function input_points_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to input_points (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 
 function newfigure = make_graph_only_figure(hFigure)
@@ -2488,3 +2125,94 @@ close(newfigure);
 figure(oldfigure);
 
 
+%%%%%%%%%%%%%%
+% GUIDE utility functions
+% 
+% The below is auto-generated GUIDE code for making controls
+% look right.  Ignore.
+%%%%%%%%%%%%%%
+
+function input_xmin_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input_xmax_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function curve2_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input1_2_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input2_2_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input3_2_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input4_2_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input5_2_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input6_2_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input_points_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function curve1_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input1_1_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input2_1_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input3_1_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input4_1_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input5_1_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input6_1_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
