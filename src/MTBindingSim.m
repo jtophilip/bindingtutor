@@ -69,7 +69,7 @@ end
 
 
 % --- Executes just before MTBindingSim is made visible.
-function MTBindingSim_OpeningFcn(hObject, eventdata, handles, varargin)
+function MTBindingSim_OpeningFcn(hObject, ~, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -99,7 +99,7 @@ create_toolbar(hObject);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = MTBindingSim_OutputFcn(hObject, eventdata, handles) 
+function varargout = MTBindingSim_OutputFcn(~, ~, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -150,16 +150,10 @@ set(h, 'ClickedCallback', @save_graph_Callback);
 
 
 % --- Executes on selection change in curve1.
-function curve1_Callback(hObject, eventdata, handles)
+function curve1_Callback(hObject, ~, handles)
 % hObject    handle to curve1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = get(hObject,'String') returns curve1 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from curve1
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
 
 % Gets selected function
 switch get(handles.curve1, 'Value')
@@ -229,16 +223,10 @@ end
 
 
 % --- Executes on selection change in curve2.
-function curve2_Callback(hObject, eventdata, handles)
+function curve2_Callback(hObject, ~, handles)
 % hObject    handle to curve2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = get(hObject,'String') returns curve2 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from curve2
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
 
 % Gets selected function
 switch get(handles.curve2, 'Value')
@@ -307,19 +295,13 @@ end
 
 
 
-function graph_Callback(hObject, eventdata, handles)
+function graph_Callback(hObject, ~, handles)
 % hObject    handle to graph (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 disableButtons(hObject);
 
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Selects axes as current axes, so that MatLab knows where to plot the data
-axes(handles.axes);
 
 % Retreives the x-axis values
 xmin = str2double(get(handles.input_xmin, 'String'));
@@ -386,7 +368,7 @@ switch get(handles.curve1, 'Value')
                         
                        %Calculates the value of frac, MTfree, and Abound at
                        %each value of x
-                       [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                       [frac, MTfree, ~] = first_order(xvals, Atot, KD);
                        
                        y1 = frac;
                        x1 = MTfree;
@@ -397,7 +379,7 @@ switch get(handles.curve1, 'Value')
                     case 'total'
                        
                        % Calculates the value of frac, MTfree, and Abound
-                       [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                       [frac, ~, ~] = first_order(xvals, Atot, KD);
                       
                        
                        y1 = frac;
@@ -429,7 +411,7 @@ switch get(handles.curve1, 'Value')
                 end
                
                 % Calculates frac, MTfree, and Abound
-                [frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
+                [~, ~, Abound] = first_order(MTtot, xvals, KD);
 
                        
                 y1 = Abound;
@@ -478,26 +460,26 @@ switch get(handles.curve1, 'Value')
                     case 'free'
                      
                         % Calculates frac, MTfree, and Abound
-                        [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                        [frac, MTfree, ~] = cooperativity(xvals, Atot, KD, p);
                       
-                       
-                       y1 = frac;
-                       x1 = MTfree;
-                       
-                       xaxis = '[MT] free';
-                       yaxis = 'Fraction of A bound';
+                        
+                        y1 = frac;
+                        x1 = MTfree;
+                        
+                        xaxis = '[MT] free';
+                        yaxis = 'Fraction of A bound';
                         
                     case 'total'
                        
-                       % Calculates frac, MTfree, and Abound
-                       [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                        % Calculates frac, MTfree, and Abound
+                        [frac, ~, ~] = cooperativity(xvals, Atot, KD, p);
 
-                       
-                       y1 = frac;
-                       x1 = xvals;
                         
-                       xaxis = '[MT] total';
-                       yaxis = 'Fraction of A bound';
+                        y1 = frac;
+                        x1 = xvals;
+                        
+                        xaxis = '[MT] total';
+                        yaxis = 'Fraction of A bound';
                         
                     otherwise
                 end
@@ -531,7 +513,7 @@ switch get(handles.curve1, 'Value')
                        
                 % Steps through x, calculating the value of frac
                 % at each point and adding it to the vector
-                [frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
+                [~, ~, Abound] = cooperativity(MTtot, xvals, KD, p);
 
                        
                 y1 = Abound;
@@ -580,7 +562,7 @@ switch get(handles.curve1, 'Value')
                     case 'free'
                         
                        % Calculates fraction of A bound and free MT
-                       [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                       [Frac, MTfree, ~] = seam_lattice(xvals, Atot, KS, KL);
                        y1 = Frac;
                        x1 = MTfree;
                        
@@ -590,7 +572,7 @@ switch get(handles.curve1, 'Value')
                     case 'total'
                         
                         % Calculates fraction of A bound and MT free
-                        [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                        [Frac, ~, ~] = seam_lattice(xvals, Atot, KS, KL);
                         y1 = Frac;
                         x1 = xvals;
                         
@@ -628,7 +610,7 @@ switch get(handles.curve1, 'Value')
                 end
                 
                 % Calculates concentration of A bound and MT free
-                [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
+                [~, ~, Abound] = seam_lattice(MTtot, xvals, KS, KL);
                 y1 = Abound;
                 x1 = xvals;
                 
@@ -676,7 +658,7 @@ switch get(handles.curve1, 'Value')
                     case 'free'
                         
                        % Calculates fraction of A bound and free MT
-                       [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
+                       [Frac, MTfree, ~] =MAP_bind(xvals, Atot, KM, KA);
                        
                        y1 = Frac;
                        x1 = MTfree;
@@ -687,7 +669,7 @@ switch get(handles.curve1, 'Value')
                     case 'total'
                         
                         % Calculates fraction of A bound and free MT
-                        [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
+                        [Frac, ~, ~] =MAP_bind(xvals, Atot, KM, KA);
                        
                         y1 = Frac;
                         x1 = xvals;
@@ -726,7 +708,7 @@ switch get(handles.curve1, 'Value')
                 end
                 
                 % Calculates the concentration of A bound
-                [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
+                [~, ~, Abound] = MAP_bind(MTtot, xvals, KM, KA);
                 
                 y1 = Abound;
                 x1 =xvals;
@@ -743,7 +725,7 @@ end
 
 %plots the x and y data
 hold on
-h = plot(x1,y1);
+h = plot(handles.axes, x1, y1);
 xlabel(xaxis);
 ylabel(yaxis);
 
@@ -808,7 +790,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'free'
 
                            % Function to get fraction A bound and free MT 
-                           [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                           [Frac, MTfree, ~] = first_order(xvals, Atot, KD);
                            
                            y2 = Frac;
                            x2 = MTfree;
@@ -816,7 +798,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'total'
 
                            % Function to get fraction A bound
-                           [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                           [Frac, ~, ~] = first_order(xvals, Atot, KD);
                            
                            y2 = Frac;
                            x2 = xvals;
@@ -844,7 +826,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     end
 
                     % Function to get the concentration of A bound
-                    [Frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
+                    [~, ~, Abound] = first_order(MTtot, xvals, KD);
                     
                     y2 = Abound;
                     x2 = xvals;
@@ -889,7 +871,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'free'
 
                            % Function to get fraction A bound and free MT 
-                           [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                           [Frac, MTfree, ~] = cooperativity(xvals, Atot, KD, p);
                            
                            y2 = Frac;
                            x2 = MTfree;
@@ -897,7 +879,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'total'
 
                            % Function to get fraction A bound
-                           [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                           [Frac, ~, ~] = cooperativity(xvals, Atot, KD, p);
                            
                            y2 = Frac;
                            x2 = xvals;
@@ -933,7 +915,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     end
 
                     % Function to get the concentration of A bound
-                    [Frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
+                    [~, ~, Abound] = cooperativity(MTtot, xvals, KD, p);
                     
                     y2 = Abound;
                     x2 = xvals;
@@ -978,7 +960,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'free'
 
                            % Function to get fraction A bound and free MT 
-                           [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                           [Frac, MTfree, ~] = seam_lattice(xvals, Atot, KS, KL);
                            
                            y2 = Frac;
                            x2 = MTfree;
@@ -986,7 +968,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'total'
 
                             % Function to get fraction A bound
-                            [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                            [Frac, ~, ~] = seam_lattice(xvals, Atot, KS, KL);
                            
                             y2 = Frac;
                             x2 = xvals;
@@ -1022,7 +1004,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     end
 
                     % Function to get the concentration of A bound
-                    [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
+                    [~, ~, Abound] = seam_lattice(MTtot, xvals, KS, KL);
                     
                     y2 = Abound;
                     x2 = xvals;
@@ -1068,7 +1050,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'free'
 
                            % Function to get fraction A bound and free MT 
-                           [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
+                           [Frac, MTfree, ~] = MAP_bind(xvals, Atot, KM, KA);
                            
                            y2 = Frac;
                            x2 = MTfree;
@@ -1076,7 +1058,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'total'
 
                             % Function to get fraction A bound
-                            [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
+                            [Frac, ~, ~] = MAP_bind(xvals, Atot, KM, KA);
                            
                             y2 = Frac;
                             x2 = xvals;
@@ -1112,7 +1094,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     end
 
                     % Function to get the concentration of A bound
-                    [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
+                    [~, ~, Abound] = MAP_bind(MTtot, xvals, KM, KA);
                     
                     y2 = Abound;
                     x2 = xvals;
@@ -1126,7 +1108,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 
     %plots the x and y data
     hold on
-    h = plot(x2,y2);
+    h = plot(handles.axes, x2, y2);
 
     % Rotates through the availble MatLab colors, colors the plot, and
     % displays the color in the color readout
@@ -1162,7 +1144,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     per = 100*diff./(1/2.*(y1 + y2));
     
     % Finds the maximum average and percent difference and their locations
-    [a,b] = size(x1);
+    [~, b] = size(x1);
     
     maxdiff = 0;
     maxper = 0;
@@ -1206,13 +1188,10 @@ enableButtons(hObject);
 
 
 
-function clear_Callback(hObject, eventdata, handles)
+function clear_Callback(hObject, ~, handles)
 % hObject    handle to clear (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Gets the guidata
-handles = guidata(hObject);
 
 % Clears the axes
 cla(handles.axes, 'reset');
@@ -2085,7 +2064,7 @@ newaxes = axes;
 copyobj(allchild(parentaxes), newaxes);
 
 
-function save_graph_Callback(hObject, eventdata, handles)
+function save_graph_Callback(~, ~, ~)
 % hObject    handle to input_points (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -2132,87 +2111,87 @@ figure(oldfigure);
 % look right.  Ignore.
 %%%%%%%%%%%%%%
 
-function input_xmin_CreateFcn(hObject, eventdata, handles)
+function input_xmin_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input_xmax_CreateFcn(hObject, eventdata, handles)
+function input_xmax_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function curve2_CreateFcn(hObject, eventdata, handles)
+function curve2_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input1_2_CreateFcn(hObject, eventdata, handles)
+function input1_2_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input2_2_CreateFcn(hObject, eventdata, handles)
+function input2_2_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input3_2_CreateFcn(hObject, eventdata, handles)
+function input3_2_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input4_2_CreateFcn(hObject, eventdata, handles)
+function input4_2_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input5_2_CreateFcn(hObject, eventdata, handles)
+function input5_2_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input6_2_CreateFcn(hObject, eventdata, handles)
+function input6_2_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input_points_CreateFcn(hObject, eventdata, handles)
+function input_points_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function curve1_CreateFcn(hObject, eventdata, handles)
+function curve1_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input1_1_CreateFcn(hObject, eventdata, handles)
+function input1_1_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input2_1_CreateFcn(hObject, eventdata, handles)
+function input2_1_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input3_1_CreateFcn(hObject, eventdata, handles)
+function input3_1_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input4_1_CreateFcn(hObject, eventdata, handles)
+function input4_1_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input5_1_CreateFcn(hObject, eventdata, handles)
+function input5_1_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function input6_1_CreateFcn(hObject, eventdata, handles)
+function input6_1_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
