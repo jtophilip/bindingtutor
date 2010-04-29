@@ -1,9 +1,10 @@
 TODO for v1.0:
 
 
-* change solver programs to accept n by multiplying MTtot and n
+* Change solver programs to accept n by multiplying MTtot and n
 
 * Change program to accept X axis as free or total for both experimental modes
 
+* Write model for 2 MAPs bind MT-bound MAP
 
- * write model for 2 MAPs bind MT-bound MAP
+* Investigate bugs surrounding Unicode or TeX fonts in GUIDE text labels
