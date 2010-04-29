@@ -90,12 +90,17 @@ handles.color = 0;
 set(handles.exp_mode, 'SelectionChangeFcn', @exp_mode_SelectionChangeFcn);
 set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 
+% Convert a bunch of our controls to java controls
+handles.units_xmin = make_java_component(handles.units_xmin, '&mu;M');
+handles.units_xmax = make_java_component(handles.units_xmax, '&mu;M');
+
 % Update handles structure
 guidata(hObject, handles);
 
 % Creates the figure toolbar on the GUI so that images can be manipulated
 % and saved
 create_toolbar(hObject);
+
 
 
 % --- Outputs from this function are returned to the command line.
@@ -107,6 +112,46 @@ function varargout = MTBindingSim_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
+
+function control = make_java_component(hObject, string)
+% hObject    handle to object to convert to Java text control
+% string     HTML string to be placed in the Java text control
+
+% Get the current location of this uicontrol
+set(hObject, 'Units', 'pixels');
+position = get(hObject, 'Position');
+
+% Bomb the uicontrol
+delete(hObject);
+
+% Make an HTML string
+html = ['<html>', string, '</html>'];
+
+% Create the java object
+jLabel = javaObjectEDT('javax.swing.JLabel',html);
+[hcomponent, control] = javacomponent(jLabel, position, gcf);
+set(control, 'userdata', hcomponent);
+
+% Set the units of the container to normalized, since that's what GUIDE is
+% expecting
+set(control, 'Units', 'normalized');
+
+% Set the background-color to the required color
+bgcolor = get(0,'defaultUicontrolBackgroundColor');
+set(hcomponent, 'Background', java.awt.Color(bgcolor(1), bgcolor(2), bgcolor(3)));
+
+
+function set_java_component(hObject, string)
+% hObject    handle to MATLAB object (which is a Java text control)
+% string     string to set
+
+% Build the string
+html = ['<html>', string, '</html>'];
+
+% Get the java object and set the text
+jcomponent = get(hObject, 'userdata');
+jcomponent.setText(html);
 
 
 function create_toolbar(hObject)
