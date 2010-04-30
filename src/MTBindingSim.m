@@ -93,6 +93,12 @@ set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 % Convert a bunch of our controls to java controls
 handles.units_xmin = make_java_component(handles.units_xmin, '&mu;M');
 handles.units_xmax = make_java_component(handles.units_xmax, '&mu;M');
+handles.model1 = make_java_component(handles.model1, 'A + MT &harr; AMT');
+handles.equation1 = make_java_component(handles.equation1, 'KD = [A][MT]/[AMT]');
+handles.model2 = make_java_component(handles.model2, 'A + MT &harr; AMT');
+set(handles.model2, 'Visible', 'off');
+handles.equation2 = make_java_component(handles.equation2, 'KD = [A][MT]/[AMT]');
+set(handles.equation2, 'Visible', 'off');
 
 % Update handles structure
 guidata(hObject, handles);
@@ -1478,8 +1484,8 @@ inputboxes_display1(hObject, 2);
 handles = guidata(hObject);
 
 % Sets the equation and model text
-set(handles.model1, 'String', 'A + MT <-> AMT');
-set(handles.equation1, 'String', 'KD = [A][MT]/[AMT]');
+set_java_component(handles.model1, 'A + MT &harr; AMT');
+set_java_component(handles.equation1, 'KD = [A][MT]/[AMT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'on');
@@ -1505,8 +1511,8 @@ inputboxes_display1(hObject, 2);
 handles = guidata(hObject);
 
 % Sets the equation and model text
-set(handles.model1, 'String', 'A + MT <-> AMT');
-set(handles.equation1, 'String', 'KD = [A][MT]/[AMT]');
+set_java_component(handles.model1, 'A + MT &harr; AMT');
+set_java_component(handles.equation1, 'KD = [A][MT]/[AMT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'off');
@@ -1533,8 +1539,8 @@ inputboxes_display1(hObject, 3);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-set(handles.model1, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
-set(handles.equation1, 'String', 'KD = [A](2[MT])/[AMT], p*KD = [A][AMT]/[A2MT]');
+set_java_component(handles.model1, 'A + MT &harr; AMT, A + AMT &harr; A2MT');
+set_java_component(handles.equation1, 'KD = [A](2[MT])/[AMT], &phi;*KD = [A][AMT]/[A2MT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'on');
@@ -1565,8 +1571,8 @@ inputboxes_display1(hObject, 3);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-set(handles.model1, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
-set(handles.equation1, 'String', 'KD = [A][MT]/[AMT], p*KD = [A][AMT]/[A2MT]');
+set_java_component(handles.model1, 'A + MT &harr; AMT, A + AMT &harr; A2MT');
+set_java_component(handles.equation1, 'KD = [A][MT]/[AMT], &phi;*KD = [A][AMT]/[A2MT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'off');
@@ -1597,8 +1603,8 @@ inputboxes_display1(hObject, 3);
 handles = guidata(hObject);
 
 %Set model and equation text
-set(handles.model1, 'String', 'A + S <-> AS, A + L <-> AL');
-set(handles.equation1, 'String', 'KL = [A][L]/[AL], KS = [A][S]/[AS]');
+set_java_component(handles.model1, 'A + S &harr; AS, A + L &harr; AL');
+set_java_component(handles.equation1, 'KL = [A][L]/[AL], KS = [A][S]/[AS]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'on');
@@ -1626,8 +1632,8 @@ inputboxes_display1(hObject, 3);
 handles = guidata(hObject);
 
 %Set model and equation text
-set(handles.model1, 'String', 'A + S <-> AS, A + L <-> AL');
-set(handles.equation1, 'String', 'KL = [A][L]/[AL], KS = [A][S]/[AS]');
+set_java_component(handles.model1, 'A + S &harr; AS, A + L &harr; AL');
+set_java_component(handles.equation1, 'KL = [A][L]/[AL], KS = [A][S]/[AS]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'off');
@@ -1655,8 +1661,8 @@ inputboxes_display1(hObject, 3);
 handles = guidata(hObject);
 
 % Sets model equation and text
-set(handles.model1, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
-set(handles.equation1, 'String', 'KM = [A][MT]/[AMT], KA = [A][AMT]/[A2MT]');
+set_java_component(handles.model1, 'A + MT &harr; AMT, A + AMT &harr; A2MT');
+set_java_component(handles.equation1, 'KM = [A][MT]/[AMT], KA = [A][AMT]/[A2MT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'on');
@@ -1684,8 +1690,8 @@ inputboxes_display1(hObject, 3);
 handles = guidata(hObject);
 
 % Sets model equation and text
-set(handles.model1, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
-set(handles.equation1, 'String', 'KM = [A][MT]/[AMT], KA = [A][AMT]/[A2MT]');
+set_java_component(handles.model1, 'A + MT &harr; AMT, A + AMT &harr; A2MT');
+set_java_component(handles.equation1, 'KM = [A][MT]/[AMT], KA = [A][AMT]/[A2MT]');
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'off');
@@ -1713,8 +1719,8 @@ inputboxes_display2(hObject, 2);
 handles = guidata(hObject);
 
 % Sets the equation and model text
-set(handles.model2, 'String', 'A + MT <-> AMT');
-set(handles.equation2, 'String', 'KD = [A][MT]/[AMT]');
+set_java_component(handles.model2, 'A + MT &harr; AMT');
+set_java_component(handles.equation2, 'KD = [A][MT]/[AMT]');
 
 % Sets labels for the visible input boxes
 set(handles.label1_2, 'String', '[A] total');
@@ -1735,8 +1741,8 @@ inputboxes_display2(hObject, 2);
 handles = guidata(hObject);
 
 % Sets the equation and model text
-set(handles.model2, 'String', 'A + MT <-> AMT');
-set(handles.equation2, 'String', 'KD = [A][MT]/[AMT]');
+set_java_component(handles.model2, 'String', 'A + MT &harr; AMT');
+set_java_component(handles.equation2, 'String', 'KD = [A][MT]/[AMT]');
 
 
 % Sets labels for the input boxes
@@ -1759,8 +1765,8 @@ inputboxes_display2(hObject, 3);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-set(handles.model2, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
-set(handles.equation2, 'String', 'KD = [A](2[MT])/[AMT], p*KD = [A][AMT]/[A2MT]');
+set_java_component(handles.model2, 'A + MT &harr; AMT, A + AMT &harr; A2MT');
+set_java_component(handles.equation2, 'KD = [A](2[MT])/[AMT], &phi;*KD = [A][AMT]/[A2MT]');
 
                 
 % Sets labels for the input boxes
@@ -1787,8 +1793,8 @@ inputboxes_display2(hObject, 3);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-set(handles.model2, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
-set(handles.equation2, 'String', 'KD = [A](2[MT])/[AMT], p*KD = [A][AMT]/[A2MT]');
+set_java_component(handles.model2, 'A + MT &harr; AMT, A + AMT &harr; A2MT');
+set_java_component(handles.equation2, 'KD = [A](2[MT])/[AMT], &phi;*KD = [A][AMT]/[A2MT]');
 
 %Sets labels for the input boxes
 set(handles.label1_2, 'String', '[MT] total ');
@@ -1814,8 +1820,8 @@ inputboxes_display2(hObject, 3);
 handles = guidata(hObject);
 
 %Set model and equation text
-set(handles.model2, 'String', 'A + S <-> AS, A + L <-> AL');
-set(handles.equation2, 'String', 'KL = [A][L]/[AL], KS = [A][S]/[AS]');
+set_java_component(handles.model2, 'A + S &harr; AS, A + L &harr; AL');
+set_java_component(handles.equation2, 'KL = [A][L]/[AL], KS = [A][S]/[AS]');
 
 % Sets labels for the input boxes
 set(handles.label1_2, 'String', '[A] total ');
@@ -1838,8 +1844,8 @@ inputboxes_display2(hObject, 3);
 handles = guidata(hObject);
 
 %Set model and equation text
-set(handles.model2, 'String', 'A + S <-> AS, A + L <-> AL');
-set(handles.equation2, 'String', 'KL = [A][L]/[AL], KS = [A][S]/[AS]');
+set_java_component(handles.model2, 'A + S &harr; AS, A + L &harr; AL');
+set_java_component(handles.equation2, 'KL = [A][L]/[AL], KS = [A][S]/[AS]');
 
 % Sets labels for the input boxes
 set(handles.label1_2, 'String', '[MT] total ');
@@ -1862,8 +1868,8 @@ inputboxes_display2(hObject, 3);
 handles = guidata(hObject);
 
 % Sets model equation and text
-set(handles.model2, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
-set(handles.equation2, 'String', 'KM = [A][MT]/[AMT], KA = [A][AMT]/[A2MT]');
+set_java_component(handles.model2, 'A + MT &harr; AMT, A + AMT &harr; A2MT');
+set_java_component(handles.equation2, 'KM = [A][MT]/[AMT], KA = [A][AMT]/[A2MT]');
 
 % Sets labels for the input boxes
 set(handles.label1_2, 'String', '[A] total ');
@@ -1886,8 +1892,8 @@ inputboxes_display2(hObject, 3);
 handles = guidata(hObject);
 
 % Sets model equation and text
-set(handles.model2, 'String', 'A + MT <-> AMT, A + AMT <-> A2MT');
-set(handles.equation2, 'String', 'KM = [A][MT]/[AMT], KA = [A][AMT]/[A2MT]');
+set_java_component(handles.model2, 'A + MT &harr; AMT, A + AMT &harr; A2MT');
+set_java_component(handles.equation2, 'KM = [A][MT]/[AMT], KA = [A][AMT]/[A2MT]');
 
 % Sets labels for the input boxes
 set(handles.label1_2, 'String', '[MT] total ');
