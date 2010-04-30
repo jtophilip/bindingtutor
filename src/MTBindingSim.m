@@ -91,13 +91,13 @@ set(handles.exp_mode, 'SelectionChangeFcn', @exp_mode_SelectionChangeFcn);
 set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 
 % Convert a bunch of our controls to java controls
-handles.units_xmin = make_java_component(handles.units_xmin, '&mu;M');
-handles.units_xmax = make_java_component(handles.units_xmax, '&mu;M');
-handles.model1 = make_java_component(handles.model1, 'A + MT &harr; AMT');
-handles.equation1 = make_java_component(handles.equation1, 'KD = [A][MT]/[AMT]');
-handles.model2 = make_java_component(handles.model2, 'A + MT &harr; AMT');
+handles.units_xmin = make_java_component(handles.units_xmin, '&mu;M', 0);
+handles.units_xmax = make_java_component(handles.units_xmax, '&mu;M', 0);
+handles.model1 = make_java_component(handles.model1, 'A + MT &harr; AMT', 1);
+handles.equation1 = make_java_component(handles.equation1, 'KD = [A][MT]/[AMT]', 1);
+handles.model2 = make_java_component(handles.model2, 'A + MT &harr; AMT', 1);
 set(handles.model2, 'Visible', 'off');
-handles.equation2 = make_java_component(handles.equation2, 'KD = [A][MT]/[AMT]');
+handles.equation2 = make_java_component(handles.equation2, 'KD = [A][MT]/[AMT]', 1);
 set(handles.equation2, 'Visible', 'off');
 
 % Update handles structure
@@ -120,9 +120,10 @@ function varargout = MTBindingSim_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 
 
-function control = make_java_component(hObject, string)
+function control = make_java_component(hObject, string, align)
 % hObject    handle to object to convert to Java text control
 % string     HTML string to be placed in the Java text control
+% align      if 0, left-justify, if 1, center, if 2, right-justify
 
 % Get the current location of this uicontrol
 set(hObject, 'Units', 'pixels');
@@ -134,8 +135,16 @@ delete(hObject);
 % Make an HTML string
 html = ['<html>', string, '</html>'];
 
-% Create the java object
-jLabel = javaObjectEDT('javax.swing.JLabel',html);
+% Create the java object, with appropriate alignment
+if align == 1
+    jLabel = javaObjectEDT('javax.swing.JLabel', html, javax.swing.SwingConstants.CENTER);
+elseif align == 2
+    jLabel = javaObjectEDT('javax.swing.JLabel', html, javax.swing.SwingConstants.RIGHT);        
+else
+    jLabel = javaObjectEDT('javax.swing.JLabel', html, javax.swing.SwingConstants.LEFT);
+end
+
+% Wrap the jLabel in MATLAB
 [hcomponent, control] = javacomponent(jLabel, position, gcf);
 set(control, 'userdata', hcomponent);
 
@@ -146,6 +155,7 @@ set(control, 'Units', 'normalized');
 % Set the background-color to the required color
 bgcolor = get(0,'defaultUicontrolBackgroundColor');
 set(hcomponent, 'Background', java.awt.Color(bgcolor(1), bgcolor(2), bgcolor(3)));
+
 
 
 function set_java_component(hObject, string)
@@ -1741,8 +1751,8 @@ inputboxes_display2(hObject, 2);
 handles = guidata(hObject);
 
 % Sets the equation and model text
-set_java_component(handles.model2, 'String', 'A + MT &harr; AMT');
-set_java_component(handles.equation2, 'String', 'KD = [A][MT]/[AMT]');
+set_java_component(handles.model2, 'A + MT &harr; AMT');
+set_java_component(handles.equation2, 'KD = [A][MT]/[AMT]');
 
 
 % Sets labels for the input boxes
