@@ -101,9 +101,9 @@ set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 handles.units_xmin = make_java_component(handles.units_xmin, '&mu;M', 0);
 handles.units_xmax = make_java_component(handles.units_xmax, '&mu;M', 0);
 handles.model1 = make_java_component(handles.model1, 'A + MT &harr; AMT', 1);
-handles.equation1 = make_java_component(handles.equation1, 'KD = [A][MT]/[AMT]', 1);
+handles.equation1 = make_java_component(handles.equation1, 'K<sub><small>D</small></sub> = [A][MT]/[AMT]', 1);
 handles.model2 = make_java_component(handles.model2, 'A + MT &harr; AMT', 1);
-handles.equation2 = make_java_component(handles.equation2, 'KD = [A][MT]/[AMT]', 1);
+handles.equation2 = make_java_component(handles.equation2, 'K<sub><small>D</small></sub> = [A][MT]/[AMT]', 1);
 
 % Update handles structure
 guidata(hObject, handles);
