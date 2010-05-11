@@ -1322,7 +1322,7 @@ switch get(eventdata.NewValue, 'Tag')
         
         % Gets the current value of the first curve slection box and
         % changes the visible boxes accordingly
-        switch get(handles.curve1, 'Value');
+        switch get(handles.curve1, 'Value')
             % First order biding selected
             case 1
                 
@@ -1482,16 +1482,15 @@ switch get(eventdata.NewValue, 'Tag')
         set(handles.color2, 'Visible', 'on');
         set(handles.result, 'Visible', 'on');
         
-        if (get(get(handles.exp_mode, 'SelectedObject'), 'Tag') == 'binding')
+        if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding')
             binding = 1;
         else
             binding = 0;
         end
         
-        
         % Gets the current value of the second curve slection box and
         % changes the visible boxes accordingly
-        switch get(handles.curve2, 'Value');
+        switch get(handles.curve2, 'Value')
              % First order biding selected
              case 1
                 
