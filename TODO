@@ -1,9 +1,5 @@
 TODO for v1.0:
 
-* Make all strings Java objects
-
-* Write function to get equation and model text
-
 * Change solver programs to accept n by multiplying MTtot and n
 
 * Change program to accept X axis as free or total for both experimental modes
