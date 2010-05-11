@@ -1482,28 +1482,51 @@ switch get(eventdata.NewValue, 'Tag')
         set(handles.color2, 'Visible', 'on');
         set(handles.result, 'Visible', 'on');
         
+        if (get(get(handles.exp_mode, 'SelectedObject'), 'Tag') == 'binding')
+            binding = 1;
+        else
+            binding = 0;
+        end
+        
+        
         % Gets the current value of the second curve slection box and
         % changes the visible boxes accordingly
         switch get(handles.curve2, 'Value');
              % First order biding selected
              case 1
                 
-               first_order_saturation_labels2(hObject);
+               if binding == 1
+                   first_order_binding_labels2(hObject);
+               else
+                   first_order_saturation_labels2(hObject);
+               end
             
              % Cooperative binding selected
              case 2
-                
-                cooperativity_saturation_labels2(hObject);
+                 
+                if biding == 1
+                    cooperativity_binidng_labels2(hObject);
+                else
+                    cooperativity_saturation_labels2(hObject);
+                end
                 
              % Seam and lattice binding selected
              case 3
                 
-                seam_saturation_labels2(hObject);
+                 if binding == 1
+                     seam_binding_labels2(hObject);
+                 else
+                     seam_saturation_labels2(hObject);
+                 end
                 
              % MAPs bind MT-bound MAPs selected
              case 4
                 
-                MAP_saturation_labels2(hObject);
+                 if binding == 1
+                     MAP_bindnig_labels2(hObject);
+                 else
+                     MAP_saturation_labels2(hObject);
+                 end
                 
              otherwise
          end
