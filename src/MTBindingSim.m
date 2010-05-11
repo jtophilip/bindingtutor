@@ -82,6 +82,9 @@ handles.output = hObject;
 % Save this main figure in the handles object
 handles.mainfigure = hObject;
 
+% Shut off the toolbar here
+set(hObject, 'Toolbar', 'none');
+
 % Clear out the future home of the graph figure and axes
 handles.graphfigure = 0;
 handles.graphaxes = 0;
