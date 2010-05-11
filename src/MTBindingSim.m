@@ -96,9 +96,7 @@ handles.units_xmax = make_java_component(handles.units_xmax, '&mu;M', 0);
 handles.model1 = make_java_component(handles.model1, 'A + MT &harr; AMT', 1);
 handles.equation1 = make_java_component(handles.equation1, 'KD = [A][MT]/[AMT]', 1);
 handles.model2 = make_java_component(handles.model2, 'A + MT &harr; AMT', 1);
-set(handles.model2, 'Visible', 'off');
 handles.equation2 = make_java_component(handles.equation2, 'KD = [A][MT]/[AMT]', 1);
-set(handles.equation2, 'Visible', 'off');
 
 % Update handles structure
 guidata(hObject, handles);
@@ -124,6 +122,9 @@ function control = make_java_component(hObject, string, align)
 % hObject    handle to object to convert to Java text control
 % string     HTML string to be placed in the Java text control
 % align      if 0, left-justify, if 1, center, if 2, right-justify
+
+% Get the current visibility of this uicontrol
+visibility = get(hObject, 'Visible');
 
 % Get the current location of this uicontrol
 set(hObject, 'Units', 'pixels');
@@ -156,6 +157,8 @@ set(control, 'Units', 'normalized');
 bgcolor = get(0,'defaultUicontrolBackgroundColor');
 set(hcomponent, 'Background', java.awt.Color(bgcolor(1), bgcolor(2), bgcolor(3)));
 
+% Set the visibility of the control appropriately
+set(control, 'Visible', visibility);
 
 
 function set_java_component(hObject, string)
