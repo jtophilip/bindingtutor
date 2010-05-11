@@ -97,13 +97,27 @@ handles.color = 0;
 set(handles.exp_mode, 'SelectionChangeFcn', @exp_mode_SelectionChangeFcn);
 set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 
+% Make some global string values for later
+global UM;
+UM = '&mu;M';
+global KD;
+KD = 'K<sub><small>D</small></sub>';
+global KS;
+KS = 'K<sub><small>S</small></sub>';
+global KL;
+KL = 'K<sub><small>L</small></sub>';
+global KM;
+KM = 'K<sub><small>M</small></sub>';
+global KA;
+KA = 'K<sub><small>A</small></sub>';
+
 % Convert a bunch of our controls to java controls
-handles.units_xmin = make_java_component(handles.units_xmin, '&mu;M', 0);
-handles.units_xmax = make_java_component(handles.units_xmax, '&mu;M', 0);
+handles.units_xmin = make_java_component(handles.units_xmin, UM, 0);
+handles.units_xmax = make_java_component(handles.units_xmax, UM, 0);
 handles.model1 = make_java_component(handles.model1, 'A + MT &harr; AMT', 1);
-handles.equation1 = make_java_component(handles.equation1, 'K<sub><small>D</small></sub> = [A][MT]/[AMT]', 1);
+handles.equation1 = make_java_component(handles.equation1, [KD, ' = [A][MT]/[AMT]'], 1);
 handles.model2 = make_java_component(handles.model2, 'A + MT &harr; AMT', 1);
-handles.equation2 = make_java_component(handles.equation2, 'K<sub><small>D</small></sub> = [A][MT]/[AMT]', 1);
+handles.equation2 = make_java_component(handles.equation2, [KD, ' = [A][MT]/[AMT]'], 1);
 
 % Update handles structure
 guidata(hObject, handles);
@@ -1477,6 +1491,8 @@ function first_order_binding_labels1(hObject)
 % Function to update the apperence of MTBindingSim for the case where the
 % first function is first order binding in binding mode
 
+global KD;
+
 % Sets the visibility for all input boxes
 inputboxes_display1(hObject, 2);
 
@@ -1485,7 +1501,7 @@ handles = guidata(hObject);
 
 % Sets the equation and model text
 set_java_component(handles.model1, 'A + MT &harr; AMT');
-set_java_component(handles.equation1, 'KD = [A][MT]/[AMT]');
+set_java_component(handles.equation1, [KD, ' = [A][MT]/[AMT]']);
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'on');
@@ -1494,7 +1510,7 @@ set(handles.tot_free, 'Visible', 'on');
 set(handles.label_xmin, 'String', '[MT] total min ');
 set(handles.label_xmax, 'String', '[MT] total max ');
 set(handles.label1_1, 'String', '[A] total');
-set(handles.label2_1, 'String', 'KD');
+set(handles.label2_1, 'String', [KD, ' ']);
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -1505,6 +1521,8 @@ function first_order_saturation_labels1(hObject)
 % Function to update the appearence of binding_BUI for the case where the
 % frist function is first oder binding in saturation mode
 
+global KD;
+
 % Sets the visibility for all input boxes
 inputboxes_display1(hObject, 2);
 
@@ -1512,7 +1530,7 @@ handles = guidata(hObject);
 
 % Sets the equation and model text
 set_java_component(handles.model1, 'A + MT &harr; AMT');
-set_java_component(handles.equation1, 'KD = [A][MT]/[AMT]');
+set_java_component(handles.equation1, [KD, ' = [A][MT]/[AMT]']);
 
 %Sets the visibility of the X-axis selection box
 set(handles.tot_free, 'Visible', 'off');
@@ -1521,7 +1539,7 @@ set(handles.tot_free, 'Visible', 'off');
 set(handles.label_xmin, 'String', '[A] total min ');
 set(handles.label_xmax, 'String', '[A] total max ');
 set(handles.label1_1, 'String', '[MT] total ');
-set(handles.label2_1, 'String', 'KD ');
+set(handles.label2_1, 'String', [KD, ' ']);
 
 % Updates the handles structure
 guidata(hObject, handles);
