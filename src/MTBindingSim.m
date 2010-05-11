@@ -79,8 +79,12 @@ function MTBindingSim_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for MTBindingSim
 handles.output = hObject;
 
-% Clears the axes
-cla(handles.axes, 'reset');
+% Save this main figure in the handles object
+handles.mainfigure = hObject;
+
+% Clear out the future home of the graph figure and axes
+handles.graphfigure = 0;
+handles.graphaxes = 0;
 
 % Creates a color variable to enable rotating colors according to how many
 % lines are on the graph
@@ -100,10 +104,6 @@ handles.equation2 = make_java_component(handles.equation2, 'KD = [A][MT]/[AMT]',
 
 % Update handles structure
 guidata(hObject, handles);
-
-% Creates the figure toolbar on the GUI so that images can be manipulated
-% and saved
-create_toolbar(hObject);
 
 
 
@@ -171,45 +171,6 @@ html = ['<html>', string, '</html>'];
 % Get the java object and set the text
 jcomponent = get(hObject, 'userdata');
 jcomponent.setText(html);
-
-
-function create_toolbar(hObject)
-% hObject    handle to figure
-
-% First, disable the standard toolbar
-set(hObject, 'Toolbar', 'figure');
-
-% Create a new toolbar
-toolbar = findall(hObject, 'Type', 'uitoolbar');
-
-% Remove buttons
-h = findall(toolbar, 'Tag', 'Standard.NewFigure');
-delete(h);
-h = findall(toolbar, 'Tag', 'Standard.FileOpen');
-delete(h);
-h = findall(toolbar, 'Tag', 'Standard.EditPlot');
-delete(h);
-h = findall(toolbar, 'Tag', 'Exploration.Rotate');
-delete(h);
-h = findall(toolbar, 'Tag', 'Exploration.DataCursor');
-delete(h);
-h = findall(toolbar, 'Tag', 'Exploration.Brushing');
-delete(h);
-h = findall(toolbar, 'Tag', 'DataManager.Linking');
-delete(h);
-h = findall(toolbar, 'Tag', 'Annotation.InsertColorbar');
-delete(h);
-h = findall(toolbar, 'Tag', 'Annotation.InsertLegend');
-delete(h);
-h = findall(toolbar, 'Tag', 'Plottools.PlottoolsOff');
-delete(h);
-h = findall(toolbar, 'Tag', 'Plottools.PlottoolsOn');
-delete(h);
-
-% Reconfigure the 'Save' button
-h = findall(toolbar, 'Tag', 'Standard.SaveFigure');
-set(h, 'TooltipString', 'Save Graph');
-set(h, 'ClickedCallback', @save_graph_Callback);
 
 
 
@@ -364,8 +325,7 @@ function graph_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-disableButtons(hObject);
-
+disableButtons(handles.mainfigure);
 
 % Retreives the x-axis values
 xmin = str2double(get(handles.input_xmin, 'String'));
@@ -787,9 +747,15 @@ switch get(handles.curve1, 'Value')
     otherwise
 end
 
+% Create a graph window if necessary
+if (handles.graphfigure == 0 || handles.graphaxes == 0)
+    handles.graphfigure = figure;
+    handles.graphaxes = axes;
+end
+
 %plots the x and y data
 hold on
-h = plot(handles.axes, x1, y1);
+h = plot(handles.graphaxes, x1, y1);
 xlabel(xaxis);
 ylabel(yaxis);
 
@@ -1172,7 +1138,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 
     %plots the x and y data
     hold on
-    h = plot(handles.axes, x2, y2);
+    h = plot(handles.graphaxes, x2, y2);
 
     % Rotates through the availble MatLab colors, colors the plot, and
     % displays the color in the color readout
@@ -1248,7 +1214,7 @@ end
 % Updates the handles
 guidata(hObject, handles);
 
-enableButtons(hObject);
+enableButtons(handles.mainfigure);
 
 
 
@@ -1257,8 +1223,16 @@ function clear_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Clears the axes
-cla(handles.axes, 'reset');
+% Close the graph figure if it exists
+if (handles.graphaxes)
+    delete(handles.graphaxes);
+    handles.graphaxes = 0;
+end
+if (handles.graphfigure)
+    delete(handles.graphfigure);
+    handles.graphfigure = 0;
+end
+
 % Resets the color counter
 handles.color = 0;
 % Clears the text in the color display fields
@@ -1277,15 +1251,26 @@ handles = guidata(hObject);
 
 % Creates a dialog box notifying the user that the axes will be cleared and
 % asking them if they want to proceed
-clear = questdlg('Changing the experimental mode will automatically clear the axes. Do you want to continue?', 'Clear Axes?', 'Yes','No','No');
-
-% Returns the selection to is previous value and stops evaluating further
-% code if the user selects no
-if strcmp(clear, 'No')
-    set(handles.exp_mode, 'SelectedObject', eventdata.OldValue);
-    % Updates the handles
-    guidata(hObject, handles);
-    return
+if (handles.graphaxes || handles.graphfigure)
+    clear = questdlg('Changing the experimental mode will automatically close the graph window. Do you want to continue?', 'Close Graph Window?', 'Yes','No','No');
+    
+    % Returns the selection to is previous value and stops evaluating further
+    % code if the user selects no
+    if strcmp(clear, 'No')
+        set(handles.exp_mode, 'SelectedObject', eventdata.OldValue);
+        % Updates the handles
+        guidata(hObject, handles);
+        return
+    end
+    
+    if (handles.graphaxes)
+        delete(handles.graphaxes);
+        handles.graphaxes = 0;
+    end
+    if (handles.graphfigure)
+        delete(handles.graphfigure);
+        handles.graphfigure = 0;
+    end
 end
 
 % Get tag of selected buton
@@ -1418,13 +1403,12 @@ end
 % Retreives the new guidata after the input boxes have been changed
 handles = guidata(hObject);
 
-% Clears the axes
-cla(handles.axes, 'reset');
 % Resets the color counter
 handles.color = 0;
 % Clears the text in the color display fields
 set(handles.color1, 'String', '');
 set(handles.color2, 'String', '');
+
 % Updates the handles
 guidata(hObject, handles);
 
@@ -2111,61 +2095,6 @@ guidata(hObject, handles);
 
 drawnow;
 
-
-
-function newfigure = make_graph_only_figure(hFigure)
-% hFigure    handle to parent figure
-
-% Get guidata from parent
-handles = guidata(hFigure);
-
-% Make a new figure
-newfigure = figure;
-
-% Make a copy of the axes
-parentaxes = handles.axes;
-newaxes = axes;
-copyobj(allchild(parentaxes), newaxes);
-
-
-function save_graph_Callback(hObject, eventdata, handles)
-% hObject    handle to input_points (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Get a filename from the user
-[filename, pathname] = uiputfile(...
-    {'*.ai', 'Adobe Illustrator (*.ai)'; ...
-    '*.bmp', 'Windows Bitmap (*.bmp)'; ...
-    '*.emf', 'Enhanced Metafile (*.emf)'; ...
-    '*.eps', 'Encapsulated Postscript (*.eps)'; ...
-    '*.fig', 'MATLAB Figure (*.fig)'; ...
-    '*.jpg', 'JPEG Image (*.jpg)'; ...
-    '*.m', 'MATLAB File (*.m)'; ...
-    '*.pbm', 'Portable Bitmap (*.pbm)'; ...
-    '*.pcx', 'PC Paintbrush (*.pcx)'; ...
-    '*.pdf', 'Adobe PDF File (*.pdf)'; ...
-    '*.pgm', 'Portable Graymap (*.pgm)'; ...
-    '*.png', 'PNG File (*.png)'; ...
-    '*.ppm', 'Portable Pixmap (*.ppm)'; ...
-    '*.tif', 'TIFF Image, Compressed (*.tif)'; ...
-    '*.*', 'All Files (*.*)'}, ... 
-    'Save as');
-
-if isequal(filename, 0)
-    return
-end
-
-% Create a new graph-only figure
-oldfigure = gcf;
-newfigure = make_graph_only_figure(gcf);
-
-% Save this new figure out
-saveas(newfigure, [pathname filesep filename]);
-
-% Close the new figure, reactivate old figure
-close(newfigure);
-figure(oldfigure);
 
 
 %%%%%%%%%%%%%%
