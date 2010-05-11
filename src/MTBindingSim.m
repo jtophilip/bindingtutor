@@ -436,7 +436,7 @@ switch get(handles.curve1, 'Value')
                 Atot = str2double(get(handles.input1_1, 'String'));
                 
                 if isnan(Atot) || Atot < 0
-                    errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                    errordlg('Please enter a positive number for [A] total'); 
                 end
                 
                 % Gets the value for KD and ensures that it's a
@@ -444,7 +444,7 @@ switch get(handles.curve1, 'Value')
                 KD = str2double(get(handles.input2_1, 'String'));
                 
                 if isnan(KD) || KD <= 0
-                    errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_D must be a number greater than 0'); 
                 end
                 
                 % Determines whether the X-axis is free MT or total MT
@@ -484,7 +484,7 @@ switch get(handles.curve1, 'Value')
                 MTtot = str2double(get(handles.input1_1, 'String'));
                 
                 if isnan(MTtot) || MTtot < 0
-                    errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                    errordlg('Please enter a positive number for [MT] total'); 
                 end
                 
                 % Gets the value for KD and ensures that it's a
@@ -492,7 +492,7 @@ switch get(handles.curve1, 'Value')
                 KD = str2double(get(handles.input2_1, 'String'));
                 
                 if isnan(KD) || KD <= 0
-                    errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_D must be a number greater than 0'); 
                 end
                
                 % Calculates frac, MTfree, and Abound
@@ -521,7 +521,7 @@ switch get(handles.curve1, 'Value')
                 Atot = str2double(get(handles.input1_1, 'String'));
                 
                 if isnan(Atot) || Atot < 0
-                    errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                    errordlg('Please enter a positive number for [A] total'); 
                 end
                 
                 % Gets the value for KD and ensures that it's a
@@ -529,15 +529,15 @@ switch get(handles.curve1, 'Value')
                 KD = str2double(get(handles.input2_1, 'String'));
                 
                 if isnan(KD) || KD <= 0
-                    errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_D must be a number greater than 0'); 
                 end
                 
-                % Gets the value for p and ensures that it's a
+                % Gets the value for phi and ensures that it's a
                 % number
                 p = str2double(get(handles.input3_1, 'String'));
                 
                 if isnan(p)
-                    errordlg([get(handles.label3_1, 'String'), ' must be a number']); 
+                    errordlg('phi must be a number'); 
                 end
                 
                 % Determines whether the X-axis is free MT or total MT
@@ -577,7 +577,7 @@ switch get(handles.curve1, 'Value')
                 MTtot = str2double(get(handles.input1_1, 'String'));
                 
                 if isnan(MTtot) || MTtot < 0
-                    errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                    errordlg('Please enter a positive number for [MT] total'); 
                 end
                 
                 % Gets the value for KD and ensures that it's a
@@ -585,15 +585,15 @@ switch get(handles.curve1, 'Value')
                 KD = str2double(get(handles.input2_1, 'String'));
                 
                 if isnan(KD) || KD <= 0
-                    errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_D must be a number greater than 0'); 
                 end
                 
-                % Gets the value for p and ensures that it's a
+                % Gets the value for phi and ensures that it's a
                 % number
                 p = str2double(get(handles.input3_1, 'String'));
                 
                 if isnan(p) || p <= 0
-                    errordlg([get(handles.label3_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('phi must be a number greater than 0'); 
                 end
                        
                 % Steps through x, calculating the value of frac
@@ -623,7 +623,7 @@ switch get(handles.curve1, 'Value')
                 Atot = str2double(get(handles.input1_1, 'String'));
                 
                 if isnan(Atot) || Atot < 0
-                    errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                    errordlg('Please enter a positive number for [A] total'); 
                 end
                 
                 % Gets the value for KS and ensures that it's a
@@ -631,7 +631,7 @@ switch get(handles.curve1, 'Value')
                 KS = str2double(get(handles.input2_1, 'String'));
                 
                 if isnan(KS) || KS <= 0
-                    errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_S must be a number greater than 0'); 
                 end
                 
                 % Gets the value for KL and ensures that it's a positive
@@ -639,7 +639,7 @@ switch get(handles.curve1, 'Value')
                 KL = str2double(get(handles.input3_1, 'String'));
                 
                 if isnan(KL) || KL <= 0
-                    errordlg([get(handles.label3_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_L must be a number greater than 0'); 
                 end
                 
                 % Determines whether the X-axis is free MT or total MT
@@ -675,7 +675,7 @@ switch get(handles.curve1, 'Value')
                 MTtot = str2double(get(handles.input1_1, 'String'));
                 
                 if isnan(MTtot) || MTtot < 0
-                    errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                    errordlg('Please enter a positive number for [MT] total'); 
                 end
                 
                 % Gets the value for KS and ensures that it's a
@@ -683,7 +683,7 @@ switch get(handles.curve1, 'Value')
                 KS = str2double(get(handles.input2_1, 'String'));
                 
                 if isnan(KS) || KS <= 0
-                    errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_S must be a number greater than 0'); 
                 end
                 
                 % Gets the value for KL and ensures that it's a positive
@@ -691,7 +691,7 @@ switch get(handles.curve1, 'Value')
                 KL = str2double(get(handles.input3_1, 'String'));
                 
                 if isnan(KL) || KL <= 0
-                    errordlg([get(handles.label3_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_L must be a number greater than 0'); 
                 end
                 
                 % Calculates concentration of A bound and MT free
@@ -719,7 +719,7 @@ switch get(handles.curve1, 'Value')
                 Atot = str2double(get(handles.input1_1, 'String'));
                 
                 if isnan(Atot) || Atot < 0
-                    errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                    errordlg('Please enter a positive number for [A] total'); 
                 end
                 
                 % Gets the value for KM and ensures that it's a
@@ -727,7 +727,7 @@ switch get(handles.curve1, 'Value')
                 KM = str2double(get(handles.input2_1, 'String'));
                 
                 if isnan(KM) || KM <= 0
-                    errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_M must be a number greater than 0'); 
                 end
                 
                 % Gets the value for KA and ensures that it's a positive
@@ -735,7 +735,7 @@ switch get(handles.curve1, 'Value')
                 KA = str2double(get(handles.input3_1, 'String'));
                 
                 if isnan(KA) || KA <= 0
-                    errordlg([get(handles.label3_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_A must be a number greater than 0'); 
                 end
                 
                 % Determines whether the X-axis is free MT or total MT
@@ -773,7 +773,7 @@ switch get(handles.curve1, 'Value')
                 MTtot = str2double(get(handles.input1_1, 'String'));
                 
                 if isnan(MTtot) || MTtot < 0
-                    errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                    errordlg('Please enter a positive number for [MT] total'); 
                 end
                 
                 % Gets the value for KM and ensures that it's a
@@ -781,7 +781,7 @@ switch get(handles.curve1, 'Value')
                 KM = str2double(get(handles.input2_1, 'String'));
                 
                 if isnan(KM) || KM <= 0
-                    errordlg([get(handles.label2_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_M must be a number greater than 0'); 
                 end
                 
                 % Gets the value for KA and ensures that it's a positive
@@ -789,7 +789,7 @@ switch get(handles.curve1, 'Value')
                 KA = str2double(get(handles.input3_1, 'String'));
                 
                 if isnan(KA) || KA <= 0
-                    errordlg([get(handles.label3_1, 'String'), ' must be a number greater than 0']); 
+                    errordlg('K_A must be a number greater than 0'); 
                 end
                 
                 % Calculates the concentration of A bound
@@ -870,7 +870,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     Atot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(Atot) || Atot < 0
-                        errordlg(['Please enter a positive number for ', get(handles.label1_2, 'String')]); 
+                        errordlg('Please enter a positive number for [A] total'); 
                     end
 
                     % Gets the value for KD and ensures that it's a
@@ -878,7 +878,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KD = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KD) || KD <= 0
-                        errordlg([get(handles.label2_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_D must be a number greater than 0'); 
                     end
 
                     % Determines whether the X-axis is free B or total B
@@ -910,7 +910,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     MTtot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(MTtot) || MTtot < 0
-                        errordlg(['Please enter a positive number for ', get(handles.label1_2, 'String')]); 
+                        errordlg('Please enter a positive number for [MT] total'); 
                     end
 
                     % Gets the value for KD and ensures that it's a
@@ -918,7 +918,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KD = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KD) || KD <= 0
-                        errordlg([get(handles.label2_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_D must be a number greater than 0'); 
                     end
 
                     % Function to get the concentration of A bound
@@ -943,7 +943,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     Atot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(Atot) || Atot < 0
-                        errordlg(['Please enter a positive number for ', get(handles.label1_2, 'String')]); 
+                        errordlg('Please enter a positive number for [A] total'); 
                     end
 
                     % Gets the value for KD and ensures that it's a
@@ -951,7 +951,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KD = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KD) || KD <= 0
-                        errordlg([get(handles.label2_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_D must be a number greater than 0'); 
                     end
 
                     % Gets the value for p and ensures that it's a
@@ -959,7 +959,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     p = str2double(get(handles.input3_2, 'String'));
 
                     if isnan(p) || p <= 0
-                        errordlg([get(handles.label3_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('phi must be a number greater than 0'); 
                     end
 
                     % Determines whether the X-axis is free MT or total MT
@@ -991,7 +991,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     MTtot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(MTtot) || MTtot < 0
-                        errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                        errordlg('Please enter a positive number for [MT] total'); 
                     end
 
                     % Gets the value for KD and ensures that it's a
@@ -999,7 +999,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KD = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KD) || KD <= 0
-                        errordlg([get(handles.label2_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_D must be a number greater than 0'); 
                     end
 
                     % Gets the value for p and ensures that it's a
@@ -1007,7 +1007,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     p = str2double(get(handles.input3_2, 'String'));
 
                     if isnan(p)
-                        errordlg([get(handles.label3_2, 'String'), ' must be a number']); 
+                        errordlg('phi must be a number'); 
                     end
 
                     % Function to get the concentration of A bound
@@ -1032,7 +1032,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     Atot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(Atot) || Atot < 0
-                        errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                        errordlg('Please enter a positive number for [A] total'); 
                     end
 
                     % Gets the value for KS and ensures that it's a
@@ -1040,7 +1040,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KS = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KS) || KS <= 0
-                        errordlg([get(handles.label2_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_S must be a number greater than 0'); 
                     end
 
                     % Gets the value for KL and ensures that it's a positive
@@ -1048,7 +1048,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KL = str2double(get(handles.input3_2, 'String'));
 
                     if isnan(KL) || KL <= 0
-                        errordlg([get(handles.label3_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_L must be a number greater than 0'); 
                     end
 
                     % Determines whether the X-axis is free MT or total MT
@@ -1080,7 +1080,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     MTtot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(MTtot) || MTtot < 0
-                        errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                        errordlg('Please enter a positive number for [MT] total'); 
                     end
 
                     % Gets the value for KS and ensures that it's a
@@ -1088,7 +1088,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KS = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KS) || KS <= 0
-                        errordlg([get(handles.label2_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_S must be a number greater than 0'); 
                     end
 
                     % Gets the value for KL and ensures that it's a positive
@@ -1096,7 +1096,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KL = str2double(get(handles.input3_2, 'String'));
 
                     if isnan(KL) || KL <= 0
-                        errordlg([get(handles.label3_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_L must be a number greater than 0'); 
                     end
 
                     % Function to get the concentration of A bound
@@ -1122,7 +1122,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     Atot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(Atot) || Atot < 0
-                        errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                        errordlg('Please enter a positive number for [A] total'); 
                     end
 
                     % Gets the value for KM and ensures that it's a
@@ -1130,7 +1130,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KM = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KM) || KM <= 0
-                        errordlg([get(handles.label2_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_M must be a number greater than 0'); 
                     end
 
                     % Gets the value for KA and ensures that it's a positive
@@ -1138,7 +1138,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KA = str2double(get(handles.input3_2, 'String'));
 
                     if isnan(KA) || KA <= 0
-                        errordlg([get(handles.label3_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_A must be a number greater than 0'); 
                     end
 
                     % Determines whether the X-axis is free MT or total MT
@@ -1170,7 +1170,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     MTtot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(MTtot) || MTtot < 0
-                        errordlg(['Please enter a positive number for ', get(handles.label1_1, 'String')]); 
+                        errordlg('Please enter a positive number for [MT] total'); 
                     end
 
                     % Gets the value for KM and ensures that it's a
@@ -1178,7 +1178,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KM = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KM) || KM <= 0
-                        errordlg([get(handles.label2_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_M must be a number greater than 0'); 
                     end
 
                     % Gets the value for KA and ensures that it's a positive
@@ -1186,7 +1186,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KA = str2double(get(handles.input3_2, 'String'));
 
                     if isnan(KA) || KA <= 0
-                        errordlg([get(handles.label3_2, 'String'), ' must be a number greater than 0']); 
+                        errordlg('K_A must be a number greater than 0'); 
                     end
 
                     % Function to get the concentration of A bound
