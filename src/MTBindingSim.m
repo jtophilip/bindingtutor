@@ -98,19 +98,13 @@ set(handles.exp_mode, 'SelectionChangeFcn', @exp_mode_SelectionChangeFcn);
 set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 
 % Make some global string values for later
-global UM;
+global UM KD KS KL KM KA KB;
 UM = '&mu;M';
-global KD;
 KD = 'K<sub><small>D</small></sub>';
-global KS;
 KS = 'K<sub><small>S</small></sub>';
-global KL;
 KL = 'K<sub><small>L</small></sub>';
-global KM;
 KM = 'K<sub><small>M</small></sub>';
-global KA;
 KA = 'K<sub><small>A</small></sub>';
-global KB;
 KB = 'K<sub><small>B</small></sub>';
 
 % Convert a bunch of our controls to java controls
