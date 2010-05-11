@@ -364,6 +364,28 @@ switch get(handles.curve2, 'Value')
 end
 
 
+function add_legend(handles, new_legend_string)
+% handles    structure with handles and user data (see GUIDATA)
+
+% See if there's a legend already -- if not, this is much easier
+legend_object = legend(handles.graphaxes);
+
+% If no legend, make a one-string legend, quickly
+if legend_object == []
+    legend(handles.graphaxes, new_legend_string);
+    return;
+end
+
+% Get the guts of the current legend object
+[legend_object, legend_parts, plot_parts, legend_strings] = legend(handles.graphaxes);
+
+% Add the new string to the end of the vector
+legend_strings = [legend_strings new_legend_string];
+
+% Recreate the legend
+legend(handles.graphaxes, legend_strings);
+
+
 
 function graph_Callback(hObject, eventdata, handles)
 % hObject    handle to graph (see GCBO)
@@ -798,11 +820,16 @@ if (handles.graphfigure == 0 || handles.graphaxes == 0)
     handles.graphaxes = axes;
 end
 
+% Activate the graph window
+figure(handles.graphfigure);
+
 %plots the x and y data
 hold on
 h = plot(handles.graphaxes, x1, y1);
 xlabel(xaxis);
 ylabel(yaxis);
+
+add_legend(handles, ['Curve ', num2str(handles.color)]);
 
 % Rotates through the availble MatLab colors, colors the plot, and
 % displays the color in the color readout
@@ -1184,6 +1211,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     %plots the x and y data
     hold on
     h = plot(handles.graphaxes, x2, y2);
+    
+    add_legend(handles, ['Curve ', num2str(handles.color)]);
 
     % Rotates through the availble MatLab colors, colors the plot, and
     % displays the color in the color readout
