@@ -2146,13 +2146,13 @@ guidata(hObject, handles);
 
 function disableButtons(hObject)
 
-%change the mouse cursor to an hourglass
-set(gcf,'Pointer','watch');
-
 % Gets the guidata
 handles = guidata(hObject);
- 
-%disable all the buttons so they cannot be pressed
+
+% Change the mouse cursor to an hourglass
+set(handles.mainfigure, 'Pointer', 'watch');
+
+% Disable all the buttons so they cannot be pressed
 set(handles.graph,'Enable','off');
 set(handles.clear,'Enable','off');
 set(handles.curve1,'Enable','off');
@@ -2173,13 +2173,13 @@ drawnow;
  
 function enableButtons(hObject)
 
-%change the mouse cursor to an arrow
-set(gcf,'Pointer','arrow');
-
 % Gets the guidata
 handles = guidata(hObject);
- 
-%enable all the buttons so they can be pressed
+
+% Change the mouse cursor to an arrow
+set(handles.mainfigure,'Pointer','arrow');
+
+% Enable all the buttons so they can be pressed
 set(handles.graph,'Enable','on');
 set(handles.clear,'Enable','on');
 set(handles.curve1,'Enable','on');
