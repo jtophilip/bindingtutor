@@ -110,6 +110,8 @@ global KM;
 KM = 'K<sub><small>M</small></sub>';
 global KA;
 KA = 'K<sub><small>A</small></sub>';
+global KB;
+KB = 'K<sub><small>B</small></sub>';
 
 % Convert a bunch of our controls to java controls
 handles.units_xmin = make_java_component(handles.units_xmin, UM, 0);
@@ -1320,6 +1322,9 @@ end
 switch get(eventdata.NewValue, 'Tag')
     case 'binding'
         
+        % Makes the curve selection drop down boxes visible
+        set(handles.curve1, 'Visible', 'on');
+        
         % Gets the current value of the first curve slection box and
         % changes the visible boxes accordingly
         switch get(handles.curve1, 'Value')
@@ -1351,6 +1356,9 @@ switch get(eventdata.NewValue, 'Tag')
         % selected
         if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             
+            % Makes the curve selction box visible
+            set(handles.curve2, 'Visible', 'on');
+            
             % Gets the current value of the first curve slection box and
             % changes the visible boxes accordingly
             switch get(handles.curve2, 'Value');
@@ -1381,7 +1389,11 @@ switch get(eventdata.NewValue, 'Tag')
         
     case 'saturation'
         
-        % Gets the current value of the second curve slection box and
+        % Makes the curve selection drop down boxes visible
+        set(handles.curve1, 'Visible', 'on');
+        
+        
+        % Gets the current value of the first curve slection box and
         % changes the visible boxes accordingly
         switch get(handles.curve1, 'Value');
             % First order biding selected
@@ -1412,6 +1424,9 @@ switch get(eventdata.NewValue, 'Tag')
         % selected
         if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             
+            % Makes the curve selection box visible
+            set(handles.curve2, 'Visible', 'on');
+            
             % Gets the current value of the second curve slection box and
             % changes the visible boxes accordingly
             switch get(handles.curve2, 'Value');
@@ -1439,6 +1454,13 @@ switch get(eventdata.NewValue, 'Tag')
             end
             
         end
+        
+    case 'competition'
+        
+        % Makes the curve selection drop down boxes invisible
+        set(handles.curve1, 'Visible', 'off');
+        set(handles.curve2, 'Visible', 'off');
+        
         
     otherwise
 end
@@ -1553,6 +1575,11 @@ function MAP_strings(model, equation)
 global KM KA;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT');
 set_java_component(equation, [KM, ' = [A][MT]/[AMT], ', KA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT]']);
+
+function competition_strings(model, equation)
+global KA KB;
+set_java_component(model, 'A + MT &harr; AMT, B + MT &harr; BMT');
+set_java_component(equation, [KA, ' =[A][MT]/[AMT], ', KB, ' =[B][MT]/[BMT]']);
 
 
 function first_order_binding_labels1(hObject)
