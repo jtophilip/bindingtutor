@@ -1484,6 +1484,13 @@ switch get(eventdata.NewValue, 'Tag')
         set(handles.curve1, 'Visible', 'off');
         set(handles.curve2, 'Visible', 'off');
         
+        competition_labels1(hObject);
+        
+        if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
+            
+            competition_labels2(hObject);
+        end
+        
         
     otherwise
 end
@@ -1847,6 +1854,34 @@ set_java_component(handles.label3_1, [KA, ' ']);
 guidata(hObject, handles);
 
 
+function competition_labels1(hObject)
+% Function to update the appearnce of MTBindingSIm for the case where
+% the competition experimental mode is selected
+
+global KA KB;
+
+% Sets the visibility for all imput boxes
+inputboxes_display1(hObject, 4);
+
+handles = guidata(hObject);
+
+% Sets the equation and model text
+competition_strings(handles.model1, handles.equation1);
+
+% Sets the labels for the visible imput boxes
+set(handles.label_xmin, 'String', '[B] total min ');
+set(handles.label_xmax, 'String', '[B] total max ');
+set_java_component(handles.label1_1, '[MT] total ');
+set_java_component(handles.label2_1, '[A] total ');
+set_java_component(handles.label3_1, [KA, ' ']);
+set_java_component(handles.label4_1, [KB, ' ']);
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+
+
+
 
 function first_order_binding_labels2(hObject)
 % Function to update the apperence of MTBindingSim for the case where the
@@ -2049,6 +2084,28 @@ set_java_component(handles.label3_2, [KA, ' ']);
 % Updates the handles structure
 guidata(hObject, handles);
 
+function competition_labels2(hObject)
+% Function to update the appearnce of MTBindingSIm for the case where
+% the competition experimental mode is selected
+
+global KA KB;
+
+% Sets the visibility for all imput boxes
+inputboxes_display2(hObject, 4);
+
+handles = guidata(hObject);
+
+% Sets the equation and model text
+competition_strings(handles.model2, handles.equation2);
+
+% Sets the labels for the visible imput boxes
+set_java_component(handles.label1_2, '[MT] total ');
+set_java_component(handles.label2_2, '[A] total ');
+set_java_component(handles.label3_2, [KA, ' ']);
+set_java_component(handles.label4_2, [KB, ' ']);
+
+% Updates the handles structure
+guidata(hObject, handles);
 
 
 function inputboxes_display1(hObject, num)
