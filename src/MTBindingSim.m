@@ -1480,6 +1480,9 @@ switch get(eventdata.NewValue, 'Tag')
         
     case 'competition'
         
+        % Sets the visibility of the x-axis selection box
+        set(handles.tot_free, 'Visible', 'off');
+        
         % Makes the curve selection drop down boxes invisible
         set(handles.curve1, 'Visible', 'off');
         set(handles.curve2, 'Visible', 'off');
@@ -1627,8 +1630,6 @@ handles = guidata(hObject);
 % Sets the equation and model text
 first_order_strings(handles.model1, handles.equation1);
 
-%Sets the visibility of the X-axis selection box
-set(handles.tot_free, 'Visible', 'on');
 
 % Sets labels for the visible input boxes
 set(handles.label_xmin, 'String', '[MT] total min ');
@@ -1655,9 +1656,6 @@ handles = guidata(hObject);
 % Sets the equation and model text
 first_order_strings(handles.model1, handles.equation1);
 
-%Sets the visibility of the X-axis selection box
-set(handles.tot_free, 'Visible', 'off');
-
 %Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
 set(handles.label_xmax, 'String', '[A] total max ');
@@ -1683,9 +1681,6 @@ handles = guidata(hObject);
 
 % Sets the equations and model text
 cooperativity_strings(handles.model1, handles.equation1);
-
-%Sets the visibility of the X-axis selection box
-set(handles.tot_free, 'Visible', 'on');
                 
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[MT] total min ');
@@ -1717,9 +1712,6 @@ handles = guidata(hObject);
 % Sets the equations and model text
 cooperativity_strings(handles.model1, handles.equation1);
 
-%Sets the visibility of the X-axis selection box
-set(handles.tot_free, 'Visible', 'off');
-
 %Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
 set(handles.label_xmax, 'String', '[A] total max ');
@@ -1750,9 +1742,6 @@ handles = guidata(hObject);
 %Set model and equation text
 seam_strings(handles.model1, handles.equation1);
 
-%Sets the visibility of the X-axis selection box
-set(handles.tot_free, 'Visible', 'on');
-
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[MT] total min ');
 set(handles.label_xmax, 'String', '[MT] total max ');
@@ -1779,9 +1768,6 @@ handles = guidata(hObject);
 
 %Set model and equation text
 seam_strings(handles.model1, handles.equation1);
-
-%Sets the visibility of the X-axis selection box
-set(handles.tot_free, 'Visible', 'off');
 
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
@@ -1810,9 +1796,6 @@ handles = guidata(hObject);
 % Sets model equation and text
 MAP_strings(handles.model1, handles.equation1);
 
-%Sets the visibility of the X-axis selection box
-set(handles.tot_free, 'Visible', 'on');
-
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[MT] total min ');
 set(handles.label_xmax, 'String', '[MT] total max ');
@@ -1839,9 +1822,6 @@ handles = guidata(hObject);
 
 % Sets model equation and text
 MAP_strings(handles.model1, handles.equation1);
-
-%Sets the visibility of the X-axis selection box
-set(handles.tot_free, 'Visible', 'off');
 
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
