@@ -8,6 +8,7 @@ TODO for v1.0:
 * Change solver programs to accept n by multiplying MTtot and n
 
 * Change program to accept X axis as free or total for both experimental modes
+	* Change the x-axis selection box titles for each mode
 
 * Add competition experimental mode
 
