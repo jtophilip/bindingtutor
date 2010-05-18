@@ -1,8 +1,5 @@
 TODO for v1.0:
 
-* Move validation code for input boxes on curve 2 to before the actual plot() call
-  for curve 1.
-
 * Remove the "this curve is X" color label and setting code.
 
 * Change solver programs to accept n by multiplying MTtot and n
