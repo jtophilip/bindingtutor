@@ -1240,25 +1240,18 @@ add_legend(handles, ['Curve ', num2str(handles.color)]);
 % displays the color in the color readout
 if rem(handles.color,7) == 0
     set(h,'color','blue');
-    set(handles.color1, 'String', 'This curve is blue');
 elseif rem(handles.color,7) ==1
     set(h,'color','red');
-    set(handles.color1, 'String', 'This curve is red');
 elseif rem(handles.color,7) ==2
     set(h,'color','yellow');
-    set(handles.color1, 'String', 'This curve is yellow');
 elseif rem(handles.color,7) ==3
     set(h,'color','green');
-    set(handles.color1, 'String', 'This curve is green');
 elseif rem(handles.color,7) ==4
     set(h,'color','magenta');
-    set(handles.color1, 'String', 'This curve is magenta');
 elseif rem(handles.color,7) ==5
     set(h,'color','cyan');
-    set(handles.color1, 'String', 'This curve is cyan');
 elseif rem(handles.color,7) ==6
     set(h,'color','black');
-    set(handles.color1, 'String', 'This curve is black');
 end
 handles.color = handles.color +1;
 
@@ -1277,25 +1270,18 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     % displays the color in the color readout
     if rem(handles.color,7) == 0
         set(h,'color','blue');
-        set(handles.color2, 'String', 'This curve is blue');
     elseif rem(handles.color,7) ==1
         set(h,'color','red');
-        set(handles.color2, 'String', 'This curve is red');
     elseif rem(handles.color,7) ==2
         set(h,'color','yellow');
-        set(handles.color2, 'String', 'This curve is yellow');
     elseif rem(handles.color,7) ==3
         set(h,'color','green');
-        set(handles.color2, 'String', 'This curve is green');
     elseif rem(handles.color,7) ==4
         set(h,'color','magenta');
-        set(handles.color2, 'String', 'This curve is magenta');
     elseif rem(handles.color,7) ==5
         set(h,'color','cyan');
-        set(handles.color2, 'String', 'This curve is cyan');
     elseif rem(handles.color,7) ==6
         set(h,'color','black');
-        set(handles.color2, 'String', 'This curve is black');
     end
     handles.color = handles.color +1;
     
@@ -2513,4 +2499,3 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 end
-
