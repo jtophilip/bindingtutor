@@ -474,6 +474,7 @@ switch get(handles.curve1, 'Value')
 
                        xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
+                       legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
                        
                     case 'total'
                        
@@ -486,6 +487,7 @@ switch get(handles.curve1, 'Value')
                        
                        xaxis = '[MT] total';
                        yaxis = 'Fraction of A bound';
+                       legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
                         
                     otherwise
                 end
@@ -520,6 +522,7 @@ switch get(handles.curve1, 'Value')
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
+                legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
                 
             otherwise
         end
@@ -572,6 +575,7 @@ switch get(handles.curve1, 'Value')
                         
                         xaxis = '[MT] free';
                         yaxis = 'Fraction of A bound';
+                        legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
                         
                     case 'total'
                        
@@ -584,6 +588,7 @@ switch get(handles.curve1, 'Value')
                         
                         xaxis = '[MT] total';
                         yaxis = 'Fraction of A bound';
+                        legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
                         
                     otherwise
                 end
@@ -628,6 +633,7 @@ switch get(handles.curve1, 'Value')
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
+                legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
                 
             otherwise
         end
@@ -678,6 +684,7 @@ switch get(handles.curve1, 'Value')
                        
                        xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
+                       legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
                         
                     case 'total'
                         
@@ -688,6 +695,7 @@ switch get(handles.curve1, 'Value')
                         
                         xaxis = '[MT] total';
                         yaxis = 'Fraction of A bound';
+                        legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
                         
                     otherwise
                 end
@@ -729,6 +737,7 @@ switch get(handles.curve1, 'Value')
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
+                legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
                 
             otherwise
         end
@@ -781,7 +790,8 @@ switch get(handles.curve1, 'Value')
                        
                        xaxis = '[MT] free';
                        yaxis = 'Fraction of A bound';
-                        
+                       legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                
                     case 'total'
                         
                         % Calculates fraction of A bound and free MT
@@ -792,7 +802,8 @@ switch get(handles.curve1, 'Value')
                         
                         xaxis = '[MT] total';
                         yaxis = 'Fraction of A bound';
-                        
+                        legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                
                     otherwise
                 end
                 
@@ -834,6 +845,7 @@ switch get(handles.curve1, 'Value')
                 
                 xaxis = '[A] total';
                 yaxis = '[A] bound';
+                legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
                 
             otherwise
         end
@@ -884,7 +896,9 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            
                            y2 = Frac;
                            x2 = MTfree;
-
+                           
+                           legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+                       
                         case 'total'
 
                            % Function to get fraction A bound
@@ -893,6 +907,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            y2 = Frac;
                            x2 = xvals;
 
+                           legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+                           
                         otherwise
                     end
 
@@ -922,6 +938,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     
                     y2 = Abound;
                     x2 = xvals;
+                    
+                    legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
 
                 otherwise
             end
@@ -970,6 +988,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            
                            y2 = Frac;
                            x2 = MTfree;
+                           
+                           legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
 
                         case 'total'
 
@@ -978,6 +998,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            
                            y2 = Frac;
                            x2 = xvals;
+                           
+                           legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
 
                         otherwise
                     end
@@ -1017,6 +1039,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     
                     y2 = Abound;
                     x2 = xvals;
+                    
+                    legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
 
                 otherwise
             end
@@ -1065,6 +1089,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            
                            y2 = Frac;
                            x2 = MTfree;
+                           
+                           legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
 
                         case 'total'
 
@@ -1073,6 +1099,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            
                             y2 = Frac;
                             x2 = xvals;
+                            
+                            legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
 
                         otherwise
                     end
@@ -1112,6 +1140,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     
                     y2 = Abound;
                     x2 = xvals;
+                    
+                    legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
 
                 otherwise
             end
@@ -1161,6 +1191,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            
                            y2 = Frac;
                            x2 = MTfree;
+                           
+                           legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                         case 'total'
 
@@ -1169,6 +1201,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                            
                             y2 = Frac;
                             x2 = xvals;
+                            
+                            legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                         otherwise
                     end
@@ -1208,6 +1242,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     
                     y2 = Abound;
                     x2 = xvals;
+                    
+                    legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                 otherwise
             end
@@ -1234,7 +1270,7 @@ h = plot(handles.graphaxes, x1, y1);
 xlabel(xaxis);
 ylabel(yaxis);
 
-add_legend(handles, ['Curve ', num2str(handles.color)]);
+add_legend(handles, legend1);
 
 % Rotates through the availble MatLab colors, colors the plot, and
 % displays the color in the color readout
@@ -1264,7 +1300,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     hold on
     h = plot(handles.graphaxes, x2, y2);
     
-    add_legend(handles, ['Curve ', num2str(handles.color)]);
+    add_legend(handles, legend2);
 
     % Rotates through the availble MatLab colors, colors the plot, and
     % displays the color in the color readout
