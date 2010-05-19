@@ -1618,53 +1618,64 @@ switch get(eventdata.NewValue, 'Tag')
         set(handles.equation2, 'Visible', 'on');
         set(handles.result, 'Visible', 'on');
         
-        if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding')
-            binding = 1;
-        else
-            binding = 0;
-        end
-        
-        % Gets the current value of the second curve slection box and
-        % changes the visible boxes accordingly
-        switch get(handles.curve2, 'Value')
-             % First order biding selected
-             case 1
+        % Determines which experimenal mode is selected and sets the imput
+        % boxes accordingly
+        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+           
+            case 'binding'
                 
-               if binding == 1
-                   first_order_binding_labels2(hObject);
-               else
-                   first_order_saturation_labels2(hObject);
-               end
-            
-             % Cooperative binding selected
-             case 2
-                 
-                if biding == 1
-                    cooperativity_binidng_labels2(hObject);
-                else
-                    cooperativity_saturation_labels2(hObject);
+                switch get(handles.curve2, 'Value')
+                    
+                    case 1
+                        
+                        first_order_binding_labels2(hObject);
+                        
+                    case 2
+                        
+                        cooperatiivty_binding_labels2(hObject);
+                        
+                    case 3
+                        
+                        seam_binding_labels2(hObject);
+                        
+                    case 4
+                        
+                        MAP_binding_labels2(hObject);
+                        
+                    otherwise
                 end
                 
-             % Seam and lattice binding selected
-             case 3
+            case 'saturation'
                 
-                 if binding == 1
-                     seam_binding_labels2(hObject);
-                 else
-                     seam_saturation_labels2(hObject);
-                 end
+                switch get(handles.curve2, 'Value')
+                    
+                    case 1
+                        
+                        first_order_saturation_labels2(hObject);
+                        
+                    case 2
+                        
+                        cooperatiivty_saturation_labels2(hObject);
+                        
+                    case 3
+                        
+                        seam_saturation_labels2(hObject);
+                        
+                    case 4
+                        
+                        MAP_saturation_labels2(hObject);
+                        
+                    otherwise
+                end
                 
-             % MAPs bind MT-bound MAPs selected
-             case 4
                 
-                 if binding == 1
-                     MAP_bindnig_labels2(hObject);
-                 else
-                     MAP_saturation_labels2(hObject);
-                 end
+            case 'competition'
                 
-             otherwise
-         end
+                set(handles.curve2, 'Visible', 'off');
+                competition_labels2(hObject);
+                
+            otherwise
+        end
         
     otherwise
 end
