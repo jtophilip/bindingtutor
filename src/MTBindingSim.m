@@ -433,425 +433,474 @@ end
 interval = (xmax - xmin)/points;
 xvals = xmin:interval:xmax;
 
+if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
+
+    MTtot = str2double(get(handles.input1_1, 'String'));
+    
+    if isnan(MTtot) || MTtot < 0
+        errorbox('Please enter a positive number for [MT] total', hObject);
+        return
+    end
+    
+    Atot = str2double(get(handles.input2_1, 'String'));
+    
+    if isnan(Atot) || Atot < 0
+        errorbox('Please enter a positive number for [A] total', hObject);
+        return
+    end
+    
+    KA = str2double(get(handles.input3_1, 'String'));
+    
+    if isnan(KA) || KA < 0
+        errorbox('Please enter a positive number for K_A', hObject);
+        return
+    end
+    
+    KB = str2double(get(handles.input4_1, 'String'));
+    
+    if isnan(KB) || KB < 0
+        errorbox('Please enter a positive number for K_B', hObject);
+        return
+    end
+    
+    [frac] = competition(MTtot, Atot, xvals, KA, KB);
+    
+    y1 = frac;
+    x1 = xvals;
+    
+    xaxis = '[B] total';
+    yaxis = 'Fraction of A bound';
+    plottitle = 'Competition Binding Assay';
+    legend1 = ['[MT] total = ' get(handles.input1_1, 'String') ', [A] total = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', K_B = ' get(handles.input4_1, 'String') ];
+
 % Determines the parameters selected for curve1
-switch get(handles.curve1, 'Value')
+elseif get(handles.curve1, 'Value') == 1
     % First order binding
-    case 1
-        
-        % Determine the experimental mode
-        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-            % Binding mode is selected
-            case 'binding'
-                
-                % Gets the value for [A] total and ensures that it's a
-                % positive number
-                Atot = str2double(get(handles.input1_1, 'String'));
-                
-                if isnan(Atot) || Atot < 0
-                    errorbox('Please enter a positive number for [A] total', hObject); 
-                    return
-                end
-                
-                % Gets the value for KD and ensures that it's a
-                % positive number
-                KD = str2double(get(handles.input2_1, 'String'));
-                
-                if isnan(KD) || KD <= 0
-                    errorbox('K_D must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Determines whether the X-axis is free MT or total MT
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-                        
-                       %Calculates the value of frac, MTfree, and Abound at
-                       %each value of x
-                       [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
-                       
-                       y1 = frac;
-                       x1 = MTfree;
 
-                       xaxis = '[MT] free';
-                       yaxis = 'Fraction of A bound';
-                       legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
-                       
-                    case 'total'
-                       
-                       % Calculates the value of frac, MTfree, and Abound
-                       [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
-                      
-                       
-                       y1 = frac;
-                       x1 = xvals; 
-                       
-                       xaxis = '[MT] total';
-                       yaxis = 'Fraction of A bound';
-                       legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
-                        
-                    otherwise
-                end
-                
-            % Saturation mode is selected
-            case 'saturation'
-                
-                % Gets the value for [MT] total and ensures that it's a
-                % positive number
-                MTtot = str2double(get(handles.input1_1, 'String'));
-                
-                if isnan(MTtot) || MTtot < 0
-                    errorbox('Please enter a positive number for [MT] total', hObject); 
-                    return
-                end
-                
-                % Gets the value for KD and ensures that it's a
-                % positive number
-                KD = str2double(get(handles.input2_1, 'String'));
-                
-                if isnan(KD) || KD <= 0
-                    errorbox('K_D must be a number greater than 0', hObject); 
-                    return
-                end
-               
-                % Calculates frac, MTfree, and Abound
-                [Frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
+    % Determine the experimental mode
+    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+        % Binding mode is selected
+        case 'binding'
 
-                       
-                y1 = Abound;
-                x1 = xvals;
-                
-                xaxis = '[A] total';
-                yaxis = '[A] bound';
-                legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
-                
-            otherwise
-        end
-        
-    % Cooperative binding  
-    case 2
-        
-        % Determine the experimental mode
-        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-            % Binding mode is selected
-            case 'binding'
-                
-                % Gets the value for [A] total and ensures that it's a
-                % positive number
-                Atot = str2double(get(handles.input1_1, 'String'));
-                
-                if isnan(Atot) || Atot < 0
-                    errorbox('Please enter a positive number for [A] total', hObject); 
-                    return
-                end
-                
-                % Gets the value for KD and ensures that it's a
-                % positive number
-                KD = str2double(get(handles.input2_1, 'String'));
-                
-                if isnan(KD) || KD <= 0
-                    errorbox('K_D must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the value for phi and ensures that it's a
-                % number
-                p = str2double(get(handles.input3_1, 'String'));
-                
-                if isnan(p)
-                    errorbox('phi must be a number', hObject); 
-                    return
-                end
-                
-                % Determines whether the X-axis is free MT or total MT
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-                     
-                        % Calculates frac, MTfree, and Abound
-                        [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
-                      
-                        
-                        y1 = frac;
-                        x1 = MTfree;
-                        
-                        xaxis = '[MT] free';
-                        yaxis = 'Fraction of A bound';
-                        legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
-                        
-                    case 'total'
-                       
-                        % Calculates frac, MTfree, and Abound
-                        [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+            % Gets the value for [A] total and ensures that it's a
+            % positive number
+            Atot = str2double(get(handles.input1_1, 'String'));
 
-                        
-                        y1 = frac;
-                        x1 = xvals;
-                        
-                        xaxis = '[MT] total';
-                        yaxis = 'Fraction of A bound';
-                        legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
-                        
-                    otherwise
-                end
-                
-            % Saturation mode is selected
-            case 'saturation'
-                
-                % Gets the value for [MT] total and ensures that it's a
-                % positive number
-                MTtot = str2double(get(handles.input1_1, 'String'));
-                
-                if isnan(MTtot) || MTtot < 0
-                    errorbox('Please enter a positive number for [MT] total', hObject); 
-                    return
-                end
-                
-                % Gets the value for KD and ensures that it's a
-                % positive number
-                KD = str2double(get(handles.input2_1, 'String'));
-                
-                if isnan(KD) || KD <= 0
-                    errorbox('K_D must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the value for phi and ensures that it's a
-                % number
-                p = str2double(get(handles.input3_1, 'String'));
-                
-                if isnan(p) || p <= 0
-                    errorbox('phi must be a number greater than 0', hObject); 
-                    return
-                end
-                       
-                % Steps through x, calculating the value of frac
-                % at each point and adding it to the vector
-                [Frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
+            if isnan(Atot) || Atot < 0
+                errorbox('Please enter a positive number for [A] total', hObject); 
+                return
+            end
 
-                       
-                y1 = Abound;
-                x1 = xvals;
-                
-                xaxis = '[A] total';
-                yaxis = '[A] bound';
-                legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
-                
-            otherwise
-        end
-        
-        
-    % Seam and lattice binding
-    case 3
-        % Determine the experimental mode
-        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-            % Binding mode is selected
-            case 'binding'
-                
-                % Gets the value for [A] total and ensures that it's a
-                % positive number
-                Atot = str2double(get(handles.input1_1, 'String'));
-                
-                if isnan(Atot) || Atot < 0
-                    errorbox('Please enter a positive number for [A] total', hObject); 
-                    return
-                end
-                
-                % Gets the value for KS and ensures that it's a
-                % positive number
-                KS = str2double(get(handles.input2_1, 'String'));
-                
-                if isnan(KS) || KS <= 0
-                    errorbox('K_S must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the value for KL and ensures that it's a positive
-                % number
-                KL = str2double(get(handles.input3_1, 'String'));
-                
-                if isnan(KL) || KL <= 0
-                    errorbox('K_L must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Determines whether the X-axis is free MT or total MT
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-                        
-                       % Calculates fraction of A bound and free MT
-                       [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
-                       y1 = Frac;
-                       x1 = MTfree;
-                       
-                       xaxis = '[MT] free';
-                       yaxis = 'Fraction of A bound';
-                       legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
-                        
-                    case 'total'
-                        
-                        % Calculates fraction of A bound and MT free
-                        [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
-                        y1 = Frac;
-                        x1 = xvals;
-                        
-                        xaxis = '[MT] total';
-                        yaxis = 'Fraction of A bound';
-                        legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
-                        
-                    otherwise
-                end
-                
-            % Saturation mode is selected
-            case 'saturation'
-                
-                % Gets the value for [MT] total and ensures that it's a
-                % positive number
-                MTtot = str2double(get(handles.input1_1, 'String'));
-                
-                if isnan(MTtot) || MTtot < 0
-                    errorbox('Please enter a positive number for [MT] total', hObject); 
-                    return
-                end
-                
-                % Gets the value for KS and ensures that it's a
-                % positive number
-                KS = str2double(get(handles.input2_1, 'String'));
-                
-                if isnan(KS) || KS <= 0
-                    errorbox('K_S must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the value for KL and ensures that it's a positive
-                % number
-                KL = str2double(get(handles.input3_1, 'String'));
-                
-                if isnan(KL) || KL <= 0
-                    errorbox('K_L must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Calculates concentration of A bound and MT free
-                [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
-                y1 = Abound;
-                x1 = xvals;
-                
-                xaxis = '[A] total';
-                yaxis = '[A] bound';
-                legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
-                
-            otherwise
-        end
-        
-        
-    % MAPs bind MT-bound MAPS
-    case 4
-        
-        % Determine the experimental mode
-        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-            % Binding mode is selected
-            case 'binding'
-                
-                % Gets the value for [A] total and ensures that it's a
-                % positive number
-                Atot = str2double(get(handles.input1_1, 'String'));
-                
-                if isnan(Atot) || Atot < 0
-                    errorbox('Please enter a positive number for [A] total', hObject); 
-                    return
-                end
-                
-                % Gets the value for KM and ensures that it's a
-                % positive number
-                KM = str2double(get(handles.input2_1, 'String'));
-                
-                if isnan(KM) || KM <= 0
-                    errorbox('K_M must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the value for KA and ensures that it's a positive
-                % number
-                KA = str2double(get(handles.input3_1, 'String'));
-                
-                if isnan(KA) || KA <= 0
-                    errorbox('K_A must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Determines whether the X-axis is free MT or total MT
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-                        
-                       % Calculates fraction of A bound and free MT
-                       [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
-                       
-                       y1 = Frac;
-                       x1 = MTfree;
-                       
-                       xaxis = '[MT] free';
-                       yaxis = 'Fraction of A bound';
-                       legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
-                
-                    case 'total'
-                        
-                        % Calculates fraction of A bound and free MT
-                        [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
-                       
-                        y1 = Frac;
-                        x1 = xvals;
-                        
-                        xaxis = '[MT] total';
-                        yaxis = 'Fraction of A bound';
-                        legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
-                
-                    otherwise
-                end
-                
-            % Saturation mode is selected
-            case 'saturation'
-                
-                % Gets the value for [MT] total and ensures that it's a
-                % positive number
-                MTtot = str2double(get(handles.input1_1, 'String'));
-                
-                if isnan(MTtot) || MTtot < 0
-                    errorbox('Please enter a positive number for [MT] total', hObject); 
-                    return
-                end
-                
-                % Gets the value for KM and ensures that it's a
-                % positive number
-                KM = str2double(get(handles.input2_1, 'String'));
-                
-                if isnan(KM) || KM <= 0
-                    errorbox('K_M must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the value for KA and ensures that it's a positive
-                % number
-                KA = str2double(get(handles.input3_1, 'String'));
-                
-                if isnan(KA) || KA <= 0
-                    errorbox('K_A must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Calculates the concentration of A bound
-                [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
-                
-                y1 = Abound;
-                x1 =xvals;
-                
-                xaxis = '[A] total';
-                yaxis = '[A] bound';
-                legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
-                
-            otherwise
-        end
-        
-        
-    otherwise
+            % Gets the value for KD and ensures that it's a
+            % positive number
+            KD = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KD) || KD <= 0
+                errorbox('K_D must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Determines whether the X-axis is free MT or total MT
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+
+                   %Calculates the value of frac, MTfree, and Abound at
+                   %each value of x
+                   [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+
+                   y1 = frac;
+                   x1 = MTfree;
+
+                   xaxis = '[MT] free';
+                   yaxis = 'Fraction of A bound';
+                   plottitle = 'Vary [MT] Binding Assay';
+                   legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+
+                case 'total'
+
+                   % Calculates the value of frac, MTfree, and Abound
+                   [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+
+
+                   y1 = frac;
+                   x1 = xvals; 
+
+                   xaxis = '[MT] total';
+                   yaxis = 'Fraction of A bound';
+                   plottitle = 'Vary [MT] Binding Assay';
+                   legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+
+                otherwise
+            end
+
+        % Saturation mode is selected
+        case 'saturation'
+
+            % Gets the value for [MT] total and ensures that it's a
+            % positive number
+            MTtot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(MTtot) || MTtot < 0
+                errorbox('Please enter a positive number for [MT] total', hObject); 
+                return
+            end
+
+            % Gets the value for KD and ensures that it's a
+            % positive number
+            KD = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KD) || KD <= 0
+                errorbox('K_D must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Calculates frac, MTfree, and Abound
+            [Frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
+
+
+            y1 = Abound;
+            x1 = xvals;
+
+            xaxis = '[A] total';
+            yaxis = '[A] bound';
+            plottitle = 'Vary [A] Binding Assay';
+            legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+
+        otherwise
+    end
+
+% Cooperative binding  
+elseif get(handles.curve1, 'Value') == 2
+
+    % Determine the experimental mode
+    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+        % Binding mode is selected
+        case 'binding'
+
+            % Gets the value for [A] total and ensures that it's a
+            % positive number
+            Atot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(Atot) || Atot < 0
+                errorbox('Please enter a positive number for [A] total', hObject); 
+                return
+            end
+
+            % Gets the value for KD and ensures that it's a
+            % positive number
+            KD = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KD) || KD <= 0
+                errorbox('K_D must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for phi and ensures that it's a
+            % number
+            p = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(p)
+                errorbox('phi must be a number', hObject); 
+                return
+            end
+
+            % Determines whether the X-axis is free MT or total MT
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+
+                    % Calculates frac, MTfree, and Abound
+                    [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+
+
+                    y1 = frac;
+                    x1 = MTfree;
+
+                    xaxis = '[MT] free';
+                    yaxis = 'Fraction of A bound';
+                    plottitle = 'Vary [MT] Binding Assay';
+                    legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
+
+                case 'total'
+
+                    % Calculates frac, MTfree, and Abound
+                    [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+
+
+                    y1 = frac;
+                    x1 = xvals;
+
+                    xaxis = '[MT] total';
+                    yaxis = 'Fraction of A bound';
+                    plottitle = 'Vary [MT] Binding Assay';
+                    legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
+
+                otherwise
+            end
+
+        % Saturation mode is selected
+        case 'saturation'
+
+            % Gets the value for [MT] total and ensures that it's a
+            % positive number
+            MTtot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(MTtot) || MTtot < 0
+                errorbox('Please enter a positive number for [MT] total', hObject); 
+                return
+            end
+
+            % Gets the value for KD and ensures that it's a
+            % positive number
+            KD = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KD) || KD <= 0
+                errorbox('K_D must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for phi and ensures that it's a
+            % number
+            p = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(p) || p <= 0
+                errorbox('phi must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Steps through x, calculating the value of frac
+            % at each point and adding it to the vector
+            [Frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
+
+
+            y1 = Abound;
+            x1 = xvals;
+
+            xaxis = '[A] total';
+            yaxis = '[A] bound';
+            plottitle = 'Vary [A] Binding Assay';
+            legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
+
+        otherwise
+    end
+
+
+% Seam and lattice binding
+elseif get(handles.curve1, 'Value') == 3
+    % Determine the experimental mode
+    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+        % Binding mode is selected
+        case 'binding'
+
+            % Gets the value for [A] total and ensures that it's a
+            % positive number
+            Atot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(Atot) || Atot < 0
+                errorbox('Please enter a positive number for [A] total', hObject); 
+                return
+            end
+
+            % Gets the value for KS and ensures that it's a
+            % positive number
+            KS = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KS) || KS <= 0
+                errorbox('K_S must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for KL and ensures that it's a positive
+            % number
+            KL = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(KL) || KL <= 0
+                errorbox('K_L must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Determines whether the X-axis is free MT or total MT
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+
+                   % Calculates fraction of A bound and free MT
+                   [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                   y1 = Frac;
+                   x1 = MTfree;
+
+                   xaxis = '[MT] free';
+                   yaxis = 'Fraction of A bound';
+                   plottitle = 'Vary [MT] Binding Assay';
+                   legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
+
+                case 'total'
+
+                    % Calculates fraction of A bound and MT free
+                    [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                    y1 = Frac;
+                    x1 = xvals;
+
+                    xaxis = '[MT] total';
+                    yaxis = 'Fraction of A bound';
+                    plottitle = 'Vary [MT] Binding Assay';
+                    legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
+
+                otherwise
+            end
+
+        % Saturation mode is selected
+        case 'saturation'
+
+            % Gets the value for [MT] total and ensures that it's a
+            % positive number
+            MTtot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(MTtot) || MTtot < 0
+                errorbox('Please enter a positive number for [MT] total', hObject); 
+                return
+            end
+
+            % Gets the value for KS and ensures that it's a
+            % positive number
+            KS = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KS) || KS <= 0
+                errorbox('K_S must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for KL and ensures that it's a positive
+            % number
+            KL = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(KL) || KL <= 0
+                errorbox('K_L must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Calculates concentration of A bound and MT free
+            [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
+            y1 = Abound;
+            x1 = xvals;
+
+            xaxis = '[A] total';
+            yaxis = '[A] bound';
+            plottitle = 'Vary [A] Binding Assay';
+            legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
+
+        otherwise
+    end
+
+
+% MAPs bind MT-bound MAPS
+elseif get(handles.curve1, 'Value') == 4
+
+    % Determine the experimental mode
+    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+        % Binding mode is selected
+        case 'binding'
+
+            % Gets the value for [A] total and ensures that it's a
+            % positive number
+            Atot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(Atot) || Atot < 0
+                errorbox('Please enter a positive number for [A] total', hObject); 
+                return
+            end
+
+            % Gets the value for KM and ensures that it's a
+            % positive number
+            KM = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KM) || KM <= 0
+                errorbox('K_M must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for KA and ensures that it's a positive
+            % number
+            KA = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(KA) || KA <= 0
+                errorbox('K_A must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Determines whether the X-axis is free MT or total MT
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+
+                   % Calculates fraction of A bound and free MT
+                   [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
+
+                   y1 = Frac;
+                   x1 = MTfree;
+
+                   xaxis = '[MT] free';
+                   yaxis = 'Fraction of A bound';
+                   plottitle = 'Vary [MT] Binding Assay';
+                   legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+
+                case 'total'
+
+                    % Calculates fraction of A bound and free MT
+                    [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
+
+                    y1 = Frac;
+                    x1 = xvals;
+
+                    xaxis = '[MT] total';
+                    yaxis = 'Fraction of A bound';
+                    plottitle = 'Vary [MT] Binding Assay';
+                    legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+
+                otherwise
+            end
+
+        % Saturation mode is selected
+        case 'saturation'
+
+            % Gets the value for [MT] total and ensures that it's a
+            % positive number
+            MTtot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(MTtot) || MTtot < 0
+                errorbox('Please enter a positive number for [MT] total', hObject); 
+                return
+            end
+
+            % Gets the value for KM and ensures that it's a
+            % positive number
+            KM = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KM) || KM <= 0
+                errorbox('K_M must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for KA and ensures that it's a positive
+            % number
+            KA = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(KA) || KA <= 0
+                errorbox('K_A must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Calculates the concentration of A bound
+            [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
+
+            y1 = Abound;
+            x1 =xvals;
+
+            xaxis = '[A] total';
+            yaxis = '[A] bound';
+            plottitle = 'Vary [A] Binding Assay';
+            legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+
+        otherwise
+    end
+
 end
 
 
@@ -859,397 +908,431 @@ end
 % second curve
 if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     
-    % Determines the parameters selected for curve1
-    switch get(handles.curve2, 'Value')
-        % First order binding
-        case 1
-
-            % Determine the experimental mode
-            switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-                % Binding mode is selected
-                case 'binding'
-
-                    % Gets the value for [A] total and ensures that it's a
-                    % positive number
-                    Atot = str2double(get(handles.input1_2, 'String'));
-
-                    if isnan(Atot) || Atot < 0
-                        errorbox('Please enter a positive number for [A] total', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KD and ensures that it's a
-                    % positive number
-                    KD = str2double(get(handles.input2_2, 'String'));
-
-                    if isnan(KD) || KD <= 0
-                        errorbox('K_D must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Determines whether the X-axis is free B or total B
-                    switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                        case 'free'
-
-                           % Function to get fraction A bound and free MT 
-                           [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
-                           
-                           y2 = Frac;
-                           x2 = MTfree;
-                           
-                           legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
-                       
-                        case 'total'
-
-                           % Function to get fraction A bound
-                           [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
-                           
-                           y2 = Frac;
-                           x2 = xvals;
-
-                           legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
-                           
-                        otherwise
-                    end
-
-                % Saturation mode is selected
-                case 'saturation'
-
-                    % Gets the value for [MT] total and ensures that it's a
-                    % positive number
-                    MTtot = str2double(get(handles.input1_2, 'String'));
-
-                    if isnan(MTtot) || MTtot < 0
-                        errorbox('Please enter a positive number for [MT] total', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KD and ensures that it's a
-                    % positive number
-                    KD = str2double(get(handles.input2_2, 'String'));
-
-                    if isnan(KD) || KD <= 0
-                        errorbox('K_D must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Function to get the concentration of A bound
-                    [Frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
-                    
-                    y2 = Abound;
-                    x2 = xvals;
-                    
-                    legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
-
-                otherwise
-            end
-
-        % Cooperative binding  
-        case 2
-
-            % Determine the experimental mode
-            switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-                % Binding mode is selected
-                case 'binding'
-
-                    % Gets the value for [A] total and ensures that it's a
-                    % positive number
-                    Atot = str2double(get(handles.input1_2, 'String'));
-
-                    if isnan(Atot) || Atot < 0
-                        errorbox('Please enter a positive number for [A] total', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KD and ensures that it's a
-                    % positive number
-                    KD = str2double(get(handles.input2_2, 'String'));
-
-                    if isnan(KD) || KD <= 0
-                        errorbox('K_D must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Gets the value for p and ensures that it's a
-                    % number
-                    p = str2double(get(handles.input3_2, 'String'));
-
-                    if isnan(p) || p <= 0
-                        errorbox('phi must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Determines whether the X-axis is free MT or total MT
-                    switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                        case 'free'
-
-                           % Function to get fraction A bound and free MT 
-                           [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
-                           
-                           y2 = Frac;
-                           x2 = MTfree;
-                           
-                           legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
-
-                        case 'total'
-
-                           % Function to get fraction A bound
-                           [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
-                           
-                           y2 = Frac;
-                           x2 = xvals;
-                           
-                           legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
-
-                        otherwise
-                    end
-
-                % Saturation mode is selected
-                case 'saturation'
-
-                    % Gets the value for [MT] total and ensures that it's a
-                    % positive number
-                    MTtot = str2double(get(handles.input1_2, 'String'));
-
-                    if isnan(MTtot) || MTtot < 0
-                        errorbox('Please enter a positive number for [MT] total', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KD and ensures that it's a
-                    % positive number
-                    KD = str2double(get(handles.input2_2, 'String'));
-
-                    if isnan(KD) || KD <= 0
-                        errorbox('K_D must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Gets the value for p and ensures that it's a
-                    % number
-                    p = str2double(get(handles.input3_2, 'String'));
-
-                    if isnan(p)
-                        errorbox('phi must be a number', hObject); 
-                        return
-                    end
-
-                    % Function to get the concentration of A bound
-                    [Frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
-                    
-                    y2 = Abound;
-                    x2 = xvals;
-                    
-                    legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
-
-                otherwise
-            end
-
-
-        % Seam and lattice binding
-        case 3
-            % Determine the experimental mode
-            switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-                % Binding mode is selected
-                case 'binding'
-
-                    % Gets the value for [A] total and ensures that it's a
-                    % positive number
-                    Atot = str2double(get(handles.input1_2, 'String'));
-
-                    if isnan(Atot) || Atot < 0
-                        errorbox('Please enter a positive number for [A] total', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KS and ensures that it's a
-                    % positive number
-                    KS = str2double(get(handles.input2_2, 'String'));
-
-                    if isnan(KS) || KS <= 0
-                        errorbox('K_S must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KL and ensures that it's a positive
-                    % number
-                    KL = str2double(get(handles.input3_2, 'String'));
-
-                    if isnan(KL) || KL <= 0
-                        errorbox('K_L must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Determines whether the X-axis is free MT or total MT
-                    switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                        case 'free'
-
-                           % Function to get fraction A bound and free MT 
-                           [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
-                           
-                           y2 = Frac;
-                           x2 = MTfree;
-                           
-                           legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
-
-                        case 'total'
-
-                            % Function to get fraction A bound
-                            [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
-                           
-                            y2 = Frac;
-                            x2 = xvals;
-                            
-                            legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
-
-                        otherwise
-                    end
-
-                % Saturation mode is selected
-                case 'saturation'
-
-                    % Gets the value for [MT] total and ensures that it's a
-                    % positive number
-                    MTtot = str2double(get(handles.input1_2, 'String'));
-
-                    if isnan(MTtot) || MTtot < 0
-                        errorbox('Please enter a positive number for [MT] total', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KS and ensures that it's a
-                    % positive number
-                    KS = str2double(get(handles.input2_2, 'String'));
-
-                    if isnan(KS) || KS <= 0
-                        errorbox('K_S must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KL and ensures that it's a positive
-                    % number
-                    KL = str2double(get(handles.input3_2, 'String'));
-
-                    if isnan(KL) || KL <= 0
-                        errorbox('K_L must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Function to get the concentration of A bound
-                    [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
-                    
-                    y2 = Abound;
-                    x2 = xvals;
-                    
-                    legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
-
-                otherwise
-            end
-
-
-        % MAPs bind MT-bound MAPS
-        case 4
-
-            % Determine the experimental mode
-            switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-                % Binding mode is selected
-                case 'binding'
-
-                    % Gets the value for [A] total and ensures that it's a
-                    % positive number
-                    Atot = str2double(get(handles.input1_2, 'String'));
-
-                    if isnan(Atot) || Atot < 0
-                        errorbox('Please enter a positive number for [A] total', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KM and ensures that it's a
-                    % positive number
-                    KM = str2double(get(handles.input2_2, 'String'));
-
-                    if isnan(KM) || KM <= 0
-                        errorbox('K_M must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KA and ensures that it's a positive
-                    % number
-                    KA = str2double(get(handles.input3_2, 'String'));
-
-                    if isnan(KA) || KA <= 0
-                        errorbox('K_A must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Determines whether the X-axis is free MT or total MT
-                    switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                        case 'free'
-
-                           % Function to get fraction A bound and free MT 
-                           [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
-                           
-                           y2 = Frac;
-                           x2 = MTfree;
-                           
-                           legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
-
-                        case 'total'
-
-                            % Function to get fraction A bound
-                            [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
-                           
-                            y2 = Frac;
-                            x2 = xvals;
-                            
-                            legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
-
-                        otherwise
-                    end
-
-                % Saturation mode is selected
-                case 'saturation'
-
-                    % Gets the value for [MT] total and ensures that it's a
-                    % positive number
-                    MTtot = str2double(get(handles.input1_2, 'String'));
-
-                    if isnan(MTtot) || MTtot < 0
-                        errorbox('Please enter a positive number for [MT] total', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KM and ensures that it's a
-                    % positive number
-                    KM = str2double(get(handles.input2_2, 'String'));
-
-                    if isnan(KM) || KM <= 0
-                        errorbox('K_M must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Gets the value for KA and ensures that it's a positive
-                    % number
-                    KA = str2double(get(handles.input3_2, 'String'));
-
-                    if isnan(KA) || KA <= 0
-                        errorbox('K_A must be a number greater than 0', hObject); 
-                        return
-                    end
-
-                    % Function to get the concentration of A bound
-                    [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
-                    
-                    y2 = Abound;
-                    x2 = xvals;
-                    
-                    legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
-
-                otherwise
-            end
-
-
-        otherwise
+  if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
+
+    MTtot = str2double(get(handles.input1_2, 'String'));
+    
+    if isnan(MTtot) || MTtot < 0
+        errorbox('Please enter a positive number for [MT] total', hObject);
+        return
+    end
+    
+    Atot = str2double(get(handles.input2_2, 'String'));
+    
+    if isnan(Atot) || Atot < 0
+        errorbox('Please enter a positive number for [A] total', hObject);
+        return
+    end
+    
+    KA = str2double(get(handles.input3_2, 'String'));
+    
+    if isnan(KA) || KA < 0
+        errorbox('Please enter a positive number for K_A', hObject);
+        return
+    end
+    
+    KB = str2double(get(handles.input4_2, 'String'));
+    
+    if isnan(KB) || KB < 0
+        errorbox('Please enter a positive number for K_B', hObject);
+        return
+    end
+    
+    [frac] = competition(MTtot, Atot, xvals, KA, KB);
+    
+    y2 = frac;
+    x2 = xvals;
+
+    legend2 = ['[MT] total = ' get(handles.input1_2, 'String') ', [A] total = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', K_B = ' get(handles.input4_2, 'String') ];
+
+  % Determines the parameters selected for curve1
+  elseif get(handles.curve2, 'Value') == 1
+    % First order binding
+
+        % Determine the experimental mode
+        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+            % Binding mode is selected
+            case 'binding'
+
+                % Gets the value for [A] total and ensures that it's a
+                % positive number
+                Atot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(Atot) || Atot < 0
+                    errorbox('Please enter a positive number for [A] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KD and ensures that it's a
+                % positive number
+                KD = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KD) || KD <= 0
+                    errorbox('K_D must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Determines whether the X-axis is free B or total B
+                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                    case 'free'
+
+                       % Function to get fraction A bound and free MT 
+                       [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+
+                       y2 = Frac;
+                       x2 = MTfree;
+
+                       legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+
+                    case 'total'
+
+                       % Function to get fraction A bound
+                       [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+
+                       y2 = Frac;
+                       x2 = xvals;
+
+                       legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+
+                    otherwise
+                end
+
+            % Saturation mode is selected
+            case 'saturation'
+
+                % Gets the value for [MT] total and ensures that it's a
+                % positive number
+                MTtot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(MTtot) || MTtot < 0
+                    errorbox('Please enter a positive number for [MT] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KD and ensures that it's a
+                % positive number
+                KD = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KD) || KD <= 0
+                    errorbox('K_D must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Function to get the concentration of A bound
+                [Frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
+
+                y2 = Abound;
+                x2 = xvals;
+
+                legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+
+            otherwise
+        end
+
+    % Cooperative binding  
+    elseif get(handles.curve2, 'Value') == 2
+
+        % Determine the experimental mode
+        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+            % Binding mode is selected
+            case 'binding'
+
+                % Gets the value for [A] total and ensures that it's a
+                % positive number
+                Atot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(Atot) || Atot < 0
+                    errorbox('Please enter a positive number for [A] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KD and ensures that it's a
+                % positive number
+                KD = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KD) || KD <= 0
+                    errorbox('K_D must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Gets the value for p and ensures that it's a
+                % number
+                p = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(p) || p <= 0
+                    errorbox('phi must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Determines whether the X-axis is free MT or total MT
+                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                    case 'free'
+
+                       % Function to get fraction A bound and free MT 
+                       [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+
+                       y2 = Frac;
+                       x2 = MTfree;
+
+                       legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
+
+                    case 'total'
+
+                       % Function to get fraction A bound
+                       [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+
+                       y2 = Frac;
+                       x2 = xvals;
+
+                       legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
+
+                    otherwise
+                end
+
+            % Saturation mode is selected
+            case 'saturation'
+
+                % Gets the value for [MT] total and ensures that it's a
+                % positive number
+                MTtot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(MTtot) || MTtot < 0
+                    errorbox('Please enter a positive number for [MT] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KD and ensures that it's a
+                % positive number
+                KD = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KD) || KD <= 0
+                    errorbox('K_D must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Gets the value for p and ensures that it's a
+                % number
+                p = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(p)
+                    errorbox('phi must be a number', hObject); 
+                    return
+                end
+
+                % Function to get the concentration of A bound
+                [Frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
+
+                y2 = Abound;
+                x2 = xvals;
+
+                legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
+
+            otherwise
+        end
+
+
+    % Seam and lattice binding
+    elseif get(handles.curve2, 'Value') == 3
+        % Determine the experimental mode
+        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+            % Binding mode is selected
+            case 'binding'
+
+                % Gets the value for [A] total and ensures that it's a
+                % positive number
+                Atot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(Atot) || Atot < 0
+                    errorbox('Please enter a positive number for [A] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KS and ensures that it's a
+                % positive number
+                KS = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KS) || KS <= 0
+                    errorbox('K_S must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Gets the value for KL and ensures that it's a positive
+                % number
+                KL = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(KL) || KL <= 0
+                    errorbox('K_L must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Determines whether the X-axis is free MT or total MT
+                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                    case 'free'
+
+                       % Function to get fraction A bound and free MT 
+                       [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+
+                       y2 = Frac;
+                       x2 = MTfree;
+
+                       legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+
+                    case 'total'
+
+                        % Function to get fraction A bound
+                        [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+
+                        y2 = Frac;
+                        x2 = xvals;
+
+                        legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+
+                    otherwise
+                end
+
+            % Saturation mode is selected
+            case 'saturation'
+
+                % Gets the value for [MT] total and ensures that it's a
+                % positive number
+                MTtot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(MTtot) || MTtot < 0
+                    errorbox('Please enter a positive number for [MT] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KS and ensures that it's a
+                % positive number
+                KS = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KS) || KS <= 0
+                    errorbox('K_S must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Gets the value for KL and ensures that it's a positive
+                % number
+                KL = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(KL) || KL <= 0
+                    errorbox('K_L must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Function to get the concentration of A bound
+                [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
+
+                y2 = Abound;
+                x2 = xvals;
+
+                legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+
+            otherwise
+        end
+
+
+    % MAPs bind MT-bound MAPS
+    elseif get(handles.curve2, 'Value') == 4
+
+        % Determine the experimental mode
+        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+            % Binding mode is selected
+            case 'binding'
+
+                % Gets the value for [A] total and ensures that it's a
+                % positive number
+                Atot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(Atot) || Atot < 0
+                    errorbox('Please enter a positive number for [A] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KM and ensures that it's a
+                % positive number
+                KM = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KM) || KM <= 0
+                    errorbox('K_M must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Gets the value for KA and ensures that it's a positive
+                % number
+                KA = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(KA) || KA <= 0
+                    errorbox('K_A must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Determines whether the X-axis is free MT or total MT
+                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                    case 'free'
+
+                       % Function to get fraction A bound and free MT 
+                       [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
+
+                       y2 = Frac;
+                       x2 = MTfree;
+
+                       legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+
+                    case 'total'
+
+                        % Function to get fraction A bound
+                        [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
+
+                        y2 = Frac;
+                        x2 = xvals;
+
+                        legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+
+                    otherwise
+                end
+
+            % Saturation mode is selected
+            case 'saturation'
+
+                % Gets the value for [MT] total and ensures that it's a
+                % positive number
+                MTtot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(MTtot) || MTtot < 0
+                    errorbox('Please enter a positive number for [MT] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KM and ensures that it's a
+                % positive number
+                KM = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KM) || KM <= 0
+                    errorbox('K_M must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Gets the value for KA and ensures that it's a positive
+                % number
+                KA = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(KA) || KA <= 0
+                    errorbox('K_A must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Function to get the concentration of A bound
+                [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
+
+                y2 = Abound;
+                x2 = xvals;
+
+                legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+
+            otherwise
+        end
+
     end
 
     
@@ -1269,6 +1352,7 @@ hold on
 h = plot(handles.graphaxes, x1, y1);
 xlabel(xaxis);
 ylabel(yaxis);
+title(plottitle);
 
 add_legend(handles, legend1);
 
