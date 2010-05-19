@@ -87,8 +87,8 @@ handles.mainfigure = hObject;
 set(hObject, 'Toolbar', 'none');
 
 % Clear out the future home of the graph figure and axes
-handles.graphfigure = 0;
-handles.graphaxes = 0;
+handles.graphfigure = -1;
+handles.graphaxes = -1;
 
 % Creates a color variable to enable rotating colors according to how many
 % lines are on the graph
@@ -1197,7 +1197,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         case 'total'
 
                             % Function to get fraction A bound
-                            [Frac, Frac, MTfree] = MAP_bind(xvals, Atot, KM, KA);
+                            [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
                            
                             y2 = Frac;
                             x2 = xvals;
@@ -1256,7 +1256,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 end
 
 % Create a graph window if necessary
-if (handles.graphfigure == 0 || handles.graphaxes == 0)
+if (ishandle(handles.graphfigure) == 0 || ishandle(handles.graphaxes == 0))
     handles.graphfigure = figure;
     handles.graphaxes = axes;
 end
@@ -1379,20 +1379,17 @@ function clear_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Close the graph figure if it exists
-if (handles.graphaxes)
+if ishandle(handles.graphaxes)
     delete(handles.graphaxes);
-    handles.graphaxes = 0;
+    handles.graphaxes = -1;
 end
-if (handles.graphfigure)
+if ishandle(handles.graphfigure)
     delete(handles.graphfigure);
-    handles.graphfigure = 0;
+    handles.graphfigure = -1;
 end
 
 % Resets the color counter
 handles.color = 0;
-% Clears the text in the color display fields
-set(handles.color1, 'String', '');
-set(handles.color2, 'String', '');
 
 % Updates the handles
 guidata(hObject, handles);
@@ -1407,7 +1404,7 @@ handles = guidata(hObject);
 
 % Creates a dialog box notifying the user that the axes will be cleared and
 % asking them if they want to proceed
-if (handles.graphaxes || handles.graphfigure)
+if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
     clear = questdlg('Changing the experimental mode will automatically close the graph window. Do you want to continue?', 'Close Graph Window?', 'Yes','No','No');
     
     % Returns the selection to is previous value and stops evaluating further
@@ -1419,13 +1416,13 @@ if (handles.graphaxes || handles.graphfigure)
         return
     end
     
-    if (handles.graphaxes)
+    if (ishandle(handles.graphaxes))
         delete(handles.graphaxes);
-        handles.graphaxes = 0;
+        handles.graphaxes = -1;
     end
-    if (handles.graphfigure)
+    if (ishandle(handles.graphfigure))
         delete(handles.graphfigure);
-        handles.graphfigure = 0;
+        handles.graphfigure = -1;
     end
 end
 
@@ -1591,9 +1588,6 @@ handles = guidata(hObject);
 
 % Resets the color counter
 handles.color = 0;
-% Clears the text in the color display fields
-set(handles.color1, 'String', '');
-set(handles.color2, 'String', '');
 
 % Updates the handles
 guidata(hObject, handles);
@@ -1614,7 +1608,6 @@ switch get(eventdata.NewValue, 'Tag')
         set(handles.curve2, 'Visible', 'off');
         set(handles.model2, 'Visible', 'off');
         set(handles.equation2, 'Visible', 'off');
-        set(handles.color2, 'Visible', 'off');
         set(handles.result, 'Visible', 'off');
         
     case 'compare'
@@ -1623,7 +1616,6 @@ switch get(eventdata.NewValue, 'Tag')
         set(handles.curve2, 'Visible', 'on');
         set(handles.model2, 'Visible', 'on');
         set(handles.equation2, 'Visible', 'on');
-        set(handles.color2, 'Visible', 'on');
         set(handles.result, 'Visible', 'on');
         
         if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding')
