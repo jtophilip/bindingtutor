@@ -1,6 +1,6 @@
 TODO for v1.0:
 
-* Remove the "this curve is X" color label and setting code.
+* Add legend text appropriate to the model being graphed
 
 * Change solver programs to accept n by multiplying MTtot and n
 

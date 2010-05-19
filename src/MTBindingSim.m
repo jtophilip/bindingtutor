@@ -1243,7 +1243,7 @@ if rem(handles.color,7) == 0
 elseif rem(handles.color,7) ==1
     set(h,'color','red');
 elseif rem(handles.color,7) ==2
-    set(h,'color','yellow');
+    set(h,'color',[1 0.65 0]);
 elseif rem(handles.color,7) ==3
     set(h,'color','green');
 elseif rem(handles.color,7) ==4
@@ -1273,7 +1273,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     elseif rem(handles.color,7) ==1
         set(h,'color','red');
     elseif rem(handles.color,7) ==2
-        set(h,'color','yellow');
+        set(h,'color',[1 0.65 0]);
     elseif rem(handles.color,7) ==3
         set(h,'color','green');
     elseif rem(handles.color,7) ==4
