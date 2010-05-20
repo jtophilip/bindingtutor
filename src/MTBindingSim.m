@@ -1816,6 +1816,8 @@ first_order_strings(handles.model1, handles.equation1);
 % Sets labels for the visible input boxes
 set(handles.label_xmin, 'String', '[MT] total min ');
 set(handles.label_xmax, 'String', '[MT] total max ');
+set(handles.total, 'String', '[MT] total');
+set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total');
 set_java_component(handles.label2_1, [KD, ' ']);
 
@@ -1843,6 +1845,8 @@ first_order_strings(handles.model1, handles.equation1);
 %Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
 set(handles.label_xmax, 'String', '[A] total max ');
+set(handles.total, 'String', '[A] total');
+set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
 
@@ -1871,6 +1875,8 @@ cooperativity_strings(handles.model1, handles.equation1);
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[MT] total min ');
 set(handles.label_xmax, 'String', '[MT] total max ');
+set(handles.total, 'String', '[MT] total');
+set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '&phi; ');
@@ -1903,6 +1909,8 @@ cooperativity_strings(handles.model1, handles.equation1);
 %Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
 set(handles.label_xmax, 'String', '[A] total max ');
+set(handles.total, 'String', '[A] total');
+set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '&phi; ');
@@ -1935,6 +1943,8 @@ seam_strings(handles.model1, handles.equation1);
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[MT] total min ');
 set(handles.label_xmax, 'String', '[MT] total max ');
+set(handles.total, 'String', '[MT] total');
+set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KS, ' ']);
 set_java_component(handles.label3_1, [KL, ' ']);
@@ -1964,6 +1974,8 @@ seam_strings(handles.model1, handles.equation1);
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
 set(handles.label_xmax, 'String', '[A] total max ');
+set(handles.total, 'String', '[A] total');
+set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KS, ' ']);
 set_java_component(handles.label3_1, [KL, ' ']);
@@ -1993,6 +2005,8 @@ MAP_strings(handles.model1, handles.equation1);
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[MT] total min ');
 set(handles.label_xmax, 'String', '[MT] total max ');
+set(handles.total, 'String', '[MT] total');
+set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KM, ' ']);
 set_java_component(handles.label3_1, [KA, ' ']);
@@ -2022,6 +2036,8 @@ MAP_strings(handles.model1, handles.equation1);
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
 set(handles.label_xmax, 'String', '[A] total max ');
+set(handles.total, 'String', '[A] total');
+set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KM, ' ']);
 set_java_component(handles.label3_1, [KA, ' ']);
