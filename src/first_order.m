@@ -1,4 +1,4 @@
-function [Frac, MTfree, Abound] = first_order(MTtot, Atot, KD)
+function [Frac, MTfree, Abound, Afree] = first_order(MTtot, Atot, KD)
 % A function which calculates the biding of A to MT assuming first order
 % binding where the total concentrations of A and MT are Atot and Btot and
 % the disassociation constant is KD.
@@ -33,9 +33,10 @@ syms A kd mtt at
 
 % Solves for free and bound A
 A1 = solve(A + (1/kd)*A*mtt/(1 + (1/kd)*A)- at, A);
-Afree = subs(A1(1), {kd mtt at}, {KD MTtot Atot});
-AB = Atot - Afree;
+AF = subs(A1(1), {kd mtt at}, {KD MTtot Atot});
+AB = Atot - AF;
 Abound = real(AB);
+Afree = real(AF);
 
 % Solves for fraciton of A bound
 f = (Abound)./Atot;

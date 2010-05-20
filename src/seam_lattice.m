@@ -1,4 +1,4 @@
-function [Frac, MTfree, Abound] = seam_lattice(MTtot, Atot, KS, KL)
+function [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, Atot, KS, KL)
 % A function which calculates the binding of A to MT assuming that A binds
 % to the seam of the MT with disassociation constant KS and the lattice of
 % the MT with disassociatio nconstant KL.
@@ -35,9 +35,10 @@ LT = MTtot.*12./13;
 
 % Calculates free and bound A
 A1 = solve(A + (1/ks)*A*st/(1 + (1/ks)*A) + (1/kl)*A*lat/(1 + (1/kl)*A) - at, A);
-Afree = subs(A1(1), {at st lat ks kl}, {Atot ST LT KS KL});
-AB = Atot - Afree;
+AF = subs(A1(1), {at st lat ks kl}, {Atot ST LT KS KL});
+AB = Atot - AF;
 Abound = real(AB);
+Afree = real(AF);
 
 % Calculates the fraction of A bound
 f = Abound./Atot;

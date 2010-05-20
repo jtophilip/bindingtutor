@@ -506,7 +506,7 @@ elseif get(handles.curve1, 'Value') == 1
 
                    %Calculates the value of frac, MTfree, and Abound at
                    %each value of x
-                   [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                   [frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD);
 
                    y1 = frac;
                    x1 = MTfree;
@@ -519,7 +519,7 @@ elseif get(handles.curve1, 'Value') == 1
                 case 'total'
 
                    % Calculates the value of frac, MTfree, and Abound
-                   [frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                   [frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD);
 
 
                    y1 = frac;
@@ -553,18 +553,41 @@ elseif get(handles.curve1, 'Value') == 1
                 errorbox('K_D must be a number greater than 0', hObject); 
                 return
             end
+            
+            % Determines whether free or total [A] should be graphed
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+                    
+                    % Calculates frac, MTfree, Abound, and Afree
+                    [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD);
 
-            % Calculates frac, MTfree, and Abound
-            [Frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
+
+                    y1 = Abound;
+                    x1 = Afree;
+
+                    xaxis = '[A] free';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+
+                    
+                case 'total'
+                
+                    % Calculates frac, MTfree, and Abound
+                    [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD);
 
 
-            y1 = Abound;
-            x1 = xvals;
+                    y1 = Abound;
+                    x1 = xvals;
 
-            xaxis = '[A] total';
-            yaxis = '[A] bound';
-            plottitle = 'Vary [A] Binding Assay';
-            legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+                    xaxis = '[A] total';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+
+                    
+                otherwise
+            end
 
         otherwise
     end
@@ -609,7 +632,7 @@ elseif get(handles.curve1, 'Value') == 2
                 case 'free'
 
                     % Calculates frac, MTfree, and Abound
-                    [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                    [frac, MTfree, Abound, Afree] = cooperativity(xvals, Atot, KD, p);
 
 
                     y1 = frac;
@@ -623,7 +646,7 @@ elseif get(handles.curve1, 'Value') == 2
                 case 'total'
 
                     % Calculates frac, MTfree, and Abound
-                    [frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                    [frac, MTfree, Abound, Afree] = cooperativity(xvals, Atot, KD, p);
 
 
                     y1 = frac;
@@ -667,19 +690,37 @@ elseif get(handles.curve1, 'Value') == 2
                 return
             end
 
-            % Steps through x, calculating the value of frac
-            % at each point and adding it to the vector
-            [Frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                
+                case 'free'
+                    
+                    [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, xvals, KD, p);
 
+                    y1 = Abound;
+                    x1 = Afree;
 
-            y1 = Abound;
-            x1 = xvals;
+                    xaxis = '[A] free';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
 
-            xaxis = '[A] total';
-            yaxis = '[A] bound';
-            plottitle = 'Vary [A] Binding Assay';
-            legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
+                    
+                case 'total'
+                    
+                    [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, xvals, KD, p);
 
+                    y1 = Abound;
+                    x1 = xvals;
+
+                    xaxis = '[A] total';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
+
+                otherwise
+            end
+            
+            
         otherwise
     end
 
@@ -723,7 +764,7 @@ elseif get(handles.curve1, 'Value') == 3
                 case 'free'
 
                    % Calculates fraction of A bound and free MT
-                   [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                   [Frac, MTfree, Abound, Afree] = seam_lattice(xvals, Atot, KS, KL);
                    y1 = Frac;
                    x1 = MTfree;
 
@@ -735,7 +776,7 @@ elseif get(handles.curve1, 'Value') == 3
                 case 'total'
 
                     % Calculates fraction of A bound and MT free
-                    [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                    [Frac, MTfree, Abound, Afree] = seam_lattice(xvals, Atot, KS, KL);
                     y1 = Frac;
                     x1 = xvals;
 
@@ -776,17 +817,38 @@ elseif get(handles.curve1, 'Value') == 3
                 errorbox('K_L must be a number greater than 0', hObject); 
                 return
             end
+            
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                
+                case 'free'
+                    
+                    % Calculates concentration of A bound and MT free
+                    [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, xvals, KS, KL);
+                    y1 = Abound;
+                    x1 = Afree;
 
-            % Calculates concentration of A bound and MT free
-            [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
-            y1 = Abound;
-            x1 = xvals;
+                    xaxis = '[A] free';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
 
-            xaxis = '[A] total';
-            yaxis = '[A] bound';
-            plottitle = 'Vary [A] Binding Assay';
-            legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
 
+                case 'total'
+                    
+                    % Calculates concentration of A bound and MT free
+                    [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, xvals, KS, KL);
+                    y1 = Abound;
+                    x1 = xvals;
+
+                    xaxis = '[A] total';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
+   
+                otherwise
+            end
+
+            
         otherwise
     end
 
@@ -831,7 +893,7 @@ elseif get(handles.curve1, 'Value') == 4
                 case 'free'
 
                    % Calculates fraction of A bound and free MT
-                   [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
+                   [Frac, MTfree, Abound, Afree] =MAP_bind(xvals, Atot, KM, KA);
 
                    y1 = Frac;
                    x1 = MTfree;
@@ -844,7 +906,7 @@ elseif get(handles.curve1, 'Value') == 4
                 case 'total'
 
                     % Calculates fraction of A bound and free MT
-                    [Frac, MTfree, Abound] =MAP_bind(xvals, Atot, KM, KA);
+                    [Frac, MTfree, Abound, Afree] =MAP_bind(xvals, Atot, KM, KA);
 
                     y1 = Frac;
                     x1 = xvals;
@@ -886,18 +948,38 @@ elseif get(handles.curve1, 'Value') == 4
                 errorbox('K_A must be a number greater than 0', hObject); 
                 return
             end
+            
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+                    
+                    % Calculates the concentration of A bound
+                    [Frac, MTfree, Abound, Afree] = MAP_bind(MTtot, xvals, KM, KA);
 
-            % Calculates the concentration of A bound
-            [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
+                    y1 = Abound;
+                    x1 = Afree;
 
-            y1 = Abound;
-            x1 =xvals;
+                    xaxis = '[A] free';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                    
+                case 'total'
+                    
+                    % Calculates the concentration of A bound
+                    [Frac, MTfree, Abound, Afree] = MAP_bind(MTtot, xvals, KM, KA);
 
-            xaxis = '[A] total';
-            yaxis = '[A] bound';
-            plottitle = 'Vary [A] Binding Assay';
-            legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                    y1 = Abound;
+                    x1 =xvals;
 
+                    xaxis = '[A] total';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+
+                otherwise
+            end
+
+            
         otherwise
     end
 
@@ -977,7 +1059,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                       [Frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD);
 
                        y2 = Frac;
                        x2 = MTfree;
@@ -987,7 +1069,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                        % Function to get fraction A bound
-                       [Frac, MTfree, Abound] = first_order(xvals, Atot, KD);
+                       [Frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD);
 
                        y2 = Frac;
                        x2 = xvals;
@@ -1017,15 +1099,32 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     errorbox('K_D must be a number greater than 0', hObject); 
                     return
                 end
+                
+                switch get(get(handles.tot_free, 'SelectedObject'), 'Tag')
+                    case 'free'
+                        
+                        % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD);
 
-                % Function to get the concentration of A bound
-                [Frac, MTfree, Abound] = first_order(MTtot, xvals, KD);
+                        y2 = Abound;
+                        x2 = Afree;
 
-                y2 = Abound;
-                x2 = xvals;
+                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
 
-                legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+                    case 'total'
+                        
+                        % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD);
 
+                        y2 = Abound;
+                        x2 = xvals;
+
+                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+
+                    otherwise
+                end
+
+                
             otherwise
         end
 
@@ -1069,7 +1168,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                       [Frac, MTfree, Abound, Afree] = cooperativity(xvals, Atot, KD, p);
 
                        y2 = Frac;
                        x2 = MTfree;
@@ -1079,7 +1178,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                        % Function to get fraction A bound
-                       [Frac, MTfree, Abound] = cooperativity(xvals, Atot, KD, p);
+                       [Frac, MTfree, Abound, Afree] = cooperativity(xvals, Atot, KD, p);
 
                        y2 = Frac;
                        x2 = xvals;
@@ -1119,14 +1218,29 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     return
                 end
 
-                % Function to get the concentration of A bound
-                [Frac, MTfree, Abound] = cooperativity(MTtot, xvals, KD, p);
+                switch get(get(handles.tot_free, 'SelectedObject'), 'Tag')
+                    case 'free'
+                        
+                        % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, xvals, KD, p);
 
-                y2 = Abound;
-                x2 = xvals;
+                        y2 = Abound;
+                        x2 = Afree;
 
-                legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
+                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
 
+                    case 'total'
+                        
+                        % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, xvals, KD, p);
+
+                        y2 = Abound;
+                        x2 = xvals;
+
+                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
+
+                    otherwise
+                end
             otherwise
         end
 
@@ -1170,7 +1284,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                       [Frac, MTfree, Abound, Afree] = seam_lattice(xvals, Atot, KS, KL);
 
                        y2 = Frac;
                        x2 = MTfree;
@@ -1180,7 +1294,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                         % Function to get fraction A bound
-                        [Frac, MTfree, Abound] = seam_lattice(xvals, Atot, KS, KL);
+                        [Frac, MTfree, Abound, Afree] = seam_lattice(xvals, Atot, KS, KL);
 
                         y2 = Frac;
                         x2 = xvals;
@@ -1219,15 +1333,30 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     errorbox('K_L must be a number greater than 0', hObject); 
                     return
                 end
+                
+                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                    case 'free'
+                        
+                        % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, xvals, KS, KL);
 
-                % Function to get the concentration of A bound
-                [Frac, MTfree, Abound] = seam_lattice(MTtot, xvals, KS, KL);
+                        y2 = Abound;
+                        x2 = Afree;
 
-                y2 = Abound;
-                x2 = xvals;
+                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+                        
+                    case 'total'
+                        
+                        % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, xvals, KS, KL);
 
-                legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+                        y2 = Abound;
+                        x2 = xvals;
 
+                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+                        
+                    otherwise
+                end 
             otherwise
         end
 
@@ -1272,7 +1401,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
+                       [Frac, MTfree, Abound, Afree] = MAP_bind(xvals, Atot, KM, KA);
 
                        y2 = Frac;
                        x2 = MTfree;
@@ -1282,7 +1411,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                         % Function to get fraction A bound
-                        [Frac, MTfree, Abound] = MAP_bind(xvals, Atot, KM, KA);
+                        [Frac, MTfree, Abound, Afree] = MAP_bind(xvals, Atot, KM, KA);
 
                         y2 = Frac;
                         x2 = xvals;
@@ -1321,15 +1450,32 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     errorbox('K_A must be a number greater than 0', hObject); 
                     return
                 end
+                
+                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                    case 'free'
+                        
+                         % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = MAP_bind(MTtot, xvals, KM, KA);
 
-                % Function to get the concentration of A bound
-                [Frac, MTfree, Abound] = MAP_bind(MTtot, xvals, KM, KA);
+                        y2 = Abound;
+                        x2 = Afree;
 
-                y2 = Abound;
-                x2 = xvals;
+                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
-                legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+                        
+                    case 'total'
+                        
+                         % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = MAP_bind(MTtot, xvals, KM, KA);
 
+                        y2 = Abound;
+                        x2 = xvals;
+
+                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+
+                        
+                    otherwise
+                end
             otherwise
         end
 
