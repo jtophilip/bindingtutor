@@ -119,7 +119,7 @@ first_order_strings(handles.model1, handles.equation1);
 first_order_strings(handles.model2, handles.equation2);
 handles.label1_1 = make_java_component(handles.label1_1, '[A] total ', 2);
 handles.label2_1 = make_java_component(handles.label2_1, [KD, ' '], 2);
-handles.label3_1 = make_java_component(handles.label3_1, '', 2);
+handles.label3_1 = make_java_component(handles.label3_1, '1 A: ', 2);
 handles.label4_1 = make_java_component(handles.label4_1, '', 2);
 handles.label5_1 = make_java_component(handles.label5_1, '', 2);
 handles.label6_1 = make_java_component(handles.label6_1, '', 2);
@@ -131,7 +131,7 @@ handles.label5_2 = make_java_component(handles.label5_2, '', 2);
 handles.label6_2 = make_java_component(handles.label6_2, '', 2);
 handles.units1_1 = make_java_component(handles.units1_1, UM, 0);
 handles.units2_1 = make_java_component(handles.units2_1, UM, 0);
-handles.units3_1 = make_java_component(handles.units3_1, UM, 0);
+handles.units3_1 = make_java_component(handles.units3_1, 'MT', 0);
 handles.units4_1 = make_java_component(handles.units4_1, UM, 0);
 handles.units5_1 = make_java_component(handles.units5_1, UM, 0);
 handles.units6_1 = make_java_component(handles.units6_1, UM, 0);
@@ -1950,7 +1950,7 @@ function first_order_binding_labels1(hObject)
 global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 2);
+inputboxes_display1(hObject, 3);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -1966,6 +1966,8 @@ set(handles.total, 'String', '[MT] total');
 set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total');
 set_java_component(handles.label2_1, [KD, ' ']);
+set_java_component(handles.label3_1, '1 A: ');
+set_java_component(handles.units3_1, 'MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -1981,7 +1983,7 @@ function first_order_saturation_labels1(hObject)
 global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 2);
+inputboxes_display1(hObject, 3);
 
 handles = guidata(hObject);
 
@@ -1995,6 +1997,8 @@ set(handles.total, 'String', '[A] total');
 set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
+set_java_component(handles.label3_1, '1 A: ');
+set_java_component(handles.units3_1, 'MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2010,7 +2014,7 @@ function cooperativity_binding_labels1(hObject)
 global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 3);
+inputboxes_display1(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2026,6 +2030,8 @@ set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '&phi; ');
+set_java_component(handles.label4_1, '1 A: ');
+set_java_component(handles.units4_1, 'MT');
 
 % Hides the units label for p
 set(handles.units3_1, 'Visible', 'off');
@@ -2044,7 +2050,7 @@ function cooperativity_saturation_labels1(hObject)
 global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 3);
+inputboxes_display1(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2060,6 +2066,8 @@ set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '&phi; ');
+set_java_component(handles.label4_1, '1 A: ');
+set_java_component(handles.units4_1, 'MT ');
 
 % Hides the units label for p
 set(handles.units3_1, 'Visible', 'off');
@@ -2075,10 +2083,10 @@ function seam_binding_labels1(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
 % first function is seam and lattice binding in binding mode
 
-global KS KL;
+global KS KL UM;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 3);
+inputboxes_display1(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2094,6 +2102,9 @@ set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KS, ' ']);
 set_java_component(handles.label3_1, [KL, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+set_java_component(handles.label4_1, '1 A: ');
+set_java_component(handles.units4_1, 'MT ');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2106,10 +2117,10 @@ function seam_saturation_labels1(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
 % first function is seam and lattice binding in saturation mode
 
-global KS KL;
+global KS KL UM;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 3);
+inputboxes_display1(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2125,6 +2136,9 @@ set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KS, ' ']);
 set_java_component(handles.label3_1, [KL, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+set_java_component(handles.label4_1, '1 A: ');
+set_java_component(handles.units4_1, 'MT ');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2137,10 +2151,10 @@ function MAP_binding_labels1(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is the MAPs bind to MT-bound MAPs model in binding mode
 
-global KM KA;
+global KM KA UM;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 3);
+inputboxes_display1(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2156,6 +2170,9 @@ set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KM, ' ']);
 set_java_component(handles.label3_1, [KA, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+set_java_component(handles.label4_1, '1 A: ');
+set_java_component(handles.units4_1, 'MT ');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2168,10 +2185,10 @@ function MAP_saturation_labels1(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is the MAPs bind to MT-bound MAPs model in saturation mode
 
-global KM KA;
+global KM KA UM;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 3);
+inputboxes_display1(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2187,6 +2204,9 @@ set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KM, ' ']);
 set_java_component(handles.label3_1, [KA, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+set_java_component(handles.label4_1, '1 A: ');
+set_java_component(handles.units4_1, 'MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2198,7 +2218,7 @@ function competition_labels1(hObject)
 % Function to update the appearnce of MTBindingSIm for the case where
 % the competition experimental mode is selected
 
-global KA KB;
+global KA KB UM;
 
 % Sets the visibility for all imput boxes
 inputboxes_display1(hObject, 4);
@@ -2214,7 +2234,9 @@ set(handles.label_xmax, 'String', '[B] total max ');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, '[A] total ');
 set_java_component(handles.label3_1, [KA, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
 set_java_component(handles.label4_1, [KB, ' ']);
+set_java_component(handles.units4_1, [UM, ' ']);
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2232,7 +2254,7 @@ function first_order_binding_labels2(hObject)
 global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 2);
+inputboxes_display2(hObject, 3);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2243,6 +2265,8 @@ first_order_strings(handles.model2, handles.equation2);
 % Sets labels for the visible input boxes
 set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KD, ' ']);
+set_java_component(handles.label3_2, '1 A: ');
+set_java_component(handles.units3_2, 'MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2257,7 +2281,7 @@ function first_order_saturation_labels2(hObject)
 global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 2);
+inputboxes_display2(hObject, 3);
 
 handles = guidata(hObject);
 
@@ -2267,6 +2291,8 @@ first_order_strings(handles.model2, handles.equation2);
 % Sets labels for the input boxes
 set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KD, ' ']);
+set_java_component(handles.label3_2, '1 A: ');
+set_java_component(handles.units3_2, 'MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2282,7 +2308,7 @@ function cooperativity_binding_labels2(hObject)
 global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 3);
+inputboxes_display2(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2294,6 +2320,8 @@ cooperativity_strings(handles.model2, handles.equation2);
 set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KD, ' ']);
 set_java_component(handles.label3_2, '&phi; ');
+set_java_component(handles.label4_2, '1 A: ');
+set_java_component(handles.units4_2, 'MT');
 
 % Hides the units label for phi
 set(handles.units3_2, 'Visible', 'off');
@@ -2324,6 +2352,8 @@ cooperativity_strings(handles.model2, handles.equation2);
 set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KD, ' ']);
 set_java_component(handles.label3_2, '&phi; ');
+set_java_component(handles.label4_2, '1 A: ');
+set_java_component(handles.units4_2, 'MT');
 
 % Hides the units label for p
 set(handles.units3_2, 'Visible', 'off');
@@ -2338,10 +2368,10 @@ function seam_binding_labels2(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
 % first function is seam and lattice binding in binding mode
 
-global KS KL;
+global KS KL UM;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 3);
+inputboxes_display2(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2353,6 +2383,9 @@ seam_strings(handles.model2, handles.equation2);
 set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KS, ' ']);
 set_java_component(handles.label3_2, [KL, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+set_java_component(handles.label4_2, '1 A: ');
+set_java_component(handles.units4_2, 'MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2365,10 +2398,10 @@ function seam_saturation_labels2(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
 % first function is seam and lattice binding in saturation mode
 
-global KS KL;
+global KS KL UM;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 3);
+inputboxes_display2(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2380,6 +2413,9 @@ seam_strings(handles.model2, handles.equation2);
 set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KS, ' ']);
 set_java_component(handles.label3_2, [KL, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+set_java_component(handles.label4_2, '1 A: ');
+set_java_component(handles.units4_2, 'MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2391,10 +2427,10 @@ function MAP_binding_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is the MAPs bind to MT-bound MAPs model in binding mode
 
-global KM KA;
+global KM KA UM;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 3);
+inputboxes_display2(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2406,6 +2442,9 @@ MAP_strings(handles.model2, handles.equation2);
 set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KM, ' ']);
 set_java_component(handles.label3_2, [KA, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+set_java_component(handles.label4_2, '1 A: ');
+set_java_component(handles.units4_2, 'MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2418,7 +2457,7 @@ function MAP_saturation_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is the MAPs bind to MT-bound MAPs model in saturation mode
 
-global KM KA;
+global KM KA UM;
 
 % Sets the visibility for all input boxes
 inputboxes_display2(hObject, 3);
@@ -2433,6 +2472,9 @@ MAP_strings(handles.model2, handles.equation2);
 set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KM, ' ']);
 set_java_component(handles.label3_2, [KA, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+set_java_component(handles.label4_2, '1 A: ');
+set_java_component(handles.units4_2, 'MT');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2443,7 +2485,7 @@ function competition_labels2(hObject)
 % Function to update the appearnce of MTBindingSIm for the case where
 % the competition experimental mode is selected
 
-global KA KB;
+global KA KB UM;
 
 % Sets the visibility for all imput boxes
 inputboxes_display2(hObject, 4);
@@ -2458,6 +2500,8 @@ set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, '[A] total ');
 set_java_component(handles.label3_2, [KA, ' ']);
 set_java_component(handles.label4_2, [KB, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+set_java_component(handles.units4_2, [UM, ' ']);
 
 % Updates the handles structure
 guidata(hObject, handles);
