@@ -1921,7 +1921,7 @@ end
 function cooperativity_strings(model, equation)
 global KD;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT');
-set_java_component(model, [KD, ' = [A](2[MT])/[AMT], &phi;&sdot;', KD, ' = [A][AMT]/[A<sub><small>2</small</sub>MT]']);
+set_java_component(model, [KD, ' = [A][MT]/[AMT], &phi;&sdot;', KD, ' = [A][AMT]/[A<sub><small>2</small</sub>MT]']);
 end
 
 function seam_strings(model, equation)

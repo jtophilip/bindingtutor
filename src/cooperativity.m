@@ -33,7 +33,7 @@ function [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, Atot, KD, P)
 syms A kd mtt at p
 
 % Calculates free and bound A
-A1 = solve(A + ((2/kd)*A + (4/(p*(kd^2)))*A^2)*mtt/(1 + (2/kd)*A + (2/(p*(kd^2)))*A^2)-at, A);
+A1 = solve(A + ((2/kd)*A + (2/(p*(kd^2)))*A^2)*mtt/(1 + (2/kd)*A + (2/(p*(kd^2)))*A^2)-at, A);
 AF = subs(A1(1), {kd at mtt p}, {KD Atot MTtot P});
 AB = Atot - AF;
 Abound = real(AB);
