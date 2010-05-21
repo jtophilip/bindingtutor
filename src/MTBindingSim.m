@@ -515,7 +515,7 @@ elseif get(handles.curve1, 'Value') == 1
 
                    %Calculates the value of frac, MTfree, and Abound at
                    %each value of x
-                   [frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD);
+                   [frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD, N);
 
                    y1 = frac;
                    x1 = MTfree;
@@ -523,12 +523,12 @@ elseif get(handles.curve1, 'Value') == 1
                    xaxis = '[MT] free';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+                   legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String'), ', N = ' get(handles.input3_1, 'String')];
 
                 case 'total'
 
                    % Calculates the value of frac, MTfree, and Abound
-                   [frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD);
+                   [frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD, N);
 
 
                    y1 = frac;
@@ -537,7 +537,7 @@ elseif get(handles.curve1, 'Value') == 1
                    xaxis = '[MT] total';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+                   legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', N = ' get(handles.input3_1, 'String')];
 
                 otherwise
             end
@@ -577,7 +577,7 @@ elseif get(handles.curve1, 'Value') == 1
                 case 'free'
                     
                     % Calculates frac, MTfree, Abound, and Afree
-                    [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD);
+                    [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD, N);
 
 
                     y1 = Abound;
@@ -586,13 +586,13 @@ elseif get(handles.curve1, 'Value') == 1
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', N = ' get(handles.input3_1, 'String')];
 
                     
                 case 'total'
                 
                     % Calculates frac, MTfree, and Abound
-                    [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD);
+                    [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD, N);
 
 
                     y1 = Abound;
@@ -601,7 +601,7 @@ elseif get(handles.curve1, 'Value') == 1
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String')];
+                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', N = ' get(handles.input3_1, 'String')];
 
                     
                 otherwise
@@ -1137,22 +1137,22 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD);
+                       [Frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD, N);
 
                        y2 = Frac;
                        x2 = MTfree;
 
-                       legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+                       legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
 
                     case 'total'
 
                        % Function to get fraction A bound
-                       [Frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD);
+                       [Frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD, N);
 
                        y2 = Frac;
                        x2 = xvals;
 
-                       legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+                       legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
 
                     otherwise
                 end
@@ -1190,22 +1190,22 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
                         
                         % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD);
+                        [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD, N);
 
                         y2 = Abound;
                         x2 = Afree;
 
-                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
 
                     case 'total'
                         
                         % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD);
+                        [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD, N);
 
                         y2 = Abound;
                         x2 = xvals;
 
-                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String')];
+                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
 
                     otherwise
                 end
