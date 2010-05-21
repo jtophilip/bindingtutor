@@ -1797,6 +1797,9 @@ switch get(eventdata.NewValue, 'Tag')
         % Makes the curve selection drop down boxes visible
         set(handles.curve1, 'Visible', 'on');
         
+        % Makes the X-axis selection box visible
+        set(handles.tot_free, 'Visible', 'on');
+        
         % Gets the current value of the first curve slection box and
         % changes the visible boxes accordingly
         switch get(handles.curve1, 'Value')
@@ -1864,7 +1867,9 @@ switch get(eventdata.NewValue, 'Tag')
         % Makes the curve selection drop down boxes visible
         set(handles.curve1, 'Visible', 'on');
         
-        
+        % Makes the X-axis selection box visible
+        set(handles.tot_free, 'Visible', 'on');
+
         % Gets the current value of the first curve slection box and
         % changes the visible boxes accordingly
         switch get(handles.curve1, 'Value');
