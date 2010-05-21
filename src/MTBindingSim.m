@@ -499,6 +499,15 @@ elseif get(handles.curve1, 'Value') == 1
                 errorbox('K_D must be a number greater than 0', hObject); 
                 return
             end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
 
             % Determines whether the X-axis is free MT or total MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -553,6 +562,15 @@ elseif get(handles.curve1, 'Value') == 1
                 errorbox('K_D must be a number greater than 0', hObject); 
                 return
             end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
             
             % Determines whether free or total [A] should be graphed
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -626,6 +644,15 @@ elseif get(handles.curve1, 'Value') == 2
                 errorbox('phi must be a number', hObject); 
                 return
             end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input4_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
 
             % Determines whether the X-axis is free MT or total MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -689,6 +716,15 @@ elseif get(handles.curve1, 'Value') == 2
                 errorbox('phi must be a number greater than 0', hObject); 
                 return
             end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input4_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
 
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 
@@ -758,6 +794,15 @@ elseif get(handles.curve1, 'Value') == 3
                 errorbox('K_L must be a number greater than 0', hObject); 
                 return
             end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input4_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
 
             % Determines whether the X-axis is free MT or total MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -816,6 +861,14 @@ elseif get(handles.curve1, 'Value') == 3
             if isnan(KL) || KL <= 0
                 errorbox('K_L must be a number greater than 0', hObject); 
                 return
+            end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input4_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
             end
             
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -887,6 +940,14 @@ elseif get(handles.curve1, 'Value') == 4
                 errorbox('K_A must be a number greater than 0', hObject); 
                 return
             end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input4_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
 
             % Determines whether the X-axis is free MT or total MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -949,6 +1010,14 @@ elseif get(handles.curve1, 'Value') == 4
                 return
             end
             
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input4_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
                     
@@ -1053,6 +1122,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     errorbox('K_D must be a number greater than 0', hObject); 
                     return
                 end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
+                end
+
 
                 % Determines whether the X-axis is free B or total B
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -1098,6 +1176,14 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 if isnan(KD) || KD <= 0
                     errorbox('K_D must be a number greater than 0', hObject); 
                     return
+                end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
                 end
                 
                 switch get(get(handles.tot_free, 'SelectedObject'), 'Tag')
@@ -1162,6 +1248,14 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     errorbox('phi must be a number greater than 0', hObject); 
                     return
                 end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input4_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
+                end
 
                 % Determines whether the X-axis is free MT or total MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -1216,6 +1310,14 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 if isnan(p)
                     errorbox('phi must be a number', hObject); 
                     return
+                end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input4_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
                 end
 
                 switch get(get(handles.tot_free, 'SelectedObject'), 'Tag')
@@ -1278,6 +1380,14 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     errorbox('K_L must be a number greater than 0', hObject); 
                     return
                 end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input4_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
+                end
 
                 % Determines whether the X-axis is free MT or total MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -1332,6 +1442,14 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 if isnan(KL) || KL <= 0
                     errorbox('K_L must be a number greater than 0', hObject); 
                     return
+                end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input4_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
                 end
                 
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -1395,6 +1513,14 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     errorbox('K_A must be a number greater than 0', hObject); 
                     return
                 end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input4_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
+                end
 
                 % Determines whether the X-axis is free MT or total MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
@@ -1449,6 +1575,14 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 if isnan(KA) || KA <= 0
                     errorbox('K_A must be a number greater than 0', hObject); 
                     return
+                end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input4_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
                 end
                 
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
