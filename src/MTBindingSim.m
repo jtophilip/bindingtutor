@@ -119,7 +119,7 @@ first_order_strings(handles.model1, handles.equation1);
 first_order_strings(handles.model2, handles.equation2);
 handles.label1_1 = make_java_component(handles.label1_1, '[A] total ', 2);
 handles.label2_1 = make_java_component(handles.label2_1, [KD, ' '], 2);
-handles.label3_1 = make_java_component(handles.label3_1, '1 A: ', 2);
+handles.label3_1 = make_java_component(handles.label3_1, '1 MT : ', 2);
 handles.label4_1 = make_java_component(handles.label4_1, '', 2);
 handles.label5_1 = make_java_component(handles.label5_1, '', 2);
 handles.label6_1 = make_java_component(handles.label6_1, '', 2);
@@ -131,7 +131,7 @@ handles.label5_2 = make_java_component(handles.label5_2, '', 2);
 handles.label6_2 = make_java_component(handles.label6_2, '', 2);
 handles.units1_1 = make_java_component(handles.units1_1, UM, 0);
 handles.units2_1 = make_java_component(handles.units2_1, UM, 0);
-handles.units3_1 = make_java_component(handles.units3_1, 'MT', 0);
+handles.units3_1 = make_java_component(handles.units3_1, 'A', 0);
 handles.units4_1 = make_java_component(handles.units4_1, UM, 0);
 handles.units5_1 = make_java_component(handles.units5_1, UM, 0);
 handles.units6_1 = make_java_component(handles.units6_1, UM, 0);
@@ -1966,8 +1966,8 @@ set(handles.total, 'String', '[MT] total');
 set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total');
 set_java_component(handles.label2_1, [KD, ' ']);
-set_java_component(handles.label3_1, '1 A: ');
-set_java_component(handles.units3_1, 'MT');
+set_java_component(handles.label3_1, '1 MT : ');
+set_java_component(handles.units3_1, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -1997,8 +1997,8 @@ set(handles.total, 'String', '[A] total');
 set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
-set_java_component(handles.label3_1, '1 A: ');
-set_java_component(handles.units3_1, 'MT');
+set_java_component(handles.label3_1, '1 MT : ');
+set_java_component(handles.units3_1, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2030,8 +2030,8 @@ set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '&phi; ');
-set_java_component(handles.label4_1, '1 A: ');
-set_java_component(handles.units4_1, 'MT');
+set_java_component(handles.label4_1, '1 MT : ');
+set_java_component(handles.units4_1, 'A');
 
 % Hides the units label for p
 set(handles.units3_1, 'Visible', 'off');
@@ -2066,8 +2066,8 @@ set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '&phi; ');
-set_java_component(handles.label4_1, '1 A: ');
-set_java_component(handles.units4_1, 'MT ');
+set_java_component(handles.label4_1, '1 MT : ');
+set_java_component(handles.units4_1, 'A');
 
 % Hides the units label for p
 set(handles.units3_1, 'Visible', 'off');
@@ -2103,8 +2103,8 @@ set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KS, ' ']);
 set_java_component(handles.label3_1, [KL, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 A: ');
-set_java_component(handles.units4_1, 'MT ');
+set_java_component(handles.label4_1, '1 MT : ');
+set_java_component(handles.units4_1, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2137,8 +2137,8 @@ set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KS, ' ']);
 set_java_component(handles.label3_1, [KL, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 A: ');
-set_java_component(handles.units4_1, 'MT ');
+set_java_component(handles.label4_1, '1 MT : ');
+set_java_component(handles.units4_1, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2171,8 +2171,8 @@ set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KM, ' ']);
 set_java_component(handles.label3_1, [KA, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 A: ');
-set_java_component(handles.units4_1, 'MT ');
+set_java_component(handles.label4_1, '1 MT : ');
+set_java_component(handles.units4_1, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2205,8 +2205,8 @@ set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KM, ' ']);
 set_java_component(handles.label3_1, [KA, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 A: ');
-set_java_component(handles.units4_1, 'MT');
+set_java_component(handles.label4_1, '1 MT : ');
+set_java_component(handles.units4_1, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2265,8 +2265,8 @@ first_order_strings(handles.model2, handles.equation2);
 % Sets labels for the visible input boxes
 set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KD, ' ']);
-set_java_component(handles.label3_2, '1 A: ');
-set_java_component(handles.units3_2, 'MT');
+set_java_component(handles.label3_2, '1 MT : ');
+set_java_component(handles.units3_2, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2291,8 +2291,8 @@ first_order_strings(handles.model2, handles.equation2);
 % Sets labels for the input boxes
 set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KD, ' ']);
-set_java_component(handles.label3_2, '1 A: ');
-set_java_component(handles.units3_2, 'MT');
+set_java_component(handles.label3_2, '1 MT : ');
+set_java_component(handles.units3_2, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2320,8 +2320,8 @@ cooperativity_strings(handles.model2, handles.equation2);
 set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KD, ' ']);
 set_java_component(handles.label3_2, '&phi; ');
-set_java_component(handles.label4_2, '1 A: ');
-set_java_component(handles.units4_2, 'MT');
+set_java_component(handles.label4_2, '1 MT : ');
+set_java_component(handles.units4_2, 'A');
 
 % Hides the units label for phi
 set(handles.units3_2, 'Visible', 'off');
@@ -2340,7 +2340,7 @@ function cooperativity_saturation_labels2(hObject)
 global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 3);
+inputboxes_display2(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2352,8 +2352,8 @@ cooperativity_strings(handles.model2, handles.equation2);
 set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KD, ' ']);
 set_java_component(handles.label3_2, '&phi; ');
-set_java_component(handles.label4_2, '1 A: ');
-set_java_component(handles.units4_2, 'MT');
+set_java_component(handles.label4_2, '1 MT : ');
+set_java_component(handles.units4_2, 'A');
 
 % Hides the units label for p
 set(handles.units3_2, 'Visible', 'off');
@@ -2384,8 +2384,8 @@ set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KS, ' ']);
 set_java_component(handles.label3_2, [KL, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 A: ');
-set_java_component(handles.units4_2, 'MT');
+set_java_component(handles.label4_2, '1 MT : ');
+set_java_component(handles.units4_2, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2414,8 +2414,8 @@ set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KS, ' ']);
 set_java_component(handles.label3_2, [KL, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 A: ');
-set_java_component(handles.units4_2, 'MT');
+set_java_component(handles.label4_2, '1 MT : ');
+set_java_component(handles.units4_2, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2443,8 +2443,8 @@ set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KM, ' ']);
 set_java_component(handles.label3_2, [KA, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 A: ');
-set_java_component(handles.units4_2, 'MT');
+set_java_component(handles.label4_2, '1 MT : ');
+set_java_component(handles.units4_2, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -2460,7 +2460,7 @@ function MAP_saturation_labels2(hObject)
 global KM KA UM;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 3);
+inputboxes_display2(hObject, 4);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -2473,8 +2473,8 @@ set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KM, ' ']);
 set_java_component(handles.label3_2, [KA, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 A: ');
-set_java_component(handles.units4_2, 'MT');
+set_java_component(handles.label4_2, '1 MT : ');
+set_java_component(handles.units4_2, 'A');
 
 % Updates the handles structure
 guidata(hObject, handles);
