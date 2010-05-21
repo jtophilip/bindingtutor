@@ -1,4 +1,4 @@
-function [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, Atot, KS, KL)
+function [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, Atot, KS, KL, N)
 % A function which calculates the binding of A to MT assuming that A binds
 % to the seam of the MT with disassociation constant KS and the lattice of
 % the MT with disassociatio nconstant KL.
@@ -30,8 +30,8 @@ function [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, Atot, KS, KL)
 syms A ks kl st lat at
 
 % Calculates total concentrations of seam and lattice
-ST = MTtot./13;
-LT = MTtot.*12./13;
+ST = MTtot.*N./13;
+LT = MTtot.*N.*12./13;
 
 % Calculates free and bound A
 A1 = solve(A + (1/ks)*A*st/(1 + (1/ks)*A) + (1/kl)*A*lat/(1 + (1/kl)*A) - at, A);

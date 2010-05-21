@@ -1,4 +1,4 @@
-function [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, Atot, KD, P)
+function [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, Atot, KD, P, N)
 % A function which calculates the binding of A to MT assuming cooperative
 % binding where the total concentrations of A and MT are Atot and MTtot,
 % the disassociation constant for the first bound A is KD, and the
@@ -34,7 +34,7 @@ syms A kd mtt at p
 
 % Calculates free and bound A
 A1 = solve(A + ((2/kd)*A + (2/(p*(kd^2)))*A^2)*mtt/(1 + (2/kd)*A + (2/(p*(kd^2)))*A^2)-at, A);
-AF = subs(A1(1), {kd at mtt p}, {KD Atot MTtot P});
+AF = subs(A1(1), {kd at mtt p}, {KD Atot MTtot*N P});
 AB = Atot - AF;
 Abound = real(AB);
 Afree = real(AF);
