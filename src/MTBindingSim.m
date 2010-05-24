@@ -97,6 +97,7 @@ handles.color = 0;
 % mode button groups
 set(handles.exp_mode, 'SelectionChangeFcn', @exp_mode_SelectionChangeFcn);
 set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
+set(handles.tot_free, 'SelectionChangeFcn', @tot_free_SelectionChangeFcn);
 
 % Make some global string values for later
 global UM KD KS KL KM KA KB;
@@ -2048,6 +2049,37 @@ switch get(eventdata.NewValue, 'Tag')
         
     otherwise
 end
+end
+
+function tot_free_SelectionChangeFcn(hObject, eventdata)
+
+% Retrieve GUI data, i.e. the handles structure
+handles = guidata(hObject); 
+
+% Creates a dialog box notifying the user that the axes will be cleared and
+% asking them if they want to proceed
+if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
+    clear = questdlg('Changing the experimental mode will automatically close the graph window. Do you want to continue?', 'Close Graph Window?', 'Yes','No','No');
+    
+    % Returns the selection to is previous value and stops evaluating further
+    % code if the user selects no
+    if strcmp(clear, 'No')
+        set(handles.tot_free, 'SelectedObject', eventdata.OldValue);
+        % Updates the handles
+        guidata(hObject, handles);
+        return
+    end
+    
+    if (ishandle(handles.graphaxes))
+        delete(handles.graphaxes);
+        handles.graphaxes = -1;
+    end
+    if (ishandle(handles.graphfigure))
+        delete(handles.graphfigure);
+        handles.graphfigure = -1;
+    end
+end
+
 end
 
 
