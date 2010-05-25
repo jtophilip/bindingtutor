@@ -1,3 +1,253 @@
+2010-05-24 17:52  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Forces the axes to be closed if the X-axis
+	  switched from free to total.
+
+2010-05-21 19:45  (early revision before Google Code import)
+
+	* TODO, src/MAP_bind.m, src/MTBindingSim.m, src/cooperativity.m,
+	  src/seam_lattice.m: Changed the program to accept the binding ratio
+	  for all models.
+
+2010-05-21 19:34  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Fixed the X-axis selection box visibility.
+
+2010-05-21 18:02  (early revision before Google Code import)
+
+	* TODO: Updated TODO list to have a section for needed bug fixes.
+
+2010-05-21 16:04  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m, src/first_order.m: Added ratio to first
+	  order calculation.
+
+2010-05-21 15:19  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Added validation code to ensure that the input for
+	  the ratio is a positive number.
+
+2010-05-21 14:58  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Changed ratio labels to
+	  agree with the Mandelkow definition.
+
+2010-05-20 21:06  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig: Changed default dispay to add the ratio of A to
+	  MT.
+
+2010-05-20 20:42  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Added code to create input boxes for the binding
+	  ratio.
+
+2010-05-20 15:58  (early revision before Google Code import)
+
+	* src/MTBindingSim.m, src/cooperativity.m: Changed the calculation for
+	  cooperativity.
+
+2010-05-20 15:31  (early revision before Google Code import)
+
+	* TODO, src/MAP_bind.m, src/MTBindingSim.m, src/cooperativity.m,
+	  src/first_order.m, src/seam_lattice.m: Allowed graphing against [A]
+	  free or bound in vary [A] mode.
+
+2010-05-20 14:55  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Changed the X-axis selection box titles for Vary
+	  MT mode.
+
+2010-05-19 21:47  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Hooked up graphing for the competition mode.
+
+2010-05-19 20:49  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Fixed the imput boxes when comparision mode is
+	  selected.
+
+2010-05-19 20:38  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Fixed a bug in the graph calculation code.
+
+2010-05-19 19:33  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Added legend text descriptive of the curve.
+
+2010-05-19 18:50  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Changed the yellow graph color to orange.
+
+2010-05-19 18:47  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Removed the display boxes
+	  for curve color.
+
+2010-05-18 22:28  (early revision before Google Code import)
+
+	* TODO: Updated TODO list.
+
+2010-05-18 22:28  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Changed the graphing code so that errors in
+	  the inputs for the second curve will be detected before the first
+	  curve is graphed.
+
+2010-05-18 17:38  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Removed the X-axis selection box from the label
+	  setting functions.
+
+2010-05-18 17:35  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Made the input labels and equation and model text
+	  change appropriatley for competition mode.
+
+2010-05-11 23:07  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Removed some now-failing 'get' commands from
+	  the validation code.
+
+2010-05-11 22:30  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Quick change to global variables.
+
+2010-05-11 22:28  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Added a legend for curves, currently
+	  printing pretty useless labels.
+
+2010-05-11 17:00  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Made the curve selection boxes become invisible in
+	  competition mode.
+
+2010-05-11 16:20  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Fixed a problem with the hourglass cursor in
+	  disableButtons.
+
+2010-05-11 16:18  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Updated disable and enable functions to disable
+	  new competition radio button.
+
+2010-05-11 16:15  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Fixed a string comparision bug.
+
+2010-05-11 16:02  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Fixed a bug in the comparsion mode selection
+	  change function.
+
+2010-05-11 15:59  (early revision before Google Code import)
+
+	* TODO: Updated TODO.
+
+2010-05-11 15:55  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Switched all labels over to java components.
+
+2010-05-11 15:47  (early revision before Google Code import)
+
+	* src/MAP_bind.m, src/competition.m: Added a function to calculate
+	  binding in a cooperativity assay.
+
+2010-05-11 15:24  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig: Changed the formatting for the "Number of
+	  points" label.
+
+2010-05-11 15:21  (early revision before Google Code import)
+
+	* TODO: Updated TODO list.
+
+2010-05-11 15:20  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Add some global variables for really commonly used
+	  formatted strings.
+
+2010-05-11 15:08  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Added a bunch of subscripts to the cooperativity
+	  equations, now they fit.
+
+2010-05-11 15:04  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig: Adjusted the figure to have more space for the
+	  equations.
+
+2010-05-11 15:03  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Added subscripts for a couple Kd's, sure enough it
+	  works.
+
+2010-05-11 15:00  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Disabled the toolbar in the main figure.
+
+2010-05-11 14:56  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig: Rearranged the main window.
+
+2010-05-11 14:55  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: First crack at rendering into an independent graph
+	  figure.
+
+2010-05-11 14:41  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig: Deleted axes from main window.
+
+2010-05-11 14:40  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Reading the visibility off the controls before
+	  switching to Java.
+
+2010-05-11 14:38  (early revision before Google Code import)
+
+	* TODO: Updated TODO list.
+
+2010-04-30 12:56  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Fixed a bug (oops!) and added an alignment
+	  parameter to make_java_component.
+
+2010-04-30 12:42  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.m: Added Java labels for handles.equationN and
+	  .modelN. Need to figure out how to center them.
+
+2010-04-29 19:29  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Added support for Java JLabel overrides for MATLAB
+	  text controls, which will allow us to use HTML-based symbols in static
+	  text labels. See
+	  http://undocumentedmatlab.com/blog/customizing-matlab-labels/.
+
+2010-04-29 14:00  (early revision before Google Code import)
+
+	* TODO: Updated TODO.
+
+2010-04-28 13:48  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Removed all ~ in function inputs and outputs to
+	  make the program compatabile with MatLab versions older than R2009b.
+
+2010-04-28 13:31  (early revision before Google Code import)
+
+	* TODO: Updated todo list.
+
+2010-04-28 03:45  (early revision before Google Code import)
+
+	* src/MTBindingSim.m: Squashed lots of MATLAB warnings.
+
+2010-04-27 19:57  (early revision before Google Code import)
+
+	* ChangeLog: Updated ChangeLog.
+
 2010-04-27 16:02  (early revision before Google Code import)
 
 	* src/MTBindingSim.fig, src/MTBindingSim.m: Attempted to clear out and
