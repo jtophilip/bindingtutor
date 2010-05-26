@@ -1,7 +1,8 @@
 function [Frac, MTfree, Abound, Afree] = MAP2_binding(MTtot, Atot, KM, KA, N)
 % A function which calculates the binding of A to MT assuming that A binds
 % to MT with a disassociation constant of KM and that a second and third A can bind
-% to an MT-bound A with a disassociation constant of KA
+% to an MT-bound A with a disassociation constant of KA when [MT] is varied
+% and [A] is held constant.
 
 % This file is part of MTBindingSim.
 %
@@ -27,34 +28,24 @@ function [Frac, MTfree, Abound, Afree] = MAP2_binding(MTtot, Atot, KM, KA, N)
 % - 0.5: Initial version
 
 
-syms A 
-
-% Gets the size of MTtot and creates an empty vector of the same size for
-% Afree
 [a,b] = size(MTtot);
 Afree = zeros(a,b);
 
-tolerance = 0.0001;
+Xguess = MTtot(1);
 
 % Steps through MTtot calculating Afree at each point
 for n = 1:b
-    AF = solve(A + (A/KM + 2*A^2/(KA*KM) + 3*A^3/(KA^2*KM))*MTtot(n)*N/(1 + A/KM + A^2/(KM*KM) + A^3/(KA^2*KM)) - Atot, A);
-    af = double(AF);
-    if af(1) >= 0 && af(1) <= Atot && imag(af(1)) < tolerance
-        Afree(n) = real(af(1));
-    elseif af(2) >= 0 && af(2) <= Atot && imag(af(2)) < tolerance
-        Afree(n) = real(af(2));
-    elseif af(3) >= 0 && af(3) <= Atot && imag(af(3)) < tolerance
-        Afree(n) = real(af(3));
-    elseif af(4) >= 0 && af(4) <= Atot && imag(af(4)) < tolerance
-        Afree(n) = real(af(4));
-    else
+    f = @(A)A + (A/KM + 2*A^2/(KA*KM) + 3*A^3/(KA^2*KM))*MTtot(n)*N/(1 + A/KM + A^2/(KM*KM) + A^3/(KA^2*KM)) - Atot;
+    Afree(n) = fzero(f, Xguess);
+
+    if isnan(Afree(n))
         Afree = 0;
         Frac = 0;
         Abound = 0;
         MTfree = 0;
         return
     end
+    Xguess = Afree(n);
     n = n +1;
 end
 
