@@ -1,0 +1,10 @@
+
+Inline math can be included in a run of text by using the "latex-math" command,
+which looks like :latex-math:`\psi(r) = \exp(-2r)`.  Note that those are 
+back-ticks around the math itself.  For a set-off equation, you can type:
+
+  .. latex-math::
+
+     a & = (x + y)^2 \\
+       & = x^2 + 2xy + y^2
+
