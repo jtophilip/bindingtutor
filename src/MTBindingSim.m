@@ -286,6 +286,22 @@ switch get(handles.curve1, 'Value')
                 
             otherwise
         end
+    
+    % 2 MAPs bind MT-bound MAPs
+    case 5
+        
+        % Determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                MAP2_binding_labels1(hObject);
+               
+            case 'saturation'
+                
+                MAP2_saturation_labels1(hObject);
+                
+            otherwise
+        end
         
     otherwise
 end
@@ -357,6 +373,22 @@ switch get(handles.curve2, 'Value')
             case 'saturation'
                 
                 MAP_saturation_labels2(hObject);
+                
+            otherwise
+        end
+        
+    % 2 MAPs bind MT-bound MAPs
+    case 5
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                MAP2_binding_labels2(hObject);
+               
+            case 'saturation'
+                
+                MAP2_saturation_labels2(hObject);
                 
             otherwise
         end
@@ -1824,6 +1856,10 @@ switch get(eventdata.NewValue, 'Tag')
                 
                 MAP_binding_labels1(hObject);
                 
+            case 5
+                
+                MAP2_binding_labels1(hObject);
+                
             otherwise
         end
         
@@ -1857,6 +1893,10 @@ switch get(eventdata.NewValue, 'Tag')
                 case 4
                 
                     MAP_binding_labels2(hObject);
+                    
+                case 5
+                    
+                    MAP2_binding_labels2(hObject);
                 
                 otherwise
             end
@@ -1894,6 +1934,10 @@ switch get(eventdata.NewValue, 'Tag')
                 
                 MAP_saturation_labels1(hObject);
                 
+            case 5
+                
+                MAP2_saturation_labels1(hObject);
+                
             otherwise
         end
         
@@ -1927,6 +1971,10 @@ switch get(eventdata.NewValue, 'Tag')
                 case 4
                 
                     MAP_saturation_labels2(hObject);
+                    
+                case 5
+                    
+                    MAP2_saturation_labels2(hObject);
                 
                 otherwise
             end
@@ -2105,6 +2153,12 @@ function MAP_strings(model, equation)
 global KM KA;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT');
 set_java_component(equation, [KM, ' = [A][MT]/[AMT], ', KA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT]']);
+end
+
+function MAP2_strings(model, equation);
+global KM KA;
+set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT, A + A<sub><small>2</small></sub>MT &harr; A<sub><small>3</small></sub>MT');
+set_java_component(equation, [KM, ' = [A][MT]/[AMT], ', KA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT], ', KA, ' = [A][A<sub><small>2</small></sub>MT]/[A<sub><small>3</small></sub>MT]']);
 end
 
 function competition_strings(model, equation)
@@ -2384,6 +2438,71 @@ guidata(hObject, handles);
 
 end
 
+function MAP2_binding_labels1(hObject)
+%Function to update the appearance of MTBindingSim for the case where the
+%first function is the MAPs bind to MT-bound MAPs model in binding mode
+
+global KM KA UM;
+
+% Sets the visibility for all input boxes
+inputboxes_display1(hObject, 4);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets model equation and text
+MAP2_strings(handles.model1, handles.equation1);
+
+% Sets labels for the input boxes
+set(handles.label_xmin, 'String', '[MT] total min ');
+set(handles.label_xmax, 'String', '[MT] total max ');
+set(handles.total, 'String', '[MT] total');
+set(handles.free, 'String', '[MT] free');
+set_java_component(handles.label1_1, '[A] total ');
+set_java_component(handles.label2_1, [KM, ' ']);
+set_java_component(handles.label3_1, [KA, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+set_java_component(handles.label4_1, '1 MT : ');
+set_java_component(handles.units4_1, 'A');
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
+
+
+function MAP2_saturation_labels1(hObject)
+%Function to update the appearance of MTBindingSim for the case where the
+%first function is the MAPs bind to MT-bound MAPs model in saturation mode
+
+global KM KA UM;
+
+% Sets the visibility for all input boxes
+inputboxes_display1(hObject, 4);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets model equation and text
+MAP2_strings(handles.model1, handles.equation1);
+
+% Sets labels for the input boxes
+set(handles.label_xmin, 'String', '[A] total min ');
+set(handles.label_xmax, 'String', '[A] total max ');
+set(handles.total, 'String', '[A] total');
+set(handles.free, 'String', '[A] free');
+set_java_component(handles.label1_1, '[MT] total ');
+set_java_component(handles.label2_1, [KM, ' ']);
+set_java_component(handles.label3_1, [KA, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+set_java_component(handles.label4_1, '1 MT : ');
+set_java_component(handles.units4_1, 'A');
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
 
 function competition_labels1(hObject)
 % Function to update the appearnce of MTBindingSIm for the case where
@@ -2593,7 +2712,6 @@ guidata(hObject, handles);
 
 end
 
-
 function MAP_binding_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is the MAPs bind to MT-bound MAPs model in binding mode
@@ -2621,9 +2739,7 @@ set_java_component(handles.units4_2, 'A');
 guidata(hObject, handles);
 
 end
-
-
-                
+               
 function MAP_saturation_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
 %first function is the MAPs bind to MT-bound MAPs model in saturation mode
@@ -2638,6 +2754,64 @@ handles = guidata(hObject);
 
 % Sets model equation and text
 MAP_strings(handles.model2, handles.equation2);
+
+% Sets labels for the input boxes
+set_java_component(handles.label1_2, '[MT] total ');
+set_java_component(handles.label2_2, [KM, ' ']);
+set_java_component(handles.label3_2, [KA, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+set_java_component(handles.label4_2, '1 MT : ');
+set_java_component(handles.units4_2, 'A');
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
+function MAP2_binding_labels2(hObject)
+%Function to update the appearance of MTBindingSim for the case where the
+%first function is the MAPs bind to MT-bound MAPs model in binding mode
+
+global KM KA UM;
+
+% Sets the visibility for all input boxes
+inputboxes_display2(hObject, 4);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets model equation and text
+MAP2_strings(handles.model2, handles.equation2);
+
+% Sets labels for the input boxes
+set_java_component(handles.label1_2, '[A] total ');
+set_java_component(handles.label2_2, [KM, ' ']);
+set_java_component(handles.label3_2, [KA, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+set_java_component(handles.label4_2, '1 MT : ');
+set_java_component(handles.units4_2, 'A');
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
+
+                
+function MAP2_saturation_labels2(hObject)
+%Function to update the appearance of MTBindingSim for the case where the
+%first function is the MAPs bind to MT-bound MAPs model in saturation mode
+
+global KM KA UM;
+
+% Sets the visibility for all input boxes
+inputboxes_display2(hObject, 4);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets model equation and text
+MAP2_strings(handles.model2, handles.equation2);
 
 % Sets labels for the input boxes
 set_java_component(handles.label1_2, '[MT] total ');
