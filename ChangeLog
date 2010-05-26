@@ -1,3 +1,12 @@
+2010-05-26 17:40  Charles Pence <charles@charlespence.net>
+
+	* doc: Added a documentation folder, with an svn:externals link to the
+	  Google Code Wiki.
+
+2010-05-26 17:16  (early revision before Google Code import)
+
+	* ChangeLog: Updated ChangeLog.
+
 2010-05-26 17:16  (early revision before Google Code import)
 
 	* TODO, src/MTBindingSim.fig, src/MTBindingSim.m: 2 MAP binding mode
