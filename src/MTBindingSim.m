@@ -427,6 +427,8 @@ function graph_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+set(handles.result, 'String', '');
+
 disableButtons(handles.mainfigure);
 
 % Retreives the x-axis values
@@ -2000,48 +2002,51 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     end
     handles.color = handles.color +1;
     
-    % Computes and displays the difference between the two curves
-    
-    % Computes absolute and percent differences, then calculates the
-    % average and maximum values of each
-    diff = abs(y1-y2);
-    per = 100*diff./(1/2.*(y1 + y2));
-    
-    % Finds the maximum average and percent difference and their locations
-    [a, b] = size(x1);
-    
-    maxdiff = 0;
-    maxper = 0;
-    xmaxdiff = 0;
-    xmaxper = 0;
-    
-    for n = 1:b
-        if isnan(diff(n))
-            diff(n) = 0;
+    % Determines whether the plotting mode is free or total
+    if strcmp(get(get(handles.tot_free, 'SelectedObject'), 'Tag'), 'total')
+        % Computes and displays the difference between the two curves
+
+        % Computes absolute and percent differences, then calculates the
+        % average and maximum values of each
+        diff = abs(y1-y2);
+        per = 100*diff./(1/2.*(y1 + y2));
+
+        % Finds the maximum average and percent difference and their locations
+        [a, b] = size(x1);
+
+        maxdiff = 0;
+        maxper = 0;
+        xmaxdiff = 0;
+        xmaxper = 0;
+
+        for n = 1:b
+            if isnan(diff(n))
+                diff(n) = 0;
+            end
+            if isnan(per(n))
+                per(n) = 0;
+            end
+            if diff(n) > maxdiff
+                maxdiff = diff(n);
+                xmaxdiff = x1(n);
+            end
+            if per(n) > maxper
+                maxper = per(n);
+                xmaxper = x1(n);
+            end
+
         end
-        if isnan(per(n))
-            per(n) = 0;
-        end
-        if diff(n) > maxdiff
-            maxdiff = diff(n);
-            xmaxdiff = x1(n);
-        end
-        if per(n) > maxper
-            maxper = per(n);
-            xmaxper = x1(n);
-        end
-        
+
+        avgdiff = mean(diff);
+        avgper = mean(per);
+
+        % Displays the differences between the curves
+
+        set(handles.result, 'String', {['Average absolute difference: ' num2str(avgdiff)] ;...
+            ['Average percent difference: ' num2str(avgper) '%'] ;...
+            ['Maximum absolute difference is ' num2str(maxdiff) ' at ' num2str(xmaxdiff) ' ' xaxis] ;...
+            ['Maxmum percent difference is ' num2str(maxper) '% at ' num2str(xmaxper) ' ' xaxis]})
     end
-    
-    avgdiff = mean(diff);
-    avgper = mean(per);
-    
-    % Displays the differences between the curves
-    
-    set(handles.result, 'String', {['Average absolute difference: ' num2str(avgdiff)] ;...
-        ['Average percent difference: ' num2str(avgper) '%'] ;...
-        ['Maximum absolute difference is ' num2str(maxdiff) ' at ' num2str(xmaxdiff) ' ' xaxis] ;...
-        ['Maxmum percent difference is ' num2str(maxper) '% at ' num2str(xmaxper) ' ' xaxis]})
 end
     
 % Updates the handles
@@ -2069,6 +2074,7 @@ end
 
 % Resets the color counter
 handles.color = 0;
+set(handles.result, 'String', '');
 
 % Updates the handles
 guidata(hObject, handles);
