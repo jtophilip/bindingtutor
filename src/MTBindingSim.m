@@ -1085,6 +1085,152 @@ elseif get(handles.curve1, 'Value') == 4
         otherwise
     end
 
+% 2 MAPs bind MT-bound MAPs    
+elseif get(handles.curve1, 'Value') == 5
+    % Determine the experimental mode
+    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+        % Binding mode is selected
+        case 'binding'
+
+            % Gets the value for [A] total and ensures that it's a
+            % positive number
+            Atot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(Atot) || Atot < 0
+                errorbox('Please enter a positive number for [A] total', hObject); 
+                return
+            end
+
+            % Gets the value for KM and ensures that it's a
+            % positive number
+            KM = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KM) || KM <= 0
+                errorbox('K_M must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for KA and ensures that it's a positive
+            % number
+            KA = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(KA) || KA <= 0
+                errorbox('K_A must be a number greater than 0', hObject); 
+                return
+            end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input4_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
+            % Determines whether the X-axis is free MT or total MT
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+
+                   % Calculates fraction of A bound and free MT
+                   [Frac, MTfree, Abound, Afree] =MAP2_binding(xvals, Atot, KM, KA, N);
+
+                   y1 = Frac;
+                   x1 = MTfree;
+
+                   xaxis = '[MT] free';
+                   yaxis = 'Fraction of A bound';
+                   plottitle = 'Vary [MT] Binding Assay';
+                   legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+
+                case 'total'
+
+                    % Calculates fraction of A bound and free MT
+                    [Frac, MTfree, Abound, Afree] =MAP2_binding(xvals, Atot, KM, KA, N);
+
+                    y1 = Frac;
+                    x1 = xvals;
+
+                    xaxis = '[MT] total';
+                    yaxis = 'Fraction of A bound';
+                    plottitle = 'Vary [MT] Binding Assay';
+                    legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+
+                otherwise
+            end
+
+        % Saturation mode is selected
+        case 'saturation'
+
+            % Gets the value for [MT] total and ensures that it's a
+            % positive number
+            MTtot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(MTtot) || MTtot < 0
+                errorbox('Please enter a positive number for [MT] total', hObject); 
+                return
+            end
+
+            % Gets the value for KM and ensures that it's a
+            % positive number
+            KM = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KM) || KM <= 0
+                errorbox('K_M must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for KA and ensures that it's a positive
+            % number
+            KA = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(KA) || KA <= 0
+                errorbox('K_A must be a number greater than 0', hObject); 
+                return
+            end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input4_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+                    
+                    % Calculates the concentration of A bound
+                    [Frac, MTfree, Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+
+                    y1 = Abound;
+                    x1 = Afree;
+
+                    xaxis = '[A] free';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                    
+                case 'total'
+                    
+                    % Calculates the concentration of A bound
+                    [Frac, MTfree, Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+
+                    y1 = Abound;
+                    x1 =xvals;
+
+                    xaxis = '[A] total';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+
+                otherwise
+            end
+
+            
+        otherwise
+    end
+
+
 end
 
 
@@ -1645,6 +1791,142 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 end
             otherwise
         end
+        
+        
+    % MAPs bind MT-bound MAPS
+    elseif get(handles.curve2, 'Value') == 5
+
+        % Determine the experimental mode
+        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+            % Binding mode is selected
+            case 'binding'
+
+                % Gets the value for [A] total and ensures that it's a
+                % positive number
+                Atot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(Atot) || Atot < 0
+                    errorbox('Please enter a positive number for [A] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KM and ensures that it's a
+                % positive number
+                KM = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KM) || KM <= 0
+                    errorbox('K_M must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Gets the value for KA and ensures that it's a positive
+                % number
+                KA = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(KA) || KA <= 0
+                    errorbox('K_A must be a number greater than 0', hObject); 
+                    return
+                end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input4_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
+                end
+
+                % Determines whether the X-axis is free MT or total MT
+                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                    case 'free'
+
+                       % Function to get fraction A bound and free MT 
+                       [Frac, MTfree, Abound, Afree] = MAP2_binding(xvals, Atot, KM, KA, N);
+
+                       y2 = Frac;
+                       x2 = MTfree;
+
+                       legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+
+                    case 'total'
+
+                        % Function to get fraction A bound
+                        [Frac, MTfree, Abound, Afree] = MAP2_binding(xvals, Atot, KM, KA, N);
+
+                        y2 = Frac;
+                        x2 = xvals;
+
+                        legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+
+                    otherwise
+                end
+
+            % Saturation mode is selected
+            case 'saturation'
+
+                % Gets the value for [MT] total and ensures that it's a
+                % positive number
+                MTtot = str2double(get(handles.input1_2, 'String'));
+
+                if isnan(MTtot) || MTtot < 0
+                    errorbox('Please enter a positive number for [MT] total', hObject); 
+                    return
+                end
+
+                % Gets the value for KM and ensures that it's a
+                % positive number
+                KM = str2double(get(handles.input2_2, 'String'));
+
+                if isnan(KM) || KM <= 0
+                    errorbox('K_M must be a number greater than 0', hObject); 
+                    return
+                end
+
+                % Gets the value for KA and ensures that it's a positive
+                % number
+                KA = str2double(get(handles.input3_2, 'String'));
+
+                if isnan(KA) || KA <= 0
+                    errorbox('K_A must be a number greater than 0', hObject); 
+                    return
+                end
+                
+                % Gets the binding ratio and ensures that it's a positive number
+                N = str2double(get(handles.input4_2, 'String'));
+
+                if isnan(N) || N <= 0
+                   errorbox('The ratio must be a number greater than 0', hObject);
+                   return
+                end
+                
+                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                    case 'free'
+                        
+                         % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+
+                        y2 = Abound;
+                        x2 = Afree;
+
+                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+
+                        
+                    case 'total'
+                        
+                         % Function to get the concentration of A bound
+                        [Frac, MTfree, Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+
+                        y2 = Abound;
+                        x2 = xvals;
+
+                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+
+                        
+                    otherwise
+                end
+            otherwise
+        end
+
 
     end
 
@@ -1812,6 +2094,8 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         guidata(hObject, handles);
         return
     end
+    
+    handles.color = 0;
     
     if (ishandle(handles.graphaxes))
         delete(handles.graphaxes);
@@ -2118,6 +2402,8 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         return
     end
     
+    handles.color = 0;
+    
     if (ishandle(handles.graphaxes))
         delete(handles.graphaxes);
         handles.graphaxes = -1;
@@ -2158,7 +2444,7 @@ end
 function MAP2_strings(model, equation);
 global KM KA;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT, A + A<sub><small>2</small></sub>MT &harr; A<sub><small>3</small></sub>MT');
-set_java_component(equation, [KM, ' = [A][MT]/[AMT], ', KA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT], ', KA, ' = [A][A<sub><small>2</small></sub>MT]/[A<sub><small>3</small></sub>MT]']);
+set_java_component(equation, [KM, ' = [A][MT]/[AMT], ', KA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT],<br>', KA, ' = [A][A<sub><small>2</small></sub>MT]/[A<sub><small>3</small></sub>MT]']);
 end
 
 function competition_strings(model, equation)
