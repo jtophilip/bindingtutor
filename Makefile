@@ -5,9 +5,15 @@
 #
 
 SHELL = /bin/sh
-.PHONY: ChangeLog
+SUBDIRS = doc
 
-ChangeLog:
-	touch ChangeLog
+.PHONY: subdirs $(SUBDIRS)
+
+ChangeLog: .svn/entries
 	build/svn2cl.sh --linelen=80 --authors=build/authors.xml --reparagraph
+
+subdirs: $(SUBDIRS)
+
+$(SUBDIRS):
+	$(MAKE) -C $@
 

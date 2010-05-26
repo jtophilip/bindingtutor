@@ -185,7 +185,13 @@ class WikiVisitor(SparseNodeVisitor):
 
     def depart_definition_list_item(self, node):
         pass
-        
+    
+    def visit_image(self, node):
+        uri = node['uri']
+        self.output.append(uri)
+    
+    def depart_image(self, node):
+        self.output.append('\n');
 
     def visit_option(self, node):
         self.output.append('`')
