@@ -1,3 +1,23 @@
+2010-05-26 17:16  (early revision before Google Code import)
+
+	* TODO, src/MTBindingSim.fig, src/MTBindingSim.m: 2 MAP binding mode
+	  fully functional.
+
+2010-05-26 16:47  (early revision before Google Code import)
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Added labeling of model,
+	  equation, and input boxes for 2 MAP binding and adjusted box sizes so
+	  that the model and equation text will fit.
+
+2010-05-26 16:26  (early revision before Google Code import)
+
+	* TODO, src/MAP2_binding.m, src/MAP2_saturation.m, src/MTBindingSim.fig:
+	  Wrote calculation code for 2MAPs bind MT-bound MAPs.
+
+2010-05-25 03:35  (early revision before Google Code import)
+
+	* ChangeLog: Updated ChangeLog.
+
 2010-05-24 17:52  (early revision before Google Code import)
 
 	* TODO, src/MTBindingSim.m: Forces the axes to be closed if the X-axis
