@@ -1,7 +1,8 @@
-function [Frac, MTfree, Abound, Afree] = first_order(MTtot, Atot, KD, N)
-% A function which calculates the biding of A to MT assuming first order
-% binding where the total concentrations of A and MT are Atot and Btot and
-% the disassociation constant is KD.
+function [Abound, Afree] = MAP_saturation(MTtot, Atot, KM, KA, N)
+% A function which calculates the binding of A to MT assuming that A binds
+% to MT with a disassociation constant of KM and that a second A can bind
+% to an MT-bound A with a disassociation constant of KA for an experiment
+% where [A] is varied and [MT] is held constant.
 
 % This file is part of MTBindingSim.
 %
@@ -27,23 +28,26 @@ function [Frac, MTfree, Abound, Afree] = first_order(MTtot, Atot, KD, N)
 % - 0.5: Initial version
 
 
-% Declares variables, creating symbolic versions of KD, Atot, and Btot to
-% be used in the solver
-syms A kd mtt at
+[a, b] = size(Atot);
+Afree = zeros(a,b);
 
-% Solves for free and bound A
-A1 = solve(A + (1/kd)*A*mtt/(1 + (1/kd)*A)- at, A);
-AF = subs(A1(1), {kd mtt at}, {KD MTtot*N Atot});
-AB = Atot - AF;
-Abound = real(AB);
-Afree = real(AF);
+Xguess = Atot(1)/2;
 
-% Solves for fraciton of A bound
-f = (Abound)./Atot;
-Frac = real(f);
+for n = 1:b
+    f = @(A)A + (A/KM + 2*A^2/(KA*KM))*MTtot*N/(1 + A/KM + A^2/(KM*KA)) - Atot(n);
+    Afree(n) = fzero(f, Xguess);
+    
+    if isnan(Afree(n))
+        Afree = 0;
+        Abound = 0;
+        return
+    end
+    Xguess = Afree(n);
+    n = n +1;
+end
 
-% Solves for free MT
-mt = MTtot./(1 + (1/KD).*(Afree));
-MTfree = real(mt);
+Abound = Atot - Afree;
+
 
 end
+

@@ -550,7 +550,7 @@ elseif get(handles.curve1, 'Value') == 1
 
                    %Calculates the value of frac, MTfree, and Abound at
                    %each value of x
-                   [frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD, N);
+                   [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
 
                    y1 = frac;
                    x1 = MTfree;
@@ -563,7 +563,7 @@ elseif get(handles.curve1, 'Value') == 1
                 case 'total'
 
                    % Calculates the value of frac, MTfree, and Abound
-                   [frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD, N);
+                   [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
 
 
                    y1 = frac;
@@ -612,7 +612,7 @@ elseif get(handles.curve1, 'Value') == 1
                 case 'free'
                     
                     % Calculates frac, MTfree, Abound, and Afree
-                    [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD, N);
+                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
 
 
                     y1 = Abound;
@@ -627,7 +627,7 @@ elseif get(handles.curve1, 'Value') == 1
                 case 'total'
                 
                     % Calculates frac, MTfree, and Abound
-                    [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD, N);
+                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
 
 
                     y1 = Abound;
@@ -694,7 +694,7 @@ elseif get(handles.curve1, 'Value') == 2
                 case 'free'
 
                     % Calculates frac, MTfree, and Abound
-                    [frac, MTfree, Abound, Afree] = cooperativity(xvals, Atot, KD, p, N);
+                    [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
 
 
                     y1 = frac;
@@ -708,7 +708,7 @@ elseif get(handles.curve1, 'Value') == 2
                 case 'total'
 
                     % Calculates frac, MTfree, and Abound
-                    [frac, MTfree, Abound, Afree] = cooperativity(xvals, Atot, KD, p, N);
+                    [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
 
 
                     y1 = frac;
@@ -765,7 +765,7 @@ elseif get(handles.curve1, 'Value') == 2
                 
                 case 'free'
                     
-                    [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, xvals, KD, p, N);
+                    [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
 
                     y1 = Abound;
                     x1 = Afree;
@@ -778,7 +778,7 @@ elseif get(handles.curve1, 'Value') == 2
                     
                 case 'total'
                     
-                    [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, xvals, KD, p, N);
+                    [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
 
                     y1 = Abound;
                     x1 = xvals;
@@ -844,7 +844,7 @@ elseif get(handles.curve1, 'Value') == 3
                 case 'free'
 
                    % Calculates fraction of A bound and free MT
-                   [Frac, MTfree, Abound, Afree] = seam_lattice(xvals, Atot, KS, KL, N);
+                   [Frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
                    y1 = Frac;
                    x1 = MTfree;
 
@@ -856,7 +856,7 @@ elseif get(handles.curve1, 'Value') == 3
                 case 'total'
 
                     % Calculates fraction of A bound and MT free
-                    [Frac, MTfree, Abound, Afree] = seam_lattice(xvals, Atot, KS, KL, N);
+                    [Frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
                     y1 = Frac;
                     x1 = xvals;
 
@@ -911,7 +911,7 @@ elseif get(handles.curve1, 'Value') == 3
                 case 'free'
                     
                     % Calculates concentration of A bound and MT free
-                    [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, xvals, KS, KL, N);
+                    [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
                     y1 = Abound;
                     x1 = Afree;
 
@@ -924,7 +924,7 @@ elseif get(handles.curve1, 'Value') == 3
                 case 'total'
                     
                     % Calculates concentration of A bound and MT free
-                    [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, xvals, KS, KL, N);
+                    [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
                     y1 = Abound;
                     x1 = xvals;
 
@@ -989,7 +989,7 @@ elseif get(handles.curve1, 'Value') == 4
                 case 'free'
 
                    % Calculates fraction of A bound and free MT
-                   [Frac, MTfree, Abound, Afree] =MAP_bind(xvals, Atot, KM, KA, N);
+                   [Frac, MTfree] =MAP_binding(xvals, Atot, KM, KA, N);
 
                    y1 = Frac;
                    x1 = MTfree;
@@ -1002,7 +1002,7 @@ elseif get(handles.curve1, 'Value') == 4
                 case 'total'
 
                     % Calculates fraction of A bound and free MT
-                    [Frac, MTfree, Abound, Afree] =MAP_bind(xvals, Atot, KM, KA, N);
+                    [Frac, MTfree] =MAP_binding(xvals, Atot, KM, KA, N);
 
                     y1 = Frac;
                     x1 = xvals;
@@ -1057,7 +1057,7 @@ elseif get(handles.curve1, 'Value') == 4
                 case 'free'
                     
                     % Calculates the concentration of A bound
-                    [Frac, MTfree, Abound, Afree] = MAP_bind(MTtot, xvals, KM, KA, N);
+                    [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
 
                     y1 = Abound;
                     x1 = Afree;
@@ -1070,7 +1070,7 @@ elseif get(handles.curve1, 'Value') == 4
                 case 'total'
                     
                     % Calculates the concentration of A bound
-                    [Frac, MTfree, Abound, Afree] = MAP_bind(MTtot, xvals, KM, KA, N);
+                    [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
 
                     y1 = Abound;
                     x1 =xvals;
@@ -1134,7 +1134,7 @@ elseif get(handles.curve1, 'Value') == 5
                 case 'free'
 
                    % Calculates fraction of A bound and free MT
-                   [Frac, MTfree, Abound, Afree] =MAP2_binding(xvals, Atot, KM, KA, N);
+                   [Frac, MTfree] =MAP2_binding(xvals, Atot, KM, KA, N);
 
                    y1 = Frac;
                    x1 = MTfree;
@@ -1147,7 +1147,7 @@ elseif get(handles.curve1, 'Value') == 5
                 case 'total'
 
                     % Calculates fraction of A bound and free MT
-                    [Frac, MTfree, Abound, Afree] =MAP2_binding(xvals, Atot, KM, KA, N);
+                    [Frac, MTfree] =MAP2_binding(xvals, Atot, KM, KA, N);
 
                     y1 = Frac;
                     x1 = xvals;
@@ -1202,7 +1202,7 @@ elseif get(handles.curve1, 'Value') == 5
                 case 'free'
                     
                     % Calculates the concentration of A bound
-                    [Frac, MTfree, Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+                    [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
 
                     y1 = Abound;
                     x1 = Afree;
@@ -1215,7 +1215,7 @@ elseif get(handles.curve1, 'Value') == 5
                 case 'total'
                     
                     % Calculates the concentration of A bound
-                    [Frac, MTfree, Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+                    [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
 
                     y1 = Abound;
                     x1 =xvals;
@@ -1318,7 +1318,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD, N);
+                       [Frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
 
                        y2 = Frac;
                        x2 = MTfree;
@@ -1328,7 +1328,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                        % Function to get fraction A bound
-                       [Frac, MTfree, Abound, Afree] = first_order(xvals, Atot, KD, N);
+                       [Frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
 
                        y2 = Frac;
                        x2 = xvals;
@@ -1371,7 +1371,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
                         
                         % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD, N);
+                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1381,7 +1381,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
                         
                         % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = first_order(MTtot, xvals, KD, N);
+                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
 
                         y2 = Abound;
                         x2 = xvals;
@@ -1443,7 +1443,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound, Afree] = cooperativity(xvals, Atot, KD, p, N);
+                       [Frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
 
                        y2 = Frac;
                        x2 = MTfree;
@@ -1453,7 +1453,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                        % Function to get fraction A bound
-                       [Frac, MTfree, Abound, Afree] = cooperativity(xvals, Atot, KD, p, N);
+                       [Frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
 
                        y2 = Frac;
                        x2 = xvals;
@@ -1505,7 +1505,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
                         
                         % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, xvals, KD, p, N);
+                        [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1515,7 +1515,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
                         
                         % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, xvals, KD, p, N);
+                        [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
 
                         y2 = Abound;
                         x2 = xvals;
@@ -1575,7 +1575,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound, Afree] = seam_lattice(xvals, Atot, KS, KL, N);
+                       [Frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
 
                        y2 = Frac;
                        x2 = MTfree;
@@ -1585,7 +1585,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                         % Function to get fraction A bound
-                        [Frac, MTfree, Abound, Afree] = seam_lattice(xvals, Atot, KS, KL, N);
+                        [Frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
 
                         y2 = Frac;
                         x2 = xvals;
@@ -1637,7 +1637,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
                         
                         % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, xvals, KS, KL, N);
+                        [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1647,7 +1647,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
                         
                         % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = seam_lattice(MTtot, xvals, KS, KL, N);
+                        [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
 
                         y2 = Abound;
                         x2 = xvals;
@@ -1708,7 +1708,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound, Afree] = MAP_bind(xvals, Atot, KM, KA, N);
+                       [Frac, MTfree] = MAP_binding(xvals, Atot, KM, KA, N);
 
                        y2 = Frac;
                        x2 = MTfree;
@@ -1718,7 +1718,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                         % Function to get fraction A bound
-                        [Frac, MTfree, Abound, Afree] = MAP_bind(xvals, Atot, KM, KA, N);
+                        [Frac, MTfree] = MAP_binding(xvals, Atot, KM, KA, N);
 
                         y2 = Frac;
                         x2 = xvals;
@@ -1770,7 +1770,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
                         
                          % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = MAP_bind(MTtot, xvals, KM, KA, N);
+                        [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1781,7 +1781,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
                         
                          % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = MAP_bind(MTtot, xvals, KM, KA, N);
+                        [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
 
                         y2 = Abound;
                         x2 = xvals;
@@ -1843,7 +1843,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree, Abound, Afree] = MAP2_binding(xvals, Atot, KM, KA, N);
+                       [Frac, MTfree] = MAP2_binding(xvals, Atot, KM, KA, N);
 
                        y2 = Frac;
                        x2 = MTfree;
@@ -1853,7 +1853,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                         % Function to get fraction A bound
-                        [Frac, MTfree, Abound, Afree] = MAP2_binding(xvals, Atot, KM, KA, N);
+                        [Frac, MTfree] = MAP2_binding(xvals, Atot, KM, KA, N);
 
                         y2 = Frac;
                         x2 = xvals;
@@ -1905,7 +1905,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
                         
                          % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+                        [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1916,7 +1916,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
                         
                          % Function to get the concentration of A bound
-                        [Frac, MTfree, Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+                        [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
 
                         y2 = Abound;
                         x2 = xvals;

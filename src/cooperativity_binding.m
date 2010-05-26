@@ -1,8 +1,8 @@
-function [Frac] = competition(MTtot, Atot, Btot, KA, KB)
-% A function which calculates the binding of A to MT assuming a competition
-% assay where A binds to MT with a KD of KA and B binds to MT with a KD of
-% KB. In this competition assay, Atot and MTtot are kept constant while
-% Btot is varied.
+function [Frac, MTfree] = cooperativity_binding(MTtot, Atot, KD, P, N)
+% A function which calculates the binding of A to MT assuming cooperative
+% binding where the total concentrations of A and MT are Atot and MTtot,
+% the disassociation constant for the first bound A is KD, and the
+% disassociation constant for the second bound A is KD*P
 
 % This file is part of MTBindingSim.
 %
@@ -27,32 +27,35 @@ function [Frac] = competition(MTtot, Atot, Btot, KA, KB)
 % Version history:
 % - 0.5: Initial version
 
-[a,b] = size(Btot);
-MTfree = zeros(a,b);
+[a,b] = size(MTtot);
+Afree = zeros(a,b);
 
-Xguess = MTtot;
+Xguess = MTtot(1);
 
 for n = 1:b
-    f = @(MT)MT + (1/KA)*MT*Atot/(1 + (1/KA)*MT) + (1/KB)*MT*Btot(n)/(1 + (1/KB)*MT) - MTtot;
-    MTfree(n) = fzero(f, Xguess);
     
-    if isnan(MTfree(n))
+    f = @(A)A + ((2/KD)*A + (2/(P*(KD^2)))*A^2)*MTtot(n)/(1 + (2/KD)*A + (2/(P*(KD^2)))*A^2)-Atot;
+    Afree(n) = fzero(f,Xguess);
+    
+    if isnan(Afree(n))
         Frac = 0;
+        MTfree = 0;
         return
     end
     
-    Xguess = MTfree(n);
-    n = n + 1;
+    Xguess = Afree(n);
+    n = n +1;
+    
 end
 
-% Calculates A free
-Afree = Atot./(1 + (1/KA).*MTfree);
-
-% Calculates A bound
 Abound = Atot - Afree;
 
-% Calculates the fraction bound
+% Calculates the fraction of A bound
 Frac = Abound./Atot;
+
+% Calculates free MT
+MTfree = MTtot./(1 + (2/KD).*Afree + (2/(P*KD)).*Afree.^2);
+
 
 end
 

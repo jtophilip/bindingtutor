@@ -1,4 +1,4 @@
-function [Frac, MTfree, Abound, Afree] = MAP2_binding(MTtot, Atot, KM, KA, N)
+function [Frac, MTfree] = MAP2_binding(MTtot, Atot, KM, KA, N)
 % A function which calculates the binding of A to MT assuming that A binds
 % to MT with a disassociation constant of KM and that a second and third A can bind
 % to an MT-bound A with a disassociation constant of KA when [MT] is varied
@@ -39,9 +39,7 @@ for n = 1:b
     Afree(n) = fzero(f, Xguess);
 
     if isnan(Afree(n))
-        Afree = 0;
         Frac = 0;
-        Abound = 0;
         MTfree = 0;
         return
     end

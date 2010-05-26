@@ -1,8 +1,7 @@
-function [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, Atot, KD, P, N)
-% A function which calculates the binding of A to MT assuming cooperative
-% binding where the total concentrations of A and MT are Atot and MTtot,
-% the disassociation constant for the first bound A is KD, and the
-% disassociation constant for the second bound A is KD*P
+function [Frac, MTfree] = seam_lattice_binding(MTtot, Atot, KS, KL, N)
+% A function which calculates the binding of A to MT assuming that A binds
+% to the seam of the MT with disassociation constant KS and the lattice of
+% the MT with disassociatio nconstant KL.
 
 % This file is part of MTBindingSim.
 %
@@ -27,25 +26,38 @@ function [Frac, MTfree, Abound, Afree] = cooperativity(MTtot, Atot, KD, P, N)
 % Version history:
 % - 0.5: Initial version
 
+% Calculates total concentrations of seam and lattice
+ST = MTtot.*N./13;
+LT = MTtot.*N.*12./13;
 
-% Declares variables, creating symbolic versions of KD, Atot, Btot, and p to
-% be used in the solver
-syms A kd mtt at p
+[a,b] = size(MTtot);
+Afree = zeros(a,b);
 
-% Calculates free and bound A
-A1 = solve(A + ((2/kd)*A + (2/(p*(kd^2)))*A^2)*mtt/(1 + (2/kd)*A + (2/(p*(kd^2)))*A^2)-at, A);
-AF = subs(A1(1), {kd at mtt p}, {KD Atot MTtot*N P});
-AB = Atot - AF;
-Abound = real(AB);
-Afree = real(AF);
+Xguess = MTtot(1);
 
-% Calculates the fraction of A bound
-f = Abound./Atot;
-Frac = real(f);
-
-% Calculates free MT
-mt = MTtot./(1 + (2/KD).*Afree + (2/(P*KD)).*Afree.^2);
-MTfree = real(mt);
-
+for n = 1:b
+    f = @(A)A + (1/KS)*A*ST(n)/(1 + (1/KS)*A) + (1/KL)*A*LT(n)/(1 + (1/KL)*A) - Atot;
+    Afree(n) = fzero(f,Xguess);
+    
+    if isnan(Afree)
+        Frac = 0;
+        MTfree = 0;
+        return
+    end
+    
+    Xguess = Afree(n);
+    n = n + 1;
+    
 end
 
+Abound = Atot - Afree;
+
+% Calculates the fraction of A bound
+Frac = Abound./Atot;
+
+% Calculates free seam and lattice
+s = ST./(1+(1/KS).*Afree);
+l = LT./(1 + (1/KL).*Afree);
+MTfree = s  + l;
+
+end

@@ -1,8 +1,7 @@
-function [Frac] = competition(MTtot, Atot, Btot, KA, KB)
-% A function which calculates the binding of A to MT assuming a competition
-% assay where A binds to MT with a KD of KA and B binds to MT with a KD of
-% KB. In this competition assay, Atot and MTtot are kept constant while
-% Btot is varied.
+function [Frac, MTfree] = first_order_binding(MTtot, Atot, KD, N)
+% A function which calculates the biding of A to MT assuming first order
+% binding where the total concentrations of A and MT are Atot and Btot and
+% the disassociation constant is KD.
 
 % This file is part of MTBindingSim.
 %
@@ -27,32 +26,43 @@ function [Frac] = competition(MTtot, Atot, Btot, KA, KB)
 % Version history:
 % - 0.5: Initial version
 
-[a,b] = size(Btot);
-MTfree = zeros(a,b);
 
-Xguess = MTtot;
+% Declares variables, creating symbolic versions of KD, Atot, and Btot to
+% be used in the solver
+syms A kd mtt at
+
+% Solves for free and bound A
+A1 = solve(A + (1/kd)*A*mtt/(1 + (1/kd)*A)- at, A);
+AF = subs(A1(1), {kd mtt at}, {KD MTtot*N Atot});
+
+[a, b] = size(MTtot);
+Afree = zeros(a,b);
+
+Xguess = MTtot(1);
 
 for n = 1:b
-    f = @(MT)MT + (1/KA)*MT*Atot/(1 + (1/KA)*MT) + (1/KB)*MT*Btot(n)/(1 + (1/KB)*MT) - MTtot;
-    MTfree(n) = fzero(f, Xguess);
     
-    if isnan(MTfree(n))
+    f = @(A)A + (1/KD)*A*MTtot(n)*N/(1 + (1/KD)*A)- Atot;
+    Afree(n) = fzero(f,Xguess);
+    
+    if isnan(Afree(n))
         Frac = 0;
+        MTfree = 0;
         return
     end
     
-    Xguess = MTfree(n);
-    n = n + 1;
+    Xguess = Afree(n);
+    n = n+1;
+    
 end
 
-% Calculates A free
-Afree = Atot./(1 + (1/KA).*MTfree);
-
-% Calculates A bound
 Abound = Atot - Afree;
 
-% Calculates the fraction bound
-Frac = Abound./Atot;
+% Solves for fraciton of A bound
+Frac = (Abound)./Atot;
+
+% Solves for free MT
+MTfree = MTtot./(1 + (1/KD).*(Afree));
+
 
 end
-
