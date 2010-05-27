@@ -34,7 +34,7 @@ Xguess = MTtot(1);
 
 for n = 1:b
     
-    f = @(A)A + ((2/KD)*A + (2/(P*(KD^2)))*A^2)*MTtot(n)/(1 + (2/KD)*A + (2/(P*(KD^2)))*A^2)-Atot;
+    f = @(A)A + ((2/KD)*A + (2/(P*(KD^2)))*A^2)*MTtot(n)*N/(1 + (2/KD)*A + (2/(P*(KD^2)))*A^2)-Atot;
     Afree(n) = fzero(f,Xguess);
     
     if isnan(Afree(n))
