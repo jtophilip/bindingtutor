@@ -551,6 +551,12 @@ elseif get(handles.curve1, 'Value') == 1
                    %Calculates the value of frac, MTfree, and Abound at
                    %each value of x
                    [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
+                   
+                   [a,b] = size(frac);
+                   if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                   end
 
                    y1 = frac;
                    x1 = MTfree;
@@ -564,7 +570,12 @@ elseif get(handles.curve1, 'Value') == 1
 
                    % Calculates the value of frac, MTfree, and Abound
                    [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
-
+                   
+                   [a,b] = size(frac);
+                   if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                   end
 
                    y1 = frac;
                    x1 = xvals; 
@@ -613,6 +624,12 @@ elseif get(handles.curve1, 'Value') == 1
                     
                     % Calculates frac, MTfree, Abound, and Afree
                     [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
 
                     y1 = Abound;
@@ -628,6 +645,12 @@ elseif get(handles.curve1, 'Value') == 1
                 
                     % Calculates frac, MTfree, and Abound
                     [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
 
                     y1 = Abound;
@@ -695,6 +718,12 @@ elseif get(handles.curve1, 'Value') == 2
 
                     % Calculates frac, MTfree, and Abound
                     [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
+                    
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
 
                     y1 = frac;
@@ -709,6 +738,12 @@ elseif get(handles.curve1, 'Value') == 2
 
                     % Calculates frac, MTfree, and Abound
                     [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
+                    
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
 
                     y1 = frac;
@@ -766,6 +801,12 @@ elseif get(handles.curve1, 'Value') == 2
                 case 'free'
                     
                     [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
                     y1 = Abound;
                     x1 = Afree;
@@ -779,6 +820,12 @@ elseif get(handles.curve1, 'Value') == 2
                 case 'total'
                     
                     [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
                     y1 = Abound;
                     x1 = xvals;
@@ -844,8 +891,15 @@ elseif get(handles.curve1, 'Value') == 3
                 case 'free'
 
                    % Calculates fraction of A bound and free MT
-                   [Frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
-                   y1 = Frac;
+                   [frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
+                   
+                   [a,b] = size(frac);
+                   if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                   end
+                   
+                   y1 = frac;
                    x1 = MTfree;
 
                    xaxis = '[MT] free';
@@ -856,8 +910,15 @@ elseif get(handles.curve1, 'Value') == 3
                 case 'total'
 
                     % Calculates fraction of A bound and MT free
-                    [Frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
-                    y1 = Frac;
+                    [frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
+                    
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    y1 = frac;
                     x1 = xvals;
 
                     xaxis = '[MT] total';
@@ -912,6 +973,13 @@ elseif get(handles.curve1, 'Value') == 3
                     
                     % Calculates concentration of A bound and MT free
                     [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
                     y1 = Abound;
                     x1 = Afree;
 
@@ -925,6 +993,13 @@ elseif get(handles.curve1, 'Value') == 3
                     
                     % Calculates concentration of A bound and MT free
                     [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
                     y1 = Abound;
                     x1 = xvals;
 
@@ -989,9 +1064,15 @@ elseif get(handles.curve1, 'Value') == 4
                 case 'free'
 
                    % Calculates fraction of A bound and free MT
-                   [Frac, MTfree] =MAP_binding(xvals, Atot, KM, KA, N);
+                   [frac, MTfree] =MAP_binding(xvals, Atot, KM, KA, N);
+                   
+                   [a,b] = size(frac);
+                   if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                   end
 
-                   y1 = Frac;
+                   y1 = frac;
                    x1 = MTfree;
 
                    xaxis = '[MT] free';
@@ -1002,9 +1083,15 @@ elseif get(handles.curve1, 'Value') == 4
                 case 'total'
 
                     % Calculates fraction of A bound and free MT
-                    [Frac, MTfree] =MAP_binding(xvals, Atot, KM, KA, N);
+                    [frac, MTfree] =MAP_binding(xvals, Atot, KM, KA, N);
+                    
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
-                    y1 = Frac;
+                    y1 = frac;
                     x1 = xvals;
 
                     xaxis = '[MT] total';
@@ -1058,6 +1145,12 @@ elseif get(handles.curve1, 'Value') == 4
                     
                     % Calculates the concentration of A bound
                     [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
                     y1 = Abound;
                     x1 = Afree;
@@ -1071,6 +1164,12 @@ elseif get(handles.curve1, 'Value') == 4
                     
                     % Calculates the concentration of A bound
                     [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
                     y1 = Abound;
                     x1 =xvals;
@@ -1134,9 +1233,15 @@ elseif get(handles.curve1, 'Value') == 5
                 case 'free'
 
                    % Calculates fraction of A bound and free MT
-                   [Frac, MTfree] =MAP2_binding(xvals, Atot, KM, KA, N);
+                   [frac, MTfree] =MAP2_binding(xvals, Atot, KM, KA, N);
+                   
+                   [a,b] = size(frac);
+                   if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                   end
 
-                   y1 = Frac;
+                   y1 = frac;
                    x1 = MTfree;
 
                    xaxis = '[MT] free';
@@ -1147,9 +1252,15 @@ elseif get(handles.curve1, 'Value') == 5
                 case 'total'
 
                     % Calculates fraction of A bound and free MT
-                    [Frac, MTfree] =MAP2_binding(xvals, Atot, KM, KA, N);
+                    [frac, MTfree] =MAP2_binding(xvals, Atot, KM, KA, N);
+                    
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
-                    y1 = Frac;
+                    y1 = frac;
                     x1 = xvals;
 
                     xaxis = '[MT] total';
@@ -1203,6 +1314,12 @@ elseif get(handles.curve1, 'Value') == 5
                     
                     % Calculates the concentration of A bound
                     [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
                     y1 = Abound;
                     x1 = Afree;
@@ -1216,6 +1333,12 @@ elseif get(handles.curve1, 'Value') == 5
                     
                     % Calculates the concentration of A bound
                     [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+                    
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
 
                     y1 = Abound;
                     x1 =xvals;
@@ -1318,9 +1441,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
+                       [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
+                       
+                       [a,b] = size(frac);
+                       if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                       end
 
-                       y2 = Frac;
+                       y2 = frac;
                        x2 = MTfree;
 
                        legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
@@ -1328,9 +1457,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                        % Function to get fraction A bound
-                       [Frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
+                       [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
+                       
+                       [a,b] = size(frac);
+                       if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                       end
 
-                       y2 = Frac;
+                       y2 = frac;
                        x2 = xvals;
 
                        legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
@@ -1372,6 +1507,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                         % Function to get the concentration of A bound
                         [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1382,6 +1523,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                         % Function to get the concentration of A bound
                         [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
                         y2 = Abound;
                         x2 = xvals;
@@ -1443,9 +1590,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
+                       [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
+                       
+                       [a,b] = size(frac);
+                       if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                       end
 
-                       y2 = Frac;
+                       y2 = frac;
                        x2 = MTfree;
 
                        legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
@@ -1453,9 +1606,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                        % Function to get fraction A bound
-                       [Frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
+                       [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
+                       
+                       [a,b] = size(frac);
+                       if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                       end
 
-                       y2 = Frac;
+                       y2 = frac;
                        x2 = xvals;
 
                        legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
@@ -1506,6 +1665,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                         % Function to get the concentration of A bound
                         [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1516,6 +1681,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                         % Function to get the concentration of A bound
                         [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
                         y2 = Abound;
                         x2 = xvals;
@@ -1575,9 +1746,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
+                       [frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
+                       
+                       [a,b] = size(frac);
+                       if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                       end
 
-                       y2 = Frac;
+                       y2 = frac;
                        x2 = MTfree;
 
                        legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
@@ -1585,9 +1762,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                         % Function to get fraction A bound
-                        [Frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
+                        [frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
+                        
+                        [a,b] = size(frac);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
-                        y2 = Frac;
+                        y2 = frac;
                         x2 = xvals;
 
                         legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
@@ -1638,6 +1821,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                         % Function to get the concentration of A bound
                         [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1648,7 +1837,13 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                         % Function to get the concentration of A bound
                         [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
-
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
+ 
                         y2 = Abound;
                         x2 = xvals;
 
@@ -1708,9 +1903,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree] = MAP_binding(xvals, Atot, KM, KA, N);
+                       [frac, MTfree] = MAP_binding(xvals, Atot, KM, KA, N);
+                       
+                       [a,b] = size(frac);
+                       if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                       end
 
-                       y2 = Frac;
+                       y2 = frac;
                        x2 = MTfree;
 
                        legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
@@ -1718,9 +1919,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                         % Function to get fraction A bound
-                        [Frac, MTfree] = MAP_binding(xvals, Atot, KM, KA, N);
+                        [frac, MTfree] = MAP_binding(xvals, Atot, KM, KA, N);
+                        
+                        [a,b] = size(frac);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
-                        y2 = Frac;
+                        y2 = frac;
                         x2 = xvals;
 
                         legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
@@ -1771,6 +1978,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                          % Function to get the concentration of A bound
                         [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1782,6 +1995,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                          % Function to get the concentration of A bound
                         [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
                         y2 = Abound;
                         x2 = xvals;
@@ -1843,9 +2062,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [Frac, MTfree] = MAP2_binding(xvals, Atot, KM, KA, N);
+                       [frac, MTfree] = MAP2_binding(xvals, Atot, KM, KA, N);
+                       
+                       [a,b] = size(frac);
+                       if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                       end
 
-                       y2 = Frac;
+                       y2 = frac;
                        x2 = MTfree;
 
                        legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
@@ -1853,9 +2078,15 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'total'
 
                         % Function to get fraction A bound
-                        [Frac, MTfree] = MAP2_binding(xvals, Atot, KM, KA, N);
+                        [frac, MTfree] = MAP2_binding(xvals, Atot, KM, KA, N);
+                        
+                        [a,b] = size(frac);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
-                        y2 = Frac;
+                        y2 = frac;
                         x2 = xvals;
 
                         legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
@@ -1906,6 +2137,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                          % Function to get the concentration of A bound
                         [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
                         y2 = Abound;
                         x2 = Afree;
@@ -1917,6 +2154,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         
                          % Function to get the concentration of A bound
                         [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
+                        
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
 
                         y2 = Abound;
                         x2 = xvals;
