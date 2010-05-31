@@ -44,7 +44,7 @@ for n = 1:b
         return
     end
     Xguess = Afree(n);
-    n = n +1;
+
 end
 
 % Calculates Abound, Frac, and MTfree

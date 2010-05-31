@@ -51,7 +51,7 @@ for n = 1:b
     % Sets the guess for the next iteration to the calculated value of
     % MTfree
     Xguess = MTfree(n);
-    n = n + 1;
+
 end
 
 % Calculates A free

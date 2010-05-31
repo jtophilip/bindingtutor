@@ -54,7 +54,6 @@ for n = 1:b
     
     % Sets the new guess to the calculated value of AFree
     Xguess = Afree(n);
-    n = n +1;
     
 end
 

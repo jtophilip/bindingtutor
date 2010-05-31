@@ -46,7 +46,6 @@ for n = 1:b
     end
     
     Xguess = Afree(n);
-    n = n + 1;
     
 end
 

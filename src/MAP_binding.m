@@ -54,7 +54,7 @@ for n = 1:b
     % Sets the guess for the next iteration to the calculated value of
     % Afree
     Xguess = Afree(n);
-    n = n +1;
+
 end
 
 Abound = Atot - Afree;
