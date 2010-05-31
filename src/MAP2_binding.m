@@ -28,21 +28,31 @@ function [Frac, MTfree] = MAP2_binding(MTtot, Atot, KM, KA, N)
 % - 0.5: Initial version
 
 
+% Determines the size of MTtot and creates an empty vector of the same size
+% for Afree
 [a,b] = size(MTtot);
 Afree = zeros(a,b);
 
-Xguess = MTtot(1);
+% Sets the inital guess to Atot
+Xguess = Atot;
 
 % Steps through MTtot calculating Afree at each point
 for n = 1:b
+    
+    % Sets up the equation for Afree and calculates Afree
     f = @(A)A + (A/KM + 2*A^2/(KA*KM) + 3*A^3/(KA^2*KM))*MTtot(n)*N/(1 + A/KM + A^2/(KM*KM) + A^3/(KA^2*KM)) - Atot;
     Afree(n) = fzero(f, Xguess);
 
+    % Checks to make sure that fzero sucessfully calculated Afree and stops
+    % calculation if it did not
     if isnan(Afree(n))
         Frac = 0;
         MTfree = 0;
         return
     end
+    
+    % Sets the guess for the next iteration to the calculated value of
+    % Afree
     Xguess = Afree(n);
 
 end
