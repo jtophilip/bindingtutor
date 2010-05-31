@@ -231,8 +231,10 @@ function graph_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+% Clears the comparision result box
 set(handles.result, 'String', '');
 
+% Disables all GUI buttons and sets the mouse pointer to hourglass
 disableButtons(handles.mainfigure);
 
 % Retreives the x-axis values
@@ -272,8 +274,12 @@ end
 interval = (xmax - xmin)/points;
 xvals = xmin:interval:xmax;
 
+% Determines which graphing mode is selected
 if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
+    
+    %%% Competition mode %%%
 
+    % Gets the value for MTtot and makes sure that it's a positive number
     MTtot = str2double(get(handles.input1_1, 'String'));
     
     if isnan(MTtot) || MTtot < 0
@@ -281,6 +287,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
         return
     end
     
+    % Gets the value for Atot and make sure it's a positive number
     Atot = str2double(get(handles.input2_1, 'String'));
     
     if isnan(Atot) || Atot < 0
@@ -288,6 +295,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
         return
     end
     
+    % Gets the value for KA and make sure it's a positive number
     KA = str2double(get(handles.input3_1, 'String'));
     
     if isnan(KA) || KA < 0
@@ -295,6 +303,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
         return
     end
     
+    % Gets the value for KB and makes sure it's a positive number
     KB = str2double(get(handles.input4_1, 'String'));
     
     if isnan(KB) || KB < 0
@@ -302,19 +311,31 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
         return
     end
     
+    % Calculates the fraction of A bound
     [frac] = competition(MTtot, Atot, xvals, KA, KB);
     
+    % Checks to make sure that the calculation succeeded and returns an
+    % error if it did not
+    [a,b] = size(frac);
+    if a == 1 && b == 1
+       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+       return
+    end
+    
+    % Sets the x and y values to be plotted
     y1 = frac;
     x1 = xvals;
     
+    % Sets the x-axis title, y-axis title, plot title, and legend text
     xaxis = '[B] total';
     yaxis = 'Fraction of A bound';
     plottitle = 'Competition Binding Assay';
     legend1 = ['[MT] total = ' get(handles.input1_1, 'String') ', [A] total = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', K_B = ' get(handles.input4_1, 'String') ];
 
-% Determines the parameters selected for curve1
+
 elseif get(handles.curve1, 'Value') == 1
-    % First order binding
+    
+    %%% First order binding %%%
 
     % Determine the experimental mode
     switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
@@ -352,19 +373,23 @@ elseif get(handles.curve1, 'Value') == 1
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
-                   %Calculates the value of frac, MTfree, and Abound at
-                   %each value of x
+                   %Calculates the value of frac, MTfree, and Abound
                    [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
                    
+                   % Checks to make sure that the calculation suceeded and
+                   % returns an error if it did not
                    [a,b] = size(frac);
                    if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                    end
-
+                   
+                   % Sets the x and y values to graph
                    y1 = frac;
                    x1 = MTfree;
 
+                   % Sets the x-axis title, y-axis title, plot title, and
+                   % legend text
                    xaxis = '[MT] free';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
@@ -372,18 +397,23 @@ elseif get(handles.curve1, 'Value') == 1
 
                 case 'total'
 
-                   % Calculates the value of frac, MTfree, and Abound
+                   % Calculates the value of frac and MTfree
                    [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
                    
+                   % Checks to make sure that the calculation suceeded and
+                   % returns an error if it did not
                    [a,b] = size(frac);
                    if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                    end
 
+                   % Sets the x and y values to graph
                    y1 = frac;
                    x1 = xvals; 
 
+                   % Sets the x-axis title, y-axis title, plot title, and
+                   % legend text
                    xaxis = '[MT] total';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
@@ -426,19 +456,23 @@ elseif get(handles.curve1, 'Value') == 1
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
                     
-                    % Calculates frac, MTfree, Abound, and Afree
+                    % Calculates Abound, and Afree
                     [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
                     
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
-
-
+                    
+                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 = Afree;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -447,19 +481,23 @@ elseif get(handles.curve1, 'Value') == 1
                     
                 case 'total'
                 
-                    % Calculates frac, MTfree, and Abound
+                    % Calculates Abound and Afree
                     [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
                     
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
-
+                    % Sets the x and y data to plot
                     y1 = Abound;
                     x1 = xvals;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -472,8 +510,9 @@ elseif get(handles.curve1, 'Value') == 1
         otherwise
     end
 
-% Cooperative binding  
 elseif get(handles.curve1, 'Value') == 2
+    
+    %%% Cooperative binding %%% 
 
     % Determine the experimental mode
     switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
@@ -520,9 +559,11 @@ elseif get(handles.curve1, 'Value') == 2
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
-                    % Calculates frac, MTfree, and Abound
+                    % Calculates frac and MTfree
                     [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
                     
+                    % Checks to make sure that the calculation was
+                    % successful and returns an error if it was not
                     [a,b] = size(frac);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
@@ -530,9 +571,12 @@ elseif get(handles.curve1, 'Value') == 2
                     end
 
 
+                    % Sets the x and y values to plot
                     y1 = frac;
                     x1 = MTfree;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[MT] free';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
@@ -540,9 +584,11 @@ elseif get(handles.curve1, 'Value') == 2
 
                 case 'total'
 
-                    % Calculates frac, MTfree, and Abound
+                    % Calculates frac, MTfree
                     [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
                     
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(frac);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
@@ -550,9 +596,11 @@ elseif get(handles.curve1, 'Value') == 2
                     end
 
 
+                    % Sets the x and y values to plot
                     y1 = frac;
                     x1 = xvals;
 
+                    % Sets the x-axis title, y-axis title, plot title, and legend text 
                     xaxis = '[MT] total';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
@@ -600,21 +648,28 @@ elseif get(handles.curve1, 'Value') == 2
             end
 
 
+            % Determines wether free or total mode is selected
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 
                 case 'free'
                     
+                    % Calculates Abound and Afree
                     [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
                     
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
+                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 = Afree;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -623,17 +678,23 @@ elseif get(handles.curve1, 'Value') == 2
                     
                 case 'total'
                     
+                    % Calculates Abound and Afree
                     [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
                     
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
+                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 = xvals;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -647,8 +708,10 @@ elseif get(handles.curve1, 'Value') == 2
     end
 
 
-% Seam and lattice binding
+
 elseif get(handles.curve1, 'Value') == 3
+    %%% Seam and lattice binding %%%
+    
     % Determine the experimental mode
     switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
         % Binding mode is selected
@@ -697,15 +760,20 @@ elseif get(handles.curve1, 'Value') == 3
                    % Calculates fraction of A bound and free MT
                    [frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
                    
+                   % Checks to make sure the calculation was sucessful and
+                   % returns an error if it was not
                    [a,b] = size(frac);
                    if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                    end
                    
+                   % Sets the x and y values to plot
                    y1 = frac;
                    x1 = MTfree;
 
+                   % Sets the x-axis title, y-axis title, plot title, and
+                   % legend text
                    xaxis = '[MT] free';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
@@ -716,15 +784,20 @@ elseif get(handles.curve1, 'Value') == 3
                     % Calculates fraction of A bound and MT free
                     [frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
                     
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(frac);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
                     
+                    % Sets the x and y values to plot
                     y1 = frac;
                     x1 = xvals;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[MT] total';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
@@ -771,22 +844,28 @@ elseif get(handles.curve1, 'Value') == 3
                return
             end
             
+            % Determines whether the the x-axis is total or free
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 
                 case 'free'
                     
-                    % Calculates concentration of A bound and MT free
+                    % Calculates concentration of Abound and A free
                     [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
                     
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
                     
+                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 = Afree;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -798,15 +877,20 @@ elseif get(handles.curve1, 'Value') == 3
                     % Calculates concentration of A bound and MT free
                     [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
                     
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
                     
+                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 = xvals;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -820,8 +904,10 @@ elseif get(handles.curve1, 'Value') == 3
     end
 
 
-% MAPs bind MT-bound MAPS
+
 elseif get(handles.curve1, 'Value') == 4
+    
+    %%% MAPs bind MT-bound MAPS %%%
 
     % Determine the experimental mode
     switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
@@ -870,15 +956,20 @@ elseif get(handles.curve1, 'Value') == 4
                    % Calculates fraction of A bound and free MT
                    [frac, MTfree] =MAP_binding(xvals, Atot, KM, KA, N);
                    
+                   % Determines whether the calculation was successful and
+                   % returns an error if it was not
                    [a,b] = size(frac);
                    if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                    end
 
+                   % Sets the x and y values to plot
                    y1 = frac;
                    x1 = MTfree;
 
+                   % Sets the x-axis title, y-axis title, plot title, and
+                   % legend text
                    xaxis = '[MT] free';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
@@ -889,15 +980,20 @@ elseif get(handles.curve1, 'Value') == 4
                     % Calculates fraction of A bound and free MT
                     [frac, MTfree] =MAP_binding(xvals, Atot, KM, KA, N);
                     
+                    % Determines whether the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(frac);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
+                    % Sets the x and y values to plot
                     y1 = frac;
                     x1 = xvals;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[MT] total';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
@@ -944,21 +1040,27 @@ elseif get(handles.curve1, 'Value') == 4
                return
             end
 
+            % Determines whether the x-axis is free A or total A
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
                     
-                    % Calculates the concentration of A bound
+                    % Calculates the concentration of A bound and A free
                     [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
                     
+                    % Determines whether the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
+                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 = Afree;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -969,15 +1071,20 @@ elseif get(handles.curve1, 'Value') == 4
                     % Calculates the concentration of A bound
                     [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
                     
+                    % Determines whether the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
+                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 =xvals;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -990,8 +1097,11 @@ elseif get(handles.curve1, 'Value') == 4
         otherwise
     end
 
-% 2 MAPs bind MT-bound MAPs    
+   
 elseif get(handles.curve1, 'Value') == 5
+    
+    %%% 2 MAPs bind MT-bound MAPs %%%
+    
     % Determine the experimental mode
     switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
         % Binding mode is selected
@@ -1039,15 +1149,21 @@ elseif get(handles.curve1, 'Value') == 5
                    % Calculates fraction of A bound and free MT
                    [frac, MTfree] =MAP2_binding(xvals, Atot, KM, KA, N);
                    
+                   % Determine whether the calculation was sucessful and
+                   % reutrn an error if it was not
                    [a,b] = size(frac);
                    if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                    end
 
+                   % Set the x and y values to plot
                    y1 = frac;
                    x1 = MTfree;
 
+                   
+                   % Set the x-axis title, y-axis title, plot title, and
+                   % legend text
                    xaxis = '[MT] free';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
@@ -1058,15 +1174,20 @@ elseif get(handles.curve1, 'Value') == 5
                     % Calculates fraction of A bound and free MT
                     [frac, MTfree] =MAP2_binding(xvals, Atot, KM, KA, N);
                     
+                    % Ensure that the calculation was sucessful and return
+                    % an error if it was not
                     [a,b] = size(frac);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
+                    % Set the x and y values to plot
                     y1 = frac;
                     x1 = xvals;
 
+                    % Set the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[MT] total';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
@@ -1113,21 +1234,27 @@ elseif get(handles.curve1, 'Value') == 5
                return
             end
 
+            % Determine whether the x-axis is free A or total A
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
                     
                     % Calculates the concentration of A bound
                     [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
                     
+                    % Ensure that the calculation was sucessful and returns
+                    % an error if it was not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
+                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 = Afree;
 
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -1138,15 +1265,20 @@ elseif get(handles.curve1, 'Value') == 5
                     % Calculates the concentration of A bound
                     [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
                     
+                    % Ensures that the calculation was sucessful and
+                    % returns an error if it was not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
+                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 =xvals;
-
+                    
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
@@ -1167,15 +1299,20 @@ end
 % second curve
 if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     
-  if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
+   % Determines the model to be calculated 
+   if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
 
-    MTtot = str2double(get(handles.input1_2, 'String'));
+      %%%% Competition mode %%%
+       
+      % Gets the value of MTtot and ensures it's a positivie number
+      MTtot = str2double(get(handles.input1_2, 'String'));
     
-    if isnan(MTtot) || MTtot < 0
-        errorbox('Please enter a positive number for [MT] total', hObject);
-        return
-    end
+      if isnan(MTtot) || MTtot < 0
+          errorbox('Please enter a positive number for [MT] total', hObject);
+          return
+      end
     
+      % Gets the value of Atot and ensures it's a positivie number
     Atot = str2double(get(handles.input2_2, 'String'));
     
     if isnan(Atot) || Atot < 0
@@ -1183,6 +1320,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         return
     end
     
+    % Gets the value of KA and ensures it's a positive number
     KA = str2double(get(handles.input3_2, 'String'));
     
     if isnan(KA) || KA < 0
@@ -1190,6 +1328,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         return
     end
     
+    % Gets the value of KB and ensures it's a positive number
     KB = str2double(get(handles.input4_2, 'String'));
     
     if isnan(KB) || KB < 0
@@ -1197,16 +1336,29 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         return
     end
     
+    % Calculates the fraction of A bound
     [frac] = competition(MTtot, Atot, xvals, KA, KB);
     
+    % Ensures that the calculation suceeded and returns an error if it did
+    % not
+    [a,b] = size(frac);
+    if a == 1 && b == 1
+        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+        return
+    end
+
+    
+    % Sets the x and y values to graph
     y2 = frac;
     x2 = xvals;
 
+    % Sets the legend text
     legend2 = ['[MT] total = ' get(handles.input1_2, 'String') ', [A] total = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', K_B = ' get(handles.input4_2, 'String') ];
 
-  % Determines the parameters selected for curve1
+  % Determines the parameters selected for curve2
   elseif get(handles.curve2, 'Value') == 1
-    % First order binding
+    
+      %%% First order binding %%%%
 
         % Determine the experimental mode
         switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
@@ -1247,15 +1399,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        % Function to get fraction A bound and free MT 
                        [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
                        
+                       % Ensures that the calculation worked and returns an
+                       % error if it did not
                        [a,b] = size(frac);
                        if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                        end
 
+                       % Sets the x and y values to plot
                        y2 = frac;
                        x2 = MTfree;
 
+                       % Sets the legend text
                        legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
 
                     case 'total'
@@ -1263,15 +1419,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        % Function to get fraction A bound
                        [frac, MTfree] = first_order_binding(xvals, Atot, KD, N);
                        
+                       % Ensures that the calculation succeeded and returns
+                       % an error if it did not
                        [a,b] = size(frac);
                        if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                        end
 
+                       % Sets the x and y values to plot
                        y2 = frac;
                        x2 = xvals;
 
+                       % Sets the legend text
                        legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
 
                     otherwise
@@ -1306,21 +1466,26 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
                 
+                % Determines whether the x-axis is free or total A
                 switch get(get(handles.tot_free, 'SelectedObject'), 'Tag')
                     case 'free'
                         
                         % Function to get the concentration of A bound
                         [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
                         
+                        % Ensures that the calculation succeeded and
+                        % returns an error if it did not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x an y values to graph
                         y2 = Abound;
                         x2 = Afree;
 
+                        % Sets the legend text
                         legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
 
                     case 'total'
@@ -1328,15 +1493,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Function to get the concentration of A bound
                         [Abound, Afree] = first_order_saturation(MTtot, xvals, KD, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to graph
                         y2 = Abound;
                         x2 = xvals;
 
+                        % Sets the legend text
                         legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
 
                     otherwise
@@ -1346,8 +1515,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             otherwise
         end
 
-    % Cooperative binding  
+     
     elseif get(handles.curve2, 'Value') == 2
+        
+        %%%% Cooperative binding %%%%
 
         % Determine the experimental mode
         switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
@@ -1372,7 +1543,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     return
                 end
 
-                % Gets the value for p and ensures that it's a
+                % Gets the value for p and ensures that it's a positive
                 % number
                 p = str2double(get(handles.input3_2, 'String'));
 
@@ -1396,15 +1567,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        % Function to get fraction A bound and free MT 
                        [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
                        
+                       % Ensures that the calculation was successful and
+                       % returns an error if it was not
                        [a,b] = size(frac);
                        if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                        end
 
+                       % Sets the x and y values to graph
                        y2 = frac;
                        x2 = MTfree;
 
+                       % Sets the legend text
                        legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
 
                     case 'total'
@@ -1412,15 +1587,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        % Function to get fraction A bound
                        [frac, MTfree] = cooperativity_binding(xvals, Atot, KD, p, N);
                        
+                       % Ensures that the calculation was successful and
+                       % returns an error if it was not
                        [a,b] = size(frac);
                        if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                        end
 
+                       % Sets the x and y values to graph
                        y2 = frac;
                        x2 = xvals;
 
+                       % Sets the legend text
                        legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
 
                     otherwise
@@ -1464,21 +1643,26 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
 
+                % Determines whether the x-axis is free or total A
                 switch get(get(handles.tot_free, 'SelectedObject'), 'Tag')
                     case 'free'
                         
                         % Function to get the concentration of A bound
                         [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to graph
                         y2 = Abound;
                         x2 = Afree;
 
+                        % Sets the legend text
                         legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
 
                     case 'total'
@@ -1486,15 +1670,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Function to get the concentration of A bound
                         [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KD, p, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to graph
                         y2 = Abound;
                         x2 = xvals;
 
+                        % Sets the legend text
                         legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
 
                     otherwise
@@ -1503,8 +1691,11 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         end
 
 
-    % Seam and lattice binding
+    
     elseif get(handles.curve2, 'Value') == 3
+        
+        %%%% Seam and lattice binding %%%%%
+        
         % Determine the experimental mode
         switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
             % Binding mode is selected
@@ -1552,15 +1743,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        % Function to get fraction A bound and free MT 
                        [frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
                        
+                       % Ensures that the calculation was successful and
+                       % returns an error if it was not
                        [a,b] = size(frac);
                        if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                        end
 
+                       % Sets the x and y values to plot
                        y2 = frac;
                        x2 = MTfree;
 
+                       % Sets the legend text
                        legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
 
                     case 'total'
@@ -1568,15 +1763,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Function to get fraction A bound
                         [frac, MTfree] = seam_lattice_binding(xvals, Atot, KS, KL, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(frac);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to plot
                         y2 = frac;
                         x2 = xvals;
 
+                        % Sets the legend text
                         legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
 
                     otherwise
@@ -1620,21 +1819,26 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
                 
+                % Checks to see whether the x-axis is free or total A
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
                         % Function to get the concentration of A bound
                         [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
-
+                        
+                        % Sets the x and y values to plot
                         y2 = Abound;
                         x2 = Afree;
 
+                        % Sets the legend text
                         legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
                         
                     case 'total'
@@ -1642,15 +1846,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Function to get the concentration of A bound
                         [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KS, KL, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
  
+                        % Sets the x and y values to plot
                         y2 = Abound;
                         x2 = xvals;
 
+                        % Sets the legend text
                         legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
                         
                     otherwise
@@ -1659,8 +1867,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         end
 
 
-    % MAPs bind MT-bound MAPS
+    
     elseif get(handles.curve2, 'Value') == 4
+        
+        %%%% MAPs bind MT-bound MAPS %%%%
 
         % Determine the experimental mode
         switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
@@ -1709,15 +1919,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        % Function to get fraction A bound and free MT 
                        [frac, MTfree] = MAP_binding(xvals, Atot, KM, KA, N);
                        
+                       % Ensures that the calculation was successful and
+                       % returns an error if it was not
                        [a,b] = size(frac);
                        if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                        end
 
+                       % Sets the x and y values to plot
                        y2 = frac;
                        x2 = MTfree;
 
+                       % Sets the legend text
                        legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                     case 'total'
@@ -1725,15 +1939,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Function to get fraction A bound
                         [frac, MTfree] = MAP_binding(xvals, Atot, KM, KA, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(frac);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to plot
                         y2 = frac;
                         x2 = xvals;
 
+                        % Sets the legend text
                         legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                     otherwise
@@ -1777,21 +1995,26 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
                 
+                % Determines whether the x-axis mode is free or total A
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
                          % Function to get the concentration of A bound
                         [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to plot
                         y2 = Abound;
                         x2 = Afree;
 
+                        % Sets the legend text
                         legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                         
@@ -1800,15 +2023,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                          % Function to get the concentration of A bound
                         [Abound, Afree] = MAP_saturation(MTtot, xvals, KM, KA, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to plot
                         y2 = Abound;
                         x2 = xvals;
 
+                        % Sets the legend text
                         legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                         
@@ -1818,8 +2045,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         end
         
         
-    % MAPs bind MT-bound MAPS
+    
     elseif get(handles.curve2, 'Value') == 5
+        
+        %%%% 2 MAPs bind MT-bound MAPS %%%%
 
         % Determine the experimental mode
         switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
@@ -1868,15 +2097,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        % Function to get fraction A bound and free MT 
                        [frac, MTfree] = MAP2_binding(xvals, Atot, KM, KA, N);
                        
+                       % Ensures that the calculation was successful and
+                       % retuns an error if it was not
                        [a,b] = size(frac);
                        if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                        end
 
+                       % Sets the x and y values to plot
                        y2 = frac;
                        x2 = MTfree;
 
+                       % Sets the legend text
                        legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                     case 'total'
@@ -1884,15 +2117,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Function to get fraction A bound
                         [frac, MTfree] = MAP2_binding(xvals, Atot, KM, KA, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(frac);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to plot
                         y2 = frac;
                         x2 = xvals;
 
+                        % Sets the legend text
                         legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                     otherwise
@@ -1936,21 +2173,26 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
                 
+                % Determines whether the x-axis is free or total A
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
                          % Function to get the concentration of A bound
                         [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
                         
+                        % Determines whether the calculation was successful
+                        % and returns an error if it was not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to plot
                         y2 = Abound;
                         x2 = Afree;
 
+                        % Sets the legend text
                         legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                         
@@ -1959,15 +2201,19 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                          % Function to get the concentration of A bound
                         [Abound, Afree] = MAP2_saturation(MTtot, xvals, KM, KA, N);
                         
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
                         [a,b] = size(Abound);
                         if a == 1 && b == 1
                            errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                            return
                         end
 
+                        % Sets the x and y values to plot
                         y2 = Abound;
                         x2 = xvals;
 
+                        % Sets the legend text
                         legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
 
                         
@@ -1991,7 +2237,7 @@ end
 % Activate the graph window
 figure(handles.graphfigure);
 
-%plots the x and y data
+% Plots the x and y data for the first curve
 hold on
 h = plot(handles.graphaxes, x1, y1);
 xlabel(xaxis);
@@ -2000,8 +2246,7 @@ title(plottitle);
 
 add_legend(handles, legend1);
 
-% Rotates through the availble MatLab colors, colors the plot, and
-% displays the color in the color readout
+% Rotates through colors and colors the plot
 if rem(handles.color,7) == 0
     set(h,'color','blue');
 elseif rem(handles.color,7) ==1
@@ -2030,8 +2275,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     
     add_legend(handles, legend2);
 
-    % Rotates through the availble MatLab colors, colors the plot, and
-    % displays the color in the color readout
+    % Rotates through the colors and colors the plot
     if rem(handles.color,7) == 0
         set(h,'color','blue');
     elseif rem(handles.color,7) ==1
@@ -2049,9 +2293,9 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     end
     handles.color = handles.color +1;
     
-    % Determines whether the plotting mode is free or total
-    if strcmp(get(get(handles.tot_free, 'SelectedObject'), 'Tag'), 'total')
-        % Computes and displays the difference between the two curves
+    % Computes and displays the differences between the two curves if the
+    % x-axis is in total mode
+    if strcmp(get(get(handles.tot_free, 'SelectedObject'), 'Tag'), 'total') || strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
 
         % Computes absolute and percent differences, then calculates the
         % average and maximum values of each
@@ -2099,6 +2343,7 @@ end
 % Updates the handles
 guidata(hObject, handles);
 
+% Enables all buttons and sets the pointer to arrow
 enableButtons(handles.mainfigure);
 end
 
@@ -2355,8 +2600,10 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         return
     end
     
+    % Resets the color counter
     handles.color = 0;
     
+    % Deletes the axes
     if (ishandle(handles.graphaxes))
         delete(handles.graphaxes);
         handles.graphaxes = -1;
@@ -2399,7 +2646,8 @@ switch get(eventdata.NewValue, 'Tag')
             case 4
                 
                 MAP_binding_labels1(hObject);
-                
+            
+            % 2 MAPs bind MT-bound MAPs selected
             case 5
                 
                 MAP2_binding_labels1(hObject);
@@ -2437,7 +2685,8 @@ switch get(eventdata.NewValue, 'Tag')
                 case 4
                 
                     MAP_binding_labels2(hObject);
-                    
+                
+                % 2 MAPs bind MT-bound MAPs selected
                 case 5
                     
                     MAP2_binding_labels2(hObject);
@@ -2477,7 +2726,8 @@ switch get(eventdata.NewValue, 'Tag')
             case 4
                 
                 MAP_saturation_labels1(hObject);
-                
+            
+            % 2 MAPs bind MT-bound MAPs selected
             case 5
                 
                 MAP2_saturation_labels1(hObject);
@@ -2515,7 +2765,8 @@ switch get(eventdata.NewValue, 'Tag')
                 case 4
                 
                     MAP_saturation_labels2(hObject);
-                    
+                
+                % 2 MAPs bind MT-bound MAPs selected
                 case 5
                     
                     MAP2_saturation_labels2(hObject);
@@ -2536,6 +2787,7 @@ switch get(eventdata.NewValue, 'Tag')
         
         competition_labels1(hObject);
         
+        % Determines if comparision mode is selected
         if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             
             competition_labels2(hObject);
@@ -2683,36 +2935,54 @@ end
 
 
 function first_order_strings(model, equation)
+
+% Generates the model and equation strings for first order
+
 global KD;
 set_java_component(model, 'A + MT &harr; AMT');
 set_java_component(equation, [KD, ' = [A][MT]/[AMT]']);
 end
 
 function cooperativity_strings(model, equation)
+
+% Generates the model and equation strings for cooperatitivy
+
 global KD;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT');
-set_java_component(model, [KD, ' = [A][MT]/[AMT], &phi;&sdot;', KD, ' = [A][AMT]/[A<sub><small>2</small</sub>MT]']);
+set_java_component(equation, [KD, ' = [A][MT]/[AMT], &phi;&sdot;', KD, ' = [A][AMT]/[A<sub><small>2</small</sub>MT]']);
 end
 
 function seam_strings(model, equation)
+
+% Generates the model and equation strings for seam and lattice binding
+
 global KS KL;
 set_java_component(model, 'A + S &harr; AS, A + L &harr; AL');
 set_java_component(equation, [KL, ' = [A][L]/[AL], ', KS, ' = [A][S]/[AS]']);
 end
 
 function MAP_strings(model, equation)
+
+% Generates the model and equation strings for MAPs bind MT-bound MAPs
+
 global KM KA;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT');
 set_java_component(equation, [KM, ' = [A][MT]/[AMT], ', KA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT]']);
 end
 
-function MAP2_strings(model, equation);
+function MAP2_strings(model, equation)
+
+% Generates the model and equation strings for 2 MAPs bind MT-bound MAPs
+
 global KM KA;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT, A + A<sub><small>2</small></sub>MT &harr; A<sub><small>3</small></sub>MT');
 set_java_component(equation, [KM, ' = [A][MT]/[AMT], ', KA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT],<br>', KA, ' = [A][A<sub><small>2</small></sub>MT]/[A<sub><small>3</small></sub>MT]']);
 end
 
 function competition_strings(model, equation)
+
+% Generates the model and equation strings for competition
+
 global KA KB;
 set_java_component(model, 'A + MT &harr; AMT, B + MT &harr; BMT');
 set_java_component(equation, [KA, ' =[A][MT]/[AMT], ', KB, ' =[B][MT]/[BMT]']);
@@ -2754,7 +3024,7 @@ end
 
 function first_order_saturation_labels1(hObject)
 % Function to update the appearence of binding_BUI for the case where the
-% frist function is first oder binding in saturation mode
+% first function is first oder binding in saturation mode
 
 global KD;
 
@@ -2991,7 +3261,7 @@ end
 
 function MAP2_binding_labels1(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
-%first function is the MAPs bind to MT-bound MAPs model in binding mode
+%first function is 2 MAPs bind to MT-bound MAPs model in binding mode
 
 global KM KA UM;
 
@@ -3025,7 +3295,7 @@ end
 
 function MAP2_saturation_labels1(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
-%first function is the MAPs bind to MT-bound MAPs model in saturation mode
+%first function is 2 MAPs bind to MT-bound MAPs model in saturation mode
 
 global KM KA UM;
 
@@ -3056,7 +3326,7 @@ guidata(hObject, handles);
 end
 
 function competition_labels1(hObject)
-% Function to update the appearnce of MTBindingSIm for the case where
+% Function to update the appearnce of MTBindingSim for the case where
 % the competition experimental mode is selected
 
 global KA KB UM;
@@ -3265,7 +3535,7 @@ end
 
 function MAP_binding_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
-%first function is the MAPs bind to MT-bound MAPs model in binding mode
+%first function is MAPs bind to MT-bound MAPs model in binding mode
 
 global KM KA UM;
 
@@ -3293,7 +3563,7 @@ end
                
 function MAP_saturation_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
-%first function is the MAPs bind to MT-bound MAPs model in saturation mode
+%first function is MAPs bind to MT-bound MAPs model in saturation mode
 
 global KM KA UM;
 
@@ -3321,7 +3591,7 @@ end
 
 function MAP2_binding_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
-%first function is the MAPs bind to MT-bound MAPs model in binding mode
+%first function is 2 MAPs bind to MT-bound MAPs model in binding mode
 
 global KM KA UM;
 
@@ -3351,7 +3621,7 @@ end
                 
 function MAP2_saturation_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
-%first function is the MAPs bind to MT-bound MAPs model in saturation mode
+%first function is 2 MAPs bind to MT-bound MAPs model in saturation mode
 
 global KM KA UM;
 
@@ -3583,8 +3853,10 @@ set(handles.compare, 'Enable', 'off');
 set(handles.free, 'Enable', 'off');
 set(handles.total, 'Enable', 'off');
 
+% Updates the handles structure
 guidata(hObject, handles);
 
+% Redraws the GUI
 drawnow;
 
 end
@@ -3612,13 +3884,17 @@ set(handles.compare, 'Enable', 'on');
 set(handles.free, 'Enable', 'on');
 set(handles.total, 'Enable', 'on');
 
+% Updates the handles structure
 guidata(hObject, handles);
 
+% Redraws the GUI
 drawnow;
 
 end
 
 function errorbox(message, hObject)
+
+% Creates an error box and enables the buttons
 
 errordlg(message);
 enableButtons(hObject);
