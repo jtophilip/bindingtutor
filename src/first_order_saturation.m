@@ -1,7 +1,8 @@
 function [Abound, Afree] = first_order_saturation(MTtot, Atot, KD, N)
 % A function which calculates the biding of A to MT assuming first order
 % binding where the total concentrations of A and MT are Atot and Btot and
-% the disassociation constant is KD.
+% the disassociation constant is KD for an expeiment where [A] is varied
+% and [MT] is held constant.
 
 % This file is part of MTBindingSim.
 %
@@ -27,27 +28,36 @@ function [Abound, Afree] = first_order_saturation(MTtot, Atot, KD, N)
 % - 0.5: Initial version
 
 
+% Gets the size of Atot and creates an empty vector of the same size for
+% Afree
 [a, b] = size(Atot);
 Afree = zeros(a,b);
 
+% Sets the inital guess to the first value of Atot/2
 Xguess = Atot(1)/2;
 
+% Steps through Atot, calculating Afree at each value
 for n = 1:b
     
+    % Sets us the function to calculate Afree and calculates Afree
     f = @(A)A + (1/KD)*A*MTtot*N/(1 + (1/KD)*A)- Atot(n);
     Afree(n) = fzero(f,Xguess);
     
+    % Checks to make sure that fzero has successfully calculated Afree and
+    % exits calculation if it has not
     if isnan(Afree(n))
         Abound = 0;
         Afree = 0;
         return
     end
     
+    % Sets the new guess to the calculated value of Afree
     Xguess = Afree(n);
     n = n+1;
     
 end
 
+% Calculates Abound
 Abound = Atot - Afree;
 
 
