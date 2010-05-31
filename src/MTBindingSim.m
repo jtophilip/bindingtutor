@@ -222,209 +222,9 @@ jcomponent.setText(html);
 end
 
 
-
-% --- Executes on selection change in curve1.
-function curve1_Callback(hObject, eventdata, handles)
-% hObject    handle to curve1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Gets selected function
-switch get(handles.curve1, 'Value')
-    % First order binding
-    case 1
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                first_order_binding_labels1(hObject);
-                
-            case 'saturation'
-                first_order_saturation_labels1(hObject);
-                            
-            otherwise
-        end
-        
-    % Traditional cooperativity
-    case 2
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                cooperativity_binding_labels1(hObject);
-                
-            case 'saturation'
-                cooperativity_saturation_labels1(hObject);
-                
-            otherwise
-        end
-        
-    % MT seam and lattice binding
-    case 3
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-               seam_binding_labels1(hObject);
-                
-            case 'saturation'
-                
-               seam_saturation_labels1(hObject);
-                
-            otherwise
-        end
-        
-    % MAPs bind MT-bound MAPs
-    case 4
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                MAP_binding_labels1(hObject);
-               
-            case 'saturation'
-                
-                MAP_saturation_labels1(hObject);
-                
-            otherwise
-        end
-    
-    % 2 MAPs bind MT-bound MAPs
-    case 5
-        
-        % Determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                MAP2_binding_labels1(hObject);
-               
-            case 'saturation'
-                
-                MAP2_saturation_labels1(hObject);
-                
-            otherwise
-        end
-        
-    otherwise
-end
-end
-
-
-
-% --- Executes on selection change in curve2.
-function curve2_Callback(hObject, eventdata, handles)
-% hObject    handle to curve2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Gets selected function
-switch get(handles.curve2, 'Value')
-    % First order binding
-    case 1
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                first_order_binding_labels2(hObject);
-                
-            case 'saturation'
-                first_order_saturation_labels2(hObject);
-                            
-            otherwise
-        end
-        
-    % Traditional cooperativity
-    case 2
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                cooperativity_binding_labels2(hObject);
-                
-            case 'saturation'
-                cooperativity_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
-    % MT seam and lattice binding
-    case 3
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-               seam_binding_labels2(hObject);
-                
-            case 'saturation'
-                
-               seam_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
-    % MAPs bind MT-bound MAPs
-    case 4
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                MAP_binding_labels2(hObject);
-               
-            case 'saturation'
-                
-                MAP_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
-    % 2 MAPs bind MT-bound MAPs
-    case 5
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                MAP2_binding_labels2(hObject);
-               
-            case 'saturation'
-                
-                MAP2_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
-    otherwise
-end
-end
-
-
-function add_legend(handles, new_legend_string)
-% handles    structure with handles and user data (see GUIDATA)
-
-% See if there's a legend already -- if not, this is much easier
-legend_object = legend(handles.graphaxes);
-
-% If no legend, make a one-string legend, quickly
-if legend_object == []
-    legend(handles.graphaxes, new_legend_string);
-    return;
-end
-
-% Get the guts of the current legend object
-[legend_object, legend_parts, plot_parts, legend_strings] = legend(handles.graphaxes);
-
-% Add the new string to the end of the vector
-legend_strings = [legend_strings new_legend_string];
-
-% Recreate the legend
-legend(handles.graphaxes, legend_strings);
-end
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%             Push Button Callback Code    %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function graph_Callback(hObject, eventdata, handles)
 % hObject    handle to graph (see GCBO)
@@ -2327,6 +2127,213 @@ set(handles.result, 'String', '');
 guidata(hObject, handles);
 end
 
+function add_legend(handles, new_legend_string)
+% handles    structure with handles and user data (see GUIDATA)
+
+% See if there's a legend already -- if not, this is much easier
+legend_object = legend(handles.graphaxes);
+
+% If no legend, make a one-string legend, quickly
+if legend_object == []
+    legend(handles.graphaxes, new_legend_string);
+    return;
+end
+
+% Get the guts of the current legend object
+[legend_object, legend_parts, plot_parts, legend_strings] = legend(handles.graphaxes);
+
+% Add the new string to the end of the vector
+legend_strings = [legend_strings new_legend_string];
+
+% Recreate the legend
+legend(handles.graphaxes, legend_strings);
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%  Radio Button and Drop Down Menu Callback Code  %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% --- Executes on selection change in curve1.
+function curve1_Callback(hObject, eventdata, handles)
+% hObject    handle to curve1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Gets selected function
+switch get(handles.curve1, 'Value')
+    % First order binding
+    case 1
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                first_order_binding_labels1(hObject);
+                
+            case 'saturation'
+                first_order_saturation_labels1(hObject);
+                            
+            otherwise
+        end
+        
+    % Traditional cooperativity
+    case 2
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                cooperativity_binding_labels1(hObject);
+                
+            case 'saturation'
+                cooperativity_saturation_labels1(hObject);
+                
+            otherwise
+        end
+        
+    % MT seam and lattice binding
+    case 3
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+               seam_binding_labels1(hObject);
+                
+            case 'saturation'
+                
+               seam_saturation_labels1(hObject);
+                
+            otherwise
+        end
+        
+    % MAPs bind MT-bound MAPs
+    case 4
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                MAP_binding_labels1(hObject);
+               
+            case 'saturation'
+                
+                MAP_saturation_labels1(hObject);
+                
+            otherwise
+        end
+    
+    % 2 MAPs bind MT-bound MAPs
+    case 5
+        
+        % Determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                MAP2_binding_labels1(hObject);
+               
+            case 'saturation'
+                
+                MAP2_saturation_labels1(hObject);
+                
+            otherwise
+        end
+        
+    otherwise
+end
+end
+
+
+
+% --- Executes on selection change in curve2.
+function curve2_Callback(hObject, eventdata, handles)
+% hObject    handle to curve2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Gets selected function
+switch get(handles.curve2, 'Value')
+    % First order binding
+    case 1
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                first_order_binding_labels2(hObject);
+                
+            case 'saturation'
+                first_order_saturation_labels2(hObject);
+                            
+            otherwise
+        end
+        
+    % Traditional cooperativity
+    case 2
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                cooperativity_binding_labels2(hObject);
+                
+            case 'saturation'
+                cooperativity_saturation_labels2(hObject);
+                
+            otherwise
+        end
+        
+    % MT seam and lattice binding
+    case 3
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+               seam_binding_labels2(hObject);
+                
+            case 'saturation'
+                
+               seam_saturation_labels2(hObject);
+                
+            otherwise
+        end
+        
+    % MAPs bind MT-bound MAPs
+    case 4
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                MAP_binding_labels2(hObject);
+               
+            case 'saturation'
+                
+                MAP_saturation_labels2(hObject);
+                
+            otherwise
+        end
+        
+    % 2 MAPs bind MT-bound MAPs
+    case 5
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                MAP2_binding_labels2(hObject);
+               
+            case 'saturation'
+                
+                MAP2_saturation_labels2(hObject);
+                
+            otherwise
+        end
+        
+    otherwise
+end
+end
+
+
+
 
 
 function exp_mode_SelectionChangeFcn(hObject, eventdata)
@@ -2668,6 +2675,11 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
 end
 
 end
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%     Functions that change box labels    %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 function first_order_strings(model, equation)
@@ -3393,6 +3405,11 @@ guidata(hObject, handles);
 end
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%    Functions to set input box visibility %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 function inputboxes_display1(hObject, num)
 % Sets the visibility of the input boxes for the first curve
 % num is the number of visible boxes you would like to have
@@ -3538,6 +3555,11 @@ guidata(hObject, handles);
 
 end
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%          Utility Functions           %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
 
 
 function disableButtons(hObject)
