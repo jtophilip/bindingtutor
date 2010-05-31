@@ -326,9 +326,9 @@ class WikiVisitor(SparseNodeVisitor):
     def visit_latex_math(self, node):
         inline = isinstance(node.parent, nodes.TextElement)
         if inline:
-            self.body.append('(equation)')
+            self.output.append('(equation)')
         else:
-            self.body.extend('\n(equation)\n')
+            self.output.append('\n(equation)\n')
     
     def depart_latex_math(self, node):
         pass
