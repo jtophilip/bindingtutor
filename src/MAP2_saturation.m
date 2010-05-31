@@ -27,7 +27,7 @@ function [Abound, Afree] = MAP2_saturation(MTtot, Atot, KM, KA, N)
 % Version history:
 % - 0.5: Initial version
 
-% Gets the size of MTtot and creates an empty vector of the same size for
+% Gets the size of Atot and creates an empty vector of the same size for
 % Afree
 [a,b] = size(Atot);
 Afree = zeros(a,b);
@@ -36,19 +36,26 @@ Xguess = Atot(1) / 2;
 
 % Steps through Atot calculating Afree at each point
 for n = 1:b
+    
+    % Sets up the equation for Afree and calculates its value
     f = @(A)A + (A/KM + 2*A^2/(KA*KM) + 3*A^3/(KA^2*KM))*MTtot*N/(1 + A/KM + A^2/(KM*KM) + A^3/(KA^2*KM)) - Atot(n);
     Afree(n) = fzero(f, Xguess);
 
+    % Checks to make sure fzero sucessfully calculated Afree and ends
+    % calculation if it didn't
     if isnan(Afree(n))
         Afree = 0;
         Abound = 0;
         return
     end
+    
+    % Sets the value of guess for the next iteration to the calculated
+    % value of Afree
     Xguess = Afree(n);
 
 end
 
-% Calculates Abound, Frac, and MTfree
+% Calculates Abound
 Abound = Atot - Afree;
 
 end

@@ -57,11 +57,13 @@ for n = 1:b
 
 end
 
-% Calculates Abound, Frac, and MTfree
+% Calculates Abound
 Abound = Atot - Afree;
 
+% Calculated the fraction of A bound
 Frac = Abound./Atot;
 
+% Calculated MTfree
 MTfree = MTtot./(1 + Afree./KM + Afree.^2./(KM*KM) + Afree.^3./(KA^2*KM));
 
 end
