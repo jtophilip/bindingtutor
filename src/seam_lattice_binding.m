@@ -1,7 +1,7 @@
 function [Frac, MTfree] = seam_lattice_binding(MTtot, Atot, KS, KL, N)
 % A function which calculates the binding of A to MT assuming that A binds
 % to the seam of the MT with disassociation constant KS and the lattice of
-% the MT with disassociatio nconstant KL.
+% the MT with disassociation constant KL for an experiment where [MT] is varied and [A] is held constant.
 
 % This file is part of MTBindingSim.
 %
@@ -26,35 +26,46 @@ function [Frac, MTfree] = seam_lattice_binding(MTtot, Atot, KS, KL, N)
 % Version history:
 % - 0.5: Initial version
 
-% Calculates total concentrations of seam and lattice
+% Calculates vectors for the total concentrations of seam and lattice
 ST = MTtot.*N./13;
 LT = MTtot.*N.*12./13;
 
+% Determines the size of MTtot and creates an empty vector of the same size
+% for Afree
 [a,b] = size(MTtot);
 Afree = zeros(a,b);
 
-Xguess = MTtot(1);
+% Sets the initial guess for Afree
+Xguess = Atot;
 
+% Steps through MTtot, calculating Afree at each point
 for n = 1:b
+    
+    % Sets up the equation for Afree and calculates it
     f = @(A)A + (1/KS)*A*ST(n)/(1 + (1/KS)*A) + (1/KL)*A*LT(n)/(1 + (1/KL)*A) - Atot;
     Afree(n) = fzero(f,Xguess);
     
+    % Checks to make sure that fzero sucessfully calculated Afree and ends
+    % calculation if it did not
     if isnan(Afree)
         Frac = 0;
         MTfree = 0;
         return
     end
     
+    % Sets the guess for the next iteration to the calculated value of
+    % Afree
     Xguess = Afree(n);
     
 end
 
+% Calculates Abound
 Abound = Atot - Afree;
 
 % Calculates the fraction of A bound
 Frac = Abound./Atot;
 
-% Calculates free seam and lattice
+% Calculates free seam, lattice, and total MT
 s = ST./(1+(1/KS).*Afree);
 l = LT./(1 + (1/KL).*Afree);
 MTfree = s  + l;
