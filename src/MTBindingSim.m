@@ -2612,6 +2612,10 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         delete(handles.graphfigure);
         handles.graphfigure = -1;
     end
+    
+    % Updates the handles structure
+    guidata(hObject, handles);
+    
 end
 
 % Get tag of selected buton
@@ -2800,9 +2804,6 @@ end
 % Retreives the new guidata after the input boxes have been changed
 handles = guidata(hObject);
 
-% Resets the color counter
-handles.color = 0;
-
 % Updates the handles
 guidata(hObject, handles);
 end
@@ -2914,6 +2915,7 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         return
     end
     
+    % Resets the color counter
     handles.color = 0;
     
     if (ishandle(handles.graphaxes))
@@ -2925,6 +2927,9 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         handles.graphfigure = -1;
     end
 end
+
+% Update the handles structure
+guidata(hObject, handles)
 
 end
 
