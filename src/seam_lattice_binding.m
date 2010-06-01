@@ -1,7 +1,8 @@
 function [Frac, MTfree] = seam_lattice_binding(MTtot, Atot, KS, KL, N)
 % A function which calculates the binding of A to MT assuming that A binds
 % to the seam of the MT with disassociation constant KS and the lattice of
-% the MT with disassociation constant KL for an experiment where [MT] is varied and [A] is held constant.
+% the MT with disassociation constant KL for an experiment where [MT] is
+% varied and [A] is held constant.
 
 % This file is part of MTBindingSim.
 %

@@ -580,7 +580,7 @@ elseif get(handles.curve1, 'Value') == 2
                     xaxis = '[MT] free';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
+                    legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 case 'total'
 
@@ -604,7 +604,7 @@ elseif get(handles.curve1, 'Value') == 2
                     xaxis = '[MT] total';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
+                    legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 otherwise
             end
@@ -673,7 +673,7 @@ elseif get(handles.curve1, 'Value') == 2
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
+                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                     
                 case 'total'
@@ -698,7 +698,7 @@ elseif get(handles.curve1, 'Value') == 2
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String')];
+                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_D = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 otherwise
             end
@@ -777,7 +777,7 @@ elseif get(handles.curve1, 'Value') == 3
                    xaxis = '[MT] free';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
+                   legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 case 'total'
 
@@ -801,7 +801,7 @@ elseif get(handles.curve1, 'Value') == 3
                     xaxis = '[MT] total';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
+                    legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 otherwise
             end
@@ -869,7 +869,7 @@ elseif get(handles.curve1, 'Value') == 3
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
+                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
 
                 case 'total'
@@ -894,7 +894,7 @@ elseif get(handles.curve1, 'Value') == 3
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String')];
+                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_S = ' get(handles.input2_1, 'String') ', K_L = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
    
                 otherwise
             end
@@ -973,7 +973,7 @@ elseif get(handles.curve1, 'Value') == 4
                    xaxis = '[MT] free';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                   legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 case 'total'
 
@@ -997,7 +997,7 @@ elseif get(handles.curve1, 'Value') == 4
                     xaxis = '[MT] total';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                    legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 otherwise
             end
@@ -1064,7 +1064,7 @@ elseif get(handles.curve1, 'Value') == 4
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
                     
                 case 'total'
                     
@@ -1088,7 +1088,7 @@ elseif get(handles.curve1, 'Value') == 4
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 otherwise
             end
@@ -1167,7 +1167,7 @@ elseif get(handles.curve1, 'Value') == 5
                    xaxis = '[MT] free';
                    yaxis = 'Fraction of A bound';
                    plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['2 MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                   legend1 = ['2 MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 case 'total'
 
@@ -1191,7 +1191,7 @@ elseif get(handles.curve1, 'Value') == 5
                     xaxis = '[MT] total';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['2 MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                    legend1 = ['2 MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 otherwise
             end
@@ -1258,7 +1258,7 @@ elseif get(handles.curve1, 'Value') == 5
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['2 MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                    legend1 = ['2 MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
                     
                 case 'total'
                     
@@ -1282,7 +1282,7 @@ elseif get(handles.curve1, 'Value') == 5
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['2 MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String')];
+                    legend1 = ['2 MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_M = ' get(handles.input2_1, 'String') ', K_A = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 otherwise
             end
@@ -1353,7 +1353,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     x2 = xvals;
 
     % Sets the legend text
-    legend2 = ['[MT] total = ' get(handles.input1_2, 'String') ', [A] total = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', K_B = ' get(handles.input4_2, 'String') ];
+    legend2 = ['[MT] total = ' get(handles.input1_2, 'String') ', [A] total = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', K_B = ' get(handles.input4_2, 'String') ', N = ' get(handles.input4_1, 'String') ];
 
   % Determines the parameters selected for curve2
   elseif get(handles.curve2, 'Value') == 1
@@ -1580,7 +1580,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        x2 = MTfree;
 
                        % Sets the legend text
-                       legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
+                       legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     case 'total'
 
@@ -1600,7 +1600,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        x2 = xvals;
 
                        % Sets the legend text
-                       legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
+                       legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     otherwise
                 end
@@ -1663,7 +1663,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = Afree;
 
                         % Sets the legend text
-                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
+                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     case 'total'
                         
@@ -1683,7 +1683,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = xvals;
 
                         % Sets the legend text
-                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String')];
+                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_D = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     otherwise
                 end
@@ -1756,7 +1756,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        x2 = MTfree;
 
                        % Sets the legend text
-                       legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+                       legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     case 'total'
 
@@ -1776,7 +1776,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = xvals;
 
                         % Sets the legend text
-                        legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+                        legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     otherwise
                 end
@@ -1839,7 +1839,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = Afree;
 
                         % Sets the legend text
-                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
                         
                     case 'total'
                         
@@ -1859,7 +1859,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = xvals;
 
                         % Sets the legend text
-                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String')];
+                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_S = ' get(handles.input2_2, 'String') ', K_L = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
                         
                     otherwise
                 end 
@@ -1932,7 +1932,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        x2 = MTfree;
 
                        % Sets the legend text
-                       legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+                       legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     case 'total'
 
@@ -1952,7 +1952,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = xvals;
 
                         % Sets the legend text
-                        legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+                        legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     otherwise
                 end
@@ -2015,7 +2015,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = Afree;
 
                         % Sets the legend text
-                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                         
                     case 'total'
@@ -2036,7 +2036,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = xvals;
 
                         % Sets the legend text
-                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                         
                     otherwise
@@ -2110,7 +2110,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        x2 = MTfree;
 
                        % Sets the legend text
-                       legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+                       legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     case 'total'
 
@@ -2130,7 +2130,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = xvals;
 
                         % Sets the legend text
-                        legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+                        legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     otherwise
                 end
@@ -2193,7 +2193,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = Afree;
 
                         % Sets the legend text
-                        legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+                        legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                         
                     case 'total'
@@ -2214,7 +2214,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = xvals;
 
                         % Sets the legend text
-                        legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String')];
+                        legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_M = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                         
                     otherwise
