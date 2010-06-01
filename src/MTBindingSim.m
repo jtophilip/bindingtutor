@@ -2232,6 +2232,7 @@ end
 if (ishandle(handles.graphfigure) == 0 || ishandle(handles.graphaxes == 0))
     handles.graphfigure = figure;
     handles.graphaxes = axes;
+    handles.color = 0;
 end
 
 % Activate the graph window
@@ -2364,8 +2365,7 @@ if ishandle(handles.graphfigure)
     handles.graphfigure = -1;
 end
 
-% Resets the color counter
-handles.color = 0;
+% Clears the results string
 set(handles.result, 'String', '');
 
 % Updates the handles
@@ -2599,9 +2599,6 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         guidata(hObject, handles);
         return
     end
-    
-    % Resets the color counter
-    handles.color = 0;
     
     % Deletes the axes
     if (ishandle(handles.graphaxes))
@@ -2914,10 +2911,7 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         guidata(hObject, handles);
         return
     end
-    
-    % Resets the color counter
-    handles.color = 0;
-    
+
     if (ishandle(handles.graphaxes))
         delete(handles.graphaxes);
         handles.graphaxes = -1;
