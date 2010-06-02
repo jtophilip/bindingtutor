@@ -7,7 +7,19 @@
 SHELL = /bin/sh
 SUBDIRS = doc
 
-.PHONY: subdirs $(SUBDIRS)
+.PHONY: binary subdirs $(SUBDIRS)
+
+
+SOURCES = \
+	src/MTBindingSim.m src/MAP2_binding.m src/MAP2_saturation.m \
+	src/MAP_binding.m src/MAP_saturation.m src/competition.m \
+	src/cooperativity_binding.m src/cooperativity_saturation.m \
+	src/first_order_binding.m src/first_order_saturation.m \
+	src/seam_lattice_binding.m src/seam_lattice_saturation.m
+
+binary: $(SOURCES)
+	mcc -d build/mcc -m $^
+
 
 ChangeLog: .svn/entries
 	build/svn2cl.sh --linelen=80 --authors=build/authors.xml --reparagraph
