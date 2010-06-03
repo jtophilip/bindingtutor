@@ -1,3 +1,273 @@
+2010-06-02 02:14  Charles Pence <charles@charlespence.net>
+
+	* Makefile, build/mcc: Now that we're not *using* the Symbolic Math
+	  Toolbox any longer, we can build binaries. Binary-building code
+	  re-added.
+
+2010-06-01 15:43  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m: Changed the color counter to reset when a graph is
+	  drawn.
+
+2010-06-01 15:14  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m: Fixed a bug in resetting the color counter when
+	  the graph is closed.
+
+2010-06-01 15:06  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m, src/seam_lattice_binding.m: Changed legend text to
+	  include N.
+
+2010-05-31 21:27  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m: Improved the comments in MTBindingSim.
+
+2010-05-31 18:36  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m: Rearranged function order and added section
+	  labels.
+
+2010-05-31 17:36  Julia Philip <jtophilip@gmail.com>
+
+	* src/seam_lattice_binding.m, src/seam_lattice_saturation.m: Improved
+	  the comments for seam_lattice_bindinding and seam_lattice_saturation.
+
+2010-05-31 17:23  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m, src/MAP2_saturation.m: Improved the comments in
+	  MAP2_saturation and MAP2_binding.
+
+2010-05-31 17:11  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m: Improved the comments on MAP2_binding.
+
+2010-05-31 17:03  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP_saturation.m: Improved comments in MAP_saturation.
+
+2010-05-31 16:45  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m, src/MAP2_saturation.m, src/MAP_binding.m,
+	  src/MAP_saturation.m, src/competition.m, src/cooperativity_binding.m,
+	  src/cooperativity_saturation.m, src/first_order_saturation.m,
+	  src/seam_lattice_binding.m, src/seam_lattice_saturation.m: Fixed a
+	  problem with the for loops in the calculation code.
+
+2010-05-31 16:41  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP_binding.m: Improved the comments in MAP_binding.
+
+2010-05-31 16:20  Julia Philip <jtophilip@gmail.com>
+
+	* src/cooperativity_saturation.m: Improved the comments for
+	  cooperativity_saturation.
+
+2010-05-31 16:14  Julia Philip <jtophilip@gmail.com>
+
+	* src/cooperativity_binding.m: Improved the comments on
+	  cooperativity_binding.
+
+2010-05-31 16:06  Julia Philip <jtophilip@gmail.com>
+
+	* src/competition.m, src/competition_binding.m: Improved the comments in
+	  competition.
+
+2010-05-31 15:59  Charles Pence <charles@charlespence.net>
+
+	* build/wikir.py: Fixed a typo in my edits to Wikir for latex_math mode.
+
+2010-05-31 15:47  Charles Pence <charles@charlespence.net>
+
+	* doc/Format.txt: Updated documentation cheat-sheet file.
+
+2010-05-31 15:41  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m, src/first_order_saturation.m: Improved comments on
+	  first_order_saturation.
+
+2010-05-31 15:30  Julia Philip <jtophilip@gmail.com>
+
+	* src/first_order_binding.m: Improved comments on first_order_binding.
+
+2010-05-28 19:27  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m, src/first_order_binding.m: Added validation code
+	  to make sure that the calculation was successful before graphing.
+
+2010-05-27 00:10  Julia Philip <jtophilip@gmail.com>
+
+	* src/cooperativity_binding.m: Changed cooperativiy_binding to use N.
+
+2010-05-26 23:38  Charles Pence <charles@charlespence.net>
+
+	* build/wikir.py: Added support for the latex-math role to wikir.
+
+2010-05-26 23:34  Charles Pence <charles@charlespence.net>
+
+	* doc/Format.txt: Added a quick file so I don't forget the documentation
+	  format.
+
+2010-05-26 23:28  Charles Pence <charles@charlespence.net>
+
+	* build/rst2latex.py: Added a latex-math role for docutils from Jens
+	  Morgensen.
+
+2010-05-26 23:08  Charles Pence <charles@charlespence.net>
+
+	* build/wikir.py, doc/Makefile: Updated Wikir to output an appropriate
+	  extra-newline after images. Also fixed an odd sed bug.
+
+2010-05-26 22:48  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog, Makefile, build/wikir.py, doc/Introduction.rst,
+	  doc/Makefile: Cleaned up the Makefiles significantly, added automatic
+	  building of wiki pages from documentation.
+
+2010-05-26 22:36  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m, src/MAP2_saturation.m, src/MAP_bind.m,
+	  src/MAP_binding.m, src/MAP_saturation.m, src/MTBindingSim.m,
+	  src/competition.m, src/competition_binding.m, src/cooperativity.m,
+	  src/cooperativity_binding.m, src/cooperativity_saturation.m,
+	  src/first_order.m, src/first_order_binding.m,
+	  src/first_order_saturation.m, src/seam_lattice.m,
+	  src/seam_lattice_binding.m, src/seam_lattice_saturation.m: Changed all
+	  curve calculation code to use fzero instead of solve.
+
+2010-05-26 21:46  Charles Pence <charles@charlespence.net>
+
+	* build, build/docutils, build/docutils/__init__.py,
+	  build/docutils/_compat.py, build/docutils/_string_template_compat.py,
+	  build/docutils/core.py, build/docutils/docutils.conf,
+	  build/docutils/examples.py, build/docutils/frontend.py,
+	  build/docutils/io.py, build/docutils/languages,
+	  build/docutils/languages/__init__.py, build/docutils/languages/af.py,
+	  build/docutils/languages/ca.py, build/docutils/languages/cs.py,
+	  build/docutils/languages/de.py, build/docutils/languages/en.py,
+	  build/docutils/languages/eo.py, build/docutils/languages/es.py,
+	  build/docutils/languages/fi.py, build/docutils/languages/fr.py,
+	  build/docutils/languages/gl.py, build/docutils/languages/he.py,
+	  build/docutils/languages/it.py, build/docutils/languages/ja.py,
+	  build/docutils/languages/nl.py, build/docutils/languages/pl.py,
+	  build/docutils/languages/pt_br.py, build/docutils/languages/ru.py,
+	  build/docutils/languages/sk.py, build/docutils/languages/sv.py,
+	  build/docutils/languages/zh_cn.py, build/docutils/languages/zh_tw.py,
+	  build/docutils/nodes.py, build/docutils/parsers,
+	  build/docutils/parsers/__init__.py, build/docutils/parsers/null.py,
+	  build/docutils/parsers/rst, build/docutils/parsers/rst/__init__.py,
+	  build/docutils/parsers/rst/directives,
+	  build/docutils/parsers/rst/directives/__init__.py,
+	  build/docutils/parsers/rst/directives/admonitions.py,
+	  build/docutils/parsers/rst/directives/body.py,
+	  build/docutils/parsers/rst/directives/html.py,
+	  build/docutils/parsers/rst/directives/images.py,
+	  build/docutils/parsers/rst/directives/misc.py,
+	  build/docutils/parsers/rst/directives/parts.py,
+	  build/docutils/parsers/rst/directives/references.py,
+	  build/docutils/parsers/rst/directives/tables.py,
+	  build/docutils/parsers/rst/include,
+	  build/docutils/parsers/rst/include/README.txt,
+	  build/docutils/parsers/rst/include/isoamsa.txt,
+	  build/docutils/parsers/rst/include/isoamsb.txt,
+	  build/docutils/parsers/rst/include/isoamsc.txt,
+	  build/docutils/parsers/rst/include/isoamsn.txt,
+	  build/docutils/parsers/rst/include/isoamso.txt,
+	  build/docutils/parsers/rst/include/isoamsr.txt,
+	  build/docutils/parsers/rst/include/isobox.txt,
+	  build/docutils/parsers/rst/include/isocyr1.txt,
+	  build/docutils/parsers/rst/include/isocyr2.txt,
+	  build/docutils/parsers/rst/include/isodia.txt,
+	  build/docutils/parsers/rst/include/isogrk1.txt,
+	  build/docutils/parsers/rst/include/isogrk2.txt,
+	  build/docutils/parsers/rst/include/isogrk3.txt,
+	  build/docutils/parsers/rst/include/isogrk4-wide.txt,
+	  build/docutils/parsers/rst/include/isogrk4.txt,
+	  build/docutils/parsers/rst/include/isolat1.txt,
+	  build/docutils/parsers/rst/include/isolat2.txt,
+	  build/docutils/parsers/rst/include/isomfrk-wide.txt,
+	  build/docutils/parsers/rst/include/isomfrk.txt,
+	  build/docutils/parsers/rst/include/isomopf-wide.txt,
+	  build/docutils/parsers/rst/include/isomopf.txt,
+	  build/docutils/parsers/rst/include/isomscr-wide.txt,
+	  build/docutils/parsers/rst/include/isomscr.txt,
+	  build/docutils/parsers/rst/include/isonum.txt,
+	  build/docutils/parsers/rst/include/isopub.txt,
+	  build/docutils/parsers/rst/include/isotech.txt,
+	  build/docutils/parsers/rst/include/mmlalias.txt,
+	  build/docutils/parsers/rst/include/mmlextra-wide.txt,
+	  build/docutils/parsers/rst/include/mmlextra.txt,
+	  build/docutils/parsers/rst/include/s5defs.txt,
+	  build/docutils/parsers/rst/include/xhtml1-lat1.txt,
+	  build/docutils/parsers/rst/include/xhtml1-special.txt,
+	  build/docutils/parsers/rst/include/xhtml1-symbol.txt,
+	  build/docutils/parsers/rst/languages,
+	  build/docutils/parsers/rst/languages/__init__.py,
+	  build/docutils/parsers/rst/languages/af.py,
+	  build/docutils/parsers/rst/languages/ca.py,
+	  build/docutils/parsers/rst/languages/cs.py,
+	  build/docutils/parsers/rst/languages/de.py,
+	  build/docutils/parsers/rst/languages/en.py,
+	  build/docutils/parsers/rst/languages/eo.py,
+	  build/docutils/parsers/rst/languages/es.py,
+	  build/docutils/parsers/rst/languages/fi.py,
+	  build/docutils/parsers/rst/languages/fr.py,
+	  build/docutils/parsers/rst/languages/gl.py,
+	  build/docutils/parsers/rst/languages/he.py,
+	  build/docutils/parsers/rst/languages/it.py,
+	  build/docutils/parsers/rst/languages/ja.py,
+	  build/docutils/parsers/rst/languages/nl.py,
+	  build/docutils/parsers/rst/languages/pl.py,
+	  build/docutils/parsers/rst/languages/pt_br.py,
+	  build/docutils/parsers/rst/languages/ru.py,
+	  build/docutils/parsers/rst/languages/sk.py,
+	  build/docutils/parsers/rst/languages/sv.py,
+	  build/docutils/parsers/rst/languages/zh_cn.py,
+	  build/docutils/parsers/rst/languages/zh_tw.py,
+	  build/docutils/parsers/rst/roles.py,
+	  build/docutils/parsers/rst/states.py,
+	  build/docutils/parsers/rst/tableparser.py, build/docutils/readers,
+	  build/docutils/readers/__init__.py, build/docutils/readers/doctree.py,
+	  build/docutils/readers/pep.py, build/docutils/readers/python,
+	  build/docutils/readers/python/__init__.py,
+	  build/docutils/readers/python/moduleparser.py,
+	  build/docutils/readers/python/pynodes.py,
+	  build/docutils/readers/standalone.py, build/docutils/statemachine.py,
+	  build/docutils/transforms, build/docutils/transforms/__init__.py,
+	  build/docutils/transforms/components.py,
+	  build/docutils/transforms/frontmatter.py,
+	  build/docutils/transforms/misc.py, build/docutils/transforms/parts.py,
+	  build/docutils/transforms/peps.py,
+	  build/docutils/transforms/references.py,
+	  build/docutils/transforms/universal.py,
+	  build/docutils/transforms/writer_aux.py, build/docutils/urischemes.py,
+	  build/docutils/utils.py, build/docutils/writers,
+	  build/docutils/writers/__init__.py,
+	  build/docutils/writers/docutils_xml.py,
+	  build/docutils/writers/html4css1,
+	  build/docutils/writers/html4css1/__init__.py,
+	  build/docutils/writers/html4css1/html4css1.css,
+	  build/docutils/writers/html4css1/template.txt,
+	  build/docutils/writers/latex2e,
+	  build/docutils/writers/latex2e/__init__.py,
+	  build/docutils/writers/latex2e/default.tex,
+	  build/docutils/writers/latex2e/docutils-05-compat.sty,
+	  build/docutils/writers/latex2e/titlepage.tex,
+	  build/docutils/writers/manpage.py, build/docutils/writers/null.py,
+	  build/docutils/writers/pseudoxml.py, build/rst2latex.py,
+	  build/wikir.py: Committed a bunch of Python code (docutils + wikir)
+	  for making documentation.
+
+2010-05-26 21:45  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m, src/MAP2_saturation.m: Changed the calculation in
+	  the MAP2 programs to use fzero instead of solve.
+
+2010-05-26 19:36  Charles Pence <charles@charlespence.net>
+
+	* Makefile, build/mcc: Rolled back changes for binary building -- you
+	  can't build binaries that include the Symbolic Math Toolbox. (Argh.)
+
 2010-05-26 18:59  Charles Pence <charles@charlespence.net>
 
 	* Makefile, build/mcc: Added binary-building instructions to the

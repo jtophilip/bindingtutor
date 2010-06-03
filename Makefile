@@ -9,6 +9,8 @@ SUBDIRS = doc
 
 .PHONY: binary subdirs $(SUBDIRS)
 
+# Do not make the binary unless specifically requested
+all: ChangeLog subdirs
 
 SOURCES = \
 	src/MTBindingSim.m src/MAP2_binding.m src/MAP2_saturation.m \
