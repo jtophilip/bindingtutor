@@ -33,6 +33,11 @@ Operating System."
 For more information, see `this page at Microsoft Support.
 <http://support.microsoft.com/kb/827218>`_
 
+`Files for 32-bit Windows <http://code.google.com/p/mtbindingsim/downloads/list?q=OpSys-Windows>`_ 
+are tagged with ``OpSys-Windows`` in the MTBindingSim downloads.  `Files
+for 64-bit Windows <http://code.google.com/p/mtbindingsim/downloads/list?q=OpSys-Windows64>`_
+are tagged with ``OpSys-Windows64``.
+
 Mac OS X
 --------
 
@@ -49,3 +54,9 @@ Note that all currently-shipping Macintosh computers are 64-bit capable.
 
 For more information, see `this page at Apple Support.
 <http://support.apple.com/kb/ht3696>`_
+
+`Files for 32-bit Mac OS X <http://code.google.com/p/mtbindingsim/downloads/list?q=OpSys-OSX>`_
+are tagged with ``OpSys-OSX`` in the MTBindingSim downloads. `Files for 64-bit
+Mac OS X <http://code.google.com/p/mtbindingsim/downloads/list?q=OpSys-OSX64>`_
+are tagged with ``OpSys-OSX64``.
+
