@@ -19,8 +19,16 @@ SOURCES = \
 	src/first_order_binding.m src/first_order_saturation.m \
 	src/seam_lattice_binding.m src/seam_lattice_saturation.m
 
+# MCC is a batch file on Windows, for some reason
+OS := $(shell uname -o)
+ifeq ($(OS), Cygwin)
+  MCC := mcc.bat
+else
+  MCC := mcc
+endif
+
 binary: $(SOURCES)
-	mcc -d build/mcc -m $^
+	$(MCC) -d build/mcc -m $^
 
 
 ChangeLog: .svn/entries
