@@ -38,6 +38,10 @@ doc-wiki: $(WIKI_FILES)
 doc-latex: latex/mtbindingsim.pdf
 
 clean:
+	rm -f latex/*.aux latex/*.log latex/*.toc latex/*.out
+
+distclean:
 	rm -f $(WIKI_FILES)
 	rm -f $(TEX_FILES)
 	rm -f latex/mtbindingsim.pdf
+
