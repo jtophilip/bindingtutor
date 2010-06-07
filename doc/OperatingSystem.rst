@@ -15,7 +15,7 @@ Windows
 -------
 
 .. image:: $(IMAGES)/operatingsystem-win7system
-   :width: 2in
+   :width: 4in
    :align: center
 
 First, you will need to open the System control panel.  On Windows XP,
