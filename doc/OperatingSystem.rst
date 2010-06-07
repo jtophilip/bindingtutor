@@ -14,10 +14,15 @@ platform.
 Windows
 -------
 
+.. image:: $(IMAGES)/operatingsystem-win7system
+   :width: 2in
+   :align: center
+
 First, you will need to open the System control panel.  On Windows XP,
 open the Control Panel, then click "Performance and Maintenance," and
 finally "System."  On Windows Vista and Windows 7, open the Control
-Panel, "click System and Maintenance," and then click "System."
+Panel, click "System and Maintenance" (on Vista) or "System and Security"
+(on Win7), and then click "System."
 
 Now you need to see whether your operating system is 32-bit or 64-bit.
 On Windows XP, click the "General" tab, and look for the information
@@ -40,6 +45,10 @@ are tagged with ``OpSys-Windows64``.
 
 Mac OS X
 --------
+
+.. image:: $(IMAGES)/operatingsystem-aboutthismac
+   :width: 2in
+   :align: center      
 
 Under Mac OS X, click the Apple Menu, and then select "About This Mac."
 First, check the version number, right underneath the "Mac OS X" text.
