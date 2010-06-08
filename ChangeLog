@@ -1,3 +1,38 @@
+2010-06-07 17:55  Charles Pence <charles@charlespence.net>
+
+	* doc/Makefile, doc/latex/generated/OperatingSystem.tex,
+	  doc/latex/mtbindingsim.pdf: Updated some documentation, split the make
+	  clean in the docs into clean and distclean.
+
+2010-06-07 17:22  Charles Pence <charles@charlespence.net>
+
+	* doc/Makefile, doc/OperatingSystem.rst, doc/latex,
+	  doc/latex/docutils-template.tex, doc/latex/generated,
+	  doc/latex/generated/Introduction.tex,
+	  doc/latex/generated/OperatingSystem.tex, doc/latex/mtbindingsim.pdf,
+	  doc/latex/mtbindingsim.tex: Added full support for generating TeX
+	  documentation. Needs work, but it's started.
+
+2010-06-07 16:13  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig: Changed the figure layout to look good in
+	  Windows.
+
+2010-06-07 16:01  Charles Pence <charles@charlespence.net>
+
+	* doc/OperatingSystem.rst: Updated OperatingSystem documentation with a
+	  link to a Win7 image. See issue 1.
+
+2010-06-06 21:47  Charles Pence <charles@charlespence.net>
+
+	* doc/OperatingSystem.rst: Updated the OperatingSystem documentation to
+	  contain links to the various sections of the download page.
+
+2010-06-06 20:48  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog, Makefile: Updated Makefile to account for the fact that mcc
+	  is a batch file on Windows.
+
 2010-06-03 13:38  Charles Pence <charles@charlespence.net>
 
 	* ChangeLog, Makefile, doc/OperatingSystem.rst: Added information about
