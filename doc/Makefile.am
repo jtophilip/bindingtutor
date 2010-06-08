@@ -15,7 +15,7 @@ BIB_FILES =
 #
 WIKI_FILES = $(RST_FILES:.rst=.wiki)
 TEX_FILES = $(RST_FILES:.rst=.tex)
-MASTER_FILE = $(top_srcdir)/doc/latex/mtbindingsim.tex
+MASTER_FILE = $(top_srcdir)/doc/mtbindingsim.tex
 
 mtbindingsim_LATEX = $(TEX_FILES) $(BIB_FILES) $(MASTER_FILE)
 mtbindingsim_BBL = mtbindingsim.bbl
@@ -87,7 +87,7 @@ SUFFIXES = .wiki .tex .pdf .rst .bbl
 .rst.wiki:
 	(OUTFILE=$(top_srcdir)/doc/wiki/$@; export OUTFILE; $(top_srcdir)/build/wikir.py $< | $(SED) "s|\$$(IMAGES)\(.*\)$$|http://mtbindingsim.googlecode.com/svn/wiki/images\1.png|g" > $$OUTFILE)
 .rst.tex:
-	$(top_srcdir)/build/rst2latex.py --no-section-numbering --template=$(top_srcdir)/doc/latex/docutils-template.tex $< | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1.png}}|g" > $@
+	$(top_srcdir)/build/rst2latex.py --no-section-numbering --template=$(top_srcdir)/doc/docutils-template.inc $< | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1.png}}|g" > $@
 
 .tex.pdf:
 	(TEXINPUTS="${TEXINPUTS_PATH}"; export TEXINPUTS; pdflatex -halt-on-error -interaction nonstopmode -output-directory $(top_builddir)/doc $< $@)

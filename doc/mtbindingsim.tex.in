@@ -8,7 +8,7 @@
 % FIXME: configure the hyperref package here, its defaults are awful
 
 \begin{document}
-\title{MTBindingSim Documentation}
+\title{MTBindingSim Documentation \\ {\large Version @PACKAGE_VERSION@}}
 \author{Julia Philip,\thanks{University of Notre Dame, Department of Chemistry 
 and Biochemistry} Charles Pence,\thanks{University of Notre Dame, Program in 
 History and Philosophy of Science} Holly Goodson\protect\footnotemark[1]}
@@ -21,6 +21,6 @@ History and Philosophy of Science} Holly Goodson\protect\footnotemark[1]}
 \part{Installation and Configuration}
 
 \chapter{Determining Your Operating System}
-\input{OperatingSystem}
+\input{@top_builddir@/doc/OperatingSystem}
 
 \end{document}

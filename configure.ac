@@ -28,6 +28,6 @@ if test "x$MCC" = "x"; then
   AC_MSG_ERROR([Cannot find the MATLAB Compiler, specify its path with --with-matlab])
 fi
 
-AC_CONFIG_FILES([Makefile doc/Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile doc/Makefile doc/mtbindingsim.tex src/Makefile])
 
 AC_OUTPUT
