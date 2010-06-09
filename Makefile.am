@@ -1,6 +1,8 @@
 # Root Automake file for MTBindingSim #
 #######################################
 
+ACLOCAL_AMFLAGS = -I build/m4
+
 SUBDIRS = build doc src tools
 
 .PHONY: changes

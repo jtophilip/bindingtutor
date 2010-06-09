@@ -3,8 +3,13 @@
 #
 # Specify the targets
 #
+if DOCS
 all: docs
 docs: mtbindingsim.pdf
+else
+all: 
+endif
+
 docs-wiki: $(WIKI_FILES)
 
 DOCS_RST_SOURCE = Introduction.rst OperatingSystem.rst
@@ -49,10 +54,10 @@ mtbindingsim.pdf: %.pdf: $(TEX_FILES) $(MASTER_FILE)
 		fi; \
 	done; \
 	if [ $$is_newer = "YES" ] ; then \
-		(TEXINPUTS="${TEXINPUTS_PATH}"; export TEXINPUTS; pdflatex -halt-on-error -interaction nonstopmode -output-directory $(abs_top_builddir)/doc $(MASTER_FILE)); \
-		(TEXINPUTS="${TEXINPUTS_PATH}"; export TEXINPUTS; pdflatex -halt-on-error -interaction nonstopmode -output-directory $(abs_top_builddir)/doc $(MASTER_FILE)); \
+		(TEXINPUTS="${TEXINPUTS_PATH}"; export TEXINPUTS; $(pdflatex) -halt-on-error -interaction nonstopmode -output-directory $(abs_top_builddir)/doc $(MASTER_FILE)); \
+		(TEXINPUTS="${TEXINPUTS_PATH}"; export TEXINPUTS; $(pdflatex) -halt-on-error -interaction nonstopmode -output-directory $(abs_top_builddir)/doc $(MASTER_FILE)); \
 		if [ -f $*.lof -o -f $*.lot -o -f $*.toc ] ; then \
-			(TEXINPUTS="${TEXINPUTS_PATH}"; export TEXINPUTS; pdflatex -halt-on-error -interaction nonstopmode -output-directory $(abs_top_builddir)/doc $(MASTER_FILE)); \
+			(TEXINPUTS="${TEXINPUTS_PATH}"; export TEXINPUTS; $(pdflatex) -halt-on-error -interaction nonstopmode -output-directory $(abs_top_builddir)/doc $(MASTER_FILE)); \
 		fi; \
 	fi;
 

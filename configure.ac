@@ -52,6 +52,19 @@ AC_PROG_SED
 # Objective-C compiler to build MTBindingSim.
 AC_PROG_OBJC
 
+# Determine if we can build the documentation
+ACLTX_PROG_PDFLATEX([have_pdflatex="no"])
+ACLTX_CLASS([book],[have_book])
+ACLTX_PACKAGE([inputenc],[book],[have_inputenc])
+ACLTX_PACKAGE([mathpazo],[book],[have_mathpazo])
+ACLTX_PACKAGE([hyperref],[book],[have_hyperref])
+
+AM_CONDITIONAL([DOCS],
+  [test "x$have_pdflatex" != "xno" -a "x$have_book" = "xyes" -a \
+        "x$have_inputenc" = "xyes" -a "x$have_mathpazo" = "xyes" -a \
+        "x$have_hyperref" = "xyes"])
+
+# Look for MATLAB, and let the user specify where it lives
 AC_ARG_WITH([matlab],
   [AS_HELP_STRING([--with-matlab@<:@=DIR@:>@],
     [build with MATLAB (in DIR if given) @<:@default=look in $PATH@:>@])],
@@ -65,6 +78,10 @@ if test "x$MCC" = "x"; then
   AC_MSG_ERROR([Cannot find the MATLAB Compiler, specify its path with --with-matlab])
 fi
 
-AC_CONFIG_FILES([Makefile build/Makefile doc/Makefile doc/mtbindingsim.tex src/Makefile tools/Makefile])
 
+#
+# Write out files
+#
+
+AC_CONFIG_FILES([Makefile build/Makefile doc/Makefile doc/mtbindingsim.tex src/Makefile tools/Makefile])
 AC_OUTPUT
