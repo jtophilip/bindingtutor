@@ -1,8 +1,9 @@
 # Root Automake file for MTBindingSim #
 #######################################
 
-SUBDIRS = doc src
+SUBDIRS = build doc src tools
 
-##ChangeLog: .svn/entries
-##	build/svn2cl.sh --linelen=80 --authors=build/authors.xml --reparagraph
-##
+.PHONY: changes
+changes:
+	$(srcdir)/tools/svn2cl.sh --linelen=80 --authors=$(srcdir)/tools/authors.xml --reparagraph -o $(srcdir)/ChangeLog
+

@@ -1,3 +1,23 @@
+2010-06-08 22:51  Charles Pence <charles@charlespence.net>
+
+	* ., doc, src: Updated ignore properties to ignore everything that's
+	  spewed out during an in-tree build (please build out-of-tree,
+	  people!).
+
+2010-06-08 22:45  Charles Pence <charles@charlespence.net>
+
+	* ., ChangeLog, INSTALL, Makefile, Makefile.am, aclocal.m4, build/aux,
+	  build/aux/depcomp, build/aux/install-sh, build/aux/missing, build/m4,
+	  configure.ac, doc, doc/Makefile, doc/Makefile.am, doc/latex, src,
+	  src/Makefile.am: I think this is a working autotools build setup.
+	  Let's commit it and see what happens.
+
+2010-06-07 20:41  Charles Pence <charles@charlespence.net>
+
+	* doc/Makefile, doc/latex, doc/latex/generated,
+	  doc/latex/mtbindingsim.pdf: Trying to clear up my clean and distclean
+	  targets.
+
 2010-06-07 17:55  Charles Pence <charles@charlespence.net>
 
 	* doc/Makefile, doc/latex/generated/OperatingSystem.tex,
