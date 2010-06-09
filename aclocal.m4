@@ -636,6 +636,7 @@ AC_SUBST([am__untar])
 ]) # _AM_PROG_TAR
 
 m4_include([build/m4/_acltx_test.m4])
+m4_include([build/m4/ac_prog_objc.m4])
 m4_include([build/m4/acltx_class.m4])
 m4_include([build/m4/acltx_package.m4])
 m4_include([build/m4/acltx_package_location.m4])
