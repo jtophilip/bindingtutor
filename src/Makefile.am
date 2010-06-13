@@ -62,3 +62,27 @@ clean-local-mac64app:
 # Include everything in the source distribution
 EXTRA_DIST = $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 
+
+# Figure out the name of the binary distribution
+if WINDOWS
+  PLATFORM_NAME=win
+else !WINDOWS
+if MAC
+  PLATFORM_NAME=mac
+else !MAC
+  PLATFORM_NAME=linux
+endif
+endif
+
+if THIRTYTWO
+  BITS_NAME=
+else
+  BITS_NAME=64
+endif
+
+BINARY_NAME=@PACKAGE_TARNAME@-@PACKAGE_VERSION@-$(PLATFORM_NAME)$(BITS_NAME)-bin.zip
+
+.PHONY: bindist
+bindist:
+	echo $(BINARY_NAME)
+
