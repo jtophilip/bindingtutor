@@ -35,12 +35,6 @@ case $host_os in
           * ) os="";;
 esac
 
-case $host_cpu in
- *x86_64* ) sixtyfour="yes";;
-   *ia64* ) sixtyfour="yes";;
-        * ) sixtyfour="no";;
-esac
-
 AM_CONDITIONAL([WINDOWS], [test "x$os" = "xwindows"])
 AM_CONDITIONAL([MAC], [test "x$os" = "xmac"])
 
