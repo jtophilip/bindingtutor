@@ -82,7 +82,31 @@ endif
 
 BINARY_NAME=@PACKAGE_TARNAME@-@PACKAGE_VERSION@-$(PLATFORM_NAME)$(BITS_NAME)-bin.zip
 
+
+# Figure out the contents of the binary distribution
+ALL_BINARY_FILES=@top_srcdir@/AUTHORS @top_srcdir@/COPYING @top_srcdir@/ChangeLog @top_srcdir@/NEWS @top_srcdir@/README @top_srcdir@/THANKS
+
+if WINDOWS
+  PLATFORM_BINARY_FILES=@builddir@/MTBindingSim.exe
+else !WINDOWS
+
+if MAC
+if SIXTYFOUR
+  PLATFORM_BINARY_FILES=@builddir@/MTBindingSim.app
+else !SIXTYFOUR
+  PLATFORM_BINARY_FILES=@builddir@/MTBindingSim @builddir@/run_MTBindingSim.sh
+endif
+
+else !MAC
+  PLATFORM_BINARY_FILES=@builddir@/MTBindingSim @builddir@/run_MTBindingSim.sh
+endif
+endif
+
+BINARY_FILES=$(ALL_BINARY_FILES) $(PLATFORM_BINARY_FILES)
+
+
 .PHONY: bindist
 bindist:
 	echo $(BINARY_NAME)
+	echo $(BINARY_FILES)
 
