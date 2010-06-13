@@ -13,7 +13,7 @@ dnl @version 2006-07-16
 dnl @license LGPL
 
 AC_DEFUN([ACLTX_PROG_LATEX],[
-AC_ARG_VAR(latex,[specify default latex application])
+AC_ARG_VAR(latex,[LaTeX command])
 if test "$ac_cv_env_latex_set" = "set" ; then
     AC_MSG_CHECKING([Checking for latex])
     latex="$ac_cv_env_latex_value";

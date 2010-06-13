@@ -11,6 +11,7 @@ dnl @version 2006-07-16
 dnl @license LGPL
 
 AC_DEFUN([ACLTX_PROG_PDFLATEX],[
+AC_ARG_VAR([pdflatex],[pdfLaTeX command])
 AC_CHECK_PROGS(pdflatex,[pdflatex],no)
 if test $pdflatex = "no" ;
 then

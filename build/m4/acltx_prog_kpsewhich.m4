@@ -11,6 +11,7 @@ dnl @version 2006-07-16
 dnl @license LGPL
 
 AC_DEFUN([ACLTX_PROG_KPSEWHICH],[
+AC_ARG_VAR([kpsewhich],[kpsewhich command])
 AC_CHECK_PROGS(kpsewhich,[kpsewhich],no)
 if test $kpsewhich = "no" ;
 then
