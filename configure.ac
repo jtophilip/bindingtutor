@@ -53,12 +53,27 @@ fi
 #
 
 AC_PROG_LN_S
+AC_PROG_MKDIR_P
 AC_PROG_SED
 AC_PROG_GREP
 
 # The following just silences an Autoconf warning.  You need not have an
 # Objective-C compiler to build MTBindingSim.
 AC_PROG_OBJC
+
+# We need ZIP if we're to build binary distributions
+AC_CHECK_PROGS([ZIP], [zip])
+AC_MSG_CHECKING([whether zip is Info-ZIP zip])
+if $ZIP -h | $GREP -q -e "Info-ZIP" ; then
+  AC_MSG_RESULT([yes])
+  good_zip=yes
+else
+  AC_MSG_RESULT([no])
+  AC_MSG_WARN([zip binary on path is not Info-ZIP, cannot make bindist])
+  good_zip=no
+fi
+AM_CONDITIONAL([BINDIST], [test "x$good_zip" = "xyes"])
+
 
 # Determine if we can build the documentation
 ACLTX_PROG_PDFLATEX([have_pdflatex="no"])
@@ -100,8 +115,7 @@ AC_SUBST([MATLABFLAGS], [$with_matlab_flags])
 
 # Check whether matlab works
 AC_MSG_CHECKING([whether matlab is properly configured])
-PATH="${PATH}:$with_matlab" matlab $with_matlab_flags -e > /dev/null 2>&1
-if test "x$?" = "x0"; then
+if PATH="${PATH}:$with_matlab" matlab $with_matlab_flags -e > /dev/null 2>&1 ; then
   AC_MSG_RESULT([yes])
 else
   AC_MSG_RESULT([no])
@@ -110,8 +124,7 @@ fi
 
 # Figure out whether this is 32-bit or 64-bit MATLAB
 AC_MSG_CHECKING([whether MATLAB is 32-bit or 64-bit])
-PATH="${PATH}:$with_matlab" matlab $with_matlab_flags -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null
-if test "x$?" = "x0" ; then
+if PATH="${PATH}:$with_matlab" matlab $with_matlab_flags -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null ; then
   AC_MSG_RESULT([64-bit])
   matlab_sixtyfour=yes
 else

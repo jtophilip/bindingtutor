@@ -80,7 +80,7 @@ else
   BITS_NAME=64
 endif
 
-BINARY_NAME=@PACKAGE_TARNAME@-@PACKAGE_VERSION@-$(PLATFORM_NAME)$(BITS_NAME)-bin.zip
+BINARY_NAME=@PACKAGE_TARNAME@-@PACKAGE_VERSION@-$(PLATFORM_NAME)$(BITS_NAME)-bin
 
 
 # Figure out the contents of the binary distribution
@@ -105,8 +105,19 @@ endif
 BINARY_FILES=$(ALL_BINARY_FILES) $(PLATFORM_BINARY_FILES)
 
 
+# And, make the binary package
 .PHONY: bindist
-bindist:
-	echo $(BINARY_NAME)
-	echo $(BINARY_FILES)
+bindist: MTBindingSim.prj
+	$(MKDIR_P) @builddir@/$(BINARY_NAME)
+	test -d @builddir@/MTBindingSim.app && \
+	  find @builddir@/MTBindingSim.app -exec chmod u+rwx "{}" \;
+	cp -fpR $(BINARY_FILES) @builddir@/$(BINARY_NAME)/
+	$(ZIP) -r $(BINARY_NAME).zip $(BINARY_NAME)
+	rm -rf $(BINARY_NAME)/
+	mv $(BINARY_NAME).zip @top_builddir@
+	@echo ==================================================
+	@echo @PACKAGE_TARNAME@-@PACKAGE_VERSION@ binary ready for distribution:
+	@echo $(BINARY_NAME).zip
+	@echo ==================================================
+
 
