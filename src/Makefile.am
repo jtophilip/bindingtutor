@@ -48,7 +48,7 @@ MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 		MFILES="$$MFILES $(top_srcdir)/src/$$i"; \
 	done; \
 	export MFILES; \
-	$(MCC) -v -d $(builddir) -m $$MFILES)
+	$(MCC) $(MATLABFLAGS) -v -d $(builddir) -m $$MFILES)
 
 
 # Clean up after MCC

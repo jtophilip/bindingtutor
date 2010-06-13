@@ -82,6 +82,13 @@ if test "x$MCC" = "x"; then
   AC_MSG_ERROR([Cannot find the MATLAB Compiler, specify its path with --with-matlab])
 fi
 
+# Let the user send some command-line parameters to MATLAB
+AC_ARG_WITH([matlab-flags],
+  [AS_HELP_STRING([--with-matlab-flags=FLAGS],
+    [pass FLAGS to the MATLAB Compiler])],
+  [],
+  [with_matlab_flags=""])
+AC_SUBST([MATLABFLAGS], [$with_matlab_flags])
 
 #
 # Write out files
