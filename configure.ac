@@ -90,6 +90,16 @@ AC_ARG_WITH([matlab-flags],
   [with_matlab_flags=""])
 AC_SUBST([MATLABFLAGS], [$with_matlab_flags])
 
+# Check whether matlab works
+AC_MSG_CHECKING([whether matlab is properly configured])
+PATH="${PATH}:$with_matlab" matlab $with-matlab-flags -e > /dev/null 2>&1
+if test "x$?" = "x0"; then
+  AC_MSG_RESULT([yes])
+else
+  AC_MSG_RESULT([no])
+  AC_MSG_ERROR([MATLAB cannot be executed.  Specify a path to it with --with-matlab, and check whether you need to pass any command-line parameters to MATLAB with --with-matlab-flags.])
+fi
+
 
 #
 # Write out files
