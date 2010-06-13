@@ -18,7 +18,14 @@ AM_INIT_AUTOMAKE([gnits no-dependencies no-exeext])
 # Prevent cross-compilation, because MCC doesn't support it
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
-AS_IF([test "$build" != "$host"], [AC_MSG_ERROR([BUILD and HOST systems differ: the MATLAB Compiler does not support cross-compilation])])
+
+AC_MSG_CHECKING([whether we are cross-compiling])
+if test "$build" != "$host" ; then
+  AC_MSG_RESULT([yes])
+  AC_MSG_ERROR([BUILD and HOST systems differ: the MATLAB Compiler does not support cross-compilation])
+else
+  AC_MSG_RESULT([no])
+fi
 
 # Define conditionals for our build platforms
 case $host_os in
@@ -37,8 +44,14 @@ esac
 AM_CONDITIONAL([WINDOWS], [test "x$os" = "xwindows"])
 AM_CONDITIONAL([MAC], [test "x$os" = "xmac"])
 
-AM_CONDITIONAL([THIRTYTWO], [test "x$sixtyfour" = "xno"])
-AM_CONDITIONAL([SIXTYFOUR], [test "x$sixtyfour" = "xyes"])
+AC_MSG_CHECKING([for build system type])
+if test "x$os" = "xwindows" ; then
+  AC_MSG_RESULT([windows])
+elif test "x$os" = "xmac" ; then
+  AC_MSG_RESULT([mac])
+else
+  AC_MSG_RESULT([linux])
+fi
 
 
 #
@@ -47,6 +60,7 @@ AM_CONDITIONAL([SIXTYFOUR], [test "x$sixtyfour" = "xyes"])
 
 AC_PROG_LN_S
 AC_PROG_SED
+AC_PROG_GREP
 
 # The following just silences an Autoconf warning.  You need not have an
 # Objective-C compiler to build MTBindingSim.
@@ -99,6 +113,20 @@ else
   AC_MSG_RESULT([no])
   AC_MSG_ERROR([MATLAB cannot be executed.  Specify a path to it with --with-matlab, and check whether you need to pass any command-line parameters to MATLAB with --with-matlab-flags.])
 fi
+
+# Figure out whether this is 32-bit or 64-bit MATLAB
+AC_MSG_CHECKING([whether MATLAB is 32-bit or 64-bit])
+PATH="${PATH}:$with_matlab" matlab $with_matlab_flags -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null
+if test "x$?" = "x0" ; then
+  AC_MSG_RESULT([64-bit])
+  matlab_sixtyfour=yes
+else
+  AC_MSG_RESULT([32-bit])
+  matlab_sixtyfour=no
+fi
+
+AM_CONDITIONAL([THIRTYTWO], [test "x$matlab_sixtyfour" = "xno"])
+AM_CONDITIONAL([SIXTYFOUR], [test "x$matlab_sixtyfour" = "xyes"])
 
 
 #
