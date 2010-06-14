@@ -1,6 +1,6 @@
-#
-# Autoconf and Automake initialization
-#
+###############################################################################
+# Autoconf and Automake
+###############################################################################
 AC_INIT([MTBindingSim], [0.5], [jtophilip@gmail.com], [mtbindingsim], [http://code.google.com/p/mtbindingsim/])
 AC_PREREQ([2.65])
 
@@ -11,9 +11,9 @@ AC_CONFIG_MACRO_DIR([build/m4])
 AM_INIT_AUTOMAKE([gnits no-dependencies no-exeext])
 
 
-#
-# Information about system type
-#
+###############################################################################
+# Build System
+###############################################################################
 
 # Prevent cross-compilation, because MCC doesn't support it
 AC_CANONICAL_BUILD
@@ -48,9 +48,9 @@ else
 fi
 
 
-#
-# External program support
-#
+###############################################################################
+# Standard system utilities
+###############################################################################
 
 AC_PROG_LN_S
 AC_PROG_MKDIR_P
@@ -61,18 +61,9 @@ AC_PROG_GREP
 # Objective-C compiler to build MTBindingSim.
 AC_PROG_OBJC
 
-# We need ZIP if we're to build binary distributions
-AC_CHECK_PROGS([ZIP], [zip])
-AC_MSG_CHECKING([whether zip is Info-ZIP zip])
-if $ZIP -h | $GREP -q -e "Info-ZIP" ; then
-  AC_MSG_RESULT([yes])
-  good_zip=yes
-else
-  AC_MSG_RESULT([no])
-  AC_MSG_WARN([zip binary on path is not Info-ZIP, cannot make bindist])
-  good_zip=no
-fi
-AM_CONDITIONAL([BINDIST], [test "x$good_zip" = "xyes"])
+# Our custom checks for ZIP
+MTB_PROG_ZIP([AC_MSG_WARN([no valid zip binary found, cannot make bindist])])
+AM_CONDITIONAL([BINDIST], [test "x$ZIP" != "x"])
 
 
 # Determine if we can build the documentation
