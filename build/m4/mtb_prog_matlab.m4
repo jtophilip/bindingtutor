@@ -4,6 +4,7 @@ dnl This macro sets the following variables:
 dnl  - MATLAB (path to MATLAB)
 dnl  - MCC (path to MCC)
 dnl  - MATLABBITS (32 or 64, installed version of matlab)
+dnl  - MATLABPATH (the path to MATLAB)
 dnl
 dnl The user may modify these by setting
 dnl  - --with-matlab=PATH (set path to MATLAB)
@@ -51,8 +52,12 @@ AC_ARG_WITH([matlab-flags],
   [],
   [with_matlab_flags=""])
 
-AC_SUBST([MATLAB], [$matlab $with_matlab_flags])
-AC_SUBST([MCC], [$mcc $with_matlab_flags])
+MATLAB="$matlab $with_matlab_flags"
+MCC="$mcc $with_matlab_flags"
+MATLABPATH="$matlab_path"
+AC_SUBST([MATLAB])
+AC_SUBST([MCC])
+AC_SUBST([MATLABPATH])
 
 # If we're not on Win32, we can check to make sure these parameters
 # actually work (and not on Win32 is the only time we need to specify
@@ -63,7 +68,8 @@ AS_CASE([$host_os],
                [_matlab_os=""])
 AS_IF([test "x$_matlab_os" != "xwindows"],
   [AC_MSG_CHECKING([whether matlab is properly configured])
-   AS_IF([$MATLAB -e > /dev/null 2>&1],
+   PATH="$PATH:$MATLABPATH" $MATLAB -e > /dev/null 2>&1
+   AS_IF([test $? -eq 0],
          [AC_MSG_RESULT([yes])],
          [AC_MSG_RESULT([no])
           AC_MSG_ERROR([MATLAB cannot be executed.  Specify a path to it with --with-matlab, and check whether you need to pass any command-line parameters to MATLAB with --with-matlab-flags.])])])
@@ -77,12 +83,13 @@ AC_ARG_WITH([matlab-bits],
 AC_MSG_CHECKING([whether MATLAB is 32-bit or 64-bit])
 AS_IF([test "x$with_matlab_bits" = "x"],
   [AS_IF([test "x$_matlab_os" != "xwindows"],
-     [AS_IF([$MATLAB -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null],
+     [PATH="$PATH:$MATLABPATH" $MATLAB -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null
+      AS_IF([test $? -eq 0],
         [AC_MSG_RESULT([64-bit])
          MATLABBITS=64],
         [AC_MSG_RESULT([32-bit])
          MATLABBITS=32])],
-     [AS_IF([test -d "$matlab_path/win64"],
+     [AS_IF([test -d "$MATLABPATH/win64"],
         [AC_MSG_RESULT([64-bit])
          MATLABBITS=64],
         [AC_MSG_RESULT([32-bit])
