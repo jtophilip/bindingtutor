@@ -28,24 +28,17 @@ else
 fi
 
 # Define conditionals for our build platforms
-case $host_os in
-  *mingw32* ) os="windows";;
-   *cygwin* ) os="windows";;
-   *darwin* ) os="mac";;
-          * ) os="";;
-esac
+AS_CASE([$host_os],
+  [*mingw32*], [os="windows"],
+  [*cygwin*],  [os="windows"],
+  [*darwin*],  [os="mac"],
+               [os="unix"])
 
 AM_CONDITIONAL([WINDOWS], [test "x$os" = "xwindows"])
 AM_CONDITIONAL([MAC], [test "x$os" = "xmac"])
 
 AC_MSG_CHECKING([for build system type])
-if test "x$os" = "xwindows" ; then
-  AC_MSG_RESULT([windows])
-elif test "x$os" = "xmac" ; then
-  AC_MSG_RESULT([mac])
-else
-  AC_MSG_RESULT([linux])
-fi
+AC_MSG_RESULT([$os])
 
 
 ###############################################################################
@@ -61,10 +54,14 @@ AC_PROG_GREP
 # Objective-C compiler to build MTBindingSim.
 AC_PROG_OBJC
 
-# Our custom checks for ZIP
+# Look for MATLAB, MCC, etc.
+MTB_PROG_MATLAB
+AM_CONDITIONAL([THIRTYTWO], [test "x$MATLABBITS" != "x64"])
+AM_CONDITIONAL([SIXTYFOUR], [test "x$MATLABBITS" = "x64"])
+
+# Look for ZIP, and enable binary distributions if we have it
 MTB_PROG_ZIP([AC_MSG_WARN([no valid zip binary found, cannot make bindist])])
 AM_CONDITIONAL([BINDIST], [test "x$ZIP" != "x"])
-
 
 # Determine if we can build the documentation
 ACLTX_PROG_PDFLATEX([have_pdflatex="no"])
@@ -75,56 +72,11 @@ if [ test "x$have_kpsewhich" != "xno" ] ; then
   ACLTX_PACKAGE([mathpazo],[book],[have_mathpazo])
   ACLTX_PACKAGE([hyperref],[book],[have_hyperref])
 fi
-
 AM_CONDITIONAL([DOCS],
   [test "x$have_pdflatex" != "xno" -a "x$have_kpsewhich" != "xno" -a \
         "x$have_book" = "xyes" -a \
         "x$have_inputenc" = "xyes" -a "x$have_mathpazo" = "xyes" -a \
         "x$have_hyperref" = "xyes"])
-
-# Look for MATLAB, and let the user specify where it lives
-AC_ARG_WITH([matlab],
-  [AS_HELP_STRING([--with-matlab@<:@=DIR@:>@],
-    [build with MATLAB (in DIR if given) @<:@default=look in $PATH@:>@])],
-  [],
-  [with_matlab=""])
-
-AS_IF([test "x$with_matlab" = "x"], [AC_CHECK_PROGS([MCC], [mcc mcc.bat])],
-      [AC_CHECK_PROGS([MCC], [mcc mcc.bat], [], [$with_matlab])])
-
-if test "x$MCC" = "x"; then
-  AC_MSG_ERROR([Cannot find the MATLAB Compiler, specify its path with --with-matlab])
-fi
-
-# Let the user send some command-line parameters to MATLAB
-AC_ARG_WITH([matlab-flags],
-  [AS_HELP_STRING([--with-matlab-flags=FLAGS],
-    [pass FLAGS to the MATLAB Compiler])],
-  [],
-  [with_matlab_flags=""])
-AC_SUBST([MATLABFLAGS], [$with_matlab_flags])
-
-# Check whether matlab works
-AC_MSG_CHECKING([whether matlab is properly configured])
-if PATH="${PATH}:$with_matlab" matlab $with_matlab_flags -e > /dev/null 2>&1 ; then
-  AC_MSG_RESULT([yes])
-else
-  AC_MSG_RESULT([no])
-  AC_MSG_ERROR([MATLAB cannot be executed.  Specify a path to it with --with-matlab, and check whether you need to pass any command-line parameters to MATLAB with --with-matlab-flags.])
-fi
-
-# Figure out whether this is 32-bit or 64-bit MATLAB
-AC_MSG_CHECKING([whether MATLAB is 32-bit or 64-bit])
-if PATH="${PATH}:$with_matlab" matlab $with_matlab_flags -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null ; then
-  AC_MSG_RESULT([64-bit])
-  matlab_sixtyfour=yes
-else
-  AC_MSG_RESULT([32-bit])
-  matlab_sixtyfour=no
-fi
-
-AM_CONDITIONAL([THIRTYTWO], [test "x$matlab_sixtyfour" = "xno"])
-AM_CONDITIONAL([SIXTYFOUR], [test "x$matlab_sixtyfour" = "xyes"])
 
 
 #

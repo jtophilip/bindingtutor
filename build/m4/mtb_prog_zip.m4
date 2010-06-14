@@ -13,23 +13,15 @@ dnl @license LGPL
 AC_DEFUN([MTB_PROG_ZIP],[
 AC_CHECK_PROGS([ZIP], [zip], [no])
 AC_ARG_VAR([ZIP],[zip command])
-if test "x$ZIP" != "xno" ; then
-  AC_MSG_CHECKING([whether zip is Info-ZIP zip])
-  if $ZIP -h | $GREP -q -e "Info-ZIP" ; then
-    AC_MSG_RESULT([yes])
-    good_zip=yes
-  else
-    AC_MSG_RESULT([no])
-    good_zip=no
-    ZIP=""
-  fi
-else
-  good_zip=no
-fi
+AS_IF([test "x$ZIP" != "xno"],
+  [AC_MSG_CHECKING([whether zip is Info-ZIP zip])
+   AS_IF([$ZIP -h | $GREP -q -e "Info-ZIP"],
+     [AC_MSG_RESULT([yes])
+      good_zip=yes],
+     [AC_MSG_RESULT([no])
+      good_zip=no
+      ZIP=""])],
+  [good_zip=no])
 if test "x$good_zip" = "xno" ; then
-  if test $# -eq 0 ; then
-    AC_MSG_ERROR([Unable to find a working Info-ZIP zip])
-  else
-    $1
-  fi
+  ifelse(["$#"], ["0"], [AC_MSG_ERROR([Unable to find a working Info-ZIP zip])], [$1])
 fi])
