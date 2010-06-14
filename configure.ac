@@ -8,7 +8,7 @@ AC_CONFIG_SRCDIR([src/MTBindingSim.m])
 AC_CONFIG_AUX_DIR([build/aux])
 AC_CONFIG_MACRO_DIR([build/m4])
 
-AM_INIT_AUTOMAKE([gnits no-dependencies no-exeext])
+AM_INIT_AUTOMAKE([gnits no-dependencies no-exeext dist-zip])
 
 
 ###############################################################################
