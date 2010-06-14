@@ -16,13 +16,16 @@ You can also put in footnotes.[#]_
        sure the footnotes are in the same order as the footnote numbers.
 
 Document Section
-----------------
+================
 
 You can make bulleted lists
 
 - Very easily.
 - Without much effort.
 - Relatively simply.
+
+Document Sub-Section
+--------------------
 
 And numbered lists
 
@@ -31,6 +34,20 @@ And numbered lists
 3. As bulleted lists.
 
 
+You may include an image (located in the doc/wiki/images directory as a PNG) by
+specifying:
+
+  .. image:: $(IMAGES)/image
+     :width: 3in
+     :align: center
+
+The $(IMAGES)/image construct will be turned into a URL to the .PNG file on
+the wiki, and will embed the .PNG into the .PDF documentation in TeX.  The
+width parameter is only used in the .PDF, so use something in inches that makes
+sense for the TeX document.
+
+You can make links to other parts of the documentation by using
+`a version of the link syntax <$(DOCS):OperatingSystem>`_.
 
 Inline math can be included in a run of text by using the "latex-math" command,
 which looks like :latex-math:`\psi(r) = \exp(-2r)`.  Note that those are 
