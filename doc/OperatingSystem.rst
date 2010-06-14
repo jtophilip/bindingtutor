@@ -60,6 +60,9 @@ Duo" or an "Intel Xeon", then you have a 64-bit Mac.  Otherwise, you have
 a 32-bit Mac.
 
 Note that all currently-shipping Macintosh computers are 64-bit capable.
+You are highly encouraged to use the 64-bit Mac version if you can, as
+MATLAB's support for 32-bit Mac OS X is ending soon, and the 64-bit Mac
+application is substantially easier to use.
 
 For more information, see `this page at Apple Support.
 <http://support.apple.com/kb/ht3696>`_
