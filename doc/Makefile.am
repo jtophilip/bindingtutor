@@ -34,7 +34,13 @@ CLEANFILES = *.aux *.dvi *.lof *.log *.lot *.out *.toc $(TEX_FILES) mtbindingsim
 #
 # Add our directories to the TeX search path
 #
-TEXINPUTS_PATH = $(srcdir):$(builddir):$(srcdir)/wiki/images:
+if WINDOWS
+  SEPARATOR=";"
+else
+  SEPARATOR=":"
+endif
+
+TEXINPUTS_PATH = "$(srcdir)$(SEPARATOR)$(builddir)$(SEPARATOR)$(srcdir)/wiki/images$(SEPARATOR)"
 
 
 #
