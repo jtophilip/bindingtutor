@@ -23,4 +23,9 @@ History and Philosophy of Science} Holly Goodson\protect\footnotemark[1]}
 \chapter{Determining Your Operating System}
 \input{@top_builddir@/doc/OperatingSystem}
 
+\part{Appendices}
+
+\chapter{Revision History}
+\input{@top_builddir@/doc/ChangeLog}
+
 \end{document}
