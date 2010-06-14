@@ -54,6 +54,11 @@ AC_PROG_GREP
 # Objective-C compiler to build MTBindingSim.
 AC_PROG_OBJC
 
+
+###############################################################################
+# Compiling and binary distribution
+###############################################################################
+
 # Look for MATLAB, MCC, etc.
 MTB_PROG_MATLAB
 AM_CONDITIONAL([THIRTYTWO], [test "x$MATLABBITS" != "x64"])
@@ -62,6 +67,11 @@ AM_CONDITIONAL([SIXTYFOUR], [test "x$MATLABBITS" = "x64"])
 # Look for ZIP, and enable binary distributions if we have it
 MTB_PROG_ZIP([AC_MSG_WARN([no valid zip binary found, cannot make bindist])])
 AM_CONDITIONAL([BINDIST], [test "x$ZIP" != "x"])
+
+
+###############################################################################
+# Documentation
+###############################################################################
 
 # Determine if we can build the documentation
 ACLTX_PROG_PDFLATEX([have_pdflatex="no"])
@@ -79,9 +89,9 @@ AM_CONDITIONAL([DOCS],
         "x$have_hyperref" = "xyes"])
 
 
-#
-# Write out files
-#
+###############################################################################
+# Output
+###############################################################################
 
 AC_CONFIG_FILES([Makefile build/Makefile doc/Makefile doc/mtbindingsim.tex src/Makefile tools/Makefile])
 AC_OUTPUT
