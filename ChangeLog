@@ -1,3 +1,107 @@
+2010-06-14 04:31  Charles Pence <charles@charlespence.net>
+
+	* src/Makefile.am: Fix a silly typo for building on systems other than
+	  Mac64.
+
+2010-06-14 04:25  Charles Pence <charles@charlespence.net>
+
+	* NEWS, aclocal.m4, build/m4/mtb_prog_matlab.m4,
+	  build/m4/mtb_prog_which.m4, build/m4/mtb_prog_zip.m4, configure.ac,
+	  src: Split out and enhanced the MATLAB checking. Still much work to do
+	  on this.
+
+2010-06-14 01:31  Charles Pence <charles@charlespence.net>
+
+	* aclocal.m4, build/m4/mtb_prog_zip.m4, configure.ac: First step in
+	  breaking out some of our crazy custom checks into smaller M4 files.
+
+2010-06-13 23:43  Charles Pence <charles@charlespence.net>
+
+	* Makefile.am, configure.ac, src/Makefile.am: Automatically produce
+	  binary packages.
+
+2010-06-13 22:29  Charles Pence <charles@charlespence.net>
+
+	* configure.ac: Removed some unused code.
+
+2010-06-13 22:28  Charles Pence <charles@charlespence.net>
+
+	* configure.ac: More verbose checking of platform details. Also, get the
+	  32/64-bit flag from MATLAB itself, not the host arch.
+
+2010-06-13 22:05  Julia Philip <jtophilip@gmail.com>
+
+	* configure.ac: Fixed a silly typo in configure.ac.
+
+2010-06-13 22:01  Charles Pence <charles@charlespence.net>
+
+	* configure.ac: Added a check to make sure that $with_matlab_flags and
+	  $with_matlab actually result in a working MATLAB.
+
+2010-06-13 21:46  Charles Pence <charles@charlespence.net>
+
+	* src/Makefile.am: Added what should be a correct list of files to
+	  include in a binary distribution.
+
+2010-06-13 21:37  Charles Pence <charles@charlespence.net>
+
+	* build/m4/acltx_prog_kpsewhich.m4, build/m4/acltx_prog_latex.m4,
+	  build/m4/acltx_prog_pdflatex.m4: Updated the ACLTX_* M4 files to
+	  declare their output variables as precious
+
+2010-06-13 21:30  Charles Pence <charles@charlespence.net>
+
+	* Makefile.am, configure.ac, src/Makefile.am: First skeletal support for
+	  a "make bindist" target.
+
+2010-06-13 20:46  Charles Pence <charles@charlespence.net>
+
+	* configure.ac, src/Makefile.am: Added support for passing build
+	  parameters to MATLAB.
+
+2010-06-09 16:00  Charles Pence <charles@charlespence.net>
+
+	* aclocal.m4, build/m4/ac_prog_objc.m4, configure.ac: Fixed building on
+	  systems without an ObjC compiler and without TeX.
+
+2010-06-09 15:49  Charles Pence <charles@charlespence.net>
+
+	* Makefile.am, aclocal.m4, build/m4/_acltx_test.m4,
+	  build/m4/acltx_class.m4, build/m4/acltx_package.m4,
+	  build/m4/acltx_package_location.m4, build/m4/acltx_prog_kpsewhich.m4,
+	  build/m4/acltx_prog_latex.m4, build/m4/acltx_prog_pdflatex.m4,
+	  configure.ac, doc/Makefile.am: Appropriately checking for latex and a
+	  few of the classes we need, and we shouldn't be building the docs
+	  unless we have those tools.
+
+2010-06-09 03:02  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog, Makefile.am, build, build/Makefile.am, build/authors.xml,
+	  build/docutils, build/googlecode_upload.py, build/mcc,
+	  build/rst2latex.py, build/svn2cl.sh, build/svn2cl.xsl, build/wikir.py,
+	  configure.ac, doc/Makefile.am, src/Makefile.am, tools,
+	  tools/Makefile.am, tools/authors.xml, tools/docutils,
+	  tools/googlecode_upload.py, tools/rst2latex.py, tools/svn2cl.sh,
+	  tools/svn2cl.xsl, tools/wikir.py: Rearranged some of the things in
+	  "build" into "tools". Also, we finally now pass distcheck.
+
+2010-06-09 02:07  Charles Pence <charles@charlespence.net>
+
+	* build/aux/config.guess, build/aux/config.sub, configure.ac,
+	  src/Makefile.am: Added proper support so we don't build the binary
+	  every time we execute 'make' in src.
+
+2010-06-09 01:09  Charles Pence <charles@charlespence.net>
+
+	* doc/Makefile.am: Fixed a bunch of silliness in doc/Makefile.am, things
+	  build out-of-tree again. Argh.
+
+2010-06-08 23:30  Charles Pence <charles@charlespence.net>
+
+	* configure.ac, doc/Makefile.am, doc/docutils-template.inc, doc/latex,
+	  doc/mtbindingsim.tex.in: Added a $(top_builddir) to
+	  mtbindingsim.tex(.in) to (hopefully) make distcheck work.
+
 2010-06-08 22:51  Charles Pence <charles@charlespence.net>
 
 	* ., doc, src: Updated ignore properties to ignore everything that's
