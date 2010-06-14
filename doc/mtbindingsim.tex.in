@@ -23,6 +23,9 @@ History and Philosophy of Science} Holly Goodson\protect\footnotemark[1]}
 \chapter{Determining Your Operating System}
 \input{@top_builddir@/doc/OperatingSystem}
 
+\chapter{Installing MTBindingSim}
+\input{@top_builddir@/doc/Installation}
+
 \part{Appendices}
 
 \chapter{Revision History}

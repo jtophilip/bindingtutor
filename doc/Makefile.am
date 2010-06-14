@@ -12,7 +12,9 @@ endif
 
 docs-wiki: $(WIKI_FILES)
 
-DOCS_RST_SOURCE = Introduction.rst ChangeLog.rst OperatingSystem.rst
+DOCS_RST_SOURCE = \
+	ChangeLog.rst Installation.rst Introduction.rst OperatingSystem.rst
+
 EXTRA_DIST = $(DOCS_RST_SOURCE) Format.txt docutils-template.inc wiki
 
 #

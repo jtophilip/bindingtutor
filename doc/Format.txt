@@ -10,6 +10,11 @@ If you want to include a link, you can include one
 `by doing this <http://www.google.com/>`_.  Note that those are backtcks, and
 then the URI in angle brackets, and an underscore after the closing backtick.
 
+If you have a link_ that you are going to link_ to the same link_ target with
+the same link_ text multiple times, do it like this.
+
+.. _link: http://www.google.com/
+
 You can also put in footnotes.[#]_
 
 .. [#] This is a footnote.  The hash makes it automatically number, so make
