@@ -1,3 +1,79 @@
+2010-06-14 20:08  Charles Pence <charles@charlespence.net>
+
+	* doc/Makefile.am: Fix links in wiki-format documentation.
+
+2010-06-14 20:03  Charles Pence <charles@charlespence.net>
+
+	* doc/Format.txt, doc/Installation.rst, doc/Makefile.am,
+	  doc/mtbindingsim.tex.in: Updated for the Installation docs.
+
+2010-06-14 19:36  Charles Pence <charles@charlespence.net>
+
+	* AUTHORS: Updated AUTHORS.
+
+2010-06-14 19:35  Charles Pence <charles@charlespence.net>
+
+	* THANKS: Updated THANKS.
+
+2010-06-14 19:29  Charles Pence <charles@charlespence.net>
+
+	* doc/ChangeLog.rst: The ChangeLog docs page was using some nested lists
+	  that Wikir couldn't parse; fixed.
+
+2010-06-14 19:24  Charles Pence <charles@charlespence.net>
+
+	* doc/ChangeLog.rst, doc/Makefile.am, doc/mtbindingsim.tex.in: Added a
+	  ChangeLog (revision history) page to the documentation.
+
+2010-06-14 19:22  Julia Philip <jtophilip@gmail.com>
+
+	* ., NEWS: Updated the news file.
+
+2010-06-14 19:11  Julia Philip <jtophilip@gmail.com>
+
+	* NEWS: Updated the news file to reflect the current capabilities of
+	  MTBindingSim.
+
+2010-06-14 19:02  Julia Philip <jtophilip@gmail.com>
+
+	* doc/Makefile.am: Windows TeX (at least TeX Live) uses a different
+	  directory separator for TEXINPUTS.
+
+2010-06-14 18:41  Charles Pence <charles@charlespence.net>
+
+	* configure.ac, doc/Makefile.am, tools/docutils/parsers/rst/roman.py:
+	  Add a missing Python file that's not installed on Windows by default.
+	  Make zip-format dists. Don't use the absolute build directory in the
+	  TeX calls.
+
+2010-06-14 17:23  Julia Philip <jtophilip@gmail.com>
+
+	* build/m4/mtb_prog_matlab.m4, src/Makefile.am: Fixed $MATLABPATH if
+	  passed on the command line.
+
+2010-06-14 16:42  Charles Pence <charles@charlespence.net>
+
+	* doc/Installation.rst: Added instructions for running MTBindingSim in
+	  MATLAB to the Installation file.
+
+2010-06-14 16:36  Charles Pence <charles@charlespence.net>
+
+	* doc/Format.txt, doc/Installation.rst: Added an Installation file to
+	  the documentation.
+
+2010-06-14 15:47  Charles Pence <charles@charlespence.net>
+
+	* Makefile.am, build/Makefile.am, doc/Makefile.am, src/Makefile.am,
+	  tools/Makefile.am: Added the 'make rcsclean' target.
+
+2010-06-14 14:03  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Updated ChangeLog.
+
+2010-06-14 13:56  Charles Pence <charles@charlespence.net>
+
+	* configure.ac: Cleaned up configure.ac a little more.
+
 2010-06-14 04:31  Charles Pence <charles@charlespence.net>
 
 	* src/Makefile.am: Fix a silly typo for building on systems other than
