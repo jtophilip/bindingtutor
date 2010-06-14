@@ -38,4 +38,21 @@ click the MCRinstaller.exe file to run the intsaller. On Mac, open the
 Next, install MTBindingSim. First double click the .zip file to open it.
 
 
+MTBindingSim in MATLAB
+======================
+
+Running MTBindingSim in MATLAB is the same for all platforms.
+
+Downloads
+---------
+
+Download the MTBindingSim source code from the `MTBindingSim download page
+ <http://code.google.com/p/mtbindingsim/downloads/list>`_.
+
+Installation
+------------
+
+Unzip the source code file. Put all the files created into the same directory.
+Open MATLAB, then open MTBindingSim.m and run MTBindingSim by clicking on the
+green play button on the toolbar.
 
