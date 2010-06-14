@@ -5,3 +5,8 @@ EXTRA_DIST = docutils rst2latex.py wikir.py \
 dist-hook:
 	rm -rf `find $(distdir)/docutils -name *.pyc`
 
+.PHONY: rcsclean
+RCSCLEANFILES = Makefile.in
+rcsclean:
+	rm -f $(RCSCLEANFILES)
+

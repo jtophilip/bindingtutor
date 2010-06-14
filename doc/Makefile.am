@@ -70,3 +70,12 @@ mtbindingsim.pdf: %.pdf: $(TEX_FILES) $(MASTER_FILE)
 
 .rst.tex: docutils-template.inc
 	$(top_srcdir)/tools/rst2latex.py --no-section-numbering --template=$(top_srcdir)/doc/docutils-template.inc $< | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1.png}}|g" > $@
+
+
+
+RCSCLEANFILES = Makefile.in
+
+.PHONY: rcsclean
+rcsclean:
+	rm -f $(RCSCLEANFILES)
+

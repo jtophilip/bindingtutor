@@ -5,7 +5,7 @@ ACLOCAL_AMFLAGS = -I build/m4
 
 SUBDIRS = build doc src tools
 
-.PHONY: changes bindist
+.PHONY: changes bindist rcsclean
 changes:
 	$(srcdir)/tools/svn2cl.sh --linelen=80 --authors=$(srcdir)/tools/authors.xml --reparagraph -o $(srcdir)/ChangeLog
 
@@ -16,3 +16,12 @@ else
 bindist:
 	@echo "Cannot build binary distribution, the 'zip' utility cannot be found."
 endif
+
+RCSCLEANFILES = configure Makefile.in
+rcsclean:
+	rm -f $(RCSCLEANFILES)
+	rm -rf autom4te.cache
+	for dir in $(SUBDIRS) ; do \
+	  (cd $$dir && $(MAKE) $(AM_MAKEFLAGS) $@) || exit 1; \
+	done
+

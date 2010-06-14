@@ -3,6 +3,7 @@
 
 # Make sure to build the binary
 all: MTBindingSim.prj
+.PHONY: bindist rcsclean clean-local-mac64app
 
 
 # We need to figure out the name of the binary
@@ -54,9 +55,12 @@ MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 # Clean up after MCC
 CLEANFILES = *.c MTBindingSim.prj MTBindingSim MTBindingSim.exe mccExcludedFiles.log readme.txt run_MTBindingsim.sh
 clean-local: clean-local-mac64app
-.PHONY: clean-local-mac64app
 clean-local-mac64app:
 	-rm -rf MTBindingSim.app
+
+RCSCLEANFILES: Makefile.in
+rcsclean:
+	rm -f $(RCSCLEANFILES)
 
 
 # Include everything in the source distribution
@@ -106,7 +110,6 @@ BINARY_FILES=$(ALL_BINARY_FILES) $(PLATFORM_BINARY_FILES)
 
 
 # And, make the binary package
-.PHONY: bindist
 bindist: MTBindingSim.prj
 	$(MKDIR_P) @builddir@/$(BINARY_NAME)
 	test ! -d @builddir@/MTBindingSim.app || find @builddir@/MTBindingSim.app -exec chmod u+rwx "{}" \;
