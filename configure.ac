@@ -1,7 +1,7 @@
 ###############################################################################
 # Autoconf and Automake
 ###############################################################################
-AC_INIT([MTBindingSim], [0.5], [jtophilip@gmail.com], [mtbindingsim], [http://code.google.com/p/mtbindingsim/])
+AC_INIT([MTBindingSim], [0.6], [jtophilip@gmail.com], [mtbindingsim], [http://code.google.com/p/mtbindingsim/])
 AC_PREREQ([2.65])
 
 AC_CONFIG_SRCDIR([src/MTBindingSim.m])
