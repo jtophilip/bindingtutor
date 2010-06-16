@@ -7,6 +7,9 @@ See the end of the file for license conditions.
 
 ** Various bug fixes
 
+** Inputs now default to 0 when the experimental mode or curve is changed. The ratio always
+defaults to 1.
+
 
 * Version 0.5 [beta]
 

@@ -254,7 +254,7 @@ if isnan(xmax) || xmax < 0
 end
 
 % Checks to make sure that xmax is greater than xmin
-if xmin > xmax
+if xmin >= xmax
     xminstr = get(handles.label_xmin, 'String');
     xmaxstr = get(handles.label_xmax, 'String');
     errorbox([xmaxstr, ' must be greater than ', xminstr], hObject);
@@ -1353,7 +1353,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     x2 = xvals;
 
     % Sets the legend text
-    legend2 = ['[MT] total = ' get(handles.input1_2, 'String') ', [A] total = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', K_B = ' get(handles.input4_2, 'String') ', N = ' get(handles.input4_1, 'String') ];
+    legend2 = ['[MT] total = ' get(handles.input1_2, 'String') ', [A] total = ' get(handles.input2_2, 'String') ', K_A = ' get(handles.input3_2, 'String') ', K_B = ' get(handles.input4_2, 'String')];
 
   % Determines the parameters selected for curve2
   elseif get(handles.curve2, 'Value') == 1
@@ -3014,6 +3014,9 @@ set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '1 MT : ');
 set_java_component(handles.units3_1, 'A');
 
+% Sets the default ratio to 1
+set(handles.input3_1, 'String', '1');
+
 % Updates the handles structure
 guidata(hObject, handles);
 
@@ -3044,6 +3047,9 @@ set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '1 MT : ');
 set_java_component(handles.units3_1, 'A');
+
+% Sets the default ratio to 1
+set(handles.input3_1, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -3077,6 +3083,9 @@ set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '&phi; ');
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
+
+% Sets the default ratio to 1
+set(handles.input4_1, 'String', '1');
 
 % Hides the units label for p
 set(handles.units3_1, 'Visible', 'off');
@@ -3113,6 +3122,9 @@ set_java_component(handles.label2_1, [KD, ' ']);
 set_java_component(handles.label3_1, '&phi; ');
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
+
+% Sets the default ratio to 1
+set(handles.input4_1, 'String', '1');
 
 % Hides the units label for p
 set(handles.units3_1, 'Visible', 'off');
@@ -3151,6 +3163,9 @@ set_java_component(handles.units3_1, [UM, ' ']);
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
 
+% Sets the default ratio to 1
+set(handles.input4_1, 'String', '1');
+
 % Updates the handles structure
 guidata(hObject, handles);
 
@@ -3184,6 +3199,9 @@ set_java_component(handles.label3_1, [KL, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
+
+% Sets the default ratio to 1
+set(handles.input4_1, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -3219,6 +3237,9 @@ set_java_component(handles.units3_1, [UM, ' ']);
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
 
+% Sets the default ratio to 1
+set(handles.input4_1, 'String', '1');
+
 % Updates the handles structure
 guidata(hObject, handles);
 
@@ -3253,6 +3274,9 @@ set_java_component(handles.units3_1, [UM, ' ']);
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
 
+% Sets the default ratio to 1
+set(handles.input4_1, 'String', '1');
+
 % Updates the handles structure
 guidata(hObject, handles);
 
@@ -3284,6 +3308,9 @@ set_java_component(handles.label3_1, [KA, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
+
+% Sets the default ratio to 1
+set(handles.input4_1, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -3318,6 +3345,9 @@ set_java_component(handles.label3_1, [KA, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
+
+% Sets the default ratio to 1
+set(handles.input4_1, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -3378,6 +3408,9 @@ set_java_component(handles.label2_2, [KD, ' ']);
 set_java_component(handles.label3_2, '1 MT : ');
 set_java_component(handles.units3_2, 'A');
 
+% Sets the default ratio to 1
+set(handles.input3_2, 'String', '1');
+
 % Updates the handles structure
 guidata(hObject, handles);
 
@@ -3403,6 +3436,9 @@ set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KD, ' ']);
 set_java_component(handles.label3_2, '1 MT : ');
 set_java_component(handles.units3_2, 'A');
+
+% Sets the default ratio to 1
+set(handles.input3_2, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -3432,6 +3468,9 @@ set_java_component(handles.label2_2, [KD, ' ']);
 set_java_component(handles.label3_2, '&phi; ');
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
+
+% Sets the default ratio to 1
+set(handles.input4_2, 'String', '1');
 
 % Hides the units label for phi
 set(handles.units3_2, 'Visible', 'off');
@@ -3465,6 +3504,9 @@ set_java_component(handles.label3_2, '&phi; ');
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
 
+% Sets the default ratio to 1
+set(handles.input4_2, 'String', '1');
+
 % Hides the units label for p
 set(handles.units3_2, 'Visible', 'off');
 
@@ -3497,6 +3539,9 @@ set_java_component(handles.units3_2, [UM, ' ']);
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
 
+% Sets the default ratio to 1
+set(handles.input4_2, 'String', '1');
+
 % Updates the handles structure
 guidata(hObject, handles);
 
@@ -3527,6 +3572,9 @@ set_java_component(handles.units3_2, [UM, ' ']);
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
 
+% Sets the default ratio to 1
+set(handles.input4_2, 'String', '1');
+
 % Updates the handles structure
 guidata(hObject, handles);
 
@@ -3554,6 +3602,9 @@ set_java_component(handles.label3_2, [KA, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
+
+% Sets the default ratio to 1
+set(handles.input4_2, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -3583,6 +3634,9 @@ set_java_component(handles.units3_2, [UM, ' ']);
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
 
+% Sets the default ratio to 1
+set(handles.input4_2, 'String', '1');
+
 % Updates the handles structure
 guidata(hObject, handles);
 
@@ -3610,6 +3664,9 @@ set_java_component(handles.label3_2, [KA, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
+
+% Sets the default ratio to 1
+set(handles.input4_2, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -3640,6 +3697,9 @@ set_java_component(handles.label3_2, [KA, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
+
+% Sets the default ratio to 1
+set(handles.input4_2, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -3688,6 +3748,7 @@ handles = guidata(hObject);
 if num >= 1
     set(handles.label1_1, 'Visible', 'on');
     set(handles.input1_1, 'Visible', 'on');
+    set(handles.input1_1, 'String', '0');
     set(handles.units1_1, 'Visible', 'on');
 else
     set(handles.label1_1, 'Visible', 'off');
@@ -3698,6 +3759,7 @@ end
 if num >= 2
     set(handles.label2_1, 'Visible', 'on');
     set(handles.input2_1, 'Visible', 'on');
+    set(handles.input2_1, 'String', '0');
     set(handles.units2_1, 'Visible', 'on');
 else
     set(handles.label2_1, 'Visible', 'off');
@@ -3708,6 +3770,7 @@ end
 if num >= 3
     set(handles.label3_1, 'Visible', 'on');
     set(handles.input3_1, 'Visible', 'on');
+    set(handles.input3_1, 'String', '0');
     set(handles.units3_1, 'Visible', 'on');
 else
     set(handles.label3_1, 'Visible', 'off');
@@ -3718,6 +3781,7 @@ end
 if num >= 4
     set(handles.label4_1, 'Visible', 'on');
     set(handles.input4_1, 'Visible', 'on');
+    set(handles.input4_1, 'String', '0');
     set(handles.units4_1, 'Visible', 'on');
 else
     set(handles.label4_1, 'Visible', 'off');
@@ -3728,6 +3792,7 @@ end
 if num >= 5
     set(handles.label5_1, 'Visible', 'on');
     set(handles.input5_1, 'Visible', 'on');
+    set(handles.input5_1, 'String', '0');
     set(handles.units5_1, 'Visible', 'on');
 else
     set(handles.label5_1, 'Visible', 'off');
@@ -3738,6 +3803,7 @@ end
 if num >= 6
     set(handles.label6_1, 'Visible', 'on');
     set(handles.input6_1, 'Visible', 'on');
+    set(handles.input6_1, 'String', '0');
     set(handles.units6_1, 'Visible', 'on');
 else
     set(handles.label6_1, 'Visible', 'off');
@@ -3762,6 +3828,7 @@ handles = guidata(hObject);
 if num >= 1
     set(handles.label1_2, 'Visible', 'on');
     set(handles.input1_2, 'Visible', 'on');
+    set(handles.input1_2, 'String', '0');
     set(handles.units1_2, 'Visible', 'on');
 else
     set(handles.label1_2, 'Visible', 'off');
@@ -3772,6 +3839,7 @@ end
 if num >= 2
     set(handles.label2_2, 'Visible', 'on');
     set(handles.input2_2, 'Visible', 'on');
+    set(handles.input2_2, 'String', '0');
     set(handles.units2_2, 'Visible', 'on');
 else
     set(handles.label2_2, 'Visible', 'off');
@@ -3782,6 +3850,7 @@ end
 if num >= 3
     set(handles.label3_2, 'Visible', 'on');
     set(handles.input3_2, 'Visible', 'on');
+    set(handles.input3_2, 'String', '0');
     set(handles.units3_2, 'Visible', 'on');
 else
     set(handles.label3_2, 'Visible', 'off');
@@ -3792,6 +3861,7 @@ end
 if num >= 4
     set(handles.label4_2, 'Visible', 'on');
     set(handles.input4_2, 'Visible', 'on');
+    set(handles.input4_2, 'String', '0');
     set(handles.units4_2, 'Visible', 'on');
 else
     set(handles.label4_2, 'Visible', 'off');
@@ -3802,6 +3872,7 @@ end
 if num >= 5
     set(handles.label5_2, 'Visible', 'on');
     set(handles.input5_2, 'Visible', 'on');
+    set(handles.input5_2, 'String', '0');
     set(handles.units5_2, 'Visible', 'on');
 else
     set(handles.label5_2, 'Visible', 'off');
@@ -3812,6 +3883,7 @@ end
 if num >= 6
     set(handles.label6_2, 'Visible', 'on');
     set(handles.input6_2, 'Visible', 'on');
+    set(handles.input6_2, 'String', '0');
     set(handles.units6_2, 'Visible', 'on');
 else
     set(handles.label6_2, 'Visible', 'off');
