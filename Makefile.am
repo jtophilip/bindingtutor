@@ -2,13 +2,16 @@
 #######################################
 
 ACLOCAL_AMFLAGS = -I build/m4
-
 SUBDIRS = build doc src tools
-
 .PHONY: changes bindist rcsclean
+
+
+# Update the ChangeLog
 changes:
 	$(srcdir)/tools/svn2cl.sh --linelen=80 --authors=$(srcdir)/tools/authors.xml --reparagraph -o $(srcdir)/ChangeLog
 
+
+# Build the binary distribution (only in src)
 if BINDIST
 bindist:
 	(cd src && $(MAKE) $(AM_MAKEFLAGS) $@) || exit 1
@@ -17,6 +20,8 @@ bindist:
 	@echo "Cannot build binary distribution, the 'zip' utility cannot be found."
 endif
 
+
+# Execute 'make rcsclean' (this is still broken!)
 RCSCLEANFILES = configure Makefile.in
 rcsclean:
 	rm -f $(RCSCLEANFILES)
@@ -24,4 +29,9 @@ rcsclean:
 	for dir in $(SUBDIRS) ; do \
 	  (cd $$dir && $(MAKE) $(AM_MAKEFLAGS) $@) || exit 1; \
 	done
+
+
+# Don't put .svn directories in the distribution file
+dist-hook:
+	rm -rf `find $(distdir)/ -type d -name .svn`
 
