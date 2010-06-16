@@ -21,14 +21,18 @@ bindist:
 endif
 
 
-# Execute 'make rcsclean' (this is still broken!)
-RCSCLEANFILES = configure Makefile.in
-rcsclean:
-	rm -f $(RCSCLEANFILES)
-	rm -rf autom4te.cache
+# There's no way to fool Automake, we just have to do make rcsclean
+# manually.  Any way to try to hook into "maintainer-clean", say,
+# just causes "missing" to rebuild all the files we just deleted.
+
+RCSCLEANFILES = configure Makefile Makefile.in config.status config.cache config.log \
+  configure.lineno config.status.lineno Makefile
+rcsclean: clean
 	for dir in $(SUBDIRS) ; do \
 	  (cd $$dir && $(MAKE) $(AM_MAKEFLAGS) $@) || exit 1; \
 	done
+	rm -f $(RCSCLEANFILES)
+	rm -rf autom4te.cache
 
 
 # Don't put .svn directories in the distribution file

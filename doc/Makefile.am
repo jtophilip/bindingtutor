@@ -81,7 +81,7 @@ mtbindingsim.pdf: %.pdf: $(TEX_FILES) $(MASTER_FILE)
 
 
 
-RCSCLEANFILES = Makefile.in
+RCSCLEANFILES = Makefile.in Makefile mtbindingsim.tex
 
 .PHONY: rcsclean
 rcsclean:

@@ -3,10 +3,11 @@ EXTRA_DIST = docutils rst2latex.py wikir.py \
 	googlecode_upload.py
 
 dist-hook:
-	rm -rf `find $(distdir)/docutils -name *.pyc`
+	rm -f `find $(distdir)/docutils -name *.pyc`
 
 .PHONY: rcsclean
-RCSCLEANFILES = Makefile.in
+RCSCLEANFILES = Makefile.in Makefile
 rcsclean:
 	rm -f $(RCSCLEANFILES)
+	rm -f `find $(srcdir)/docutils -name *.pyc`
 

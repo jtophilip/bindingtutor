@@ -58,7 +58,7 @@ clean-local: clean-local-mac64app
 clean-local-mac64app:
 	-rm -rf MTBindingSim.app
 
-RCSCLEANFILES: Makefile.in
+RCSCLEANFILES = Makefile.in Makefile
 rcsclean:
 	rm -f $(RCSCLEANFILES)
 

@@ -1,5 +1,5 @@
 EXTRA_DIST = m4 aux
-RCSCLEANFILES = Makefile.in
+RCSCLEANFILES = Makefile.in Makefile
 
 .PHONY: rcsclean
 rcsclean:
