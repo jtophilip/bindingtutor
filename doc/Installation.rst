@@ -70,6 +70,10 @@ Downloads
 
 Download the MTBindingSim source code from the `MTBindingSim download page`_.
 
+**NOTE:** If you are using Windows' built-in ZIP extraction tool, you may
+run into problems extracting ZIP-format source bundles.  Our recommendation
+is to download the free and open-source `7-Zip <http://www.7-zip.org/>`_.
+
 Installation
 ------------
 
