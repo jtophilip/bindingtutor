@@ -80,7 +80,17 @@ mtbindingsim.pdf: %.pdf: $(TEX_FILES) $(MASTER_FILE)
 	$(top_srcdir)/tools/rst2latex.py --no-section-numbering --template=$(top_srcdir)/doc/docutils-template.inc $< | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1.png}}|g" > $@
 
 
+#
+# Install the documentation if we built it
+#
+if DOCS
+doc_DATA = mtbindingsim.pdf
+endif
 
+
+#
+# Clean up after ourselves
+#
 RCSCLEANFILES = Makefile.in Makefile mtbindingsim.tex
 
 .PHONY: rcsclean

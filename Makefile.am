@@ -6,6 +6,10 @@ SUBDIRS = build doc src tools
 .PHONY: changes bindist rcsclean
 
 
+# Install the docs here to $(docdir)
+doc_DATA = AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS
+
+
 # Update the ChangeLog
 changes:
 	$(srcdir)/tools/svn2cl.sh --linelen=80 --authors=$(srcdir)/tools/authors.xml --reparagraph -o $(srcdir)/ChangeLog
