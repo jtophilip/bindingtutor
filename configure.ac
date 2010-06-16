@@ -64,6 +64,19 @@ MTB_PROG_MATLAB
 AM_CONDITIONAL([THIRTYTWO], [test "x$MATLABBITS" != "x64"])
 AM_CONDITIONAL([SIXTYFOUR], [test "x$MATLABBITS" = "x64"])
 
+# We have to set the binary name here, not out in Makefile.am, or the
+# substitutions don't work right.
+AS_IF([test "x$os" = "xwindows"],
+  [PROG_NAME="MTBindingSim.exe"],
+  [AS_IF([test "x$os" = "xmac" -a "x$MATLABBITS" = "x64"],
+     [PROG_NAME="MTBindingSim.app"],
+     [PROG_NAME="MTBindingSim"])])
+AC_SUBST([PROG_NAME])
+
+# Also, mark here if we're making an application bundle (on OS X 64-bit),
+# because it acts much differently in the installation phase
+AM_CONDITIONAL([MACBUNDLE], [test "x$os" = "xmac" -a "x$MATLABBITS" = "x64"])
+
 # Look for ZIP, and enable binary distributions if we have it
 MTB_PROG_ZIP([AC_MSG_WARN([no valid zip binary found, cannot make bindist])])
 AM_CONDITIONAL([BINDIST], [test "x$ZIP" != "x"])

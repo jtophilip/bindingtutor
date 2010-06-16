@@ -6,30 +6,21 @@ all: MTBindingSim.prj
 .PHONY: bindist rcsclean clean-local-mac64app
 
 
-# We need to figure out the name of the binary
-if WINDOWS
-  PROG_NAME = MTBindingSim.exe
-else !WINDOWS
-
-if MAC
-
-if SIXTYFOUR
-  PROG_NAME = MTBindingSim.app
-else !SIXTYFOUR
-  PROG_NAME = MTBindingSim
+# Indicate that we're going to install the binary (with a slight hack).  Note that
+# on Mac64, we have an .app bundle, which we won't install anywhere automatically.
+if MACBUNDLE
+install-exec-hook:
+	@echo ==================================================
+	@echo Mac OS X application bundle is prepared at:
+	@echo $(abs_builddir)/MTBindingSim
+	@echo
+	@echo To run MTBindingSim, double-click this application
+	@echo bundle, or copy it to your Applications folder.
+	@echo ==================================================
+else
+  EXTRA_SCRIPTS = MTBindingSim MTBindingSim.exe
+  bin_SCRIPTS = @PROG_NAME@
 endif
-
-else !MAC
-
-PROG_NAME = MTBindingSim
-
-endif !MAC
-endif !WINDOWS
-
-# Indicate that we're going to install the binary, but make the binary
-# only depend on the .prj file (this simplifies *everything*)
-bin_PROGRAMS: $(PROG_NAME)
-$(PROG_NAME): MTBindingSim.prj
 
 
 # Get the list of source files we need
