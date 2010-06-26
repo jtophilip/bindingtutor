@@ -33,8 +33,8 @@ function [Frac, MTfree] = cooperativity_binding(MTtot, Atot, KD, P, N)
 [a,b] = size(MTtot);
 Afree = zeros(a,b);
 
-% Sets the inital guess for Afree to Atot
-Xguess = Atot;
+% Sets interval for fzero
+Xint = [0,Atot];
 
 % Steps through MTtot, calculation Afree at each point
 for n = 1:b
@@ -42,18 +42,16 @@ for n = 1:b
     % Sets up the equation for calcualting Afree and preforms the
     % calcuation
     f = @(A)A + ((2/KD)*A + (2/(P*(KD^2)))*A^2)*MTtot(n)*N/(1 + (2/KD)*A + (2/(P*(KD^2)))*A^2)-Atot;
-    Afree(n) = fzero(f,Xguess);
+    [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero sucessfully calculated Afree and ends
     % calcualation if it did not
-    if isnan(Afree(n))
+    if isnan(Afree(n)) || exit ~= 1
         Frac = 0;
         MTfree = 0;
         return
     end
-    
-    % Sets the new guess to the calculated value of AFree
-    Xguess = Afree(n);
+
     
 end
 

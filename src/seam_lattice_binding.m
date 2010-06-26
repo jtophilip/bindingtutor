@@ -36,27 +36,23 @@ LT = MTtot.*N.*12./13;
 [a,b] = size(MTtot);
 Afree = zeros(a,b);
 
-% Sets the initial guess for Afree
-Xguess = Atot;
+% Sets the interval for fzero
+Xint = [0, Atot];
 
 % Steps through MTtot, calculating Afree at each point
 for n = 1:b
     
     % Sets up the equation for Afree and calculates it
     f = @(A)A + (1/KS)*A*ST(n)/(1 + (1/KS)*A) + (1/KL)*A*LT(n)/(1 + (1/KL)*A) - Atot;
-    Afree(n) = fzero(f,Xguess);
+    [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero sucessfully calculated Afree and ends
     % calculation if it did not
-    if isnan(Afree)
+    if isnan(Afree) || exit ~= 1
         Frac = 0;
         MTfree = 0;
         return
     end
-    
-    % Sets the guess for the next iteration to the calculated value of
-    % Afree
-    Xguess = Afree(n);
     
 end
 

@@ -32,27 +32,23 @@ function [Frac, MTfree] = first_order_binding(MTtot, Atot, KD, N)
 [a, b] = size(MTtot);
 Afree = zeros(a,b);
 
-% Sets the first guess for Afree to Atot
-Xguess = Atot;
+% Sets interval for fzero
+Xint = [0,Atot];
 
 % Steps through MTtot, calculating Afree at each value
 for n = 1:b
     
     % Creates a function of Afree and calculates the value of Afree
     f = @(A)A + (1/KD)*A*MTtot(n)*N/(1 + (1/KD)*A) - Atot;
-    Afree(n) = fzero(f,Xguess);
+    [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero has sucessfully calculated a value for
     % Afree and exits the calculation if it has not
-    if isnan(Afree(n))
+    if isnan(Afree(n)) || exit ~= 1
         Frac = 0;
         MTfree = 0;
         return
     end
-    
-    % Sets the next guess to the value of Afree
-    Xguess = Afree(n);
-    n = n+1;
     
 end
 

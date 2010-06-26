@@ -32,25 +32,21 @@ function [Frac] = competition(MTtot, Atot, Btot, KA, KB)
 [a,b] = size(Btot);
 MTfree = zeros(a,b);
 
-% Sets the intial guess for MTfree to MTtot/2
-Xguess = MTtot/2;
+% Sets interval for fzero
+Xint = [0, MTtot];
 
 % Steps through Btot, calculating MTfree at each point
 for n = 1:b
     % Sets up the function to calculate MTfree and does the calculation
     f = @(MT)MT + (1/KA)*MT*Atot/(1 + (1/KA)*MT) + (1/KB)*MT*Btot(n)/(1 + (1/KB)*MT) - MTtot;
-    MTfree(n) = fzero(f, Xguess);
+    [MTfree(n), y, exit] = fzero(f, Xint);
     
     % Checks to make sure that fzero sucessfully calculated MTfree and ends
     % the caclculation if it did not
-    if isnan(MTfree(n))
+    if isnan(MTfree(n)) || exit ~= 1
         Frac = 0;
         return
     end
-    
-    % Sets the guess for the next iteration to the calculated value of
-    % MTfree
-    Xguess = MTfree(n);
 
 end
 

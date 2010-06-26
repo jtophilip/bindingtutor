@@ -33,26 +33,24 @@ function [Abound, Afree] = first_order_saturation(MTtot, Atot, KD, N)
 [a, b] = size(Atot);
 Afree = zeros(a,b);
 
-% Sets the inital guess to the first value of Atot/2
-Xguess = Atot(1)/2;
 
 % Steps through Atot, calculating Afree at each value
 for n = 1:b
     
+    % Sets the x interval for fzero
+    Xint = [0,Atot(n)];
+    
     % Sets us the function to calculate Afree and calculates Afree
     f = @(A)A + (1/KD)*A*MTtot*N/(1 + (1/KD)*A)- Atot(n);
-    Afree(n) = fzero(f,Xguess);
+    [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero has successfully calculated Afree and
     % exits calculation if it has not
-    if isnan(Afree(n))
+    if exit ~= 1 || isnan(Afree(n))
         Abound = 0;
         Afree = 0;
         return
     end
-    
-    % Sets the new guess to the calculated value of Afree
-    Xguess = Afree(n);
     
 end
 

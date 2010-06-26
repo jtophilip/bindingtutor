@@ -33,27 +33,24 @@ function [Abound, Afree] = cooperativity_saturation(MTtot, Atot, KD, P, N)
 [a,b] = size(Atot);
 Afree = zeros(a,b);
 
-% Sets the initial guess for Afree to Atot/2
-Xguess = Atot(1)/2;
-
 % Steps through Atot, calculating the value of Afree at each point
 for n = 1:b
     
+    % Sets the interval for fzero
+    Xint = [0,Atot(n)];
+    
     % Sets up the equation for Afree and calculates it
     f = @(A)A + ((2/KD)*A + (2/(P*(KD^2)))*A^2)*MTtot*N/(1 + (2/KD)*A + (2/(P*(KD^2)))*A^2)-Atot(n);
-    Afree(n) = fzero(f,Xguess);
+    [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero sucessfully calculated Afree and ends
     % calculation if it did not
-    if isnan(Afree(n))
+    if isnan(Afree(n)) || exit ~= 1
         Afree = 0;
         Abound = 0;
         return
     end
-    
-    % Sets the guess for the next iteration to the calculated value of
-    % Afree
-    Xguess = Afree(n);
+
     
 end
 
