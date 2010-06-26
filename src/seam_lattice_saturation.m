@@ -48,7 +48,7 @@ for n = 1:b
     
     % Checks to make sure that fzeros sucessfully calculated Afree and ends
     % calculation if it did not
-    if isnan(Afree) || exit ~= 1
+    if isnan(Afree(n)) || exit ~= 1
         Abound = 0;
         Afree = 0;
         return

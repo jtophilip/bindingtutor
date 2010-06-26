@@ -41,7 +41,7 @@ for n = 1:b
     
     % Sets up the equation for Afree and calculates its value
     f = @(A)A + (A/KM + 2*A^2/(KA*KM) + 3*A^3/(KA^2*KM))*MTtot*N/(1 + A/KM + A^2/(KA*KM) + A^3/(KA^2*KM)) - Atot(n);
-    [Afree(n), y, exit] = fzero(f, Xguess);
+    [Afree(n), y, exit] = fzero(f, Xint);
 
     % Checks to make sure fzero sucessfully calculated Afree and ends
     % calculation if it didn't
