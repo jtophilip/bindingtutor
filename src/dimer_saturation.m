@@ -1,8 +1,8 @@
-function [Frac, MTfree] = MAP2_binding(MTtot, Atot, KM, KA, N)
+function [Abound, Afree] = dimer_saturation(MTtot, Atot, KA, K1, K2, N)
 % A function which calculates the binding of A to MT assuming that A binds
-% to MT with a disassociation constant of KM and that a second and third A can bind
-% to an MT-bound A with a disassociation constant of KA when [MT] is varied
-% and [A] is held constant.
+% to the seam of the MT with disassociation constant KS and the lattice of
+% the MT with disassociation constant KL for an experiment where [A] is
+% varied and [MT] is held constant.
 
 % This file is part of MTBindingSim.
 %
@@ -27,27 +27,28 @@ function [Frac, MTfree] = MAP2_binding(MTtot, Atot, KM, KA, N)
 % Version history:
 % - 0.5: Initial version
 
-
 % Determines the size of MTtot and creates an empty vector of the same size
 % for Afree
-[a,b] = size(MTtot);
+[a,b] = size(Atot);
 Afree = zeros(a,b);
 
-% Sets the interval for fzero
-Xint = [0, Atot];
+
 
 % Steps through MTtot calculating Afree at each point
 for n = 1:b
     
+    % Sets the interval for fzero
+    Xint = [0, Atot(n)];
+    
     % Sets up the equation for Afree and calculates Afree
-    f = @(A)A + (A/KM + 2*A^2/(KA*KM) + 3*A^3/(KA^2*KM))*MTtot(n)*N/(1 + A/KM + A^2/(KA*KM) + A^3/(KA^2*KM)) - Atot;
+    f = @(A)A + A^2/KA + (A/K1 + A^2/(KA* K2))*MTtot*N/(1 + A/K1 + A^2/(KA*K2)) - Atot(n);
     [Afree(n), y, exit] = fzero(f, Xint);
 
     % Checks to make sure that fzero sucessfully calculated Afree and stops
     % calculation if it did not
     if isnan(Afree(n)) || exit ~= 1
-        Frac = 0;
-        MTfree = 0;
+        Abound = 0;
+        Afree = 0;
         return
     end
 
@@ -56,10 +57,3 @@ end
 % Calculates Abound
 Abound = Atot - Afree;
 
-% Calculated the fraction of A bound
-Frac = Abound./Atot;
-
-% Calculated MTfree
-MTfree = MTtot./(1 + Afree./KM + Afree.^2./(KA*KM) + Afree.^3./(KA^2*KM));
-
-end
