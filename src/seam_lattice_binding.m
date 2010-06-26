@@ -48,7 +48,7 @@ for n = 1:b
     
     % Checks to make sure that fzero sucessfully calculated Afree and ends
     % calculation if it did not
-    if isnan(Afree) || exit ~= 1
+    if isnan(Afree(n)) || exit ~= 1
         Frac = 0;
         MTfree = 0;
         return
