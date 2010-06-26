@@ -104,7 +104,7 @@ set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 set(handles.tot_free, 'SelectionChangeFcn', @tot_free_SelectionChangeFcn);
 
 % Make some global string values for later
-global UM KD KS KL KM KA KB;
+global UM KD KS KL KM KA KB K1 K2;
 UM = '&mu;M';
 KD = 'K<sub><small>D</small></sub>';
 KS = 'K<sub><small>S</small></sub>';
@@ -112,6 +112,8 @@ KL = 'K<sub><small>L</small></sub>';
 KM = 'K<sub><small>M</small></sub>';
 KA = 'K<sub><small>A</small></sub>';
 KB = 'K<sub><small>B</small></sub>';
+K1 = 'K<sub><small>1</small></sub>';
+K2 = 'K<sub><small>2</small></sub>';
 
 % Convert a bunch of our controls to java controls
 handles.units_xmin = make_java_component(handles.units_xmin, UM, 0);
@@ -1290,6 +1292,217 @@ elseif get(handles.curve1, 'Value') == 5
             
         otherwise
     end
+    
+elseif get(handles.curve1, 'Value') == 6
+    
+    %%% Dimerization and binding %%%
+    
+    % Determine the experimental mode
+    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+        % Binding mode is selected
+        case 'binding'
+
+            % Gets the value for [A] total and ensures that it's a
+            % positive number
+            Atot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(Atot) || Atot < 0
+                errorbox('Please enter a positive number for [A] total', hObject); 
+                return
+            end
+
+            % Gets the value for K1 and ensures that it's a
+            % positive number
+            K1 = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(K1) || K1 <= 0
+                errorbox('K_1 must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for K2 and ensures that it's a positive
+            % number
+            K2 = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(K2) || K2 <= 0
+                errorbox('K_2 must be a number greater than 0', hObject); 
+                return
+            end
+            
+            % Gets the value for KA and ensures that it's a positive number
+            KA = str2double(get(handles.input4_1, 'String'));
+            
+            if isnan(KA) || KA  <= 0
+                errorbox('K_A must be a number greater than 0', hObject);
+                return
+            end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input5_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
+            % Determines whether the X-axis is free MT or total MT
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+
+                   % Calculates fraction of A bound and free MT
+                   [frac, MTfree] = dimer_binding(xvals, Atot, K1, K2, KA, N);
+                   
+                   % Determine whether the calculation was sucessful and
+                   % reutrn an error if it was not
+                   [a,b] = size(frac);
+                   if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                   end
+
+                   % Set the x and y values to plot
+                   y1 = frac;
+                   x1 = MTfree;
+
+                   
+                   % Set the x-axis title, y-axis title, plot title, and
+                   % legend text
+                   xaxis = '[MT] free';
+                   yaxis = 'Fraction of A bound';
+                   plottitle = 'Vary [MT] Binding Assay';
+                   legend1 = ['Dimerization, [A] total = ' get(handles.input1_1, 'String') ', K_1 = ' get(handles.input2_1, 'String') ', K_2 = ' get(handles.input3_1, 'String') ', K_A = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
+
+                case 'total'
+
+                    % Calculates fraction of A bound and free MT
+                    [frac, MTfree] = dimer_binding(xvals, Atot, K1, K2, KA, N);
+                    
+                    % Ensure that the calculation was sucessful and return
+                    % an error if it was not
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Set the x and y values to plot
+                    y1 = frac;
+                    x1 = xvals;
+
+                    % Set the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[MT] total';
+                    yaxis = 'Fraction of A bound';
+                    plottitle = 'Vary [MT] Binding Assay';
+                    legend1 = ['Dimerization, [A] total = ' get(handles.input1_1, 'String') ', K_1 = ' get(handles.input2_1, 'String') ', K_2 = ' get(handles.input3_1, 'String') ', K_A = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
+
+                otherwise
+            end
+
+        % Saturation mode is selected
+        case 'saturation'
+
+            % Gets the value for [MT] total and ensures that it's a
+            % positive number
+            MTtot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(MTtot) || MTtot < 0
+                errorbox('Please enter a positive number for [MT] total', hObject); 
+                return
+            end
+
+            % Gets the value for K1 and ensures that it's a
+            % positive number
+            K1 = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(K1) || K1 <= 0
+                errorbox('K_1 must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for K2 and ensures that it's a positive
+            % number
+            K2 = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(K2) || K2 <= 0
+                errorbox('K_2 must be a number greater than 0', hObject); 
+                return
+            end
+            
+            % Gets the value for KA and ensures that it's a positive
+            % number
+            KA = str2double(get(handles.input4_1, 'String'));
+
+            if isnan(KA) || KA <= 0
+                errorbox('K_A must be a number greater than 0', hObject); 
+                return
+            end
+            
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input5_1, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
+            % Determine whether the x-axis is free A or total A
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+                    
+                    % Calculates the concentration of A bound
+                    [Abound, Afree] = dimer_saturation(MTtot, xvals, K1, K2, KA, N);
+                    
+                    % Ensure that the calculation was sucessful and returns
+                    % an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y1 = Abound;
+                    x1 = Afree;
+
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] free';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Dimerization, [MT] total = ' get(handles.input1_1, 'String') ', K_1 = ' get(handles.input2_1, 'String') ', K_2 = ' get(handles.input3_1, 'String') ', K_A = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
+                    
+                case 'total'
+                    
+                    % Calculates the concentration of A bound
+                    [Abound, Afree] = dimer_saturation(MTtot, xvals, K1, K2, KA, N);
+                    
+                    % Ensures that the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y1 = Abound;
+                    x1 =xvals;
+                    
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] total';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Dimerization, [MT] total = ' get(handles.input1_1, 'String') ', K_1 = ' get(handles.input2_1, 'String') ', K_2 = ' get(handles.input3_1, 'String') ', K_A = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
+
+                otherwise
+            end
+
+            
+        otherwise
+    end
+    
 
 
 end
@@ -2222,6 +2435,201 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             otherwise
         end
 
+        
+    elseif get(handles.curve2, 'Value') == 6
+
+    %%%% Dimerization and binding %%%%
+
+    % Determine the experimental mode
+    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+        % Binding mode is selected
+        case 'binding'
+
+            % Gets the value for [A] total and ensures that it's a
+            % positive number
+            Atot = str2double(get(handles.input1_2, 'String'));
+
+            if isnan(Atot) || Atot < 0
+                errorbox('Please enter a positive number for [A] total', hObject); 
+                return
+            end
+
+            % Gets the value for K1 and ensures that it's a
+            % positive number
+            K1 = str2double(get(handles.input2_2, 'String'));
+
+            if isnan(K1) || K1 <= 0
+                errorbox('K_1 must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for K2 and ensures that it's a positive
+            % number
+            K2 = str2double(get(handles.input3_2, 'String'));
+
+            if isnan(K2) || K2 <= 0
+                errorbox('K_2 must be a number greater than 0', hObject); 
+                return
+            end
+            
+            % Gets the value for K2 and ensures that it's a positive
+            % number
+            KA = str2double(get(handles.input4_2, 'String'));
+
+            if isnan(KA) || KA <= 0
+                errorbox('K_A must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input5_2, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
+            % Determines whether the X-axis is free MT or total MT
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+
+                   % Function to get fraction A bound and free MT 
+                   [frac, MTfree] = dimer_binding(xvals, Atot, K1, K2, KA, N);
+
+                   % Ensures that the calculation was successful and
+                   % retuns an error if it was not
+                   [a,b] = size(frac);
+                   if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                   end
+
+                   % Sets the x and y values to plot
+                   y2 = frac;
+                   x2 = MTfree;
+
+                   % Sets the legend text
+                   legend2 = ['Dimerization, [A] total = ' get(handles.input1_2, 'String') ', K_1 = ' get(handles.input2_2, 'String') ', K_2 = ' get(handles.input3_2, 'String') ', K_A = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
+
+                case 'total'
+
+                    % Function to get fraction A bound
+                    [frac, MTfree] = dimer_binding(xvals, Atot, K1, K2, KA, N);
+
+                    % Ensures that the calculation was successful and
+                    % returns an error if it was not
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y2 = frac;
+                    x2 = xvals;
+
+                    % Sets the legend text
+                    legend2 = ['Dimerization, [A] total = ' get(handles.input1_2, 'String') ', K_1 = ' get(handles.input2_2, 'String') ', K_2 = ' get(handles.input3_2, 'String') ', K_A = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
+
+                otherwise
+            end
+
+        % Saturation mode is selected
+        case 'saturation'
+
+            % Gets the value for [MT] total and ensures that it's a
+            % positive number
+            MTtot = str2double(get(handles.input1_2, 'String'));
+
+            if isnan(MTtot) || MTtot < 0
+                errorbox('Please enter a positive number for [MT] total', hObject); 
+                return
+            end
+
+            % Gets the value for K1 and ensures that it's a
+            % positive number
+            K1 = str2double(get(handles.input2_2, 'String'));
+
+            if isnan(K1) || K1 <= 0
+                errorbox('K_1 must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for K2 and ensures that it's a positive
+            % number
+            K2 = str2double(get(handles.input3_2, 'String'));
+
+            if isnan(K2) || K2 <= 0
+                errorbox('K_2 must be a number greater than 0', hObject); 
+                return
+            end
+            
+            % Gets the value for KA and ensures that it's a positive
+            % number
+            KA = str2double(get(handles.input3_2, 'String'));
+
+            if isnan(KA) || KA <= 0
+                errorbox('K_A must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the binding ratio and ensures that it's a positive number
+            N = str2double(get(handles.input5_2, 'String'));
+
+            if isnan(N) || N <= 0
+               errorbox('The ratio must be a number greater than 0', hObject);
+               return
+            end
+
+            % Determines whether the x-axis is free or total A
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+
+                     % Function to get the concentration of A bound
+                    [Abound, Afree] = dimer_saturation(MTtot, xvals, K1, K2, KA, N);
+
+                    % Determines whether the calculation was successful
+                    % and returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y2 = Abound;
+                    x2 = Afree;
+
+                    % Sets the legend text
+                    legend2 = ['Dimerization, [MT] total = ' get(handles.input1_2, 'String') ', K_1 = ' get(handles.input2_2, 'String') ', K_2 = ' get(handles.input3_2, 'String') ', K_A = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
+
+
+                case 'total'
+
+                     % Function to get the concentration of A bound
+                    [Abound, Afree] = dimer_saturation(MTtot, xvals, K1, K2, KA, N);
+
+                    % Ensures that the calculation was successful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y2 = Abound;
+                    x2 = xvals;
+
+                    % Sets the legend text
+                    legend2 = ['Dimerization, [MT] total = ' get(handles.input1_2, 'String') ', K_1 = ' get(handles.input2_2, 'String') ', K_2 = ' get(handles.input3_2, 'String') ', K_A = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
+
+
+                otherwise
+            end
+        otherwise
+    end
+
 
     end
 
@@ -2482,6 +2890,22 @@ switch get(handles.curve1, 'Value')
                 
             otherwise
         end
+     
+    % Dimer binding    
+    case 6
+        
+        % Determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                dimer_binding_labels1(hObject);
+               
+            case 'saturation'
+                
+                dimer_saturation_labels1(hObject);
+                
+            otherwise
+        end
         
     otherwise
 end
@@ -2573,6 +2997,23 @@ switch get(handles.curve2, 'Value')
             otherwise
         end
         
+    % Dimerization binding
+    case 6
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                dimer_binding_labels2(hObject);
+               
+            case 'saturation'
+                
+                dimer_saturation_labels2(hObject);
+                
+            otherwise
+        end
+        
+        
     otherwise
 end
 end
@@ -2653,6 +3094,10 @@ switch get(eventdata.NewValue, 'Tag')
                 
                 MAP2_binding_labels1(hObject);
                 
+            case 6
+                
+                dimer_binding_labels1(hObject);
+                
             otherwise
         end
         
@@ -2691,6 +3136,10 @@ switch get(eventdata.NewValue, 'Tag')
                 case 5
                     
                     MAP2_binding_labels2(hObject);
+                    
+                case 6
+                    
+                    dimer_binding_labels2(hObject);
                 
                 otherwise
             end
@@ -2733,6 +3182,10 @@ switch get(eventdata.NewValue, 'Tag')
                 
                 MAP2_saturation_labels1(hObject);
                 
+            case 6
+                
+                dimer_saturation_labels1(hObject);
+                
             otherwise
         end
         
@@ -2771,6 +3224,10 @@ switch get(eventdata.NewValue, 'Tag')
                 case 5
                     
                     MAP2_saturation_labels2(hObject);
+                    
+                case 6
+                    
+                    dimer_saturation_labels2(hObject);
                 
                 otherwise
             end
@@ -2854,6 +3311,14 @@ switch get(eventdata.NewValue, 'Tag')
                         
                         MAP_binding_labels2(hObject);
                         
+                    case 5
+                        
+                        MAP2_binding_labels2(hObject);
+                        
+                    case 6
+                        
+                        dimer_binding_labels2(hObject);
+                        
                     otherwise
                 end
                 
@@ -2876,6 +3341,14 @@ switch get(eventdata.NewValue, 'Tag')
                     case 4
                         
                         MAP_saturation_labels2(hObject);
+                        
+                    case 5
+                        
+                        MAP2_saturation_labels2(hObject);
+                        
+                    case 6
+                        
+                        dimer_saturation_labels2(hObject);
                         
                     otherwise
                 end
@@ -2977,6 +3450,17 @@ global KM KA;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT, A + A<sub><small>2</small></sub>MT &harr; A<sub><small>3</small></sub>MT');
 set_java_component(equation, [KM, ' = [A][MT]/[AMT], ', KA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT],<br>', KA, ' = [A][A<sub><small>2</small></sub>MT]/[A<sub><small>3</small></sub>MT]']);
 end
+
+
+function dimer_strings(model, equation)
+
+% Generates the model and equation strings for dimerization
+
+global KA K1 K2;
+set_java_component(model, 'A + MT &harr; AMT, A<sub><small>2</small></sub> + MT &harr; A<sub><small>2</small></sub>MT<sub><small>2</small></sub>, A + A &harr A<sub><small>2</small></sub>');
+set_java_component(equation, [K1, ' = [A][MT]/[AMT], ', K2, ' = [A<sub><small>2</small></sub>][MT]/[A<sub><small>2</small></sub>MT<sub><small>2</small></sub>], ', KA, ' = [A][A]/[A<sub><small>2</small></sub>]']);
+end
+
 
 function competition_strings(model, equation)
 
@@ -3354,6 +3838,81 @@ guidata(hObject, handles);
 
 end
 
+function dimer_binding_labels1(hObject)
+% Function to update the appearnce of MTBindinSim for the case where the
+% first function is dimerization in binding mode
+
+global KA K1 K2 UM;
+
+% Sets the visibility for all imput boxes
+inputboxes_display1(hObject, 5);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets the model equation and text
+dimer_strings(handles.model1, handles.equation1);
+
+% Sets labels for the input boxes
+set(handles.label_xmin, 'String', '[MT] total min ');
+set(handles.label_xmax, 'String', '[MT] total max ');
+set(handles.total, 'String', '[MT] total');
+set(handles.free, 'String', '[MT] free');
+set_java_component(handles.label1_1, '[A] total ');
+set_java_component(handles.label2_1, [K1, ' ']);
+set_java_component(handles.label3_1, [K2, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+set_java_component(handles.label4_1, [KA, ' ']);
+set_java_component(handles.units4_1, [UM, ' ']);
+set_java_component(handles.label5_1, '1 MT : ');
+set_java_component(handles.units5_1, 'A');
+
+% Sets the default ratio to 1
+set(handles.input5_1, 'String', '1');
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
+function dimer_saturation_labels1(hObject)
+% Function to update the appearnce of MTBindinSim for the case where the
+% first function is dimerization in saturation mode
+
+global KA K1 K2 UM;
+
+% Sets the visibility for all imput boxes
+inputboxes_display1(hObject, 5);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets the model equation and text
+dimer_strings(handles.model1, handles.equation1);
+
+% Sets labels for the input boxes
+set(handles.label_xmin, 'String', '[A] total min ');
+set(handles.label_xmax, 'String', '[A] total max ');
+set(handles.total, 'String', '[A] total');
+set(handles.free, 'String', '[A] free');
+set_java_component(handles.label1_1, '[MT] total ');
+set_java_component(handles.label2_1, [K1, ' ']);
+set_java_component(handles.label3_1, [K2, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+set_java_component(handles.label4_1, [KA, ' ']);
+set_java_component(handles.units4_1, [UM, ' ']);
+set_java_component(handles.label5_1, '1 MT : ');
+set_java_component(handles.units5_1, 'A');
+
+% Sets the default ratio to 1
+set(handles.input5_1, 'String', '1');
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
+
 function competition_labels1(hObject)
 % Function to update the appearnce of MTBindingSim for the case where
 % the competition experimental mode is selected
@@ -3382,8 +3941,6 @@ set_java_component(handles.units4_1, [UM, ' ']);
 guidata(hObject, handles);
 
 end
-
-
 
 
 
@@ -3705,6 +4262,74 @@ set(handles.input4_2, 'String', '1');
 guidata(hObject, handles);
 
 end
+
+function dimer_binding_labels2(hObject)
+% Function to update the appearnce of MTBindinSim for the case where the
+% second function is dimerization in binding mode
+
+global KA K1 K2 UM;
+
+% Sets the visibility for all imput boxes
+inputboxes_display2(hObject, 5);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets the model equation and text
+dimer_strings(handles.model2, handles.equation2);
+
+% Sets labels for the input boxes
+set_java_component(handles.label1_2, '[A] total ');
+set_java_component(handles.label2_2, [K1, ' ']);
+set_java_component(handles.label3_2, [K2, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+set_java_component(handles.label4_2, [KA, ' ']);
+set_java_component(handles.units4_2, [UM, ' ']);
+set_java_component(handles.label5_2, '1 MT : ');
+set_java_component(handles.units5_2, 'A');
+
+% Sets the default ratio to 1
+set(handles.input5_2, 'String', '1');
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
+function dimer_saturation_labels2(hObject)
+% Function to update the appearnce of MTBindinSim for the case where the
+% first function is dimerization in saturation mode
+
+global KA K1 K2 UM;
+
+% Sets the visibility for all imput boxes
+inputboxes_display2(hObject, 5);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets the model equation and text
+dimer_strings(handles.model2, handles.equation2);
+
+% Sets labels for the input boxes
+set_java_component(handles.label1_2, '[MT] total ');
+set_java_component(handles.label2_2, [K1, ' ']);
+set_java_component(handles.label3_2, [K2, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+set_java_component(handles.label4_2, [KA, ' ']);
+set_java_component(handles.units4_2, [UM, ' ']);
+set_java_component(handles.label5_2, '1 MT : ');
+set_java_component(handles.units5_2, 'A');
+
+% Sets the default ratio to 1
+set(handles.input5_2, 'String', '1');
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
+
 
 function competition_labels2(hObject)
 % Function to update the appearnce of MTBindingSIm for the case where

@@ -1,8 +1,7 @@
-function [Frac, MTfree] = dimer_binding(MTtot, Atot, KA, K1, K2, N)
-% A function which calculates the binding of A to MT assuming that A binds
-% to the seam of the MT with disassociation constant KS and the lattice of
-% the MT with disassociation constant KL for an experiment where [A] is
-% varied and [MT] is held constant.
+function [Frac, MTfree] = dimer_binding(MTtot, Atot, K1, K2, KA, N)
+% A function which calculates the binding of A to MT assuming that A can
+% bind to MT either as a monomer, with a KD of K1, or as a dimer with a KD of K2.
+% The dimerization KD is KA.
 
 % This file is part of MTBindingSim.
 %
@@ -39,7 +38,7 @@ Xint = [0, Atot];
 for n = 1:b
     
     % Sets up the equation for Afree and calculates Afree
-    f = @(A)A + A^2/KA + (A/K1 + A^2/(KA* K2))*MTtot(n)*N/(1 + A/K1 + A^2/(KA*K2)) - Atot;
+    f = @(A)A + 2*A^2/KA + (A/K1 + 2*A^2/(KA* K2))*MTtot(n)*N/(1 + A/K1 + 2*A^2/(KA*K2)) - Atot;
     [Afree(n), y, exit] = fzero(f, Xint);
 
     % Checks to make sure that fzero sucessfully calculated Afree and stops
@@ -53,7 +52,7 @@ for n = 1:b
 end
 
 % Calculates Abound
-Abound = Atot - Afree;
+Abound = Atot - Afree  - 2*Afree.^2./KA;
 
 % Calculated the fraction of A bound
 Frac = Abound./Atot;
