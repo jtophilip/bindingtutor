@@ -7,11 +7,11 @@ See the end of the file for license conditions.
 
 ** Various bug fixes
 
-** Inputs now default to 0 when the experimental mode or curve is changed. The ratio always
-defaults to 1.
+** Inputs now default to 0 when the experimental mode or model is changed. The 
+ratio always defaults to 1.
 
-** Added a new model where protein A can bind to MT either as a monomer or as a dimer with
-different affinities.
+** Added a new model where protein A can bind to MT either as a monomer or as a
+dimer with different affinities.
 
 
 * Version 0.5 [beta]

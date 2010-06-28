@@ -2,6 +2,15 @@
 MTBindingSim Revision History
 =============================
 
+Version 0.6
+===========
+
+* Added a new model where a microtubule binding protein can bind to 
+  microtubules either as a monomer or as a dimer with different affinities.
+* Inputs now default to zero when the experimental mode or model are changed.
+  The ratio parameter defaults to one.
+* Various bug fixes.
+
 Version 0.5
 ===========
 
