@@ -77,7 +77,7 @@ mtbindingsim.pdf: %.pdf: $(TEX_FILES) $(MASTER_FILE)
 	(OUTFILE=$(srcdir)/wiki/$*.wiki; export OUTFILE; $(top_srcdir)/tools/wikir.py $< | $(SED) "s|\$$(IMAGES)\(.*\)$$|http://mtbindingsim.googlecode.com/svn/wiki/images\1.png|g" | $(SED) "s|\$$(DOCS):||g" > $$OUTFILE)
 
 .rst.tex: docutils-template.inc
-	$(top_srcdir)/tools/rst2latex.py --no-section-numbering --template=$(top_srcdir)/doc/docutils-template.inc $< | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1.png}}|g" > $@
+	$(top_srcdir)/tools/rst2latex.py --no-section-numbering --template=$(top_srcdir)/doc/docutils-template.inc $< | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1.png}}|g" | $(SED) "s@\href{\$$(DOCS):\(.*\)}{\(.*\)}@\hyperref[chapter:\1]{\2}@g" > $@
 
 
 #

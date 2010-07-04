@@ -3,9 +3,19 @@
 \usepackage[letterpaper,left=1.25in,right=1.25in,top=1in,bottom=1in]{geometry}
 \usepackage[sc]{mathpazo}
 \usepackage{graphicx}
+\usepackage{color}
 \usepackage{hyperref}
 
-% FIXME: configure the hyperref package here, its defaults are awful
+\hypersetup{
+  pdftex,
+  colorlinks,
+  linkcolor=blue,
+  citecolor=black,
+  filecolor=blue,
+  menucolor=blue,
+  runcolor=blue,
+  urlcolor=blue
+}
 
 \begin{document}
 \title{MTBindingSim Documentation \\ {\large Version @PACKAGE_VERSION@}}
@@ -21,14 +31,17 @@ History and Philosophy of Science} Holly Goodson\protect\footnotemark[1]}
 \part{Installation and Configuration}
 
 \chapter{Determining Your Operating System}
+\label{chapter:OperatingSystem}
 \input{@top_builddir@/doc/OperatingSystem}
 
 \chapter{Installing MTBindingSim}
+\label{chapter:Installation}
 \input{@top_builddir@/doc/Installation}
 
 \part{Appendices}
 
 \chapter{Revision History}
+\label{chapter:ChangeLog}
 \input{@top_builddir@/doc/ChangeLog}
 
 \end{document}

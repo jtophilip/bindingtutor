@@ -82,5 +82,4 @@ Open MATLAB, and open the ``mtbindingsim-X.Y/src/MTBindingSim.m`` file.  Run
 MTBindingSim by clicking the green play button on the toolbar.
 
 
-.. _MTBindingSim download page: http://code.google.com/p/mtbindingsim/downloads/list/
-
+.. _MTBindingSim download page: http://code.google.com/p/mtbindingsim/downloads/list
