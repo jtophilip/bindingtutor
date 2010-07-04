@@ -18,6 +18,10 @@ Windows
    :width: 4in
    :align: center
 
+.. image:: $(IMAGES)/operatingsystem-winxpsystem
+   :width: 2.5in
+   :align: center
+
 First, you will need to open the System control panel.  On Windows XP,
 open the Control Panel, then click "Performance and Maintenance," and
 finally "System."  On Windows Vista and Windows 7, open the Control
