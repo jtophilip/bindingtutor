@@ -543,8 +543,8 @@ elseif get(handles.curve1, 'Value') == 2
             % number
             p = str2double(get(handles.input3_1, 'String'));
 
-            if isnan(p)
-                errorbox('phi must be a number', hObject); 
+            if isnan(p) || p <= 0
+                errorbox('phi must be a positive number', hObject); 
                 return
             end
             
@@ -1843,8 +1843,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % number
                 p = str2double(get(handles.input3_2, 'String'));
 
-                if isnan(p)
-                    errorbox('phi must be a number', hObject); 
+                if isnan(p) || p <= 0
+                    errorbox('phi must be a number greatern than 0', hObject); 
                     return
                 end
                 
