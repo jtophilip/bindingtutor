@@ -2,13 +2,13 @@
 # Autoconf and Automake
 ###############################################################################
 AC_INIT([MTBindingSim], [0.6.1], [jtophilip@gmail.com], [mtbindingsim], [http://code.google.com/p/mtbindingsim/])
-AC_PREREQ([2.65])
+AC_PREREQ([2.63b])
 
 AC_CONFIG_SRCDIR([src/MTBindingSim.m])
 AC_CONFIG_AUX_DIR([build/aux])
 AC_CONFIG_MACRO_DIR([build/m4])
 
-AM_INIT_AUTOMAKE([gnits no-dependencies no-exeext dist-zip])
+AM_INIT_AUTOMAKE([1.8.3 -Wall -Werror gnits no-dependencies no-exeext dist-zip])
 
 
 ###############################################################################
