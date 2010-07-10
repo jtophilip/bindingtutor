@@ -2,6 +2,11 @@
 MTBindingSim Revision History
 =============================
 
+Version 0.6.1
+=============
+
+* Various bug fixes.
+
 Version 0.6
 ===========
 
