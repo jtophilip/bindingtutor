@@ -25,9 +25,12 @@ endif
 
 # Get the list of source files we need
 MTBindingSim_MATLAB = \
-	MTBindingSim.m MAP2_binding.m MAP2_saturation.m \
-	MAP_binding.m MAP_saturation.m competition.m \
+	MTBindingSim.m \
+	MAP2_binding.m MAP2_saturation.m \
+	MAP_binding.m MAP_saturation.m \
+	competition.m \
 	cooperativity_binding.m cooperativity_saturation.m \
+	dimer_binding.m dimer_saturation.m \
 	first_order_binding.m first_order_saturation.m \
 	seam_lattice_binding.m seam_lattice_saturation.m
 MTBindingSim_FIG = MTBindingSim.fig
