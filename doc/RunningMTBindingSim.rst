@@ -4,9 +4,9 @@ Running MTBindingSim
 
 To plot a graph using MTBindingSim, select the plotting options and binding model you would
 like to use, enter the parameters you want, and click the graph button. This section explains
-what plotting options and bindinding models are availible. The plotting options are `Experimental
-Method`_, `Plotting Mode`_, `X-axis`_, and `Number of Points`_. The avalible binding models are
-`First Order Binding`_, `Traditonal Cooperativity`_, `Seam and Lattice Binding`_, `MAPs Bind
+what plotting options and binding models are available. The plotting options are `Experimental
+Method`_, `Plotting Mode`_, `X-axis`_, and `Number of Points`_. The available binding models are
+`First Order Binding`_, `Traditional Cooperativity`_, `Seam and Lattice Binding`_, `MAPs Bind
 MT-bound MAPs`_, `2MAPs Bind MT-bound MAPs`_, and `MAPs Dimerize`_.
 
 Plotting Options
@@ -50,31 +50,112 @@ cosedimentation assays.
 Plotting Mode
 -------------
 
+MTBindingSim can plot one curve at a time or it can plot two curves simultaneously.
 
+Screen shot of plotting mode box
+
+For more information about comparing two curves see the HowTo documentation (put link here).
 
 X-axis
 ------
 
+In Vary [MT] mode the x-axis can be set to either [MT] total or [MT] free.
+
+Screen shot of X-axis MT
+
+[MT] total is a known quantity in the experiment while [MT] free must be calculated. However,
+the familiar Langmuir Isotherm uses [MT] free as its independent variable, and the quick
+method of determining K_D by looking at the MT concentration when the fraction of A
+bound is 0.5 only works if the x-axis is [MT] free.
+
+In Vary [A] mode the x-axis can be set to either [A] total or [A] free.
+
+Screen shot of x-axis A
+
+Changing the x-axis mode will automatically close the active graph.
+
 Number of Points
 ----------------
+
+The number of points plotted may be specified.
+
+Screen shot of number of points
+
+The default number of points is 100. A larger number of points can be used if a smoother
+curve is desired. A smaller number of points will result in a faster calculation.
 
 Binding Models
 ==============
 
+MTBindingSim can plot curves for several binding models. For a detailed description of
+the math used to generate the curves, please see the (link to math docs here). Note that all models
+use the dissociation constant K_D.
+
 First Order Binding
 -------------------
+
+First order binding simulates binding under standard first order conditions where on A interacts with
+one MT and all A-MT interactions are identical.
+
+Screen shot of first order and inputs
+
+In first order binding you need to input the total concentration of A (or MT) and the K_D and the binding
+ratio. Both of these must be positive numbers.
 
 Traditional Cooperativity
 -------------------------
 
+Traditional cooperativity simulates binding where one A binding to one MT influences the binding of another
+A to a neighboring MT. For the purposes of this model only interactions between two As are considered.
+
+Screen shot of the cooperativity and inputs
+
+For cooperativity you need to input the total concentration of A (or MT), K_D, phi, which determines
+the dissociation constant for the second A, and the binding ratio. All inputs must be positive numbers.
+
 Seam and Lattice Binding
 ------------------------
+
+Seam and lattice binding simulates the case that protein A binds to the MT seam with a different affinity
+than the lattice.
+
+Screen shot of seam lattice and inputs
+
+For this model you need to input the total concentration of A (or MT) and the dissociation constants for
+the seam, K_S, lattice, K_L, and the binding ratio. All inputs must be positive numbers.
 
 MAPs Bind MT-bound MAPs
 -----------------------
 
+In this model once one A has bound to the MT another A can bind to it without taking up another MT binding
+site.
+
+Screen shot of MAPs binding and inputs
+
+For this model you need to input the total concentration of A (or MT), the dissociation constant for A
+binding to MT, K_M, the dissociation constant for A binding to MT-bound A, K_A, and the binding ratio.
+All inputs must be positive numbers.
+
 2MAPs Bind MT-bound MAPs
 ------------------------
 
+In this model once one A has bound to the MT two more As can bind to it without taking up additional
+MT binding sites.
+
+Screen shot of 2MAP binding.
+
+For this model you need to input the total concentration of A (or MT), the dissociation constant for A
+binding to MT, K_M, the dissociation constant for A binding to MT-bound A, K_A, and the binding ratio.
+All inputs must be positive numbers.
+
 MAPs Dimerize
 -------------
+
+In this model A can exist either as a monomer or as a dimer and both the monomer and dimer forms
+can bind to MT.
+
+Screen shot of dimer and inputs
+
+For this model you need to input the total amount of A (or MT), the dissociation constant for monomeric
+A binding MT, K_1, the dissociation constant for dimeric A binding MT, K_2, the dissociation constant
+for the A dimer, K_A, and the binding ratio. All inputs must be positive numbers.
