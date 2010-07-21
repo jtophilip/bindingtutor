@@ -28,20 +28,31 @@ History and Philosophy of Science} Holly Goodson\protect\footnotemark[1]}
 \tableofcontents
 \clearpage
 
-\part{Installation and Configuration}
+\chapter{Getting Started}
+\label{chapter:GettingStarted}
+\input{@top_builddir@/doc/GettingStarted}
 
-\chapter{Determining Your Operating System}
-\label{chapter:OperatingSystem}
-\input{@top_builddir@/doc/OperatingSystem}
+\chapter{Running MTBindingSim}
+\label{chapter:RunningMTBindingSim}
+\input{@top_builddir@/doc/RunningMTBindingSim}
 
-\chapter{Installing MTBindingSim}
-\label{chapter:Installation}
-\input{@top_builddir@/doc/Installation}
+\chapter{How To...}
+\label{chapter:HowTo}
+\input{@top_builddir@/doc/HowTo}
 
-\part{Appendices}
+\chapter{Binding Model Mathematics}
+\label{chapter:BindingModels}
+\input{@top_builddir@/doc/BindingModels}
 
-\chapter{Revision History}
+\chapter{Troubleshooting}
+\label{chapter:Troubleshooting}
+\input{@top_builddir@/doc/Troubleshooting}
+
+\appendix
+\chapter{Appendix: Revision History}
 \label{chapter:ChangeLog}
 \input{@top_builddir@/doc/ChangeLog}
+
+% FIXME: Appendices: GPL and Documentation License
 
 \end{document}
