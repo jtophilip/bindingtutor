@@ -8,12 +8,55 @@ import docutils.core
 from docutils import nodes
 from docutils.nodes import SparseNodeVisitor
 from docutils.writers import Writer
+from docutils.parsers.rst.roles import register_canonical_role
 try:
     from cStringIO import StringIO
 except ImportError:
     from StringIO import StringIO
 wiki_word_re = re.compile(r'^[A-Z][a-z]+(?:[A-Z][a-z]+)+')
 auto_url_re = re.compile(r'^(http|https|ftp)\://')
+
+
+# Define LaTeX math node:
+class latex_math(nodes.Element):
+    tagname = '#latex-math'
+    def __init__(self, rawsource, latex):
+        nodes.Element.__init__(self, rawsource)
+        self.latex = latex
+
+# Register role:
+def latex_math_role(role, rawtext, text, lineno, inliner,
+                    options={}, content=[]):
+    i = rawtext.find('`')
+    latex = rawtext[i+1:-1]
+    node = latex_math(rawtext, latex)
+    return [node], []
+register_canonical_role('latex-math', latex_math_role)
+
+
+# Register the latex-math directive
+try:
+    from docutils.parsers.rst import Directive
+except ImportError:
+    from docutils.parsers.rst.directives import _directives
+    def latex_math_directive(name, arguments, options, content, lineno,
+                             content_offset, block_text, state, state_machine):
+        latex = ''.join(content)
+        node = latex_math(block_text, latex)
+        return [node]
+    latex_math_directive.arguments = None
+    latex_math_directive.options = {}
+    latex_math_directive.content = 1
+    _directives['latex-math'] = latex_math_directive
+else:
+    from docutils.parsers.rst import directives
+    class latex_math_directive(Directive):
+        has_content = True
+        def run(self):
+            latex = ''.join(self.content)
+            node = latex_math(self.block_text, latex)
+            return [node]
+    directives.register_directive('latex-math', latex_math_directive)
 
 def split_doc_from_module(modfile):
     docstring = None
@@ -328,7 +371,7 @@ class WikiVisitor(SparseNodeVisitor):
         if inline:
             self.output.append('(equation)')
         else:
-            self.output.append('\n(equation)\n')
+            self.output.append('\n<wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="%s"/>\n' % node.latex)
     
     def depart_latex_math(self, node):
         pass
