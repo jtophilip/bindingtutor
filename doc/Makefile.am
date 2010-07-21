@@ -13,7 +13,8 @@ endif
 docs-wiki: $(WIKI_FILES)
 
 DOCS_RST_SOURCE = \
-	ChangeLog.rst Installation.rst Introduction.rst OperatingSystem.rst
+	BindingModels.rst ChangeLog.rst GettingStarted.rst HowTo.rst \
+	Introduction.rst RunningMTBindingSim.rst Troubleshooting.rst
 
 EXTRA_DIST = $(DOCS_RST_SOURCE) Format.txt docutils-template.inc wiki
 
