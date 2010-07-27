@@ -47,7 +47,7 @@ and edit it using all the MATLAB figure editing tools. Adobe Illustrtor files ca
 opening them in Illustrator and editing them as you would any other file.
 
 Running Comparisions
-===================
+====================
 
 To compare two curves in MTBindingSim, first select "compare two curves" from the plotting mode
 box.
