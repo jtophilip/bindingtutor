@@ -371,7 +371,7 @@ class WikiVisitor(SparseNodeVisitor):
         if inline:
             self.output.append('(equation)')
         else:
-            self.output.append('\n<wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="%s"/>\n' % node.latex)
+            self.output.append('\n<wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="%s" width="100%%"/>\n' % node.latex)
     
     def depart_latex_math(self, node):
         pass
