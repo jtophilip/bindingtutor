@@ -4,6 +4,23 @@ Binding Model Mathematics
 
 This chapter describes the equations used to simulate the binding curves. Though some of these equations can be solved analytically, the calculations are performed numerically. The program breaks either the total [A] or total [MT] range into a user-defined number of points and then calculates the concentration of free and bound A and free and bound MT at each point.
 
+Polymer Nature of MT
+====================
+
+Microtubules are polymers composed of tubulin dimers consisting of one alpha and one beta tubulin. A microtubule is formed by 13 filaments of tubulin dimers binding head to tail. For most of the microtubule the lateral interactions are alpha-beta, but one set of interactions (the MT "seam") is alpha-alpha and beta-beta. For most binding calculations the polymeric nature of the MT can be ignored, however, in a few cases it must be taken into account, as described below.
+
+Concentration of MT
+-------------------
+
+By convention the concentration of MT is reported as the concentration of tubulin dimers. In most binding assays a microtubule stabilizer is used to make the concentration of free tubulin irrelevant in biding calculations. Should this not be the case, the contribution of free tubulin dimer both in decreasing the available polymer sites and in possibly competing with the polymerized tubulin for binding proteins must be taken into account. MTBindingSim does not deal with such cases.
+
+Binding Ratio
+-------------
+
+Some MT binding proteins appear to bind to MT with ratios other than 1 MT binding protein : 1 tubulin dimer. Ackman *et. al.* have introduced the binding ratio, n, as an additional parameter that can be used in fitting binding data to accommodate non 1:1 binding ratios [*]. We have included the binding ratio n as a parameter that can be set in our binding curve calculations. Following Ackamn *et. al.*, we have defined n such that that binding ratio is n A : 1 tubulin dimer. The impact of n on the binding models can be seen below. Given that MT are polymeric, it is assumed that the binding ratio can be accounted for simply by changing the number of available MT binding sites for A. This method will break down in an extreme boundary case where a single A binds so many tubulin dimers that a single MT polymer does not contain enough sites. In such a case A wound need to encounter two or more individual MT polymers, changing the binding model. However, such an extreme case is extraordinarily rare and would most likely occur if two different polymers were interacting with each other directly. MTBindingSim does not deal with such cases.
+
+[*] Ackman *et. al. J Biol Chem* **275** (2000) 30335.
+
 First Order Binding
 ===================
 
