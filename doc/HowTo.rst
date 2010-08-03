@@ -68,7 +68,7 @@ When you click the graph button the curves will be plotted on the active graph o
 Screen shot of curves from above models
 
 The program also will calculate the difference between the two curves and display the result if
-the X-axis is plotting total [MT] or toal [A] or in competition mode.
+the X-axis is plotting total [MT] or total [A] or in competition mode.
 
 Screen shot of difference between the curves
 
