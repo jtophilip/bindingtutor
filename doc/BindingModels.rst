@@ -67,7 +67,7 @@ In the traditional cooperativity model, the binding of the first MAP changes the
 
   .. latex-math::
      
-     [A] + n[MT] \leftrightharpoons [AMT], [A] + [AMT] \leftrightharpoons [A_2MT_2].
+     A + nMT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT_2.
 
 The dissociation constants for these interactions are:
 	
@@ -107,6 +107,51 @@ This equation is numerically solved for [A] free and the resulting value is used
 
 Seam and Lattice Binding
 ========================
+
+In the seam and lattice binding model it is assumed that there are two different kinds of binding sites on the MT, seam sites and lattice sites, which have different disassociation constants. The seam sites are 1/13 of the total MT and the lattice sites are 12/13 of the total MT. Thus, the binding relationship is:
+
+  .. latex-math::
+     
+     A + nS \leftrightharpoons AS, A + nL \leftrightharpoons AL.
+
+The disassociation constants for these interactions are:
+
+  .. latex-math::
+
+     K_S = [A]n[S]/[AS], K_L = [A]n[L]/[AL].
+
+We can write a mass balance for all three species:
+
+  .. latex-math::
+
+     [A]_{total} = [A] + [AS] + [AL] = [A] + 1/K_S [A]n[S] + 1/K_L [A]n[L]
+
+  .. latex-math::
+
+     [S]_{total} = [S] + [AS]/n = [S] + 1/K_S [A][S]
+
+  .. latex-math::
+
+     [L]_{total} = [L] + [AL]/n = [L] + 1/K_L [A][L].
+
+We now can solve for free L and free S:
+
+  .. latex-math::
+
+     [S] = \frac{[S]_{total}}{1 + 1/K_S [A]}
+
+  .. latex-math::
+
+     [L] = \frac{[L]_{total}}{1 + 1/K_L [A]}.
+
+We now can plug  these values into the equation for total A:
+
+  .. latex-math::
+
+     [A]_{total} = [A] + 1/K_S [A] \frac{n [S]_{total}}{1 + 1/K_S [A]} + 1/K_L [A] \frac{n [L]_{total}}{1 + 1/K_L [A]}.
+
+This equation is numerically solved for free A and the result is used to calculate bound A and free and total MT.
+ 
 
 MAPs Bind MT-bound MAPs
 =======================
