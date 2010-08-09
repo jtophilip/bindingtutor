@@ -40,23 +40,23 @@ We can also write mass balances for total A and total MT:
 
   .. latex-math::
      
-     [A]_{total} = [A] + [AMT] = [A] + \frac{1}{K_D}[A]n[MT]
+     [A]_{\mathrm{total}} = [A] + [AMT] = [A] + \frac{1}{K_D}[A]n[MT]
 
   .. latex-math::
      
-     [MT]_{total} = [MT] + [AMT]/n = [MT] + \frac{1}{K_D}[A][MT].
+     [MT]_{\mathrm{total}} = [MT] + [AMT]/n = [MT] + \frac{1}{K_D}[A][MT].
 
 We can rearrange the equation for total MT and solve for [MT] free:
 
   .. latex-math::
      
-     [MT] = \frac{[MT]_{total}}{1 + \frac{1}{K_D}[A]}.
+     [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_D}[A]}.
 
 We now can substitute this equation into the equation for total A:
 
   .. latex-math::
      
-     [A]_{total} = [A] + \frac{\frac{1}{K_D}[A]n[MT]_{total}}{1 + \frac{1}{K_D}[A]}.
+     [A]_{\mathrm{total}} = [A] + \frac{\frac{1}{K_D}[A]n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_D}[A]}.
 
 The program numerically finds the value of [A] free that solves this equation, then uses that to calculate all other necessary parameters.
 
@@ -79,15 +79,15 @@ The mass balance equations are:
 
   .. latex-math::
      
-     [A]_{total} = [A] + [AMT] + 2[A_2MT_2] = [A] + \frac{1}{K_D}[A]n[MT] + \frac{2}{\phi K_D}[A][AMT]
+     [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT_2] = [A] + \frac{1}{K_D}[A]n[MT] + \frac{2}{\phi K_D}[A][AMT]
 
   .. latex-math::
   
-     [A]_{total} = [A] + \frac{1}{K_D}[A]n[MT] + \frac{2}{\phi K_D^2}[A]^2n[MT]
+     [A]_{\mathrm{total}} = [A] + \frac{1}{K_D}[A]n[MT] + \frac{2}{\phi K_D^2}[A]^2n[MT]
 
   .. latex-math::
      
-     [MT]_{total} = [MT] + [AMT]/n + 2[A_2MT_2]/n = [MT] + \frac{1}{K_D}[A][MT] + \frac{2}{\phi K_D^2}[A]^2[MT].
+     [MT]_{\mathrm{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n = [MT] + \frac{1}{K_D}[A][MT] + \frac{2}{\phi K_D^2}[A]^2[MT].
 
 Note that [A\ :sub:`2`\ MT\ :sub:`2`\ ] accounts for 2 MT monomers, but there is only one instance of free MT in the dissociation constant equations. This is due to the polymer nature of the MT--binding to one free MT automatically brings the complex into contact with another free MT.
 
@@ -95,13 +95,13 @@ We can now solve the MT total equation for free MT:
 	
   .. latex-math::
      
-     [MT] = \frac{[MT]_{total}}{1 + \frac{1}{K_D}[A] + \frac{2}{\phi K_D^2}[A]^2}.
+     [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_D}[A] + \frac{2}{\phi K_D^2}[A]^2}.
 
 This equation can be plugged into the A total equation:
 
   .. latex-math::
      
-     [A]_{total} = [A] + (\frac{1}{K_D}[A] + \frac{2}{\phi K_D^2}[A]^2)\frac{n*MT_{total}}{1 + \frac{1}{K_D}[A] + \frac{2}{\phi K_D^2}[A]^2}.
+     [A]_{\mathrm{total}} = [A] + (\frac{1}{K_D}[A] + \frac{2}{\phi K_D^2}[A]^2)\frac{n*MT_{\mathrm{total}}}{1 + \frac{1}{K_D}[A] + \frac{2}{\phi K_D^2}[A]^2}.
 
 This equation is numerically solved for [A] free and the resulting value is used to calculate [A] bound as well as [MT] free and [MT] bound.
 
@@ -124,31 +124,31 @@ We can write a mass balance for all three species:
 
   .. latex-math::
 
-     [A]_{total} = [A] + [AS] + [AL] = [A] + \frac{1}{K_S}[A]n[S] + \frac{1}{K_L}[A]n[L]
+     [A]_{\mathrm{total}} = [A] + [AS] + [AL] = [A] + \frac{1}{K_S}[A]n[S] + \frac{1}{K_L}[A]n[L]
 
   .. latex-math::
 
-     [S]_{total} = [S] + [AS]/n = [S] + \frac{1}{K_S}[A][S]
+     [S]_{\mathrm{total}} = [S] + [AS]/n = [S] + \frac{1}{K_S}[A][S]
 
   .. latex-math::
 
-     [L]_{total} = [L] + [AL]/n = [L] + \frac{1}{K_L}[A][L].
+     [L]_{\mathrm{total}} = [L] + [AL]/n = [L] + \frac{1}{K_L}[A][L].
 
 We now can solve for free L and free S:
 
   .. latex-math::
 
-     [S] = \frac{[S]_{total}}{1 + \frac{1}{K_S}[A]}
+     [S] = \frac{[S]_{\mathrm{total}}}{1 + \frac{1}{K_S}[A]}
 
   .. latex-math::
 
-     [L] = \frac{[L]_{total}}{1 + \frac{1}{K_L}[A]}.
+     [L] = \frac{[L]_{\mathrm{total}}}{1 + \frac{1}{K_L}[A]}.
 
 We now can plug  these values into the equation for total A:
 
   .. latex-math::
 
-     [A]_{total} = [A] + \frac{\frac{1}{K_S}[A]n[S]_{total}}{1 + \frac{1}{K_S}[A]} + \frac{\frac{1}{K_L}[A]n[L]_{total}}{1 + \frac{1}{K_L}[A]}.
+     [A]_{\mathrm{total}} = [A] + \frac{\frac{1}{K_S}[A]n[S]_{\mathrm{total}}}{1 + \frac{1}{K_S}[A]} + \frac{\frac{1}{K_L}[A]n[L]_{\mathrm{total}}}{1 + \frac{1}{K_L}[A]}.
 
 This equation is numerically solved for free A and the result is used to calculate bound A and free and total MT.
  
@@ -172,15 +172,15 @@ We can write the mass balances for this situation:
 
   .. latex-math::
 
-     [A]_{total} = [A] + [AMT] + 2[A_2MT] = [A] + \frac{1}{K_M}[A]n[MT] + \frac{1}{K_A}[A][AMT]
+     [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT] = [A] + \frac{1}{K_M}[A]n[MT] + \frac{1}{K_A}[A][AMT]
 
   .. latex-math::
 
-     [A]_{total} = [A] + \frac{1}{K_M}[A]n[MT] + \frac{1}{K_M K_A}[A]^2n[MT]
+     [A]_{\mathrm{total}} = [A] + \frac{1}{K_M}[A]n[MT] + \frac{1}{K_M K_A}[A]^2n[MT]
 
   .. latex-math::
 
-     MT_{total} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_M}[A][MT] + \frac{1}{K_M K_A}[A]^2[MT].
+     MT_{\mathrm{total}} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_M}[A][MT] + \frac{1}{K_M K_A}[A]^2[MT].
 
 You may notice that this model is almost identical to the traditional cooperativity model. The main difference occurs here where A\ :sub:`2`\MT has only one MT subunit as opposed to 2 MT subunits in the tradition cooperativity model for A\ :sub:`2`\MT\ :sub:`2`\.
 
@@ -188,18 +188,70 @@ We can solve the MT mass balance for free MT as follows:
 
   .. latex-math::
 
-     [MT] = \frac{[MT]_{total}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2}.
+     [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2}.
 
 We can then substitute this equation into the A mass balance to get:
 
   .. latex-math::
 
-     [A]_{total} = [A] + (\frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2)\frac{n[MT]_{total}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2}.
+     [A]_{\mathrm{total}} = [A] + (\frac{1}{K_M}[A] + 2\frac{1}{K_M K_A}[A]^2)\frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2}.
 
 This equation is numerically solved by the program to find the value of free A, then that is used to calculate bound A and free and bound MT.
 
 2MAPs Bind MT-bound MAPs
 ========================
+
+This model is very similar to the MAPs bind MT-bound MAPs model, except in this case two layers of bound MAP are possible on top of an MT-bound MAP. The binding relationships for this model are:
+
+  .. latex-math::
+
+     A + MT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT, A + A_2MT \leftrightharpoons A_3MT.
+
+The disassociation constants for this model are:
+
+  .. latex-math::
+
+     K_M = [A]n[MT]/[AMT], K_A = [A][AMT]/[A_2MT], K_A = [A][A_2MT]/[A_3MT].
+
+Note that the disassociation constant for the first and second MAP binding to the MT-bound MAP is the same. The mass balances for this model are:
+
+  .. latex-math::
+
+     [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT] + 3[A_3MT]
+
+  .. latex-math::
+
+     [A]_{\mathrm{total}} = [A] + \frac{1}{K_M}[A]n[MT] + \frac{2}{K_A}[A][AMT] + \frac{3}{K_A}[A][A_2MT]
+
+  .. latex-math::
+
+     [A]_{\mathrm{total}} = [A] + \frac{1}{K_M}[A]n[MT] + \frac{2}{K_M K_A} [A]^2n[MT] + \frac{3}{K_A^2}[A]^2[AMT]
+
+  .. latex-math::
+
+     [A]_{\mathrm{total}} = [A] + \frac{1}{K_M}[A]n[MT] + \frac{2}{K_M K_A} [A]^2n[MT] + \frac{3}{K_M K_A^2}[A]^3n[MT]
+
+  .. latex-math::
+
+     [MT]_{\mathrm{total}} = [MT] + [AMT]/n + [A_2MT]/n + [A_3MT]/n
+
+  .. latex-math::
+
+     [MT]_{\mathrm{total}} = [MT] + \frac{1}{K_M}[A][MT] + \frac{1}{K_M K_A}[A]^2[MT] + \frac{1}{K_M K_A^2}[A]^3[MT].
+
+Notice that as with the MAPs bind MT-bound MAPs model all MT-A complexes contain a single MT unit. The MT mass balance can be solved for free MT:
+
+  .. latex-math::
+
+     [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2 + \frac{1}{K_M K_A^2}[A]^3}.
+
+This can then be substituted into the A mass balance equation, yielding:
+
+  .. latex-math::
+
+     [A]_{\mathrm{total}} = [A] + (\frac{1}{K_M}[A] + \frac{2}{K_M K_A}[A]^2 + \frac{3}{K_M K_A^2}[A]^3)\frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2 + \frac{1}{K_M K_A^2}[A]^3}.
+
+This equation is numerically solved by the program to get free A. This is then used to calculate bound A and free and bound MT.
 
 MAPs Dimerize
 =============
