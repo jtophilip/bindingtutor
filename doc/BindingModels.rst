@@ -156,6 +156,48 @@ This equation is numerically solved for free A and the result is used to calcula
 MAPs Bind MT-bound MAPs
 =======================
 
+In this model A binds MT with a disassociation constant of K\ :sub:`M`\ then another A can bind the bound A with a disassociation constant of K\ :sub:`A`\. The binding relationship is:
+
+  .. latex-math::
+
+     A + nMT \leftrightharpoons AMT, A + AMT \leftrightharpoons A\ :sub:`2`\MT.
+
+The disassociation constants for these interactions are:
+
+  .. latex-math::
+
+     K_M = [A]n[MT]/[AMT], K_A = [A][AMT]/[A_2MT].
+
+We can write the mass balances for this situation:
+
+  .. latex-math::
+
+     [A]_{total} = [A] + [AMT] + 2[A_2MT] = [A] + \frac{1}{K_M}[A]n[MT] + \frac{1}{K_A}[A][AMT]
+
+  .. latex-math::
+
+     [A]_{total} = [A] + \frac{1}{K_M}[A]n[MT] + \frac{1}{K_M K_A}[A]^2n[MT]
+
+  .. latex-math::
+
+     MT_{total} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_M}[A][MT] + \frac{1}{K_M K_A}[A]^2[MT].
+
+You may notice that this model is almost identical to the traditional cooperativity model. The main difference occurs here where A\ :sub:`2`\MT has only one MT subunit as opposed to 2 MT subunits in the tradition cooperativity model for A\ :sub:`2`\MT\ :sub:`2`\.
+
+We can solve the MT mass balance for free MT as follows:
+
+  .. latex-math::
+
+     [MT] = \frac{[MT]_{total}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2}.
+
+We can then substitute this equation into the A mass balance to get:
+
+  .. latex-math::
+
+     [A]_{total} = [A] + (\frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2)\frac{n[MT]_{total}}{1 + \frac{1}{K_M}[A] + frac{1}{K_M K_A}[A]^2}.
+
+This equation is numerically solved by the program to find the value of free A, then that is used to calculate bound A and free and bound MT.
+
 2MAPs Bind MT-bound MAPs
 ========================
 
