@@ -160,7 +160,7 @@ In this model A binds MT with a disassociation constant of K\ :sub:`M`\ then ano
 
   .. latex-math::
 
-     A + nMT \leftrightharpoons AMT, A + AMT \leftrightharpoons A\ :sub:`2`\MT.
+     A + nMT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT.
 
 The disassociation constants for these interactions are:
 
@@ -194,7 +194,7 @@ We can then substitute this equation into the A mass balance to get:
 
   .. latex-math::
 
-     [A]_{total} = [A] + (\frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2)\frac{n[MT]_{total}}{1 + \frac{1}{K_M}[A] + frac{1}{K_M K_A}[A]^2}.
+     [A]_{total} = [A] + (\frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2)\frac{n[MT]_{total}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2}.
 
 This equation is numerically solved by the program to find the value of free A, then that is used to calculate bound A and free and bound MT.
 
