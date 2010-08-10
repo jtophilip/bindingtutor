@@ -2,15 +2,24 @@
 MTBindingSim
 ============
 
+.. raw:: latex
+   
+   \thispagestyle{empty}
+
 .. image:: $(IMAGES)/logo
    :width: 5in
    :align: center
 
 .. raw:: latex
    
-   \vspace{1in} \par
+   \begin{center} \Large \sffamily
+   \vspace{0.5in} \par \textbf{Version \mtbversion} \\[1.5em]
 
+Julia Philip, [#bc]_ Charles Pence, [#hps]_ Holly Goodson [#bc]_
 
+.. raw:: latex
+   
+   \vspace{1in} \end{center} \par
 
 MTBindingSim is a program to plot binding curves under various conditions, 
 particularly those encountered in microtubule binding or other polymer binding 
@@ -20,3 +29,6 @@ MTBindingSim is licensed under the `GNU General Public License <$(DOCS):GPLLicen
 and its documentation is licensed under the `Creative Commons CC-BY-SA 3.0 License
 <$(DOCS):CreativeCommonsLicense>`_.
 
+
+.. [#bc] University of Notre Dame, Department of Chemistry and Biochemistry
+.. [#hps] University of Notre Dame, Program in History and Philosophy of Science
