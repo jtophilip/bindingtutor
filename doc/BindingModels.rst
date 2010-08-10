@@ -128,7 +128,11 @@ The mass balance equations are:
      
      [MT]_{\mathrm{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n = [MT] + \frac{1}{K_D}[A][MT] + \frac{2}{\phi K_D^2}[A]^2[MT].
 
-Note that [A\ :sub:`2`\ MT\ :sub:`2`\ ] accounts for 2 MT monomers, but there is only one instance of free MT in the dissociation constant equations. This is due to the polymer nature of the MT--binding to one free MT automatically brings the complex into contact with another free MT.
+Note that [A\ :sub:`2`\ MT\ :sub:`2`\ ] accounts for 2 MT monomers, but 
+there is only one instance of free MT in the dissociation constant 
+equations. This is due to the polymer nature of the MT--binding to one 
+free MT automatically brings the complex into contact with another free 
+MT.
 
 We can now solve the MT total equation for free MT:
 	
@@ -142,12 +146,17 @@ This equation can be plugged into the A total equation:
      
      [A]_{\mathrm{total}} = [A] + (\frac{1}{K_D}[A] + \frac{2}{\phi K_D^2}[A]^2)\frac{n*MT_{\mathrm{total}}}{1 + \frac{1}{K_D}[A] + \frac{2}{\phi K_D^2}[A]^2}.
 
-This equation is numerically solved for [A] free and the resulting value is used to calculate [A] bound as well as [MT] free and [MT] bound.
+This equation is numerically solved for [A] free and the resulting value 
+is used to calculate [A] bound as well as [MT] free and [MT] bound.
 
 Seam and Lattice Binding
 ========================
 
-In the seam and lattice binding model it is assumed that there are two different kinds of binding sites on the MT, seam sites and lattice sites, which have different disassociation constants. The seam sites are 1/13 of the total MT and the lattice sites are 12/13 of the total MT. Thus, the binding relationship is:
+In the seam and lattice binding model it is assumed that there are two 
+different kinds of binding sites on the MT, seam sites and lattice 
+sites, which have different disassociation constants. The seam sites are 
+1/13 of the total MT and the lattice sites are 12/13 of the total MT. 
+Thus, the binding relationship is:
 
   .. latex-math::
      
@@ -189,13 +198,16 @@ We now can plug  these values into the equation for total A:
 
      [A]_{\mathrm{total}} = [A] + \frac{\frac{1}{K_S}[A]n[S]_{\mathrm{total}}}{1 + \frac{1}{K_S}[A]} + \frac{\frac{1}{K_L}[A]n[L]_{\mathrm{total}}}{1 + \frac{1}{K_L}[A]}.
 
-This equation is numerically solved for free A and the result is used to calculate bound A and free and total MT.
+This equation is numerically solved for free A and the result is used to 
+calculate bound A and free and total MT.
  
 
 MAPs Bind MT-bound MAPs
 =======================
 
-In this model A binds MT with a disassociation constant of K\ :sub:`M`\ then another A can bind the bound A with a disassociation constant of K\ :sub:`A`\. The binding relationship is:
+In this model A binds MT with a disassociation constant of K\ :sub:`M`\ 
+then another A can bind the bound A with a disassociation constant of K\ 
+:sub:`A`\. The binding relationship is:
 
   .. latex-math::
 
@@ -221,7 +233,10 @@ We can write the mass balances for this situation:
 
      MT_{\mathrm{total}} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_M}[A][MT] + \frac{1}{K_M K_A}[A]^2[MT].
 
-You may notice that this model is almost identical to the traditional cooperativity model. The main difference occurs here where A\ :sub:`2`\MT has only one MT subunit as opposed to 2 MT subunits in the tradition cooperativity model for A\ :sub:`2`\MT\ :sub:`2`\.
+You may notice that this model is almost identical to the traditional 
+cooperativity model. The main difference occurs here where A\ 
+:sub:`2`\MT has only one MT subunit as opposed to 2 MT subunits in the 
+tradition cooperativity model for A\ :sub:`2`\MT\ :sub:`2`\.
 
 We can solve the MT mass balance for free MT as follows:
 
@@ -235,12 +250,15 @@ We can then substitute this equation into the A mass balance to get:
 
      [A]_{\mathrm{total}} = [A] + (\frac{1}{K_M}[A] + 2\frac{1}{K_M K_A}[A]^2)\frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2}.
 
-This equation is numerically solved by the program to find the value of free A, then that is used to calculate bound A and free and bound MT.
+This equation is numerically solved by the program to find the value of 
+free A, then that is used to calculate bound A and free and bound MT.
 
 2MAPs Bind MT-bound MAPs
 ========================
 
-This model is very similar to the MAPs bind MT-bound MAPs model, except in this case two layers of bound MAP are possible on top of an MT-bound MAP. The binding relationships for this model are:
+This model is very similar to the MAPs bind MT-bound MAPs model, except 
+in this case two layers of bound MAP are possible on top of an MT-bound 
+MAP. The binding relationships for this model are:
 
   .. latex-math::
 
@@ -252,7 +270,9 @@ The disassociation constants for this model are:
 
      K_M = [A]n[MT]/[AMT], K_A = [A][AMT]/[A_2MT], K_A = [A][A_2MT]/[A_3MT].
 
-Note that the disassociation constant for the first and second MAP binding to the MT-bound MAP is the same. The mass balances for this model are:
+Note that the disassociation constant for the first and second MAP 
+binding to the MT-bound MAP is the same. The mass balances for this 
+model are:
 
   .. latex-math::
 
@@ -278,7 +298,8 @@ Note that the disassociation constant for the first and second MAP binding to th
 
      [MT]_{\mathrm{total}} = [MT] + \frac{1}{K_M}[A][MT] + \frac{1}{K_M K_A}[A]^2[MT] + \frac{1}{K_M K_A^2}[A]^3[MT].
 
-Notice that as with the MAPs bind MT-bound MAPs model all MT-A complexes contain a single MT unit. The MT mass balance can be solved for free MT:
+Notice that as with the MAPs bind MT-bound MAPs model all MT-A complexes 
+contain a single MT unit. The MT mass balance can be solved for free MT:
 
   .. latex-math::
 
@@ -290,12 +311,15 @@ This can then be substituted into the A mass balance equation, yielding:
 
      [A]_{\mathrm{total}} = [A] + (\frac{1}{K_M}[A] + \frac{2}{K_M K_A}[A]^2 + \frac{3}{K_M K_A^2}[A]^3)\frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2 + \frac{1}{K_M K_A^2}[A]^3}.
 
-This equation is numerically solved by the program to get free A. This is then used to calculate bound A and free and bound MT.
+This equation is numerically solved by the program to get free A. This 
+is then used to calculate bound A and free and bound MT.
 
 MAPs Dimerize
 =============
 
-In this model A can form a dimer with itself and can bind to the MT in both the monomeric and dimeric forms with different disassociation constants. The binding interaction for this model is:
+In this model A can form a dimer with itself and can bind to the MT in 
+both the monomeric and dimeric forms with different disassociation 
+constants. The binding interaction for this model is:
 
   .. latex-math::
 
@@ -344,4 +368,6 @@ We can plug this into the mass balance for A:
 
      [A]_{\mathrm{total}} = [A] + \frac{2}{K_A}[A]^2 + (\frac{1}{K_1}[A] + \frac{1}{K_2K_A}[A]^2)\frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_1}[A] + \frac{1}{K_2K_A}[A]^2}.
 
-This equation is numerically solved by the program for free A and the result is used to calculate bound A and free and bound MT.
+This equation is numerically solved by the program for free A and the 
+result is used to calculate bound A and free and bound MT.
+

@@ -40,7 +40,7 @@ Version 0.5
     of the protein of interest
   * An experiment with two different microtubule binding proteins, where one
     microtubule binding protein and microtubule concentration are held constant
-    and the concentration of the other microtubule binding protein is varied.  In
-    this mode, both microtubule binding proteins are assumed to follow first-order
-    binding.
+    and the concentration of the other microtubule binding protein is 
+    varied.  In this mode, both microtubule binding proteins are assumed 
+    to follow first-order binding.
 

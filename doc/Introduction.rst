@@ -21,12 +21,13 @@ Julia Philip, [#bc]_ Charles Pence, [#hps]_ Holly Goodson [#bc]_
    
    \vspace{1in} \end{center} \par
 
-MTBindingSim is a program to plot binding curves under various conditions, 
-particularly those encountered in microtubule binding or other polymer binding 
-situations.
+MTBindingSim is a program to plot binding curves under various 
+conditions, particularly those encountered in microtubule binding or 
+other polymer binding situations.
 
-MTBindingSim is licensed under the `GNU General Public License <$(DOCS):GPLLicense>`_,
-and its documentation is licensed under the `Creative Commons CC-BY-SA 3.0 License
+MTBindingSim is licensed under the `GNU General Public License 
+<$(DOCS):GPLLicense>`_, and its documentation is licensed under the 
+`Creative Commons CC-BY-SA 3.0 License 
 <$(DOCS):CreativeCommonsLicense>`_.
 
 
