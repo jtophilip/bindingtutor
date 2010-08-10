@@ -26,7 +26,7 @@ RST_FILES = $(DOCS_RST_SOURCE:%.rst=$(srcdir)/%.rst)
 # This substitution for WIKI_FILES will work, we're doing the more complicated substitution
 # in the suffix rule down below.
 WIKI_FILES = $(DOCS_RST_SOURCE:.rst=.wiki)
-TEX_FILES = $(DOCS_RST_SOURCE:.rst=.tex) gpl-3.0.tex cc-by-sa.tex
+TEX_FILES = $(DOCS_RST_SOURCE:.rst=.tex) $(srcdir)/gpl-3.0.tex $(srcdir)/cc-by-sa.tex
 MASTER_FILE = $(builddir)/mtbindingsim.tex
 
 #
