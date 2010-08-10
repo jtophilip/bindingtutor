@@ -382,6 +382,24 @@ class WikiVisitor(SparseNodeVisitor):
     
     def depart_raw(self, node):
         pass
+    
+    def visit_footnote(self, node):
+        pass
+    
+    def depart_footnote(self, node):
+        self.output.append('\n')
+    
+    def visit_footnote_reference(self, node):
+        self.output.append('^')
+    
+    def depart_footnote_reference(self, node):
+        self.output.append('^')
+    
+    def visit_label(self, node):
+        self.output.append('^')
+    
+    def depart_label(self, node):
+        self.output.append('^')
 
 settings_overrides = {
     'halt_level': 2,
