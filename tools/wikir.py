@@ -371,7 +371,8 @@ class WikiVisitor(SparseNodeVisitor):
         if inline:
             self.output.append('(equation)')
         else:
-            self.output.append('\n<wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="%s" width="100%%"/>\n' % node.latex)
+            latex_no_spaces=node.latex.replace(' ', '')
+            self.output.append('\nhttp://www.codecogs.com/png.latex?%s%%.png\n\n' % latex_no_spaces)
     
     def depart_latex_math(self, node):
         pass
@@ -400,6 +401,20 @@ class WikiVisitor(SparseNodeVisitor):
     
     def depart_label(self, node):
         self.output.append('^')
+    
+    def visit_subscript(self, node):
+        self.output.append(',,')
+    
+    def depart_subscript(self, node):
+        self.output.append(',,')
+    
+    def visit_superscript(self, node):
+        self.output.append('^')
+    
+    def depart_superscript(self, node):
+        self.output.append('^')
+    
+    
 
 settings_overrides = {
     'halt_level': 2,
