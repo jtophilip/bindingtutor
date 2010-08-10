@@ -65,7 +65,7 @@ Screen shot of X-axis MT
 
 [MT] total is a known quantity in the experiment while [MT] free must be calculated. However,
 the familiar Langmuir Isotherm uses [MT] free as its independent variable, and the quick
-method of determining K_D by looking at the MT concentration when the fraction of A
+method of determining K\ :sub:`D`\ by looking at the MT concentration when the fraction of A
 bound is 0.5 only works if the x-axis is [MT] free.
 
 In Vary [A] mode the x-axis can be set to either [A] total or [A] free.
@@ -89,7 +89,7 @@ Binding Models
 
 MTBindingSim can plot curves for several binding models. For a detailed description of
 the math used to generate the curves, please see the (link to math docs here). Note that all models
-use the dissociation constant K_D.
+use the dissociation constant K\ :sub:`D`\.
 
 First Order Binding
 -------------------
@@ -99,7 +99,7 @@ one MT and all A-MT interactions are identical.
 
 Screen shot of first order and inputs
 
-In first order binding you need to input the total concentration of A (or MT) and the K_D and the binding
+In first order binding you need to input the total concentration of A (or MT) and the K\ :sub:`D`\ and the binding
 ratio. Both of these must be positive numbers.
 
 Traditional Cooperativity
@@ -110,7 +110,7 @@ A to a neighboring MT. For the purposes of this model only interactions between 
 
 Screen shot of the cooperativity and inputs
 
-For cooperativity you need to input the total concentration of A (or MT), K_D, phi, which determines
+For cooperativity you need to input the total concentration of A (or MT), K\ :sub:`D`\, phi, which determines
 the dissociation constant for the second A, and the binding ratio. All inputs must be positive numbers.
 
 Seam and Lattice Binding
@@ -122,7 +122,7 @@ than the lattice.
 Screen shot of seam lattice and inputs
 
 For this model you need to input the total concentration of A (or MT) and the dissociation constants for
-the seam, K_S, lattice, K_L, and the binding ratio. All inputs must be positive numbers.
+the seam, K\ :sub:`S`\, lattice, K\ :sub:`L`\, and the binding ratio. All inputs must be positive numbers.
 
 MAPs Bind MT-bound MAPs
 -----------------------
@@ -133,7 +133,7 @@ site.
 Screen shot of MAPs binding and inputs
 
 For this model you need to input the total concentration of A (or MT), the dissociation constant for A
-binding to MT, K_M, the dissociation constant for A binding to MT-bound A, K_A, and the binding ratio.
+binding to MT, K\ :sub:`M`\, the dissociation constant for A binding to MT-bound A, K\ :sub:`A`\, and the binding ratio.
 All inputs must be positive numbers.
 
 2MAPs Bind MT-bound MAPs
@@ -145,7 +145,7 @@ MT binding sites.
 Screen shot of 2MAP binding.
 
 For this model you need to input the total concentration of A (or MT), the dissociation constant for A
-binding to MT, K_M, the dissociation constant for A binding to MT-bound A, K_A, and the binding ratio.
+binding to MT, K\ :sub:`M`\, the dissociation constant for A binding to MT-bound A, K\ :sub:`A`\, and the binding ratio.
 All inputs must be positive numbers.
 
 MAPs Dimerize
@@ -157,5 +157,5 @@ can bind to MT.
 Screen shot of dimer and inputs
 
 For this model you need to input the total amount of A (or MT), the dissociation constant for monomeric
-A binding MT, K_1, the dissociation constant for dimeric A binding MT, K_2, the dissociation constant
-for the A dimer, K_A, and the binding ratio. All inputs must be positive numbers.
+A binding MT, K\ :sub:`1`\, the dissociation constant for dimeric A binding MT, K\ :sub:`2`\, the dissociation constant
+for the A dimer, K\ :sub:`A`\, and the binding ratio. All inputs must be positive numbers.

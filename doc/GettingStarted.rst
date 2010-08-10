@@ -19,7 +19,7 @@ To begin, enter values for the [MT] range
 
 Screen shot of just the [MT] range with 0 and 10 entered.
 
-and the values for [A] total, K_D, and the binding ratio.
+and the values for [A] total, K\ :sub:`D`\, and the binding ratio.
 
 Screen shot of the model parameters filled in
 
@@ -33,7 +33,7 @@ Screen shot of graph
 
 Congradulations, you've just plotted your first binding curve using MTBindingSim.
 
-Try changing the values of [A] total, K_D, or the binding ratio to see how the curves change.
+Try changing the values of [A] total, K\ :sub:`D`\, or the binding ratio to see how the curves change.
 After plotting four curves you'll have a graph that looks like this
 
 Screen shot of graph with 4 curves
