@@ -376,6 +376,13 @@ class WikiVisitor(SparseNodeVisitor):
     def depart_latex_math(self, node):
         pass
 
+    def visit_raw(self, node):
+        if not 'wikir' in node.get('format', '').split():
+            raise nodes.SkipNode
+    
+    def depart_raw(self, node):
+        pass
+
 settings_overrides = {
     'halt_level': 2,
     'report_level': 5
