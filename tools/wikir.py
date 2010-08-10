@@ -85,6 +85,9 @@ class WikiVisitor(SparseNodeVisitor):
     
     swiped from the nose project, originally written by Jason Pellerin.
     """
+
+    verbatim = False
+        
     def __init__(self, document):
         SparseNodeVisitor.__init__(self, document)
         self.list_depth = 0
@@ -94,7 +97,41 @@ class WikiVisitor(SparseNodeVisitor):
         self.preformat = False
         self.section_level = 0
         self.topic_classes = []
+
+    def encode(self, text):
+        """We need to escape all the Google Wiki-reserved syntax:
         
+        _ * ` {{{ }}} ^ ,, ~~ = == === ==== ===== ====== ---- # [ ] ! ||
+        """
+        if self.verbatim:
+            return text
+        
+        # Make a translation map
+        special_chars = {
+            ord('_'): ur'`_`',
+            ord('*'): ur'`*`',
+            ord('{'): ur'`{`',
+            ord('^'): ur'`^`',
+            ord('='): ur'`=`',
+            ord('#'): ur'`#`',
+            ord('['): ur'`[`',
+            ord(']'): ur'`]`',
+            ord('!'): ur'!',
+        }
+        text = text.translate(special_chars);
+            
+        # Only replace {{{ ,, ~~ ---- || when they appear complete
+        text = text.replace('{{{', '`{{{`')
+        text = text.replace(',,', '`,,`')
+        text = text.replace('~~', '`~~`')
+        text = re.sub("(----[-]*)", "`\1`", text)
+        text = text.replace('||', '`||`')
+        
+        return text
+    
+    def attval(self, text, whitespace=re.compile('[\n\r\t\v\f]')):
+        return self.encode(whitespace.sub(' ', text))
+    
     def astext(self):
         return ''.join(self.output)
     
@@ -111,7 +148,7 @@ class WikiVisitor(SparseNodeVisitor):
             # data = data.lstrip('\n\r')
             data = data.replace('\r', '')
             data = data.replace('\n', ' ')
-        self.output.append(data)
+        self.output.append(self.encode(data))
     
     def _visit_list(self, node, bullet):
         self.list_depth += 1
@@ -368,10 +405,10 @@ class WikiVisitor(SparseNodeVisitor):
     
     def visit_latex_math(self, node):
         inline = isinstance(node.parent, nodes.TextElement)
+        latex_no_spaces=node.latex.replace(' ', '')
         if inline:
-            self.output.append('(equation)')
+            self.output.append(' http://www.codecogs.com/png.latex?\inline{%s}%.png ' % latex_no_spaces)
         else:
-            latex_no_spaces=node.latex.replace(' ', '')
             self.output.append('\nhttp://www.codecogs.com/png.latex?%s%%.png\n\n' % latex_no_spaces)
     
     def depart_latex_math(self, node):
@@ -380,9 +417,10 @@ class WikiVisitor(SparseNodeVisitor):
     def visit_raw(self, node):
         if not 'wikir' in node.get('format', '').split():
             raise nodes.SkipNode
+        self.verbatim = True
     
     def depart_raw(self, node):
-        pass
+        self.verbatim = False
     
     def visit_footnote(self, node):
         pass
