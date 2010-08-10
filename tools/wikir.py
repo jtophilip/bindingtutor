@@ -387,12 +387,16 @@ class WikiVisitor(SparseNodeVisitor):
         self.topic_classes = []
 
     def visit_emphasis(self, node):
-        self.output.append('*')
-    visit_strong = visit_emphasis
-
+        self.output.append('_')
+    
     def depart_emphasis(self, node):
+        self.output.append('_')
+    
+    def visit_strong(self, node):
         self.output.append('*')
-    depart_strong = depart_emphasis
+    
+    def depart_strong(self, node):
+        self.output.append('*')
         
     def visit_literal(self, node):
         self.output.append('`')
