@@ -1,3 +1,248 @@
+2010-08-10 18:40  Charles Pence <charles@charlespence.net>
+
+	* tools/wikir.py: Added footnote label support, but there's still some
+	  trouble in the output (see issue 13).
+
+2010-08-10 18:17  Charles Pence <charles@charlespence.net>
+
+	* tools/wikir.py: Updated Wikir to properly handle 'raw' directives. You
+	  can pass 'wikir' raw data and it'll get sent through.
+
+2010-08-10 18:15  Julia Philip <jtophilip@gmail.com>
+
+	* doc/GettingStarted.rst, doc/RunningMTBindingSim.rst: Updated docs.
+
+2010-08-10 17:31  Charles Pence <charles@charlespence.net>
+
+	* doc/HowTo.rst: Fixed the bulleted list in HowTo.
+
+2010-08-10 16:48  Charles Pence <charles@charlespence.net>
+
+	* doc/Introduction.rst, doc/mtbindingsim.tex.in: Massive formatting
+	  updates of awesomeness to the documentation.
+
+2010-08-10 15:41  Charles Pence <charles@charlespence.net>
+
+	* doc/Introduction.rst, doc/cc-by-sa.tex, doc/gpl-3.0.tex,
+	  doc/mtbindingsim.tex.in: Putting the introduction in the PDF now, and
+	  added the GPL and CC licenses.
+
+2010-08-10 15:36  Julia Philip <jtophilip@gmail.com>
+
+	* doc/HowTo.rst: Updated docs.
+
+2010-08-10 15:22  Charles Pence <charles@charlespence.net>
+
+	* doc/mtbindingsim.tex.in: Updated the main TeX file with a package we
+	  need.
+
+2010-08-10 15:18  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs.
+
+2010-08-09 16:25  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs.
+
+2010-08-09 15:52  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs.
+
+2010-08-09 15:50  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs.
+
+2010-08-09 15:32  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs.
+
+2010-08-09 15:25  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs.
+
+2010-08-03 16:59  Julia Philip <jtophilip@gmail.com>
+
+	* doc/HowTo.rst: Fixed a typo.
+
+2010-07-28 19:07  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs.
+
+2010-07-27 17:24  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs.
+
+2010-07-27 15:38  Charles Pence <charles@charlespence.net>
+
+	* tools/wikir.py: Added a width=100% to the gadget output for the wiki
+	  formatter.
+
+2010-07-27 15:37  Charles Pence <charles@charlespence.net>
+
+	* doc/BindingModels.rst, doc/HowTo.rst, doc/mtbindingsim.tex.in: Fixed
+	  latex-math environments.
+
+2010-07-22 21:45  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs.
+
+2010-07-22 17:47  Julia Philip <jtophilip@gmail.com>
+
+	* doc/Troubleshooting.rst: Updated docs.
+
+2010-07-21 22:39  Charles Pence <charles@charlespence.net>
+
+	* tools/wikir.py: Updated the Wikir script to properly output a Google
+	  Wiki Gadget for displaying formulas (only block, not inline!) in
+	  Google Code Wiki pages.
+
+2010-07-21 22:06  Julia Philip <jtophilip@gmail.com>
+
+	* doc/RunningMTBindingSim.rst: Updated docs.
+
+2010-07-21 21:25  Charles Pence <charles@charlespence.net>
+
+	* doc/Makefile.am: Updated the Makefile for the docs to reflect the new
+	  chapters.
+
+2010-07-21 21:23  Julia Philip <jtophilip@gmail.com>
+
+	* doc/HowTo.rst, doc/RunningMTBindingSim.rst: Added docs.
+
+2010-07-21 21:22  Charles Pence <charles@charlespence.net>
+
+	* doc/BindingModels.rst: Added the chapter title to BindingModels.
+
+2010-07-21 21:20  Charles Pence <charles@charlespence.net>
+
+	* doc/BindingModels.rst, doc/Installation.rst, doc/OperatingSystem.rst,
+	  doc/Troubleshooting.rst, doc/mtbindingsim.tex.in: Added a few more
+	  documentation files and some glue to build them all.
+
+2010-07-21 20:05  Julia Philip <jtophilip@gmail.com>
+
+	* doc/GettingStarted.rst: Added to the docs.
+
+2010-07-21 19:14  Julia Philip <jtophilip@gmail.com>
+
+	* doc/HowTo.rst: Updated docs.
+
+2010-07-21 19:11  Charles Pence <charles@charlespence.net>
+
+	* doc/Format.txt: The Format.txt file is now a wiki page.
+
+2010-07-10 15:37  Charles Pence <charles@charlespence.net>
+
+	* configure.ac: Actually read the Automake and Autoconf NEWS files to
+	  see which versions of AM and AC we really do need.
+
+2010-07-10 01:20  Charles Pence <charles@charlespence.net>
+
+	* doc/ChangeLog.rst: Added changes for 0.6.1.
+
+2010-07-10 01:14  Charles Pence <charles@charlespence.net>
+
+	* ., NEWS, aclocal.m4, configure.ac, src/Makefile.am: Committed a fix
+	  for the build-system bug, bumped version number to 0.6.1, and removed
+	  aclocal.m4 (automatically generated) from the SVN repository.
+
+2010-07-09 16:31  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m: Modified validaiton code to ensure that phi is a
+	  positive number.
+
+2010-07-04 00:54  Charles Pence <charles@charlespence.net>
+
+	* doc/OperatingSystem.rst: Add the XP image to the docs.
+
+2010-07-04 00:37  Charles Pence <charles@charlespence.net>
+
+	* doc/Installation.rst, doc/Makefile.am, doc/mtbindingsim.tex.in: Fix
+	  $(DOCS) links in PDF documentation (closes issue 7), and clean up the
+	  options to the hyperref package to make the PDF file a bit less ugly.
+
+2010-06-28 20:18  Charles Pence <charles@charlespence.net>
+
+	* NEWS, doc/ChangeLog.rst: Updated ChangeLog documentation and NEWS file
+	  for impending 0.6 release.
+
+2010-06-26 18:39  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m, src/dimer_binding.m,
+	  src/dimer_saturation.m: Added Dimerization and Binding model.
+
+2010-06-26 17:40  Julia Philip <jtophilip@gmail.com>
+
+	* NEWS: Updated NEWS file.
+
+2010-06-26 17:39  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m, src/dimer_binding.m, src/dimer_saturation.m: Added
+	  calculation code for dimer binding.
+
+2010-06-26 16:07  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_saturation.m, src/seam_lattice_saturation.m: Fixed typos.
+
+2010-06-26 16:02  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m, src/MAP2_saturation.m, src/seam_lattice_binding.m:
+	  Fixed a typo in the equation for 2MAP binding and saturation.
+
+2010-06-26 15:53  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m, src/MAP2_saturation.m, src/MAP_binding.m,
+	  src/MAP_saturation.m, src/competition.m, src/cooperativity_binding.m,
+	  src/cooperativity_saturation.m, src/first_order_binding.m,
+	  src/first_order_saturation.m, src/seam_lattice_binding.m,
+	  src/seam_lattice_saturation.m: Forced fzero to find a value in the
+	  physically allowable range.
+
+2010-06-16 19:21  Charles Pence <charles@charlespence.net>
+
+	* configure.ac, src/Makefile.am: Fixed, I think, what 'make install'
+	  should do. Tested on Mac64, need to test on other platforms.
+
+2010-06-16 18:49  Charles Pence <charles@charlespence.net>
+
+	* Makefile.am, doc/Makefile.am: Install documentation to $(docdir) on
+	  'make install'.
+
+2010-06-16 18:39  Charles Pence <charles@charlespence.net>
+
+	* Makefile.am, build/Makefile.am, doc/Makefile.am, src/Makefile.am,
+	  tools/Makefile.am: Finally we have a working 'make rcsclean,' though
+	  it's a rather larger hack than I might have liked. Closes issue 6.
+
+2010-06-16 18:34  Julia Philip <jtophilip@gmail.com>
+
+	* NEWS, src/MTBindingSim.fig, src/MTBindingSim.m: Made all inputs
+	  default to 0 when the model is changed except for the ratio which
+	  defaults to 1.
+
+2010-06-16 17:59  Charles Pence <charles@charlespence.net>
+
+	* NEWS, doc/Installation.rst: Updated NEWS so that we can 'make dist'.
+	  Updated doc/Installation.rst. This closes issue 8.
+
+2010-06-16 17:51  Charles Pence <charles@charlespence.net>
+
+	* configure.ac: Bump trunk to version 0.6.
+
+2010-06-16 17:49  Charles Pence <charles@charlespence.net>
+
+	* Makefile.am: Add a dist-hook to Makefile.am which prunes .svn
+	  directories. Fixes issue 9.
+
+2010-06-14 20:41  Charles Pence <charles@charlespence.net>
+
+	* doc/OperatingSystem.rst: Updated OperatingSystem docs to encourage
+	  people to use Mac64.
+
+2010-06-14 20:15  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Updating ChangeLog for 0.5.
+
 2010-06-14 20:08  Charles Pence <charles@charlespence.net>
 
 	* doc/Makefile.am: Fix links in wiki-format documentation.
