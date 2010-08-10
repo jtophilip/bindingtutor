@@ -27,6 +27,8 @@ History and Philosophy of Science} Holly Goodson\protect\footnotemark[1]}
 \date{\today}
 \maketitle
 
+\input{@top_builddir@/doc/Introduction}
+
 \tableofcontents
 \clearpage
 
@@ -55,6 +57,13 @@ History and Philosophy of Science} Holly Goodson\protect\footnotemark[1]}
 \label{chapter:ChangeLog}
 \input{@top_builddir@/doc/ChangeLog}
 
-% FIXME: Appendices: GPL and Documentation License
+\fontsize{9}{11} \selectfont
+\chapter{Appendix: GNU General Public License}
+\label{chapter:GPLLicense}
+\input{@top_srcdir@/doc/gpl-3.0}
+
+\chapter{Appendix: Creative Commons CC-BY-SA License}
+\label{Chapter:CreativeCommonsLicens}
+\input{@top_srcdir@/doc/cc-by-sa}
 
 \end{document}
