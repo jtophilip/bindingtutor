@@ -1,11 +1,13 @@
 Authors of MTBindingSim
-
+-----------------------
 
 Julia Philip <jphilip@nd.edu>
-* Core development
-* Mathematical modelling
+ * Core development
+ * Mathematical modelling
+ * J.P. was supported in part by the CBBI Program at the University of Notre 
+   Dame, NIH Training Grant T32GM075762
 
 Charles Pence <charles@charlespence.net>
-* GUI and utility development
-* Release and development support
+ * GUI and utility development
+ * Release and development support
 

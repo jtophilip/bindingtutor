@@ -32,4 +32,5 @@ MTBindingSim is licensed under the `GNU General Public License
 
 
 .. [#bc] University of Notre Dame, Department of Chemistry and Biochemistry
-.. [#hps] University of Notre Dame, Program in History and Philosophy of Science
+.. [#hps] University of Notre Dame, Program in History and Philosophy of 
+   Science
