@@ -28,7 +28,7 @@ In first order binding, the relationship between A and MT is:
 
   .. latex-math::
      
-     A + nMT \rightleftharpoons AMT.
+     A + MT/n \rightleftharpoons AMT.
 
 The dissociation constant is defined as:
 
@@ -67,7 +67,7 @@ In the traditional cooperativity model, the binding of the first MAP changes the
 
   .. latex-math::
      
-     A + nMT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT_2.
+     A + MT/n \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT_2.
 
 The dissociation constants for these interactions are:
 	
@@ -112,7 +112,7 @@ In the seam and lattice binding model it is assumed that there are two different
 
   .. latex-math::
      
-     A + nS \leftrightharpoons AS, A + nL \leftrightharpoons AL.
+     A + S/n \leftrightharpoons AS, A + L/n \leftrightharpoons AL.
 
 The disassociation constants for these interactions are:
 
@@ -160,7 +160,7 @@ In this model A binds MT with a disassociation constant of K\ :sub:`M`\ then ano
 
   .. latex-math::
 
-     A + nMT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT.
+     A + MT/n \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT.
 
 The disassociation constants for these interactions are:
 
@@ -205,7 +205,7 @@ This model is very similar to the MAPs bind MT-bound MAPs model, except in this 
 
   .. latex-math::
 
-     A + MT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT, A + A_2MT \leftrightharpoons A_3MT.
+     A + MT/n \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT, A + A_2MT \leftrightharpoons A_3MT.
 
 The disassociation constants for this model are:
 
@@ -255,3 +255,54 @@ This equation is numerically solved by the program to get free A. This is then u
 
 MAPs Dimerize
 =============
+
+In this model A can form a dimer with itself and can bind to the MT in both the monomeric and dimeric forms with different disassociation constants. The binding interaction for this model is:
+
+  .. latex-math::
+
+     A + A \leftrightharpoons A_2, A + MT/n \leftrightharpoons AMT, A_2 + 2MT/n \leftrightharpoons A_2MT_2.
+
+The disassociation constants for these interactions are:
+
+  .. latex-math::
+
+     K_A = [A][A]/[A_2], K_1 = [A]n[MT]/[AMT], K_2 = [A_2]n/2[MT]/[A_2MT_2].
+
+We can write mass balances for A and MT:
+
+  .. latex-math::
+
+     [A]_{\mathrm{total}} = [A] + 2[A_2] + [AMT] + 2[A_2MT_2]
+
+  .. latex-math::
+
+     [A]_{\mathrm{total}} = [A] + \frac{2}{K_A}[A]^2 + \frac{1}{K_1}[A]n[MT] + \frac{1}{K_2}[A_2]n[MT]
+
+  .. latex-math::
+
+     [A]_{\mathrm{total}}= [A] + \frac{2}{K_A}[A]^2 + \frac{1}{K_1}[A]n[MT] + \frac{1}{K_2K_A}[A]^2n[MT]
+
+  .. latex-math::
+
+     [MT]_{\mathrm{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n 
+  .. latex-math::
+
+     [MT]_{\mathrm{total}} = [MT] + \frac{1}{K_1}[A][MT] + \frac{1}{K_2}[A]^2[MT]
+
+  .. latex-math::
+
+     [MT]_{\mathrm{total}} = [MT] + \frac{1}{K_1}[A][MT] + \frac{1}{K_2K_A}[A][MT].
+
+We can now solve the MT mass balance for free MT to get:
+
+  .. latex-math::
+
+     [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_1}[A] + \frac{1}{K_2K_A}[A]^2}.
+
+We can plug this into the mass balance for A:
+
+  .. latex-math::
+
+     [A]_{\mathrm{total}} = [A] + \frac{2}{K_A}[A]^2 + (\frac{1}{K_1}[A] + \frac{1}{K_2K_A}[A]^2)\frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_1}[A] + \frac{1}{K_2K_A}[A]^2}.
+
+This equation is numerically solved by the program for free A and the result is used to calculate bound A and free and bound MT.
