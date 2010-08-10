@@ -3,8 +3,13 @@ How To
 ======
 
 This chapter explains how to use some of the advanced features of 
-MTBindingSim. You will learn `Saving Graphs`_, `Editing Graphs`_, and 
-`Running Comparisions`_.
+MTBindingSim.
+
+.. raw:: wikir
+   
+   <wiki:toc max_depth="1" />
+   
+
 
 Editing and Saving Graphs
 =========================

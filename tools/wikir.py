@@ -425,6 +425,7 @@ class WikiVisitor(SparseNodeVisitor):
     
     def depart_raw(self, node):
         self.verbatim = False
+        self.output.append('\n')
     
     def visit_footnote(self, node):
         pass

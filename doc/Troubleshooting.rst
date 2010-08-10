@@ -2,6 +2,12 @@
 Troubleshooting
 ===============
 
+.. raw:: wikir
+   
+   <wiki:toc max_depth="1" />
+   
+
+
 Installation
 ============
 

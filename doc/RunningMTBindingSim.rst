@@ -5,11 +5,13 @@ Running MTBindingSim
 To plot a graph using MTBindingSim, select the plotting options and 
 binding model you would like to use, enter the parameters you want, and 
 click the graph button. This section explains what plotting options and 
-binding models are available. The plotting options are `Experimental 
-Method`_, `Plotting Mode`_, `X-axis`_, and `Number of Points`_. The 
-available binding models are `First Order Binding`_, `Traditional 
-Cooperativity`_, `Seam and Lattice Binding`_, `MAPs Bind MT-bound 
-MAPs`_, `2MAPs Bind MT-bound MAPs`_, and `MAPs Dimerize`_.
+binding models are available.
+
+.. raw:: wikir
+   
+   <wiki:toc max_depth="1" />
+   
+
 
 Plotting Options
 ================
