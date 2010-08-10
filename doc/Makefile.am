@@ -16,7 +16,7 @@ DOCS_RST_SOURCE = \
 	BindingModels.rst ChangeLog.rst GettingStarted.rst HowTo.rst \
 	Introduction.rst RunningMTBindingSim.rst Troubleshooting.rst
 
-EXTRA_DIST = $(DOCS_RST_SOURCE) Format.txt docutils-template.inc wiki
+EXTRA_DIST = $(DOCS_RST_SOURCE) gpl-3.0.tex cc-by-sa.tex Format.txt docutils-template.inc wiki
 
 #
 # Find the files
@@ -26,7 +26,7 @@ RST_FILES = $(DOCS_RST_SOURCE:%.rst=$(srcdir)/%.rst)
 # This substitution for WIKI_FILES will work, we're doing the more complicated substitution
 # in the suffix rule down below.
 WIKI_FILES = $(DOCS_RST_SOURCE:.rst=.wiki)
-TEX_FILES = $(DOCS_RST_SOURCE:.rst=.tex)
+TEX_FILES = $(DOCS_RST_SOURCE:.rst=.tex) gpl-3.0.tex cc-by-sa.tex
 MASTER_FILE = $(builddir)/mtbindingsim.tex
 
 #
