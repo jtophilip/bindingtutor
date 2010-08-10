@@ -16,7 +16,7 @@ DOCS_RST_SOURCE = \
 	BindingModels.rst ChangeLog.rst GettingStarted.rst HowTo.rst \
 	Introduction.rst RunningMTBindingSim.rst Troubleshooting.rst
 
-EXTRA_DIST = $(DOCS_RST_SOURCE) gpl-3.0.tex cc-by-sa.tex Format.txt docutils-template.inc wiki
+EXTRA_DIST = $(DOCS_RST_SOURCE) gpl-3.0.tex cc-by-sa.tex docutils-template.inc wiki
 
 #
 # Find the files
