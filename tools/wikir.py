@@ -409,7 +409,7 @@ class WikiVisitor(SparseNodeVisitor):
     
     def visit_latex_math(self, node):
         inline = isinstance(node.parent, nodes.TextElement)
-        latex_no_spaces=node.latex.replace(' ', '')
+        latex_no_spaces=node.latex.replace(' ', '%20')
         if inline:
             self.output.append(' http://www.codecogs.com/png.latex?\inline{%s}%.png ' % latex_no_spaces)
         else:

@@ -94,12 +94,15 @@ We now can substitute this equation into the equation for total A:
      
      [A]_{\mathrm{total}} = [A] + \frac{\frac{1}{K_D}[A]n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_D}[A]}.
 
-The program numerically finds the value of [A] free that solves this equation, then uses that to calculate all other necessary parameters.
+The program numerically finds the value of [A] free that solves this 
+equation, then uses that to calculate all other necessary parameters.
 
 Traditional Cooperativity
 =========================
 
-In the traditional cooperativity model, the binding of the first MAP changes the dissociation constant for a second MAP binding. The binding relationship is:
+In the traditional cooperativity model, the binding of the first MAP 
+changes the dissociation constant for a second MAP binding. The binding 
+relationship is:
 
   .. latex-math::
      
