@@ -52,25 +52,31 @@ Running Comparisions
 To compare two curves in MTBindingSim, first select "compare two curves" from the plotting mode
 box.
 
-Screen shot of the plotting mode box with compare two curves selected
+.. image:: $(IMAGES)/howto-selectcomp
+   :width: 5in
+   :align: center
 
 This will cause a second model selection drop down box and model parameter input boxes to appear.
-
-Screen shot of second column of model selection and inputs
 
 Enter the parameters for the curves you wish to compare in the two columns. The curves are
 independent of each other. An exmaple of two curves to be compared is below.
 
-Screen shot of comparision mode with two curves entered
+.. image:: $(IMAGES)/howto-enter2
+   :width: 5in
+   :align: center
 
 When you click the graph button the curves will be plotted on the active graph or a new graphs.
 
-Screen shot of curves from above models
+.. image:: $(IMAGES)/howto-2curves
+   :width: 5in
+   :align: center
 
 The program also will calculate the difference between the two curves and display the result if
 the X-axis is plotting total [MT] or total [A] or in competition mode.
 
-Screen shot of difference between the curves
+.. image:: $(IMAGES)/howto-result
+   :width: 5in
+   :align: center
 
 These values are calcualted by computing the absolute and percentage difference between the
 curves at each point. Both the average difference and the point of largest difference
