@@ -8,9 +8,12 @@
 \usepackage[svgnames]{xcolor}
 \usepackage{amsmath,amssymb}
 \usepackage[sc]{mathpazo}
-\usepackage{graphicx}
 \usepackage{color}
 \usepackage{hyperref}
+
+% Look for hi-res graphics by default
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png}
 
 % MTBindingSim colors
 \definecolor{mtbdarkgreen}{RGB}{18,49,22}
