@@ -26,13 +26,14 @@ RST_FILES = $(DOCS_RST_SOURCE:%.rst=$(srcdir)/%.rst)
 # This substitution for WIKI_FILES will work, we're doing the more complicated substitution
 # in the suffix rule down below.
 WIKI_FILES = $(DOCS_RST_SOURCE:.rst=.wiki)
-TEX_FILES = $(DOCS_RST_SOURCE:.rst=.tex) $(srcdir)/gpl-3.0.tex $(srcdir)/cc-by-sa.tex
+BUILT_TEX_FILES = $(DOCS_RST_SOURCE:.rst=.tex)
+TEX_FILES = $(BUILT_TEX_FILES) $(srcdir)/gpl-3.0.tex $(srcdir)/cc-by-sa.tex
 MASTER_FILE = $(builddir)/mtbindingsim.tex
 
 #
 # Specify what to remove with 'make clean' (note that we don't remove the wiki files)
 #
-CLEANFILES = *.aux *.dvi *.lof *.log *.lot *.out *.toc $(TEX_FILES) mtbindingsim.pdf
+CLEANFILES = *.aux *.dvi *.lof *.log *.lot *.out *.toc $(BUILT_TEX_FILES) mtbindingsim.pdf
 
 #
 # Add our directories to the TeX search path
@@ -78,7 +79,7 @@ mtbindingsim.pdf: %.pdf: $(TEX_FILES) $(MASTER_FILE)
 	(OUTFILE=$(srcdir)/wiki/$*.wiki; export OUTFILE; $(top_srcdir)/tools/wikir.py $< | $(SED) "s|\$$(IMAGES)\(.*\)$$|http://mtbindingsim.googlecode.com/svn/wiki/images\1.png|g" | $(SED) "s|\$$(DOCS):||g" > $$OUTFILE)
 
 .rst.tex: docutils-template.inc
-	$(top_srcdir)/tools/rst2latex.py --no-section-numbering --template=$(top_srcdir)/doc/docutils-template.inc $< | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1}}|g" | $(SED) "s@\href{\$$(DOCS):\(.*\)}{\(.*\)}@\hyperref[chapter:\1]{\2}@g" > $@
+	$(top_srcdir)/tools/rst2latex.py --no-section-numbering --template=$(top_srcdir)/doc/docutils-template.inc $< | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1}}|g" | $(PYTHON) -c "import sys,re;x=re.compile(r'href{[$$][(]DOCS[)]:(.*?)}{(.*?)}',re.M|re.S);print re.sub(x,r'hyperref[chapter:\1]{\2}',sys.stdin.read())" > $@
 
 
 #

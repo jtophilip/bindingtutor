@@ -49,6 +49,7 @@ AC_PROG_LN_S
 AC_PROG_MKDIR_P
 AC_PROG_SED
 AC_PROG_GREP
+AM_PATH_PYTHON(,, [:])
 
 # The following just silences an Autoconf warning.  You need not have an
 # Objective-C compiler to build MTBindingSim.
@@ -99,7 +100,8 @@ AM_CONDITIONAL([DOCS],
   [test "x$have_pdflatex" != "xno" -a "x$have_kpsewhich" != "xno" -a \
         "x$have_book" = "xyes" -a \
         "x$have_inputenc" = "xyes" -a "x$have_mathpazo" = "xyes" -a \
-        "x$have_hyperref" = "xyes"])
+        "x$have_hyperref" = "xyes" -a \
+        "x$PYTHON" != "x:"])
 
 
 ###############################################################################

@@ -2,52 +2,65 @@
 Getting Started
 ===============
 
+Thanks for checking out MTBindingSim!  Here's a quick-start tutorial 
+designed to get you graphing binding curves in no time.
+ 
 Running MTBindingSim for the First Time
 =======================================
 
-Download the version of MTBindingSim for your operating system from our 
-Downloads Page (put a link here). Double click MTBindingSim to open it. 
-You should see a window that looks like this:
+To begin, you will need to `download and install MTBindingSim 
+<http://code.google.com/p/mtbindingsim/wiki/Download?tm=2>`_.  When
+you run MTBindingSim for the first time, you should see a window that
+looks like this:
 
-Put in a screen shot of MTBindingSim when first opened.
+**Screen shot:** when first opened
 
-The defaults are to plot a graph in vary [MT] mode with the X-axis as 
-[MT] total and the binding model as first order binding. See (section) 
-for an explanation of the plotting options and (section) for the 
-availibile binding models.
+MTBindingSim's defaults are to plot a graph of an experiment in which 
+the total concentration of microtubules, [MT], is varied (along the 
+X-axis), and the binding model is first-order binding.  See `the Running 
+MTBindingSim chapter <$(DOCS):RunningMTBindingSim>`_ for more 
+information about these settings, and the `Binding Model Mathematics 
+chapter <$(DOCS):BindingModels>`_ for more detailed information about 
+the binding models.
 
-To begin, enter values for the [MT] range
+First, enter value for the experimental range of [MT].  Varying between 
+0 and 10 is a nice start.
 
-Screen shot of just the [MT] range with 0 and 10 entered.
+**Screen shot:** [MT] with 0 and 10 entered.
 
-and the values for [A] total, K\ :sub:`D`\, and the binding ratio.
+You will also need to enter values for [A] total, K\ :sub:`D`\ , and the 
+binding ratio.  Try 2 for both [A] total and K\ :sub:`D`\ , and leave 
+the binding ratio at its default of 1.
 
-Screen shot of the model parameters filled in
+**Screen shot:** parameters with 2, 2, 1 filled in
 
-To calculate the binding curve under these conditions, click the graph button.
+To calculate the binding curve under these conditions, click the graph 
+button.
 
-Screen shot of the graph button
+**Screen shot:** the graph button
 
-A graph that looks like this will pop up
+You should now see a graph that looks like this:
 
-Screen shot of graph
+**Screen shot:** graph
 
-Congradulations, you've just plotted your first binding curve using MTBindingSim.
+Congratulations, you've just plotted your first binding curve using 
+MTBindingSim!
 
 Try changing the values of [A] total, K\ :sub:`D`\, or the binding ratio 
 to see how the curves change. After plotting four curves you'll have a 
-graph that looks like this
+graph that might look something like this:
 
-Screen shot of graph with 4 curves
-
-If you want to know how to edit and save the graph, please see (section).
+**Screen shot:** graph with 4 curves
 
 If you'd like to start over with a new graph, click the clear button. 
-This will delete the current graph and subsequent curves will be plotted 
-on a new graph.
+This will delete the current graph, and subsequent curves will be plotted 
+on a new plot.
 
-Screen shot of the clear button.
+**Screen shot:** clear button
 
-See (Running MTBindingSim) and (How To) for more information about the 
-options and capabilities of MTBindingSim. If you have any problems, see 
-(TroubleShooting).
+For more detailed information about what you can do with MTBindingSim, 
+see the `Running MTBindingSim <$(DOCS):RunningMTBindingSim>`_ and `How 
+To... <$(DOCS):HowTo>`_ chapters.  If you have any trouble, see the 
+`Troubleshooting <$(DOCS):Troubleshooting>`_ section.
+
+Good luck, and happy graphing!
