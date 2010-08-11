@@ -25,6 +25,14 @@ MTBindingSim is a program to plot binding curves under various
 conditions, particularly those encountered in microtubule binding or 
 other polymer binding situations.
 
+.. raw:: wikir
+   
+   This is an online version of the MTBindingSim PDF documentation book.
+   While every effort has been made to ensure that this version of the
+   manual works just like the PDF version, the PDF version is considered
+   authoritative.
+   
+
 MTBindingSim is licensed under the `GNU General Public License 
 <$(DOCS):GPLLicense>`_, and its documentation is licensed under the 
 `Creative Commons CC-BY-SA 3.0 License 

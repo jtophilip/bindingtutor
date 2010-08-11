@@ -23,7 +23,7 @@ information about these settings, and the `Binding Model Mathematics
 chapter <$(DOCS):BindingModels>`_ for more detailed information about 
 the binding models.
 
-First, enter value for the experimental range of [MT].  Varying between 
+First, enter values for the experimental range of [MT].  Varying between 
 0 and 10 is a nice start.
 
 **Screen shot:** [MT] with 0 and 10 entered.

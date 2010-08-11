@@ -31,7 +31,7 @@ Concentration of MT
 
 By convention the concentration of MT is reported as the concentration 
 of tubulin dimers. In most binding assays a microtubule stabilizer is 
-used to make the concentration of free tubulin irrelevant in biding 
+used to make the concentration of free tubulin irrelevant in binding 
 calculations. Should this not be the case, the contribution of free 
 tubulin dimer both in decreasing the available polymer sites and in 
 possibly competing with the polymerized tubulin for binding proteins 

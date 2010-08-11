@@ -28,31 +28,25 @@ the experimental method will automatically close an active graph.
 
 Screen shot of the experimental method selection box.
 
-**Vary [MT]**
+**Vary [MT]:** In this method, the concentration of A is held constant 
+and the concentration of MT is varied. The fraction of A bound is 
+graphed on the y-axis. This is a "standard" binding experiment and 
+simulates data from many standard experimental methods of measuring 
+binding data, including SPR, fluorescence anisotropy, and tryptophan 
+fluorescence, as well as cosedimentation assays.
 
-In this method, the concentration of A is held constant and the 
-concentration of MT is varied. The fraction of A bound is graphed on the 
-y-axis. This is a "standard" binding experiment and simulates data from 
-many standard experimental methods of measuring biding data, including 
-SPR, fluorescence anisotropy, and tryptophan fluorescence, as well as 
-cosedimentation assays.
+**Vary [A]:** In this method, the concentration of MT is held constant 
+and the concentration of A is varied. The concentration of A bound is 
+graphed on the y-axis. This kind of data cannot be collected using many 
+standard binding assays such as SPR and fluorescence anisotropy, but it 
+can be collected using a cosedimentation assay.
 
-**Vary [A]**
-
-In this method the concentration of MT is held constant and the 
-concentration of A is varied. The concentration of A bound is graphed on 
-the y-axis. This kind of data cannot be collected using many standard 
-binding assays such as SPR and fluorescence anisotropy, but it can be 
-collected using a cosedimentation assay.
-
-**Competition**
-
-In this method there are two MT binding proteins, A and B. The 
-concentration of A and the concentration of MT are held constant while 
-the concentration of B is varied. The fraction of A bound is plotted on 
-the y-axis. This kind of data can be collected with many standard 
-methods of measuring binding data, such as SPR, fluorescence anisotropy, 
-tryptophan fluorescence, and cosedimentation assays.
+**Competition:** In this method, there are two MT binding proteins, A and 
+B. The concentration of A and the concentration of MT are held constant 
+while the concentration of B is varied. The fraction of A bound is 
+plotted on the y-axis. This kind of data can be collected with many 
+standard methods of measuring binding data, such as SPR, fluorescence 
+anisotropy, tryptophan fluorescence, and cosedimentation assays.
 
 Plotting Mode
 -------------
@@ -62,23 +56,23 @@ simultaneously.
 
 Screen shot of plotting mode box
 
-For more information about comparing two curves see the HowTo 
-documentation (put link here).
+For more information about comparing two curves see the `How To section 
+<$(DOCS):HowTo>`_.
 
 X-axis
 ------
 
-In Vary [MT] mode the x-axis can be set to either [MT] total or [MT] free.
+In Vary [MT] mode, the X-axis can be set to either [MT] total or [MT] free.
 
 Screen shot of X-axis MT
 
-[MT] total is a known quantity in the experiment while [MT] free must be 
+[MT] total is a known quantity in the experiment, while [MT] free must be 
 calculated. However, the familiar Langmuir Isotherm uses [MT] free as 
 its independent variable, and the quick method of determining K\ 
-:sub:`D`\ by looking at the MT concentration when the fraction of A 
+:sub:`D` by looking at the MT concentration when the fraction of A 
 bound is 0.5 only works if the x-axis is [MT] free.
 
-In Vary [A] mode the x-axis can be set to either [A] total or [A] free.
+In Vary [A] mode, the x-axis can be set to either [A] total or [A] free.
 
 Screen shot of x-axis A
 
@@ -100,8 +94,8 @@ Binding Models
 
 MTBindingSim can plot curves for several binding models. For a detailed 
 description of the math used to generate the curves, please see the 
-(link to math docs here). Note that all models use the dissociation 
-constant K\ :sub:`D`\.
+`Binding Model Mathematics chapter <$(DOCS):BindingModels>`_. Note that 
+all models use the dissociation constant K\ :sub:`D`\ .
 
 First Order Binding
 -------------------
