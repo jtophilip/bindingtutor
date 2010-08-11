@@ -136,7 +136,7 @@
 \input{@top_srcdir@/doc/gpl-3.0}
 
 \chapter{Creative Commons CC-BY-SA License}
-\label{Chapter:CreativeCommonsLicens}
+\label{chapter:CreativeCommonsLicense}
 \input{@top_srcdir@/doc/cc-by-sa}
 
 \end{document}
