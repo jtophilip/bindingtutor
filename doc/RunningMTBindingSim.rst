@@ -149,8 +149,8 @@ the dissociation constant for A binding to MT, K\ :sub:`M`\ , the
 dissociation constant for A binding to MT-bound A, K\ :sub:`A`\ , and the 
 binding ratio. All inputs must be positive numbers.
 
-2MAPs Bind MT-bound MAPs
-------------------------
+Two MAPs Bind MT-bound MAPs
+---------------------------
 
 In this model, once one A has bound to the MT, two more As can bind to 
 it without taking up additional MT binding sites.

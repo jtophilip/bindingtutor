@@ -11,6 +11,7 @@
 \usepackage{color}
 \usepackage{tipa}
 \usepackage{hyperref}
+\usepackage{paralist}
 
 % Look for hi-res graphics by default
 \usepackage{graphicx}

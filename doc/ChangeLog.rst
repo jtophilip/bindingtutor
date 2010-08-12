@@ -2,6 +2,12 @@
 MTBindingSim Revision History
 =============================
 
+Version 0.7
+===========
+
+* Complete documentation is now available for MTBindingSim.
+* Various bug fixes.
+
 Version 0.6.1
 =============
 
