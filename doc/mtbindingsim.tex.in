@@ -9,6 +9,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage[sc]{mathpazo}
 \usepackage{color}
+\usepackage{tipa}
 \usepackage{hyperref}
 
 % Look for hi-res graphics by default

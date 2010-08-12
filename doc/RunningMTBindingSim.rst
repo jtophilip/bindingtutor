@@ -95,19 +95,19 @@ Binding Models
 MTBindingSim can plot curves for several binding models. For a detailed 
 description of the math used to generate the curves, please see the 
 `Binding Model Mathematics chapter <$(DOCS):BindingModels>`_. Note that 
-all models use the dissociation constant K\ :sub:`D`\ .
+all models use the dissociation constant, K\ :sub:`D`\ .
 
 First Order Binding
 -------------------
 
 First order binding simulates binding under standard first order 
-conditions where on A interacts with one MT and all A-MT interactions 
+conditions where one A interacts with one MT, and all A-MT interactions 
 are identical.
 
-Screen shot of first order and inputs
+**Screen shot:** first order and inputs
 
-In first order binding you need to input the total concentration of A 
-(or MT) and the K\ :sub:`D`\ and the binding ratio. Both of these must 
+For first order binding, you need to input the total concentration of A 
+(or MT), the K\ :sub:`D`\ , and the binding ratio.  All of these must 
 be positive numbers.
 
 Traditional Cooperativity
@@ -117,62 +117,62 @@ Traditional cooperativity simulates binding where one A binding to one
 MT influences the binding of another A to a neighboring MT. For the 
 purposes of this model only interactions between two As are considered.
 
-Screen shot of the cooperativity and inputs
+**Screen shot:** cooperativity and inputs
 
-For cooperativity you need to input the total concentration of A (or 
-MT), K\ :sub:`D`\, phi, which determines the dissociation constant for 
+For cooperativity, you need to input the total concentration of A (or 
+MT), K\ :sub:`D`\, φ, which determines the dissociation constant for 
 the second A, and the binding ratio. All inputs must be positive 
 numbers.
 
 Seam and Lattice Binding
 ------------------------
 
-Seam and lattice binding simulates the case that protein A binds to the 
-MT seam with a different affinity than the lattice.
+Seam and lattice binding simulates a scenario in which protein A binds 
+to the MT seam with a different affinity than the MT lattice.
 
-Screen shot of seam lattice and inputs
+**Screen shot:** seam lattice and inputs
 
-For this model you need to input the total concentration of A (or MT) 
-and the dissociation constants for the seam, K\ :sub:`S`\, lattice, K\ 
-:sub:`L`\, and the binding ratio. All inputs must be positive numbers.
+For this model you need to input the total concentration of A (or MT), 
+the dissociation constants for the seam, K\ :sub:`S`\ , lattice, K\
+:sub:`L`\ , and the binding ratio. All inputs must be positive numbers.
 
 MAPs Bind MT-bound MAPs
 -----------------------
 
-In this model once one A has bound to the MT another A can bind to it 
+In this model, once one A has bound to the MT, another A can bind to it 
 without taking up another MT binding site.
 
-Screen shot of MAPs binding and inputs
+**Screen shot:** MAPs binding and inputs
 
-For this model you need to input the total concentration of A (or MT), 
-the dissociation constant for A binding to MT, K\ :sub:`M`\, the 
-dissociation constant for A binding to MT-bound A, K\ :sub:`A`\, and the 
+For this model, you need to input the total concentration of A (or MT), 
+the dissociation constant for A binding to MT, K\ :sub:`M`\ , the 
+dissociation constant for A binding to MT-bound A, K\ :sub:`A`\ , and the 
 binding ratio. All inputs must be positive numbers.
 
 2MAPs Bind MT-bound MAPs
 ------------------------
 
-In this model once one A has bound to the MT two more As can bind to it without taking up additional
-MT binding sites.
+In this model, once one A has bound to the MT, two more As can bind to 
+it without taking up additional MT binding sites.
 
-Screen shot of 2MAP binding.
+**Screen shot:** 2MAP binding
 
-For this model you need to input the total concentration of A (or MT), 
-the dissociation constant for A binding to MT, K\ :sub:`M`\, the 
-dissociation constant for A binding to MT-bound A, K\ :sub:`A`\, and the 
+For this model, you need to input the total concentration of A (or MT), 
+the dissociation constant for A binding to MT, K\ :sub:`M`\ , the 
+dissociation constant for A binding to MT-bound A, K\ :sub:`A`\ , and the 
 binding ratio. All inputs must be positive numbers.
 
 MAPs Dimerize
 -------------
 
-In this model A can exist either as a monomer or as a dimer and both the 
+In this model, A can exist either as a monomer or as a dimer, and both the 
 monomer and dimer forms can bind to MT.
 
-Screen shot of dimer and inputs
+**Screen shot:** dimer and inputs
 
-For this model you need to input the total amount of A (or MT), the 
-dissociation constant for monomeric A binding MT, K\ :sub:`1`\, the 
-dissociation constant for dimeric A binding MT, K\ :sub:`2`\, the 
-dissociation constant for the A dimer, K\ :sub:`A`\, and the binding 
+For this model, you need to input the total amount of A (or MT), the 
+dissociation constant for monomeric A binding MT, K\ :sub:`1`\ , the 
+dissociation constant for dimeric A binding MT, K\ :sub:`2`\ , the 
+dissociation constant for the A dimer, K\ :sub:`A`\ , and the binding 
 ratio. All inputs must be positive numbers.
-	
+
