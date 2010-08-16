@@ -92,16 +92,16 @@ graph or a new graph.
    :width: 5in
    :align: center
 
-The program also will calculate the difference between the two curves 
-and display the result, if the X-axis is plotting total [MT] or total [A], 
-or in competition mode.
+If the X-axis is plotting total [MT] or total [A], 
+or in competition mode he program also will calculate the difference between the two curves 
+and display the result,.
 
 .. image:: $(IMAGES)/howto-result
    :width: 5in
    :align: center
 
-These values are calcualted by computing the absolute and percentage 
+These values are calculated by computing the absolute and percentage 
 difference between the curves at each point, and both the average and 
 largest difference are reported for each. This feature is designed to 
 help researchers determine whether the predicted differences between two 
-curves are measurable given their expected experimental error.
+curves are detectable given their expected experimental error.

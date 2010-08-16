@@ -9,7 +9,7 @@ binding models are available.
 
 .. raw:: wikir
    
-   <wiki:toc max_depth="1" />
+   <wiki:toc max_depth="2" />
    
 
 
@@ -67,7 +67,7 @@ In Vary [MT] mode, the X-axis can be set to either [MT] total or [MT] free.
 Screen shot of X-axis MT
 
 [MT] total is a known quantity in the experiment, while [MT] free must be 
-calculated. However, the familiar Langmuir Isotherm uses [MT] free as 
+calculated. However, the familiar Langmuir Isotherm equation uses [MT] free as 
 its independent variable, and the quick method of determining K\ 
 :sub:`D` by looking at the MT concentration when the fraction of A 
 bound is 0.5 only works if the x-axis is [MT] free.
