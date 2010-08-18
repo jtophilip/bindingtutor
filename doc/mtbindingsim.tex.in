@@ -58,6 +58,9 @@
 % Setup the hyperlink package
 \hypersetup{
   pdftex,
+  pdfpagemode=UseOutlines,
+  pdftitle={MTBindingSim v@PACKAGE_VERSION@ Manual},
+  pdfauthor={Julia Philip, Charles Pence, Holly Goodson},
   breaklinks=true,
   colorlinks,
   linkcolor=mtblightgreen,
