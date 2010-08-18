@@ -78,7 +78,7 @@ This will cause a second model selection drop down box and set of model
 parameter input boxes to appear.
 
 Enter the parameters for the curves you wish to compare in the two 
-columns. The curves are independent of each other. An exmaple of two 
+columns. The curves are independent of each other. An example of two 
 curves to be compared is below.
 
 .. image:: $(IMAGES)/howto-enter2
