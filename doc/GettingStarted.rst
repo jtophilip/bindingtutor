@@ -13,7 +13,9 @@ To begin, you will need to `download and install MTBindingSim
 you run MTBindingSim for the first time, you should see a window that
 looks like this:
 
-**Screen shot:** when first opened
+.. image:: $(IMAGES)/gettingstarted-open
+   :width: 5.127in
+   :align: center
 
 MTBindingSim's defaults are to plot a graph of an experiment in which 
 the total concentration of microtubules, [MT], is varied (along the 
@@ -26,22 +28,30 @@ the binding models.
 First, enter values for the experimental range of [MT].  Varying between 
 0 and 10 is a nice start.
 
-**Screen shot:** [MT] with 0 and 10 entered.
+.. image:: $(IMAGES)/gettingstarted-mtrange
+   :width: 1.493in
+   :align: center
 
 You will also need to enter values for [A] total, K\ :sub:`D`\ , and the 
 binding ratio.  Try 2 for both [A] total and K\ :sub:`D`\ , and leave 
 the binding ratio at its default of 1.
 
-**Screen shot:** parameters with 2, 2, 1 filled in
+.. image:: $(IMAGES)/gettingstarted-parameters
+   :width: 1.24in
+   :align: center
 
 To calculate the binding curve under these conditions, click the graph 
 button.
 
-**Screen shot:** the graph button
+.. image:: $(IMAGES)/gettingstarted-graphbutton
+   :width: 0.687in
+   :align: center
 
 You should now see a graph that looks like this:
 
-**Screen shot:** graph
+.. image:: $(IMAGES)/gettingstarted-graph1
+   :width: 4.047in
+   :align: center
 
 Congratulations, you've just plotted your first binding curve using 
 MTBindingSim!
@@ -50,13 +60,17 @@ Try changing the values of [A] total, K\ :sub:`D`\, or the binding ratio
 to see how the curves change. After plotting four curves you'll have a 
 graph that might look something like this:
 
-**Screen shot:** graph with 4 curves
+.. image:: $(IMAGES)/gettingstarted-4curves
+   :width: 4.407in
+   :align: center
 
 If you'd like to start over with a new graph, click the clear button. 
 This will delete the current graph, and subsequent curves will be plotted 
 on a new plot.
 
-**Screen shot:** clear button
+.. image:: $(IMAGES)/gettingstarted-clearbutton
+   :width: 0.693in
+   :align: center
 
 For more detailed information about what you can do with MTBindingSim, 
 see the `Running MTBindingSim <$(DOCS):RunningMTBindingSim>`_ and `How 

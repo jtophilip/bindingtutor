@@ -71,7 +71,7 @@ To compare two curves in MTBindingSim, first select "compare two curves"
 from the plotting mode box.
 
 .. image:: $(IMAGES)/howto-selectcomp
-   :width: 5in
+   :width: 1.44in
    :align: center
 
 This will cause a second model selection drop down box and set of model 
@@ -82,14 +82,14 @@ columns. The curves are independent of each other. An example of two
 curves to be compared is below.
 
 .. image:: $(IMAGES)/howto-enter2
-   :width: 5in
+   :width: 5.127in
    :align: center
 
 When you click the graph button, the curves will be plotted on the active 
 graph or a new graph.
 
 .. image:: $(IMAGES)/howto-2curves
-   :width: 5in
+   :width: 4.047in
    :align: center
 
 If the X-axis is plotting total [MT] or total [A], 
@@ -97,7 +97,7 @@ or in competition mode he program also will calculate the difference between the
 and display the result,.
 
 .. image:: $(IMAGES)/howto-result
-   :width: 5in
+   :width: 2.013in
    :align: center
 
 These values are calculated by computing the absolute and percentage 

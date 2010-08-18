@@ -26,7 +26,9 @@ There are three avalible experimental methods. Curves from different
 experimental methods cannot be plotted on the same graph, so changing 
 the experimental method will automatically close an active graph.
 
-Screen shot of the experimental method selection box.
+.. image:: $(IMAGES)/running-expmode
+   :width: 1.153in
+   :align: center
 
 **Vary [MT]:** In this method, the concentration of A is held constant 
 and the concentration of MT is varied. The fraction of A bound is 
@@ -54,7 +56,9 @@ Plotting Mode
 MTBindingSim can plot one curve at a time or it can plot two curves 
 simultaneously.
 
-Screen shot of plotting mode box
+.. image:: $(IMAGES)/running-plotmode
+   :width: 1.353in
+   :align: center
 
 For more information about comparing two curves see the `How To section 
 <$(DOCS):HowTo>`_.
@@ -64,7 +68,9 @@ X-axis
 
 In Vary [MT] mode, the X-axis can be set to either [MT] total or [MT] free.
 
-Screen shot of X-axis MT
+.. image:: $(IMAGES)/running-xaxisMT
+   :width: 1.187in
+   :align: center
 
 [MT] total is a known quantity in the experiment, while [MT] free must be 
 calculated. However, the familiar Langmuir Isotherm equation uses [MT] free as 
@@ -74,7 +80,9 @@ bound is 0.5 only works if the x-axis is [MT] free.
 
 In Vary [A] mode, the x-axis can be set to either [A] total or [A] free.
 
-Screen shot of x-axis A
+.. image:: $(IMAGES)/running-xaxisMT
+   :width: 1.233in
+   :align: center
 
 Changing the x-axis mode will automatically close the active graph.
 
@@ -83,7 +91,9 @@ Number of Points
 
 The number of points plotted may be specified.
 
-Screen shot of number of points
+.. image:: $(IMAGES)/running-points
+   :width: 1.2in
+   :align: center
 
 The default number of points is 100. A larger number of points can be 
 used if a smoother curve is desired. A smaller number of points will 
@@ -104,7 +114,9 @@ First order binding simulates binding under standard first order
 conditions where one A interacts with one MT, and all A-MT interactions 
 are identical.
 
-**Screen shot:** first order and inputs
+.. image:: $(IMAGES)/running-firstorder
+   :width: 1.707in
+   :align: center
 
 For first order binding, you need to input the total concentration of A 
 (or MT), the K\ :sub:`D`\ , and the binding ratio.  All of these must 
@@ -117,7 +129,9 @@ Traditional cooperativity simulates binding where one A binding to one
 MT influences the binding of another A to a neighboring MT. For the 
 purposes of this model only interactions between two As are considered.
 
-**Screen shot:** cooperativity and inputs
+.. image:: $(IMAGES)/running-cooperativity
+   :width: 1.927in
+   :align: center
 
 For cooperativity, you need to input the total concentration of A (or 
 MT), K\ :sub:`D`\, φ, which determines the dissociation constant for 
@@ -130,7 +144,9 @@ Seam and Lattice Binding
 Seam and lattice binding simulates a scenario in which protein A binds 
 to the MT seam with a different affinity than the MT lattice.
 
-**Screen shot:** seam lattice and inputs
+.. image:: $(IMAGES)/running-seam
+   :width: 1.747in
+   :align: center
 
 For this model you need to input the total concentration of A (or MT), 
 the dissociation constants for the seam, K\ :sub:`S`\ , lattice, K\
@@ -142,7 +158,9 @@ MAPs Bind MT-bound MAPs
 In this model, once one A has bound to the MT, another A can bind to it 
 without taking up another MT binding site.
 
-**Screen shot:** MAPs binding and inputs
+.. image:: $(IMAGES)/running-MAP
+   :width: 1.833in
+   :align: center
 
 For this model, you need to input the total concentration of A (or MT), 
 the dissociation constant for A binding to MT, K\ :sub:`M`\ , the 
@@ -155,7 +173,9 @@ Two MAPs Bind MT-bound MAPs
 In this model, once one A has bound to the MT, two more As can bind to 
 it without taking up additional MT binding sites.
 
-**Screen shot:** 2MAP binding
+.. image:: $(IMAGES)/running-2MAP
+   :width: 2.087in
+   :align: center
 
 For this model, you need to input the total concentration of A (or MT), 
 the dissociation constant for A binding to MT, K\ :sub:`M`\ , the 
@@ -168,7 +188,9 @@ MAPs Dimerize
 In this model, A can exist either as a monomer or as a dimer, and both the 
 monomer and dimer forms can bind to MT.
 
-**Screen shot:** dimer and inputs
+.. image:: $(IMAGES)/running-dimer
+   :width: 1.933in
+   :align: center
 
 For this model, you need to input the total amount of A (or MT), the 
 dissociation constant for monomeric A binding MT, K\ :sub:`1`\ , the 
