@@ -11,7 +11,9 @@
 \usepackage{color}
 \usepackage{tipa}
 \usepackage{hyperref}
+
 \usepackage{paralist}
+\setlength{\pltopsep}{15pt}
 
 % Look for hi-res graphics by default
 \usepackage{graphicx}
