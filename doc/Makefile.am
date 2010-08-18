@@ -14,7 +14,8 @@ docs-wiki: $(WIKI_FILES)
 
 DOCS_RST_SOURCE = \
 	BindingModels.rst ChangeLog.rst GettingStarted.rst HowTo.rst \
-	Introduction.rst RunningMTBindingSim.rst Troubleshooting.rst
+	Introduction.rst RunningMTBindingSim.rst Troubleshooting.rst \
+	Acknowledgments.rst
 
 EXTRA_DIST = $(DOCS_RST_SOURCE) gpl-3.0.tex cc-by-sa.tex docutils-template.inc wiki
 

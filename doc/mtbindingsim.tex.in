@@ -127,6 +127,10 @@
 \label{chapter:Troubleshooting}
 \input{@top_builddir@/doc/Troubleshooting}
 
+\chapter{Acknowledgments}
+\label{chapter:Acknowledgments}
+\input{@top_builddir@/doc/Acknowledgments}
+
 \appendix
 \chapter{Revision History}
 \label{chapter:ChangeLog}
