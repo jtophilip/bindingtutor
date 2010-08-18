@@ -130,6 +130,10 @@
 \label{chapter:Troubleshooting}
 \input{@top_builddir@/doc/Troubleshooting}
 
+\chapter{Contact Us}
+\label{chapter:ContactUs}
+\input{@top_builddir@/doc/ContactUs}
+
 \chapter{Acknowledgments}
 \label{chapter:Acknowledgments}
 \input{@top_builddir@/doc/Acknowledgments}
