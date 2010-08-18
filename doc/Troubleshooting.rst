@@ -66,6 +66,13 @@ the line for the last one to be graphed may lie precisely on top of the
 line for the first to be graphed, making the first line invisible.  Try 
 graphing your curves one-at-a-time, and comparing the graphs.
 
+My graph looks wrong
+--------------------
+
+Your graph looking wrong could have several causes. First, make sure that the x- and y-axis ranges are appropriate for your graph.
+
+If you are confident that you are looking at the graph with appropriate axes and it still looks wrong or strange, it is possible that the program has calculated your graph incorrectly. While we have made every attempt to ensure that MTBindingSim will always calculate the correct graph, it is possible that we missed something. Please submit a bug report on our website and we will attempt to fix the problem. To help us diagnose the issue you are having, it would be very helpful if you can run the graph several times, tweaking the parameters, to determine what parameter or combination of parameters is causing the problem. Thank you for helping us keep MTBindingSim working properly!
+
 
 Other
 =====
