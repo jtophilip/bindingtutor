@@ -17,8 +17,14 @@ changes:
 
 # Build the binary distribution (only in src)
 if BINDIST
+if DOCS
 bindist:
+	(cd doc && $(MAKE) mtbindingsim.pdf) || exit 1
 	(cd src && $(MAKE) $(AM_MAKEFLAGS) $@) || exit 1
+else
+bindist:
+	@echo "Cannot build binary distribution, TeX is required to build the PDF documentation."
+endif
 else
 bindist:
 	@echo "Cannot build binary distribution, the 'zip' utility cannot be found."

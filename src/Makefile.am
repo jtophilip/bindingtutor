@@ -114,6 +114,7 @@ BINARY_FILES=$(ALL_BINARY_FILES) $(PLATFORM_BINARY_FILES)
 bindist: MTBindingSim.prj
 	$(MKDIR_P) @builddir@/$(BINARY_NAME)
 	test ! -d @builddir@/MTBindingSim.app || find @builddir@/MTBindingSim.app -exec chmod u+rwx "{}" \;
+	cp -fR @top_builddir@/doc/mtbindingsim.pdf @builddir@/$(BINARY_NAME)/ || exit 1
 	cp -fR $(BINARY_FILES) @builddir@/$(BINARY_NAME)/ || exit 1
 	$(ZIP) -r $(BINARY_NAME).zip $(BINARY_NAME)
 	rm -rf $(BINARY_NAME)/
