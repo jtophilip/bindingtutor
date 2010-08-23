@@ -1,3 +1,11 @@
+2010-08-23 15:08  Julia Philip <jtophilip@gmail.com>
+
+	* src/Makefile.am: Fixed some strange build-system bugs.
+
+2010-08-23 14:45  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Updated ChangeLog.
+
 2010-08-23 14:39  Charles Pence <charles@charlespence.net>
 
 	* THANKS: Updated THANKS.
