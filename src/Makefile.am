@@ -23,6 +23,13 @@ else
 endif
 
 
+# Again, fool Automake by putting in dummy compilation instructions for the things
+# that might be in bin_SCRIPTS
+MTBindingSim: MTBindingSim.prj
+MTBindingSim.exe: MTBindingSim.prj
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT = $(EXTRA_SCRIPTS)
+
+
 # Get the list of source files we need
 MTBindingSim_MATLAB = \
 	MTBindingSim.m \
