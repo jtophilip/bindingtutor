@@ -284,7 +284,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     % Gets the value for MTtot and makes sure that it's a positive number
     MTtot = str2double(get(handles.input1_1, 'String'));
     
-    if isnan(MTtot) || MTtot < 0
+    if isnan(MTtot) || MTtot <= 0
         errorbox('Please enter a positive number for [MT] total', hObject);
         return
     end
@@ -292,7 +292,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     % Gets the value for Atot and make sure it's a positive number
     Atot = str2double(get(handles.input2_1, 'String'));
     
-    if isnan(Atot) || Atot < 0
+    if isnan(Atot) || Atot <= 0
         errorbox('Please enter a positive number for [A] total', hObject);
         return
     end
@@ -300,7 +300,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     % Gets the value for KA and make sure it's a positive number
     KA = str2double(get(handles.input3_1, 'String'));
     
-    if isnan(KA) || KA < 0
+    if isnan(KA) || KA <= 0
         errorbox('Please enter a positive number for K_A', hObject);
         return
     end
@@ -308,7 +308,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     % Gets the value for KB and makes sure it's a positive number
     KB = str2double(get(handles.input4_1, 'String'));
     
-    if isnan(KB) || KB < 0
+    if isnan(KB) || KB <= 0
         errorbox('Please enter a positive number for K_B', hObject);
         return
     end
@@ -348,7 +348,7 @@ elseif get(handles.curve1, 'Value') == 1
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(Atot) || Atot < 0
+            if isnan(Atot) || Atot <= 0
                 errorbox('Please enter a positive number for [A] total', hObject); 
                 return
             end
@@ -431,7 +431,7 @@ elseif get(handles.curve1, 'Value') == 1
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(MTtot) || MTtot < 0
+            if isnan(MTtot) || MTtot <= 0
                 errorbox('Please enter a positive number for [MT] total', hObject); 
                 return
             end
@@ -525,7 +525,7 @@ elseif get(handles.curve1, 'Value') == 2
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(Atot) || Atot < 0
+            if isnan(Atot) || Atot <= 0
                 errorbox('Please enter a positive number for [A] total', hObject); 
                 return
             end
@@ -618,7 +618,7 @@ elseif get(handles.curve1, 'Value') == 2
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(MTtot) || MTtot < 0
+            if isnan(MTtot) || MTtot <= 0
                 errorbox('Please enter a positive number for [MT] total', hObject); 
                 return
             end
@@ -723,7 +723,7 @@ elseif get(handles.curve1, 'Value') == 3
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(Atot) || Atot < 0
+            if isnan(Atot) || Atot <= 0
                 errorbox('Please enter a positive number for [A] total', hObject); 
                 return
             end
@@ -815,7 +815,7 @@ elseif get(handles.curve1, 'Value') == 3
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(MTtot) || MTtot < 0
+            if isnan(MTtot) || MTtot <= 0
                 errorbox('Please enter a positive number for [MT] total', hObject); 
                 return
             end
@@ -920,7 +920,7 @@ elseif get(handles.curve1, 'Value') == 4
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(Atot) || Atot < 0
+            if isnan(Atot) || Atot <= 0
                 errorbox('Please enter a positive number for [A] total', hObject); 
                 return
             end
@@ -1011,7 +1011,7 @@ elseif get(handles.curve1, 'Value') == 4
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(MTtot) || MTtot < 0
+            if isnan(MTtot) || MTtot <= 0
                 errorbox('Please enter a positive number for [MT] total', hObject); 
                 return
             end
@@ -1113,7 +1113,7 @@ elseif get(handles.curve1, 'Value') == 5
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(Atot) || Atot < 0
+            if isnan(Atot) || Atot <= 0
                 errorbox('Please enter a positive number for [A] total', hObject); 
                 return
             end
@@ -1205,7 +1205,7 @@ elseif get(handles.curve1, 'Value') == 5
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(MTtot) || MTtot < 0
+            if isnan(MTtot) || MTtot <= 0
                 errorbox('Please enter a positive number for [MT] total', hObject); 
                 return
             end
@@ -1306,7 +1306,7 @@ elseif get(handles.curve1, 'Value') == 6
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(Atot) || Atot < 0
+            if isnan(Atot) || Atot <= 0
                 errorbox('Please enter a positive number for [A] total', hObject); 
                 return
             end
@@ -1406,7 +1406,7 @@ elseif get(handles.curve1, 'Value') == 6
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
-            if isnan(MTtot) || MTtot < 0
+            if isnan(MTtot) || MTtot <= 0
                 errorbox('Please enter a positive number for [MT] total', hObject); 
                 return
             end
@@ -1520,7 +1520,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
       % Gets the value of MTtot and ensures it's a positivie number
       MTtot = str2double(get(handles.input1_2, 'String'));
     
-      if isnan(MTtot) || MTtot < 0
+      if isnan(MTtot) || MTtot <= 0
           errorbox('Please enter a positive number for [MT] total', hObject);
           return
       end
@@ -1528,7 +1528,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
       % Gets the value of Atot and ensures it's a positivie number
     Atot = str2double(get(handles.input2_2, 'String'));
     
-    if isnan(Atot) || Atot < 0
+    if isnan(Atot) || Atot <= 0
         errorbox('Please enter a positive number for [A] total', hObject);
         return
     end
@@ -1536,7 +1536,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     % Gets the value of KA and ensures it's a positive number
     KA = str2double(get(handles.input3_2, 'String'));
     
-    if isnan(KA) || KA < 0
+    if isnan(KA) || KA <= 0
         errorbox('Please enter a positive number for K_A', hObject);
         return
     end
@@ -1544,7 +1544,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     % Gets the value of KB and ensures it's a positive number
     KB = str2double(get(handles.input4_2, 'String'));
     
-    if isnan(KB) || KB < 0
+    if isnan(KB) || KB <= 0
         errorbox('Please enter a positive number for K_B', hObject);
         return
     end
@@ -1582,7 +1582,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(Atot) || Atot < 0
+                if isnan(Atot) || Atot <= 0
                     errorbox('Please enter a positive number for [A] total', hObject); 
                     return
                 end
@@ -1657,7 +1657,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(MTtot) || MTtot < 0
+                if isnan(MTtot) || MTtot <= 0
                     errorbox('Please enter a positive number for [MT] total', hObject); 
                     return
                 end
@@ -1742,7 +1742,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(Atot) || Atot < 0
+                if isnan(Atot) || Atot <= 0
                     errorbox('Please enter a positive number for [A] total', hObject); 
                     return
                 end
@@ -1825,7 +1825,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(MTtot) || MTtot < 0
+                if isnan(MTtot) || MTtot <= 0
                     errorbox('Please enter a positive number for [MT] total', hObject); 
                     return
                 end
@@ -1918,7 +1918,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(Atot) || Atot < 0
+                if isnan(Atot) || Atot <= 0
                     errorbox('Please enter a positive number for [A] total', hObject); 
                     return
                 end
@@ -2001,7 +2001,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(MTtot) || MTtot < 0
+                if isnan(MTtot) || MTtot <= 0
                     errorbox('Please enter a positive number for [MT] total', hObject); 
                     return
                 end
@@ -2094,7 +2094,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(Atot) || Atot < 0
+                if isnan(Atot) || Atot <= 0
                     errorbox('Please enter a positive number for [A] total', hObject); 
                     return
                 end
@@ -2177,7 +2177,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(MTtot) || MTtot < 0
+                if isnan(MTtot) || MTtot <= 0
                     errorbox('Please enter a positive number for [MT] total', hObject); 
                     return
                 end
@@ -2272,7 +2272,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(Atot) || Atot < 0
+                if isnan(Atot) || Atot <= 0
                     errorbox('Please enter a positive number for [A] total', hObject); 
                     return
                 end
@@ -2355,7 +2355,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
-                if isnan(MTtot) || MTtot < 0
+                if isnan(MTtot) || MTtot <= 0
                     errorbox('Please enter a positive number for [MT] total', hObject); 
                     return
                 end
@@ -2449,7 +2449,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % positive number
             Atot = str2double(get(handles.input1_2, 'String'));
 
-            if isnan(Atot) || Atot < 0
+            if isnan(Atot) || Atot <= 0
                 errorbox('Please enter a positive number for [A] total', hObject); 
                 return
             end
@@ -2541,7 +2541,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % positive number
             MTtot = str2double(get(handles.input1_2, 'String'));
 
-            if isnan(MTtot) || MTtot < 0
+            if isnan(MTtot) || MTtot <= 0
                 errorbox('Please enter a positive number for [MT] total', hObject); 
                 return
             end
