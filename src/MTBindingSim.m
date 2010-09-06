@@ -97,6 +97,11 @@ handles.graphaxes = -1;
 % Creates a color variable to enable rotating colors according to how many
 % lines are on the graph
 handles.color = 0;
+
+% Creates xmin and xmax variables for plotting
+handles.xmin_all = 1*10^20;
+handles.xmax_all = 0;
+
 % Create selection change functions for the experimental mode and plotting
 % mode button groups
 set(handles.exp_mode, 'SelectionChangeFcn', @exp_mode_SelectionChangeFcn);
@@ -114,6 +119,8 @@ KA = 'K<sub><small>A</small></sub>';
 KB = 'K<sub><small>B</small></sub>';
 K1 = 'K<sub><small>1</small></sub>';
 K2 = 'K<sub><small>2</small></sub>';
+
+
 
 % Convert a bunch of our controls to java controls
 handles.units_xmin = make_java_component(handles.units_xmin, UM, 0);
@@ -2646,6 +2653,15 @@ end
 % Activate the graph window
 figure(handles.graphfigure);
 
+% Updates xmax_all and xmin_all
+if min(x1) < handles.xmin_all
+    handles.xmin_all = min(x1);
+end
+
+if max(x1) > handles.xmax_all
+    handles.xmax_all = max(x1);
+end
+
 % Plots the x and y data for the first curve
 hold on
 h = plot(handles.graphaxes, x1, y1);
@@ -2673,10 +2689,23 @@ elseif rem(handles.color,7) ==6
 end
 handles.color = handles.color +1;
 
+if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding')
+    axis([handles.xmin_all handles.xmax_all 0 1])
+end
+
 
 % Determines if comparision mode is selected and calculates the
 % second curve
 if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
+    
+    % Updates xmax_all and xmin_all
+    if min(x1) < handles.xmin_all
+        handles.xmin_all = min(x2);
+    end
+
+    if max(x1) > handles.xmax_all
+        handles.xmax_all = max(x2);
+    end
     
     %plots the x and y data
     hold on
@@ -2701,6 +2730,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         set(h,'color','black');
     end
     handles.color = handles.color +1;
+    
+    if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding')
+    axis([handles.xmin_all handles.xmax_all 0 1])
+    end
     
     % Computes and displays the differences between the two curves if the
     % x-axis is in total mode
@@ -2775,6 +2808,10 @@ end
 
 % Clears the results string
 set(handles.result, 'String', '');
+
+% Resets xmin_all and xmax_all
+handles.xmin_all = 1*10^20;
+handles.xmax_all = 0;
 
 % Updates the handles
 guidata(hObject, handles);
@@ -3050,6 +3087,10 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         delete(handles.graphfigure);
         handles.graphfigure = -1;
     end
+    
+    % Resets xmin_all and xmax_all
+    handles.xmin_all = 1*10^20;
+    handles.xmax_all = 0;
     
     % Updates the handles structure
     guidata(hObject, handles);
@@ -3393,6 +3434,10 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
         delete(handles.graphfigure);
         handles.graphfigure = -1;
     end
+    
+    % Resets xmin_all and xmax_all
+    handles.xmin_all = 1*10^20;
+    handles.xmax_all = 0;
 end
 
 % Update the handles structure
