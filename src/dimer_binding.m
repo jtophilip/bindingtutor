@@ -38,7 +38,7 @@ Xint = [0, Atot];
 for n = 1:b
     
     % Sets up the equation for Afree and calculates Afree
-    f = @(A)A + 2*A^2/KA + (A/K1 + 2*A^2/(KA* K2))*MTtot(n)*N/(1 + A/K1 + 2*A^2/(KA*K2)) - Atot;
+    f = @(A)A + 2*A^2/KA + (A/K1 + 2*A^2/(KA*K2))*MTtot(n)*N/(1 + A/K1 + 2*A^2/(KA*K2)) - Atot;
     [Afree(n), y, exit] = fzero(f, Xint);
 
     % Checks to make sure that fzero sucessfully calculated Afree and stops
@@ -58,4 +58,4 @@ Abound = Atot - Afree  - 2*Afree.^2./KA;
 Frac = Abound./Atot;
 
 % Calculated MTfree
-MTfree = MTtot./(1 + Afree./K1 + Afree.^2./(KA*K1));
+MTfree = MTtot./(1 + Afree./K1 + Afree.^2./(KA*K2));

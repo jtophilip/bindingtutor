@@ -355,11 +355,11 @@ We can write mass balances for A and MT:
 
 .. latex-math::
    
-   = [MT] + \frac{1}{K_1}[A][MT] + \frac{1}{K_2}[A]^2[MT]
+   = [MT] + \frac{1}{K_1}[A][MT] + \frac{1}{K_2}[A_2][MT]
 
 .. latex-math::
    
-   = [MT] + \frac{1}{K_1}[A][MT] + \frac{1}{K_2K_A}[A][MT].
+   = [MT] + \frac{1}{K_1}[A][MT] + \frac{1}{K_2K_A}[A]^2[MT].
 
 We can now solve the MT mass balance for free MT to get:
 
