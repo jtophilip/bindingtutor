@@ -212,7 +212,7 @@ calculate bound A and free and total MT.
 MAPs Bind MT-bound MAPs
 =======================
 
-In this model, A binds MT with a disocciation constant of K\ :sub:`M`\ ;
+In this model, A binds MT with a disocciation constant of K\ :sub:`MT`\ ;
 then, another A can bind the bound A with a disocciation constant of K\ 
 :sub:`A`\ . The binding relationship is:
 
@@ -224,17 +224,17 @@ The disocciation constants for these interactions are:
 
 .. latex-math::
    
-   K_M = [A]n[MT]/[AMT], K_A = [A][AMT]/[A_2MT].
+   K_{MT} = [A]n[MT]/[AMT], K_A = [A][AMT]/[A_2MT].
 
 We can write the mass balances for this situation:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT] = [A] + \frac{1}{K_M}[A]n[MT] + \frac{1}{K_A}[A][AMT] \\ = [A] + \frac{1}{K_M}[A]n[MT] + \frac{1}{K_M K_A}[A]^2n[MT]
+   [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT] = [A] + \frac{1}{K_{MT}}[A]n[MT] + \frac{1}{K_A}[A][AMT] \\ = [A] + \frac{1}{K_{MT}}[A]n[MT] + \frac{1}{K_{MT} K_A}[A]^2n[MT]
 
 .. latex-math::
    
-   [MT]_{\mathrm{total}} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_M}[A][MT] + \frac{1}{K_M K_A}[A]^2[MT].
+   [MT]_{\mathrm{total}} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_{MT}}[A][MT] + \frac{1}{K_{MT} K_A}[A]^2[MT].
 
 You may notice that this model is almost identical to the traditional 
 cooperativity model. The main difference occurs in the MT mass balance 
@@ -246,13 +246,13 @@ We can solve the MT mass balance for free MT as follows:
 
 .. latex-math::
    
-   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2}.
+   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{MT}}[A] + \frac{1}{K_{MT} K_A}[A]^2}.
 
 We can then substitute this equation into the A mass balance to get:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_M}[A] + 2\frac{1}{K_M K_A}[A]^2 \right) \frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2}.
+   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{MT}}[A] + 2\frac{1}{K_{MT} K_A}[A]^2 \right) \frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{MT}}[A] + \frac{1}{K_{MT} K_A}[A]^2}.
 
 This equation is numerically solved by the program to find the value of 
 free A, which is used to calculate bound A and free and bound MT.
@@ -272,7 +272,7 @@ The disocciation constants for this model are:
 
 .. latex-math::
    
-   K_M = [A]n[MT]/[AMT], K_A = [A][AMT]/[A_2MT], K_A = [A][A_2MT]/[A_3MT].
+   K_{MT} = [A]n[MT]/[AMT], K_A = [A][AMT]/[A_2MT], K_A = [A][A_2MT]/[A_3MT].
 
 Note that the disocciation constant for the first and second MAP 
 binding to the MT-bound MAP is the same. The mass balances for this 
@@ -284,15 +284,15 @@ model are:
 
 .. latex-math::
    
-   = [A] + \frac{1}{K_M}[A]n[MT] + \frac{2}{K_A}[A][AMT] + \frac{3}{K_A}[A][A_2MT] 
+   = [A] + \frac{1}{K_{MT}}[A]n[MT] + \frac{2}{K_A}[A][AMT] + \frac{3}{K_A}[A][A_2MT] 
 
 .. latex-math::
    
-   = [A] + \frac{1}{K_M}[A]n[MT] + \frac{2}{K_M K_A} [A]^2n[MT] + \frac{3}{K_A^2}[A]^2[AMT] 
+   = [A] + \frac{1}{K_{MT}}[A]n[MT] + \frac{2}{K_{MT} K_A} [A]^2n[MT] + \frac{3}{K_A^2}[A]^2[AMT] 
 
 .. latex-math::
    
-   = [A] + \frac{1}{K_M}[A]n[MT] + \frac{2}{K_M K_A} [A]^2n[MT] + \frac{3}{K_M K_A^2}[A]^3n[MT],
+   = [A] + \frac{1}{K_{MT}}[A]n[MT] + \frac{2}{K_{MT} K_A} [A]^2n[MT] + \frac{3}{K_{MT} K_A^2}[A]^3n[MT],
 
 .. latex-math::
    
@@ -300,20 +300,20 @@ model are:
 
 .. latex-math::
    
-    = [MT] + \frac{1}{K_M}[A][MT] + \frac{1}{K_M K_A}[A]^2[MT] + \frac{1}{K_M K_A^2}[A]^3[MT].
+    = [MT] + \frac{1}{K_{MT}}[A][MT] + \frac{1}{K_{MT} K_A}[A]^2[MT] + \frac{1}{K_{MT} K_A^2}[A]^3[MT].
 
 Notice that, as with the MAPs bind MT-bound MAPs model, all MT-A complexes 
 contain a single MT unit. The MT mass balance can be solved for free MT:
 
 .. latex-math::
    
-   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2 + \frac{1}{K_M K_A^2}[A]^3}.
+   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{MT}}[A] + \frac{1}{K_{MT} K_A}[A]^2 + \frac{1}{K_{MT} K_A^2}[A]^3}.
 
 This can then be substituted into the A mass balance equation, yielding:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_M}[A] + \frac{2}{K_M K_A}[A]^2 + \frac{3}{K_M K_A^2}[A]^3 \right) \cdot \\ \frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_M}[A] + \frac{1}{K_M K_A}[A]^2 + \frac{1}{K_M K_A^2}[A]^3}.
+   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{MT}}[A] + \frac{2}{K_{MT} K_A}[A]^2 + \frac{3}{K_{MT} K_A^2}[A]^3 \right) \cdot \\ \frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{MT}}[A] + \frac{1}{K_{MT} K_A}[A]^2 + \frac{1}{K_{MT} K_A^2}[A]^3}.
 
 This equation is numerically solved by the program to get free A. This 
 is then used to calculate bound A and free and bound MT.
