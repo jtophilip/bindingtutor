@@ -1,8 +1,8 @@
-function [Frac, MTfree] = cooperativity_binding(MTtot, Atot, KD, P, N)
+function [Frac, MTfree] = cooperativity_binding(MTtot, Atot, KAM, P, N)
 % A function which calculates the binding of A to MT assuming cooperative
 % binding where the total concentrations of A and MT are Atot and MTtot,
-% the disassociation constant for the first bound A is KD, and the
-% disassociation constant for the second bound A is KD*P for an experiment
+% the disassociation constant for the first bound A is KAM, and the
+% disassociation constant for the second bound A is KAM*P for an experiment
 % where [MT] is varied and [A] is held constant.
 
 % This file is part of MTBindingSim.
@@ -41,7 +41,7 @@ for n = 1:b
     
     % Sets up the equation for calcualting Afree and preforms the
     % calcuation
-    f = @(A)A + ((2/KD)*A + (2/(P*(KD^2)))*A^2)*MTtot(n)*N/(1 + (2/KD)*A + (2/(P*(KD^2)))*A^2)-Atot;
+    f = @(A)A + ((2/KAM)*A + (2/(P*(KAM^2)))*A^2)*MTtot(n)*N/(1 + (2/KAM)*A + (2/(P*(KAM^2)))*A^2)-Atot;
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero sucessfully calculated Afree and ends
@@ -62,7 +62,7 @@ Abound = Atot - Afree;
 Frac = Abound./Atot;
 
 % Calculates free MT
-MTfree = MTtot./(1 + (2/KD).*Afree + (2/(P*KD)).*Afree.^2);
+MTfree = MTtot./(1 + (2/KAM).*Afree + (2/(P*KAM)).*Afree.^2);
 
 
 end

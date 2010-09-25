@@ -1,7 +1,7 @@
-function [Abound, Afree] = MAP_saturation(MTtot, Atot, KM, KA, N)
+function [Abound, Afree] = MAP_saturation(MTtot, Atot, KAM, KAA, N)
 % A function which calculates the binding of A to MT assuming that A binds
-% to MT with a disassociation constant of KM and that a second A can bind
-% to an MT-bound A with a disassociation constant of KA for an experiment
+% to MT with a dissociation constant of KAM and that a second A can bind
+% to an MT-bound A with a dissociation constant of KAA for an experiment
 % where [A] is varied and [MT] is held constant.
 
 % This file is part of MTBindingSim.
@@ -40,7 +40,7 @@ for n = 1:b
     Xint = [0, Atot(n)];
     
     % Sets up the equation for Afree and calculates its value
-    f = @(A)A + (A/KM + 2*A^2/(KA*KM))*MTtot*N/(1 + A/KM + A^2/(KM*KA)) - Atot(n);
+    f = @(A)A + (A/KAM + 2*A^2/(KAA*KAM))*MTtot*N/(1 + A/KAM + A^2/(KAM*KAA)) - Atot(n);
     [Afree(n), y, exit] = fzero(f, Xint);
     
     % Checks to make sure that fzero has sucessfully calculated Afree and

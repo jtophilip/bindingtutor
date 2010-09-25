@@ -1,7 +1,7 @@
-function [Frac] = competition(MTtot, Atot, Btot, KA, KB)
+function [Frac] = competition(MTtot, Atot, Btot, KAM, KBM)
 % A function which calculates the binding of A to MT assuming a competition
-% assay where A binds to MT with a KD of KA and B binds to MT with a KD of
-% KB. In this competition assay, Atot and MTtot are kept constant while
+% assay where A binds to MT with a KD of KAM and B binds to MT with a KD of
+% KBM. In this competition assay, Atot and MTtot are kept constant while
 % Btot is varied.
 
 % This file is part of MTBindingSim.
@@ -38,7 +38,7 @@ Xint = [0, MTtot];
 % Steps through Btot, calculating MTfree at each point
 for n = 1:b
     % Sets up the function to calculate MTfree and does the calculation
-    f = @(MT)MT + (1/KA)*MT*Atot/(1 + (1/KA)*MT) + (1/KB)*MT*Btot(n)/(1 + (1/KB)*MT) - MTtot;
+    f = @(MT)MT + (1/KAM)*MT*Atot/(1 + (1/KAM)*MT) + (1/KBM)*MT*Btot(n)/(1 + (1/KBM)*MT) - MTtot;
     [MTfree(n), y, exit] = fzero(f, Xint);
     
     % Checks to make sure that fzero sucessfully calculated MTfree and ends
@@ -51,7 +51,7 @@ for n = 1:b
 end
 
 % Calculates A free
-Afree = Atot./(1 + (1/KA).*MTfree);
+Afree = Atot./(1 + (1/KAM).*MTfree);
 
 % Calculates A bound
 Abound = Atot - Afree;

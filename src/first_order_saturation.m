@@ -1,7 +1,7 @@
-function [Abound, Afree] = first_order_saturation(MTtot, Atot, KD, N)
+function [Abound, Afree] = first_order_saturation(MTtot, Atot, KAM, N)
 % A function which calculates the biding of A to MT assuming first order
 % binding where the total concentrations of A and MT are Atot and Btot and
-% the disassociation constant is KD for an expeiment where [A] is varied
+% the disassociation constant is KAM for an expeiment where [A] is varied
 % and [MT] is held constant.
 
 % This file is part of MTBindingSim.
@@ -41,7 +41,7 @@ for n = 1:b
     Xint = [0,Atot(n)];
     
     % Sets us the function to calculate Afree and calculates Afree
-    f = @(A)A + (1/KD)*A*MTtot*N/(1 + (1/KD)*A)- Atot(n);
+    f = @(A)A + (1/KAM)*A*MTtot*N/(1 + (1/KAM)*A)- Atot(n);
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero has successfully calculated Afree and

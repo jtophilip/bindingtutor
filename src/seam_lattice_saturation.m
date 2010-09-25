@@ -1,7 +1,7 @@
-function [Abound, Afree] = seam_lattice_saturation(MTtot, Atot, KS, KL, N)
+function [Abound, Afree] = seam_lattice_saturation(MTtot, Atot, KAS, KAL, N)
 % A function which calculates the binding of A to MT assuming that A binds
-% to the seam of the MT with disassociation constant KS and the lattice of
-% the MT with disassociation constant KL for an experiment where [A] is
+% to the seam of the MT with dissociation constant KAS and the lattice of
+% the MT with dissociation constant KAL for an experiment where [A] is
 % varied and [MT] is held constant.
 
 % This file is part of MTBindingSim.
@@ -43,7 +43,7 @@ for n = 1:b
     Xint = [0, Atot(n)];
     
     % Sets up the equation for Afree and calculates its value
-    f = @(A)A + (1/KS)*A*ST/(1 + (1/KS)*A) + (1/KL)*A*LT/(1 + (1/KL)*A) - Atot(n);
+    f = @(A)A + (1/KAS)*A*ST/(1 + (1/KAS)*A) + (1/KAL)*A*LT/(1 + (1/KAL)*A) - Atot(n);
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzeros sucessfully calculated Afree and ends

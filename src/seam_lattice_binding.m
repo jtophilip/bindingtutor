@@ -1,7 +1,7 @@
-function [Frac, MTfree] = seam_lattice_binding(MTtot, Atot, KS, KL, N)
+function [Frac, MTfree] = seam_lattice_binding(MTtot, Atot, KAS, KAL, N)
 % A function which calculates the binding of A to MT assuming that A binds
-% to the seam of the MT with disassociation constant KS and the lattice of
-% the MT with disassociation constant KL for an experiment where [MT] is
+% to the seam of the MT with dissociation constant KAS and the lattice of
+% the MT with dissociation constant KAL for an experiment where [MT] is
 % varied and [A] is held constant.
 
 % This file is part of MTBindingSim.
@@ -43,7 +43,7 @@ Xint = [0, Atot];
 for n = 1:b
     
     % Sets up the equation for Afree and calculates it
-    f = @(A)A + (1/KS)*A*ST(n)/(1 + (1/KS)*A) + (1/KL)*A*LT(n)/(1 + (1/KL)*A) - Atot;
+    f = @(A)A + (1/KAS)*A*ST(n)/(1 + (1/KAS)*A) + (1/KAL)*A*LT(n)/(1 + (1/KAL)*A) - Atot;
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero sucessfully calculated Afree and ends
@@ -63,8 +63,8 @@ Abound = Atot - Afree;
 Frac = Abound./Atot;
 
 % Calculates free seam, lattice, and total MT
-s = ST./(1+(1/KS).*Afree);
-l = LT./(1 + (1/KL).*Afree);
+s = ST./(1+(1/KAS).*Afree);
+l = LT./(1 + (1/KAL).*Afree);
 MTfree = s  + l;
 
 end

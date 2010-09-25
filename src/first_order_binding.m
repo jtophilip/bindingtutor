@@ -1,7 +1,7 @@
-function [Frac, MTfree] = first_order_binding(MTtot, Atot, KD, N)
+function [Frac, MTfree] = first_order_binding(MTtot, Atot, KAM, N)
 % A function which calculates the biding of A to MT assuming first order
 % binding where the total concentrations of A and MT are Atot and Btot and
-% the disassociation constant is KD for an experiemnt where [MT] is varied
+% the disassociation constant is KAM for an experiemnt where [MT] is varied
 % and [A] is held constant.
 
 % This file is part of MTBindingSim.
@@ -39,7 +39,7 @@ Xint = [0,Atot];
 for n = 1:b
     
     % Creates a function of Afree and calculates the value of Afree
-    f = @(A)A + (1/KD)*A*MTtot(n)*N/(1 + (1/KD)*A) - Atot;
+    f = @(A)A + (1/KAM)*A*MTtot(n)*N/(1 + (1/KAM)*A) - Atot;
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero has sucessfully calculated a value for
@@ -59,7 +59,7 @@ Abound = Atot - Afree;
 Frac = (Abound)./Atot;
 
 % Solves for free MT
-MTfree = MTtot./(1 + (1/KD).*(Afree));
+MTfree = MTtot./(1 + (1/KAM).*(Afree));
 
 
 end

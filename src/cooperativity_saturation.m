@@ -1,8 +1,8 @@
-function [Abound, Afree] = cooperativity_saturation(MTtot, Atot, KD, P, N)
+function [Abound, Afree] = cooperativity_saturation(MTtot, Atot, KAM, P, N)
 % A function which calculates the binding of A to MT assuming cooperative
 % binding where the total concentrations of A and MT are Atot and MTtot,
-% the disassociation constant for the first bound A is KD, and the
-% disassociation constant for the second bound A is KD*P for an experiment
+% the disassociation constant for the first bound A is KAM, and the
+% disassociation constant for the second bound A is KAM*P for an experiment
 % where [A] is varied and [MT] is held constant.
 
 % This file is part of MTBindingSim.
@@ -40,7 +40,7 @@ for n = 1:b
     Xint = [0,Atot(n)];
     
     % Sets up the equation for Afree and calculates it
-    f = @(A)A + ((2/KD)*A + (2/(P*(KD^2)))*A^2)*MTtot*N/(1 + (2/KD)*A + (2/(P*(KD^2)))*A^2)-Atot(n);
+    f = @(A)A + ((2/KAM)*A + (2/(P*(KAM^2)))*A^2)*MTtot*N/(1 + (2/KAM)*A + (2/(P*(KAM^2)))*A^2)-Atot(n);
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero sucessfully calculated Afree and ends
