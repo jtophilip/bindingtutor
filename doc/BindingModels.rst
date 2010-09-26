@@ -67,6 +67,12 @@ MTBindingSim does not deal with such cases.
 First Order Binding
 ===================
 
+This model is simple first order binding.
+
+.. image:: $(IMAGES)/First_order.pdf
+   :width: 3in
+   :align: center
+
 In first order binding, the relationship between A and MT is:
 
 .. latex-math::
@@ -108,8 +114,13 @@ Traditional Cooperativity
 =========================
 
 In the traditional cooperativity model, the binding of the first MAP 
-changes the dissociation constant for a second MAP binding. The binding 
-relationship is:
+changes the dissociation constant for a second MAP binding. 
+
+.. image:: $(IMAGES)/Cooperativity.pdf
+   :width: 3in
+   :align: center
+
+The binding relationship is:
 
 .. latex-math::
    
@@ -151,7 +162,7 @@ This equation can be plugged into the A total equation:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{AMT}[A] + \frac{2}{\phi K_{AMT}^2}[A]^2 \right) \frac{n [MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{2}{\phi K_{AMT}^2}[A]^2}.
+   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{AMT}}[A] + \frac{2}{\phi K_{AMT}^2}[A]^2 \right) \frac{n [MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{2}{\phi K_{AMT}^2}[A]^2}.
 
 This equation is numerically solved for [A] free and the resulting value 
 is used to calculate [A] bound as well as [MT] free and [MT] bound.
@@ -163,7 +174,12 @@ In the seam and lattice binding model, it is assumed that there are two
 different kinds of binding sites on the MT: seam sites and lattice 
 sites, which have different dissociation constants. The seam sites are 
 1/13 of the total MT and the lattice sites are 12/13 of the total MT. 
-Thus, the binding relationship is:
+
+.. image:: $(IMAGES)/Seam_lattice.pdf
+   :width: 3in
+   :align: center
+
+The binding relationship is:
 
 .. latex-math::
    
@@ -214,7 +230,13 @@ MAPs Bind MT-bound MAPs
 
 In this model, A binds MT with a disocciation constant of K\ :sub:`AMT`\ ;
 then, another A can bind the bound A with a disocciation constant of K\ 
-:sub:`AA`\ . The binding relationship is:
+:sub:`AA`\ . 
+
+.. image:: $(IMAGES)/MAP_bind.pdf
+   :width: 3in
+   :align: center
+
+The binding relationship is:
 
 .. latex-math::
    
@@ -262,7 +284,13 @@ Two MAPs Bind MT-bound MAPs
 
 This model is very similar to the MAPs bind MT-bound MAPs model, except 
 in this case two layers of bound MAP are possible on top of an MT-bound 
-MAP. The binding relationships for this model are:
+MAP. 
+
+.. image:: $(IMAGES)/MAP_bind2.pdf
+   :width: 3in
+   :align: center
+
+The binding relationships for this model are:
 
 .. latex-math::
    
@@ -323,7 +351,13 @@ MAPs Dimerize
 
 In this model, A can form a dimer with itself, and can bind to the MT in 
 both the monomeric and dimeric forms with different disocciation 
-constants. The binding interaction for this model is:
+constants. 
+
+.. image:: $(IMAGES)/Dimer.pdf
+   :width: 3in
+   :align: center
+
+The binding interaction for this model is:
 
 .. latex-math::
    
@@ -343,7 +377,7 @@ We can write mass balances for A and MT:
 
 .. latex-math::
    
-   = [A] + \frac{2}{K_{AA}}[A]^2 + \frac{1}{K_{AMT}}[A]n[MT] + \frac{1}{K_{AAMT}[A_2]n[MT]
+   = [A] + \frac{2}{K_{AA}}[A]^2 + \frac{1}{K_{AMT}}[A]n[MT] + \frac{1}{K_{AAMT}}[A_2]n[MT]
 
 .. latex-math::
    
@@ -371,7 +405,7 @@ We can plug this into the mass balance for A:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + \frac{2}{K_{AA}}[A]^2 + \left( \frac{1}{K_{{AMT}}[A] + \frac{1}{K_{AAMT}K_{AA}}[A]^2 \right)\frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AAMT}K_{AA}}[A]^2}.
+   [A]_{\mathrm{total}} = [A] + \frac{2}{K_{AA}}[A]^2 + \left( \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AAMT}K_{AA}}[A]^2 \right)\frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AAMT}K_{AA}}[A]^2}.
 
 This equation is numerically solved by the program for free A and the 
 result is used to calculate bound A and free and bound MT.
