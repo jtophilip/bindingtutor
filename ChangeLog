@@ -1,3 +1,61 @@
+2010-09-26 20:10  Charles Pence <charles@charlespence.net>
+
+	* configure.ac: Updated version number to 0.8 in configure.ac.
+
+2010-09-26 20:09  Julia Philip <jtophilip@gmail.com>
+
+	* doc/Acknowledgments.rst: Updated Acknowledgements.
+
+2010-09-26 20:08  Charles Pence <charles@charlespence.net>
+
+	* AUTHORS, NEWS: Updated NEWS and AUTHORS for 0.8.
+
+2010-09-26 19:35  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Added cartoons of binding models to the docs.
+
+2010-09-25 22:28  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Upated docs with new dissociation nomenclature.
+
+2010-09-25 20:05  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m, src/MAP2_saturation.m, src/MAP_binding.m,
+	  src/MAP_saturation.m, src/MTBindingSim.m, src/competition.m,
+	  src/cooperativity_binding.m, src/cooperativity_saturation.m,
+	  src/dimer_binding.m, src/dimer_saturation.m,
+	  src/first_order_binding.m, src/first_order_saturation.m,
+	  src/seam_lattice_binding.m, src/seam_lattice_saturation.m: Changed the
+	  nomenclature of the dissociation constants.
+
+2010-09-22 16:45  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst, src/MTBindingSim.m: Changed nomenclature from
+	  K_M to K_MT.
+
+2010-09-20 22:17  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst, src/dimer_binding.m: Fixed a bug in the dimer
+	  binding calculation and a typo in the documentation.
+
+2010-09-06 20:12  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m: Fixed the y-axis to be between 0 and 1 in vary
+	  [MT] mode.
+
+2010-09-06 19:47  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m: Fixed a bug in the validation code.
+
+2010-08-23 19:14  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Updating ChangeLog one last time.
+
+2010-08-23 19:13  Charles Pence <charles@charlespence.net>
+
+	* Makefile.am, src/Makefile.am: Adding the mtbindingsim.pdf docs to the
+	  binary distribution.
+
 2010-08-23 15:09  Charles Pence <charles@charlespence.net>
 
 	* ChangeLog: Updated ChangeLog again.
