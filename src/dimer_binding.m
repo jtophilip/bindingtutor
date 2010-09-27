@@ -58,4 +58,4 @@ Abound = Atot - Afree  - 2*Afree.^2./KAA;
 Frac = Abound./Atot;
 
 % Calculated MTfree
-MTfree = MTtot./(1 + Afree./KAM + Afree.^2./(KAA*KAAM));
+MTfree = MTtot./(1 + Afree./KAM + 2*Afree.^2./(KAA*KAAM));
