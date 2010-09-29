@@ -2,6 +2,17 @@
 MTBindingSim Revision History
 =============================
 
+Version 0.8.1
+=============
+
+* Fixed an urgent calculation bug.
+
+Version 0.8
+===========
+
+* Changed terminology for the various dissociation constants.
+* Various bug fixes, including a calculation error.
+
 Version 0.7
 ===========
 
