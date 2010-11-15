@@ -1,3 +1,21 @@
+2010-09-29 18:36  Charles Pence <charles@charlespence.net>
+
+	* NEWS, doc/ChangeLog.rst: Updated NEWS and ChangeLog doc page (which
+	  was out of date).
+
+2010-09-29 13:05  Charles Pence <charles@charlespence.net>
+
+	* NEWS, configure.ac: Incremented version number.
+
+2010-09-27 15:10  Julia Philip <jtophilip@gmail.com>
+
+	* src/dimer_binding.m: Fixed a bug in the calculation code.
+
+2010-09-26 20:17  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog, Makefile.am: Added URL of repository to ChangeLog
+	  generation command, fixes our old broken changelogs.
+
 2010-09-26 20:10  Charles Pence <charles@charlespence.net>
 
 	* configure.ac: Updated version number to 0.8 in configure.ac.
