@@ -93,6 +93,8 @@ set(hObject, 'Toolbar', 'none');
 % Clear out the future home of the graph figure and axes
 handles.graphfigure = -1;
 handles.graphaxes = -1;
+handles.graphopen = 0;
+msgbox('Here we should set the buttons, graph closed','Julia');
 
 % Creates a color variable to enable rotating colors according to how many
 % lines are on the graph
@@ -233,6 +235,22 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%             Push Button Callback Code    %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function graph_CloseReq(src, event, mainfig)
+% Get the guidata from the main figure
+handles = guidata(mainfig);
+
+% Set that the figure window is now closed
+handles.graphopen = 0;
+
+% Set the guidata
+guidata(mainfig, handles);
+
+msgbox('Here we should set the buttons, graph closed','Julia');
+
+% You must delete the figure here, or it won't close
+delete(gcf);
+end
 
 function graph_Callback(hObject, eventdata, handles)
 % hObject    handle to graph (see GCBO)
@@ -2643,9 +2661,11 @@ end
 
 % Create a graph window if necessary
 if (ishandle(handles.graphfigure) == 0 || ishandle(handles.graphaxes == 0))
-    handles.graphfigure = figure;
+    handles.graphfigure = figure('CloseRequestFcn', {@graph_CloseReq, hObject});
     handles.graphaxes = axes;
     handles.color = 0;
+    handles.graphopen = 1;
+    msgbox('Here we should set the buttons, graph opened','Julia');
 end
 
 % Activate the graph window
