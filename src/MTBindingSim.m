@@ -3121,6 +3121,9 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
     handles.xmin_all = 1*10^20;
     handles.xmax_all = 0;
     
+    % Changes the graph and save buttons
+    figureclose(hObject);
+    
     % Updates the handles structure
     guidata(hObject, handles);
     
@@ -3467,6 +3470,10 @@ if (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
     % Resets xmin_all and xmax_all
     handles.xmin_all = 1*10^20;
     handles.xmax_all = 0;
+    
+    % Changes the graph and save buttons
+    figureclose(hObject);
+    
 end
 
 % Update the handles structure

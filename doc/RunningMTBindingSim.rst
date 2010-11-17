@@ -22,9 +22,9 @@ options will apply to all graphed curves.
 Experimental Method
 -------------------
 
-There are three avalible experimental methods. Curves from different 
+There are three available experimental methods. Curves from different 
 experimental methods cannot be plotted on the same graph, so changing 
-the experimental method will automatically close an active graph.
+the experimental method will automatically close an active graph. In all methods A is an MT binding protein. The concentration of MT is taken as the concentration of polymerized tubulin dimers, as is common in MT literature. MT binding experiments are generally performed with MT stabilizers so that the concentration of polymerized tubulin can be taken as the total concentration of tubulin present.
 
 .. image:: $(IMAGES)/running-expmode
    :width: 1.153in
@@ -54,7 +54,7 @@ Plotting Mode
 -------------
 
 MTBindingSim can plot one curve at a time or it can plot two curves 
-simultaneously.
+simultaneously and compare them. You may plot as many curves as you wish as long as you don't change the experimental method or X-axis settings. However, only two curves may be directly compared by the program.
 
 .. image:: $(IMAGES)/running-plotmode
    :width: 1.353in
@@ -76,7 +76,7 @@ In Vary [MT] mode, the X-axis can be set to either [MT] total or [MT] free.
 calculated. However, the familiar Langmuir Isotherm equation uses [MT] free as 
 its independent variable, and the quick method of determining K\ 
 :sub:`D` by looking at the MT concentration when the fraction of A 
-bound is 0.5 only works if the x-axis is [MT] free.
+bound is 0.5 *only* works if the x-axis is [MT] free.
 
 In Vary [A] mode, the x-axis can be set to either [A] total or [A] free.
 
@@ -111,7 +111,7 @@ First Order Binding
 -------------------
 
 First order binding simulates binding under standard first order 
-conditions where one A interacts with one MT, and all A-MT interactions 
+conditions where one A interacts with one MT dimer, and all A-MT interactions 
 are identical.
 
 .. image:: $(IMAGES)/running-firstorder
@@ -126,8 +126,7 @@ Traditional Cooperativity
 -------------------------
 
 Traditional cooperativity simulates binding where one A binding to one 
-MT influences the binding of another A to a neighboring MT. For the 
-purposes of this model only interactions between two As are considered.
+MT dimer influences the binding of another A to a neighboring MT dimer. For the purposes of this model only interactions between two As are considered.
 
 .. image:: $(IMAGES)/running-cooperativity
    :width: 1.927in
@@ -142,7 +141,7 @@ Seam and Lattice Binding
 ------------------------
 
 Seam and lattice binding simulates a scenario in which protein A binds 
-to the MT seam with a different affinity than the MT lattice.
+to the MT seam dimers with a different affinity than the MT lattice dimers.
 
 .. image:: $(IMAGES)/running-seam
    :width: 1.747in
@@ -155,8 +154,7 @@ the dissociation constants for the seam, K\ :sub:`S`\ , lattice, K\
 MAPs Bind MT-bound MAPs
 -----------------------
 
-In this model, once one A has bound to the MT, another A can bind to it 
-without taking up another MT binding site.
+In this model, once one A has bound to an MT dimer, another A can bind to it without taking up another MT binding site.
 
 .. image:: $(IMAGES)/running-MAP
    :width: 1.833in
@@ -181,6 +179,8 @@ For this model, you need to input the total concentration of A (or MT),
 the dissociation constant for A binding to MT, K\ :sub:`M`\ , the 
 dissociation constant for A binding to MT-bound A, K\ :sub:`A`\ , and the 
 binding ratio. All inputs must be positive numbers.
+
+This model can be used in concert with the MAPs bind MT-bound MAPs model described above to begin to understand the behavior of MAPs that use the MT as a nucleation site for MAP polymerization. It is impractical to model a case where the MAP can form a large polymer, but these two models together establish the trend of the binding data in such a case.
 
 MAPs Dimerize
 -------------

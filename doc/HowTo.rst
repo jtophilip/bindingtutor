@@ -64,7 +64,7 @@ Adobe Illustrator.  You may also be able to edit an Illustrator file in
 the open-source `Inkscape <http://www.inkscape.org/>`_ image editor.
 
 
-Running Comparisions
+Comparing Two Curves
 ====================
 
 To compare two curves in MTBindingSim, first select "compare two curves" 
@@ -105,3 +105,5 @@ difference between the curves at each point, and both the average and
 largest difference are reported for each. This feature is designed to 
 help researchers determine whether the predicted differences between two 
 curves are detectable given their expected experimental error.
+
+This comparison is only done for curves plotted with the X-axis as [MT] total or [A] total because the x-values for both curves are the same in that case, so the comparison calculations are unambiguous. When the X-axis is [MT] free or [A] free the x-values for the curves will be different and the calculation of a comparison between the curves requires making assumptions about the binding behavior.
