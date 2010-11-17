@@ -94,7 +94,7 @@ set(hObject, 'Toolbar', 'none');
 handles.graphfigure = -1;
 handles.graphaxes = -1;
 handles.graphopen = 0;
-msgbox('Here we should set the buttons, graph closed','Julia');
+figureclose(hObject);
 
 % Creates a color variable to enable rotating colors according to how many
 % lines are on the graph
@@ -246,7 +246,7 @@ handles.graphopen = 0;
 % Set the guidata
 guidata(mainfig, handles);
 
-msgbox('Here we should set the buttons, graph closed','Julia');
+figureclosed(hObject);
 
 % You must delete the figure here, or it won't close
 delete(gcf);
@@ -2665,7 +2665,7 @@ if (ishandle(handles.graphfigure) == 0 || ishandle(handles.graphaxes == 0))
     handles.graphaxes = axes;
     handles.color = 0;
     handles.graphopen = 1;
-    msgbox('Here we should set the buttons, graph opened','Julia');
+    figureopen(hObject);
 end
 
 % Activate the graph window
@@ -2831,8 +2831,19 @@ set(handles.result, 'String', '');
 handles.xmin_all = 1*10^20;
 handles.xmax_all = 0;
 
+% Calls the close figure function
+figureclose(hObject);
+
 % Updates the handles
 guidata(hObject, handles);
+end
+
+
+% --- Executes on button press in save.
+function save_Callback(hObject, eventdata, handles)
+% hObject    handle to save (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 end
 
 function add_legend(handles, new_legend_string)
@@ -4602,6 +4613,7 @@ set(handles.mainfigure, 'Pointer', 'watch');
 % Disable all the buttons so they cannot be pressed
 set(handles.graph,'Enable','off');
 set(handles.clear,'Enable','off');
+set(handles.save, 'Enable', 'off');
 set(handles.curve1,'Enable','off');
 set(handles.curve2, 'Enable', 'off');
 set(handles.binding, 'Enable', 'off');
@@ -4633,6 +4645,7 @@ set(handles.mainfigure,'Pointer','arrow');
 % Enable all the buttons so they can be pressed
 set(handles.graph,'Enable','on');
 set(handles.clear,'Enable','on');
+set(handles.save, 'Enable', 'on');
 set(handles.curve1,'Enable','on');
 set(handles.curve2, 'Enable', 'on');
 set(handles.binding, 'Enable', 'on');
@@ -4644,6 +4657,44 @@ set(handles.free, 'Enable', 'on');
 set(handles.total, 'Enable', 'on');
 
 % Updates the handles structure
+guidata(hObject, handles);
+
+% Redraws the GUI
+drawnow;
+
+end
+
+function figureopen(hObject)
+
+% Gets the guidata
+handles = guidata(hObject);
+
+% Enables the save button
+set(handles.save, 'Enable', 'on');
+
+% Changes the text of the graph button
+set(handles.graph, 'String', 'Add to Graph');
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+% Redraws the GUI
+drawnow;
+
+end
+
+function figureclose(hObject)
+
+% Gets the guidata
+handles = guidata(hObject);
+
+% Disables the save button
+set(handles.save, 'Enable', 'off');
+
+% Changes the text of the graph button
+set(handles.graph, 'String', 'Graph Curve');
+
+%Updates the handles structure
 guidata(hObject, handles);
 
 % Redraws the GUI
@@ -4769,3 +4820,5 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 end
+
+
