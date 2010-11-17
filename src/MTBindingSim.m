@@ -30,7 +30,7 @@ function varargout = MTBindingSim(varargin)
 %
 % MTBindingSim is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
-% the Free Software Foundation, either version 3 of the License, or
+% the free Software Foundation, either version 3 of the License, or
 % (at your option) any later version.
 %
 % MTBindingSim is distributed in the hope that it will be useful,
@@ -368,7 +368,7 @@ elseif get(handles.curve1, 'Value') == 1
         % Binding mode is selected
         case 'binding'
 
-            % Gets the value for [A] total and ensures that it's a
+            % Gets the value for [A] free and ensures that it's a
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
@@ -395,7 +395,7 @@ elseif get(handles.curve1, 'Value') == 1
             end
 
 
-            % Determines whether the X-axis is free MT or total MT
+            % Determines whether the X-axis is free MT or free MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
@@ -451,7 +451,7 @@ elseif get(handles.curve1, 'Value') == 1
         % Saturation mode is selected
         case 'saturation'
 
-            % Gets the value for [MT] total and ensures that it's a
+            % Gets the value for [MT] free and ensures that it's a
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
@@ -478,7 +478,7 @@ elseif get(handles.curve1, 'Value') == 1
             end
 
             
-            % Determines whether free or total [A] should be graphed
+            % Determines whether free or free [A] should be graphed
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
                     
@@ -545,7 +545,7 @@ elseif get(handles.curve1, 'Value') == 2
         % Binding mode is selected
         case 'binding'
 
-            % Gets the value for [A] total and ensures that it's a
+            % Gets the value for [A] free and ensures that it's a
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
@@ -581,7 +581,7 @@ elseif get(handles.curve1, 'Value') == 2
             end
 
 
-            % Determines whether the X-axis is free MT or total MT
+            % Determines whether the X-axis is free MT or free MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
@@ -638,7 +638,7 @@ elseif get(handles.curve1, 'Value') == 2
         % Saturation mode is selected
         case 'saturation'
 
-            % Gets the value for [MT] total and ensures that it's a
+            % Gets the value for [MT] free and ensures that it's a
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
@@ -674,7 +674,7 @@ elseif get(handles.curve1, 'Value') == 2
             end
 
 
-            % Determines wether free or total mode is selected
+            % Determines wether free or free mode is selected
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 
                 case 'free'
@@ -743,7 +743,7 @@ elseif get(handles.curve1, 'Value') == 3
         % Binding mode is selected
         case 'binding'
 
-            % Gets the value for [A] total and ensures that it's a
+            % Gets the value for [A] free and ensures that it's a
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
@@ -779,7 +779,7 @@ elseif get(handles.curve1, 'Value') == 3
             end
 
 
-            % Determines whether the X-axis is free MT or total MT
+            % Determines whether the X-axis is free MT or free MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
@@ -835,7 +835,7 @@ elseif get(handles.curve1, 'Value') == 3
         % Saturation mode is selected
         case 'saturation'
 
-            % Gets the value for [MT] total and ensures that it's a
+            % Gets the value for [MT] free and ensures that it's a
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
@@ -870,7 +870,7 @@ elseif get(handles.curve1, 'Value') == 3
                return
             end
             
-            % Determines whether the the x-axis is total or free
+            % Determines whether the the x-axis is free or free
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 
                 case 'free'
@@ -940,7 +940,7 @@ elseif get(handles.curve1, 'Value') == 4
         % Binding mode is selected
         case 'binding'
 
-            % Gets the value for [A] total and ensures that it's a
+            % Gets the value for [A] free and ensures that it's a
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
@@ -975,7 +975,7 @@ elseif get(handles.curve1, 'Value') == 4
                return
             end
 
-            % Determines whether the X-axis is free MT or total MT
+            % Determines whether the X-axis is free MT or free MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
@@ -1031,7 +1031,7 @@ elseif get(handles.curve1, 'Value') == 4
         % Saturation mode is selected
         case 'saturation'
 
-            % Gets the value for [MT] total and ensures that it's a
+            % Gets the value for [MT] free and ensures that it's a
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
@@ -1066,7 +1066,7 @@ elseif get(handles.curve1, 'Value') == 4
                return
             end
 
-            % Determines whether the x-axis is free A or total A
+            % Determines whether the x-axis is free A or free A
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
                     
@@ -1133,7 +1133,7 @@ elseif get(handles.curve1, 'Value') == 5
         % Binding mode is selected
         case 'binding'
 
-            % Gets the value for [A] total and ensures that it's a
+            % Gets the value for [A] free and ensures that it's a
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
@@ -1168,7 +1168,7 @@ elseif get(handles.curve1, 'Value') == 5
                return
             end
 
-            % Determines whether the X-axis is free MT or total MT
+            % Determines whether the X-axis is free MT or free MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
@@ -1225,7 +1225,7 @@ elseif get(handles.curve1, 'Value') == 5
         % Saturation mode is selected
         case 'saturation'
 
-            % Gets the value for [MT] total and ensures that it's a
+            % Gets the value for [MT] free and ensures that it's a
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
@@ -1260,7 +1260,7 @@ elseif get(handles.curve1, 'Value') == 5
                return
             end
 
-            % Determine whether the x-axis is free A or total A
+            % Determine whether the x-axis is free A or free A
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
                     
@@ -1326,7 +1326,7 @@ elseif get(handles.curve1, 'Value') == 6
         % Binding mode is selected
         case 'binding'
 
-            % Gets the value for [A] total and ensures that it's a
+            % Gets the value for [A] free and ensures that it's a
             % positive number
             Atot = str2double(get(handles.input1_1, 'String'));
 
@@ -1369,7 +1369,7 @@ elseif get(handles.curve1, 'Value') == 6
                return
             end
 
-            % Determines whether the X-axis is free MT or total MT
+            % Determines whether the X-axis is free MT or free MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
@@ -1425,7 +1425,7 @@ elseif get(handles.curve1, 'Value') == 6
         % Saturation mode is selected
         case 'saturation'
 
-            % Gets the value for [MT] total and ensures that it's a
+            % Gets the value for [MT] free and ensures that it's a
             % positive number
             MTtot = str2double(get(handles.input1_1, 'String'));
 
@@ -1469,7 +1469,7 @@ elseif get(handles.curve1, 'Value') == 6
                return
             end
 
-            % Determine whether the x-axis is free A or total A
+            % Determine whether the x-axis is free A or free A
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
                     
@@ -1601,7 +1601,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Binding mode is selected
             case 'binding'
 
-                % Gets the value for [A] total and ensures that it's a
+                % Gets the value for [A] free and ensures that it's a
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
@@ -1628,7 +1628,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 end
 
 
-                % Determines whether the X-axis is free B or total B
+                % Determines whether the X-axis is free B or free B
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
 
@@ -1676,7 +1676,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Saturation mode is selected
             case 'saturation'
 
-                % Gets the value for [MT] total and ensures that it's a
+                % Gets the value for [MT] free and ensures that it's a
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
@@ -1702,7 +1702,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
                 
-                % Determines whether the x-axis is free or total A
+                % Determines whether the x-axis is free or free A
                 switch get(get(handles.tot_free, 'SelectedObject'), 'Tag')
                     case 'free'
                         
@@ -1761,7 +1761,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Binding mode is selected
             case 'binding'
 
-                % Gets the value for [A] total and ensures that it's a
+                % Gets the value for [A] free and ensures that it's a
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
@@ -1796,7 +1796,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
 
-                % Determines whether the X-axis is free MT or total MT
+                % Determines whether the X-axis is free MT or free MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
 
@@ -1844,7 +1844,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Saturation mode is selected
             case 'saturation'
 
-                % Gets the value for [MT] total and ensures that it's a
+                % Gets the value for [MT] free and ensures that it's a
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
@@ -1879,7 +1879,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
 
-                % Determines whether the x-axis is free or total A
+                % Determines whether the x-axis is free or free A
                 switch get(get(handles.tot_free, 'SelectedObject'), 'Tag')
                     case 'free'
                         
@@ -1937,7 +1937,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Binding mode is selected
             case 'binding'
 
-                % Gets the value for [A] total and ensures that it's a
+                % Gets the value for [A] free and ensures that it's a
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
@@ -1972,7 +1972,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
 
-                % Determines whether the X-axis is free MT or total MT
+                % Determines whether the X-axis is free MT or free MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
 
@@ -2020,7 +2020,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Saturation mode is selected
             case 'saturation'
 
-                % Gets the value for [MT] total and ensures that it's a
+                % Gets the value for [MT] free and ensures that it's a
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
@@ -2055,7 +2055,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
                 
-                % Checks to see whether the x-axis is free or total A
+                % Checks to see whether the x-axis is free or free A
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
@@ -2113,7 +2113,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Binding mode is selected
             case 'binding'
 
-                % Gets the value for [A] total and ensures that it's a
+                % Gets the value for [A] free and ensures that it's a
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
@@ -2148,7 +2148,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
 
-                % Determines whether the X-axis is free MT or total MT
+                % Determines whether the X-axis is free MT or free MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
 
@@ -2196,7 +2196,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Saturation mode is selected
             case 'saturation'
 
-                % Gets the value for [MT] total and ensures that it's a
+                % Gets the value for [MT] free and ensures that it's a
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
@@ -2231,7 +2231,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
                 
-                % Determines whether the x-axis mode is free or total A
+                % Determines whether the x-axis mode is free or free A
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
@@ -2291,7 +2291,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Binding mode is selected
             case 'binding'
 
-                % Gets the value for [A] total and ensures that it's a
+                % Gets the value for [A] free and ensures that it's a
                 % positive number
                 Atot = str2double(get(handles.input1_2, 'String'));
 
@@ -2326,7 +2326,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
 
-                % Determines whether the X-axis is free MT or total MT
+                % Determines whether the X-axis is free MT or free MT
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
 
@@ -2374,7 +2374,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             % Saturation mode is selected
             case 'saturation'
 
-                % Gets the value for [MT] total and ensures that it's a
+                % Gets the value for [MT] free and ensures that it's a
                 % positive number
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
@@ -2409,7 +2409,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    return
                 end
                 
-                % Determines whether the x-axis is free or total A
+                % Determines whether the x-axis is free or free A
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
                         
@@ -2468,7 +2468,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         % Binding mode is selected
         case 'binding'
 
-            % Gets the value for [A] total and ensures that it's a
+            % Gets the value for [A] free and ensures that it's a
             % positive number
             Atot = str2double(get(handles.input1_2, 'String'));
 
@@ -2512,7 +2512,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                return
             end
 
-            % Determines whether the X-axis is free MT or total MT
+            % Determines whether the X-axis is free MT or free MT
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
@@ -2560,7 +2560,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         % Saturation mode is selected
         case 'saturation'
 
-            % Gets the value for [MT] total and ensures that it's a
+            % Gets the value for [MT] free and ensures that it's a
             % positive number
             MTtot = str2double(get(handles.input1_2, 'String'));
 
@@ -2604,7 +2604,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                return
             end
 
-            % Determines whether the x-axis is free or total A
+            % Determines whether the x-axis is free or free A
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
 
@@ -2754,7 +2754,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     end
     
     % Computes and displays the differences between the two curves if the
-    % x-axis is in total mode
+    % x-axis is in free mode
     if strcmp(get(get(handles.tot_free, 'SelectedObject'), 'Tag'), 'total') || strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
 
         % Computes absolute and percent differences, then calculates the
@@ -4628,8 +4628,8 @@ set(handles.saturation, 'Enable', 'off');
 set(handles.competition, 'Enable', 'off');
 set(handles.single, 'Enable', 'off');
 set(handles.compare, 'Enable', 'off');
-set(handles.free, 'Enable', 'off');
 set(handles.total, 'Enable', 'off');
+set(handles.free, 'Enable', 'off');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -4660,8 +4660,8 @@ set(handles.saturation, 'Enable', 'on');
 set(handles.competition, 'Enable', 'on');
 set(handles.single, 'Enable', 'on');
 set(handles.compare, 'Enable', 'on');
-set(handles.free, 'Enable', 'on');
 set(handles.total, 'Enable', 'on');
+set(handles.free, 'Enable', 'on');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -4827,5 +4827,3 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 end
-
-
