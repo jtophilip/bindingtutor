@@ -27,9 +27,9 @@ function [Abound, Afree] = dimer_saturation(MTtot, Atot, KAM, KAAM, KAA, N)
 % - 0.5: Initial version
 
 % Determines the size of MTtot and creates an empty vector of the same size
-% for Afree
+% for Amono, which is the concentration of free A monomers
 [a,b] = size(Atot);
-Afree = zeros(a,b);
+Amono = zeros(a,b);
 
 
 
@@ -41,11 +41,11 @@ for n = 1:b
     
     % Sets up the equation for Afree and calculates Afree
     f = @(A)A + 2*A^2/KAA + (A/KAM + 2*A^2/(KAA* KAAM))*MTtot*N/(1 + A/KAM + 2*A^2/(KAA*KAAM)) - Atot(n);
-    [Afree(n), y, exit] = fzero(f, Xint);
+    [Amono(n), y, exit] = fzero(f, Xint);
 
     % Checks to make sure that fzero sucessfully calculated Afree and stops
     % calculation if it did not
-    if isnan(Afree(n)) || exit ~= 1
+    if isnan(Amono(n)) || exit ~= 1
         Abound = 0;
         Afree = 0;
         return
@@ -54,5 +54,8 @@ for n = 1:b
 end
 
 % Calculates Abound
-Abound = Atot - Afree - 2*Afree.^2./KAA;
+Abound = Atot - Amono - 2*Amono.^2./KAA;
+
+% Calculates Afree
+Afree = Atot - Abound;
 
