@@ -104,6 +104,10 @@ handles.color = 0;
 handles.xmin_all = 1*10^20;
 handles.xmax_all = 0;
 
+% Creates variables for model selection
+handles.mode1 = 'firstorder';
+handles.mode2 = 'firstorder';
+
 % Create selection change functions for the experimental mode and plotting
 % mode button groups
 set(handles.exp_mode, 'SelectionChangeFcn', @exp_mode_SelectionChangeFcn);
@@ -119,8 +123,6 @@ KAM = 'K<sub><small>AMT</small></sub>';
 KAA = 'K<sub><small>AA</small></sub>';
 KBM = 'K<sub><small>BMT</small></sub>';
 KAAM = 'K<sub><small>AAMT</small></sub>';
-
-
 
 
 % Convert a bunch of our controls to java controls
@@ -359,10 +361,10 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     legend1 = ['[MT] total = ' get(handles.input1_1, 'String') ', [A] total = ' get(handles.input2_1, 'String') ', K_{AMT} = ' get(handles.input3_1, 'String') ', K_{BMT} = ' get(handles.input4_1, 'String') ];
 
 
-elseif get(handles.curve1, 'Value') == 1
+elseif strcmpi(handles.mode1, 'firstorder')
     
     %%% First order binding %%%
-
+    
     % Determine the experimental mode
     switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
         % Binding mode is selected
@@ -536,7 +538,7 @@ elseif get(handles.curve1, 'Value') == 1
         otherwise
     end
 
-elseif get(handles.curve1, 'Value') == 2
+elseif strcmpi(handles.mode1, 'cooperativity')
     
     %%% Cooperative binding %%% 
 
@@ -735,7 +737,7 @@ elseif get(handles.curve1, 'Value') == 2
 
 
 
-elseif get(handles.curve1, 'Value') == 3
+elseif strcmpi(handles.mode1, 'seam')
     %%% Seam and lattice binding %%%
     
     % Determine the experimental mode
@@ -931,7 +933,7 @@ elseif get(handles.curve1, 'Value') == 3
 
 
 
-elseif get(handles.curve1, 'Value') == 4
+elseif strcmpi(handles.mode1, 'MAPbind')
     
     %%% MAPs bind MT-bound MAPS %%%
 
@@ -1124,7 +1126,7 @@ elseif get(handles.curve1, 'Value') == 4
     end
 
    
-elseif get(handles.curve1, 'Value') == 5
+elseif strcmpi(handles.mode1, 'MAPbind2')
     
     %%% 2 MAPs bind MT-bound MAPs %%%
     
@@ -1317,7 +1319,7 @@ elseif get(handles.curve1, 'Value') == 5
         otherwise
     end
     
-elseif get(handles.curve1, 'Value') == 6
+elseif strcmpi(handles.mode1, 'dimer')
     
     %%% Dimerization and binding %%%
     
@@ -1592,7 +1594,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     legend2 = ['[MT] total = ' get(handles.input1_2, 'String') ', [A] total = ' get(handles.input2_2, 'String') ', K_{AMT} = ' get(handles.input3_2, 'String') ', K_{BMT} = ' get(handles.input4_2, 'String')];
 
   % Determines the parameters selected for curve2
-  elseif get(handles.curve2, 'Value') == 1
+  elseif strcmpi(handles.mode2, 'firstorder')
     
       %%% First order binding %%%%
 
@@ -1752,7 +1754,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         end
 
      
-    elseif get(handles.curve2, 'Value') == 2
+    elseif strcmpi(handles.mode2, 'cooperativity')
         
         %%%% Cooperative binding %%%%
 
@@ -1928,7 +1930,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 
 
     
-    elseif get(handles.curve2, 'Value') == 3
+    elseif strcmpi(handles.mode2, 'seam')
         
         %%%% Seam and lattice binding %%%%%
         
@@ -2104,7 +2106,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 
 
     
-    elseif get(handles.curve2, 'Value') == 4
+    elseif strcmpi(handles.mode2, 'MAPbind')
         
         %%%% MAPs bind MT-bound MAPS %%%%
 
@@ -2282,7 +2284,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         
         
     
-    elseif get(handles.curve2, 'Value') == 5
+    elseif strcmpi(handles.mode2, 'MAPbind2')
         
         %%%% 2 MAPs bind MT-bound MAPS %%%%
 
@@ -2459,7 +2461,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         end
 
         
-    elseif get(handles.curve2, 'Value') == 6
+    elseif strcmpi(handles.mode2, 'dimer')
 
     %%%% Dimerization and binding %%%%
 
@@ -2884,6 +2886,8 @@ switch get(handles.curve1, 'Value')
     % First order binding
     case 1
         
+        handles.mode1 = 'firstorder';
+        
         %determine which experimental mode is selected
         switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
             case 'binding'
@@ -2895,22 +2899,10 @@ switch get(handles.curve1, 'Value')
             otherwise
         end
         
-    % Traditional cooperativity
+    % MT seam and lattice binding
     case 2
         
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                cooperativity_binding_labels1(hObject);
-                
-            case 'saturation'
-                cooperativity_saturation_labels1(hObject);
-                
-            otherwise
-        end
-        
-    % MT seam and lattice binding
-    case 3
+        handles.mode1 = 'seam';
         
         %determine which experimental mode is selected
         switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
@@ -2925,8 +2917,46 @@ switch get(handles.curve1, 'Value')
             otherwise
         end
         
-    % MAPs bind MT-bound MAPs
+    % Dimer binding    
+    case 3
+        
+        handles.mode1 = 'dimer';
+        
+        % Determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                dimer_binding_labels1(hObject);
+               
+            case 'saturation'
+                
+                dimer_saturation_labels1(hObject);
+                
+            otherwise
+        end
+        
+    % Traditional cooperativity
     case 4
+        
+        handles.mode1 = 'cooperativity';
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                cooperativity_binding_labels1(hObject);
+                
+            case 'saturation'
+                cooperativity_saturation_labels1(hObject);
+                
+            otherwise
+        end
+        
+
+        
+    % MAPs bind MT-bound MAPs
+    case 5
+        
+        handles.mode1 = 'MAPbind';
         
         %determine which experimental mode is selected
         switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
@@ -2942,7 +2972,9 @@ switch get(handles.curve1, 'Value')
         end
     
     % 2 MAPs bind MT-bound MAPs
-    case 5
+    case 6
+        
+        handles.mode1 = 'MAPbind2';
         
         % Determine which experimental mode is selected
         switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
@@ -2957,24 +2989,13 @@ switch get(handles.curve1, 'Value')
             otherwise
         end
      
-    % Dimer binding    
-    case 6
-        
-        % Determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                dimer_binding_labels1(hObject);
-               
-            case 'saturation'
-                
-                dimer_saturation_labels1(hObject);
-                
-            otherwise
-        end
         
     otherwise
 end
+
+% Updates the handles structure
+guidata(hObject, handles);
+
 end
 
 
@@ -2990,6 +3011,8 @@ switch get(handles.curve2, 'Value')
     % First order binding
     case 1
         
+        handles.mode2 = 'firstorder';
+        
         %determine which experimental mode is selected
         switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
             case 'binding'
@@ -3001,22 +3024,10 @@ switch get(handles.curve2, 'Value')
             otherwise
         end
         
-    % Traditional cooperativity
-    case 2
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                cooperativity_binding_labels2(hObject);
-                
-            case 'saturation'
-                cooperativity_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
     % MT seam and lattice binding
-    case 3
+    case 2
+         
+        handles.mode2 = 'seam';
         
         %determine which experimental mode is selected
         switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
@@ -3031,8 +3042,48 @@ switch get(handles.curve2, 'Value')
             otherwise
         end
         
-    % MAPs bind MT-bound MAPs
+        
+               
+    % Dimerization binding
+    case 3
+        
+        handles.mode2 = 'dimer';
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                dimer_binding_labels2(hObject);
+               
+            case 'saturation'
+                
+                dimer_saturation_labels2(hObject);
+                
+            otherwise
+        end
+        
+    % Traditional cooperativity
     case 4
+        
+        handles.mode2 = 'cooperativity';
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                cooperativity_binding_labels2(hObject);
+                
+            case 'saturation'
+                cooperativity_saturation_labels2(hObject);
+                
+            otherwise
+        end
+        
+
+        
+    % MAPs bind MT-bound MAPs
+    case 5
+        
+        handles.mode2 = 'MAPbind';
         
         %determine which experimental mode is selected
         switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
@@ -3048,7 +3099,9 @@ switch get(handles.curve2, 'Value')
         end
         
     % 2 MAPs bind MT-bound MAPs
-    case 5
+    case 6
+        
+        handles.mode2 = 'MAPbind2';
         
         %determine which experimental mode is selected
         switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
@@ -3063,25 +3116,13 @@ switch get(handles.curve2, 'Value')
             otherwise
         end
         
-    % Dimerization binding
-    case 6
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                dimer_binding_labels2(hObject);
-               
-            case 'saturation'
-                
-                dimer_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
         
     otherwise
 end
+
+% Updates the handles structure
+guidata(hObject, handles);
+
 end
 
 
