@@ -239,6 +239,12 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function graph_CloseReq(src, event, mainfig)
+% Abort if we don't have a figure
+if ishandle(mainfig) == 0
+    delete(gcf);
+    return;
+end
+
 % Get the guidata from the main figure
 handles = guidata(mainfig);
 
@@ -248,7 +254,8 @@ handles.graphopen = 0;
 % Set the guidata
 guidata(mainfig, handles);
 
-figureclosed(hObject);
+% Call the figure-closed handler
+figureclose(mainfig);
 
 % You must delete the figure here, or it won't close
 delete(gcf);
