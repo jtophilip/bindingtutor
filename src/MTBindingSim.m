@@ -2848,11 +2848,185 @@ guidata(hObject, handles);
 end
 
 
+% Save the axes out as a spreadsheet
+function save_Spreadsheet(filename, axes, list, xls)
+% filename   Path of file to write
+% axes       Axes to save
+% list       List of 'line' objects to write
+% xls        1 for Excel file, 0 otherwise
+
+% Get the legend text strings
+[legend_h,object_h,plot_h,legend_strings] = legend(axes);
+
+% Loop over the list of objects, deal only with the 'line's
+saveddata = 0;
+data = {};
+
+for i = 1:length(list)
+    if ishandle(list(i)) == 0
+        continue;
+    end
+    
+    % Okay, we have a line object -- get its XData and YData
+    xdata = get(list(i), 'XData');
+    ydata = get(list(i), 'YData');
+    
+    % Sanity check
+    if isempty(xdata) || isempty(ydata)
+        continue;
+    end
+    
+    % Convert from matrices to cell arrays
+    xca = strread(num2str(xdata), '%s');
+    yca = strread(num2str(ydata), '%s');
+    
+    % Get the legend string for this graph
+    ls = legend_strings(i);
+    
+    % Hack something up if there's a problem
+    if isempty(ls)
+        ls = 'UNKNOWN GRAPH';
+    end
+    
+    % Make X and Y legend strings
+    lx = strcat('"', ls, ' X"');
+    ly = strcat('"', ls, ' Y"');
+    
+    % Prepend them onto the cell arrays
+    xca = [lx; xca];
+    yca = [ly; yca];
+    
+    % We may have to resize the data/*ca arrays
+    if isempty(data) == 0
+        datasize = size(data);
+        newsize = size(xca);
+        
+        if datasize(1) < newsize(1)
+            data{newsize(1),1} = '';
+        elseif newsize(1) < datasize(1)
+            xca{datasize(1),1} = '';
+            yca{datasize(1),1} = '';
+        end
+    end
+    
+    % Stick the new columns, horizontally, onto our dataset
+    data = [xca yca data];
+    
+    % We have some data
+    saveddata = 1;
+end
+
+% Warn the user if we didn't actually save anything
+if saveddata == 0
+    msgbox('Cannot save graph data, no curves on graph!', 'MTBindingSim Error', 'error');
+    return;
+end
+
+% Loop over the array and convert any [] items into '' so we have a solid
+% array of strings
+datasize = size(data);
+
+for row = 1:datasize(1)
+    for col = 1:datasize(2)
+        if isempty(data{row,col})
+            data{row,col} = '';
+        end
+    end
+end
+
+% Got some good data, write it out
+if xls
+    % Try Excel, but fall through to CSV if there's any trouble!
+    status = xlswrite(filename, data);
+    
+    if status == true
+        return;
+    end
+    
+    % That failed, let's try to delete the bootleg file that xlswrite
+    % produced -- it will choke on many platforms when passed a cell array.
+    delete(filename);
+end
+
+% Okay, write out a CSV file, the good old-fashioned way
+fid = fopen(filename, 'w');
+
+for row = 1:datasize(1)
+    for col = 1:datasize(2)
+        fprintf(fid, '%s', data{row,col});
+        if col ~= datasize(2)
+            fprintf(fid, ',');
+        end
+    end
+    fprintf(fid, '\n');
+end
+
+fclose(fid);
+
+end
+
+
 % --- Executes on button press in save.
 function save_Callback(hObject, eventdata, handles)
 % hObject    handle to save (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+% Make sure there's a graph window open, if not report an error
+if ishandle(handles.graphaxes) == 0 || ishandle(handles.graphfigure) == 0
+    msgbox('Attempted to save graph when no graph was present.  Please report this as a bug!', 'MTBindingSim Error', 'error');
+    return;
+end
+
+% Get the children of the graph window, including hidden children
+list = get(handles.graphaxes, 'Children');
+if size(list) == 0
+    msgbox('Cannot save graph data, no curves on graph!', 'MTBindingSim Error', 'error');
+    return;
+end
+
+% Okay, pop up a message box and let's figure out whether we're saving an
+% image or the raw data.
+[FileName,PathName,FilterIndex] = uiputfile(...
+    {'*.ai','Adobe Illustrator image (*.ai)';...
+     '*.csv','CSV spreadsheet file (*.csv)';...
+     '*.eps','EPS image (*.eps)';...
+     '*.fig','MATLAB figure (*.fig)';...
+     '*.jpg','JPEG image (*.jpg)';...
+     '*.mat','MATLAB file (*.mat)';...
+     '*.pdf','PDF image (*.pdf)';...
+     '*.png','PNG image (*.png)';...
+     '*.tif','TIFF image (*.tif)';...
+     '*.xls','Excel spreadsheet file (*.xls)'},...
+     'Save graph as');
+
+% Image drivers for each of these
+imagedrivers = {'-dill', '', '-depsc2', '', '-djpeg', '', '-dpdf', '-dpng', '-dtiff', ''};
+ 
+if isequal(FileName, 0) || isequal(PathName, 0) || isequal(FilterIndex, 0)
+    % User selected Cancel
+    return;
+end
+
+% Get the full filename
+fullname = fullfile(PathName, FileName);
+ 
+% The spreadsheets are indexes 2 (CSV) and 10 (XLS)
+if FilterIndex == 2
+    save_Spreadsheet(fullname, handles.graphaxes, list, 0);
+    return;
+elseif FilterIndex == 10
+    save_Spreadsheet(fullname, handles.graphaxes, list, 1);
+    return;
+elseif FilterIndex == 4 || FilterIndex == 6
+    % The MATLAB files are indexes 4 (FIG) and 6 (MAT)
+    hgsave(handles.graphfigure, fullname);
+    return;
+else
+    % All else are images
+    print(handles.graphfigure, imagedrivers{FilterIndex}, fullname);
+    return;
+end
 end
 
 function add_legend(handles, new_legend_string)
