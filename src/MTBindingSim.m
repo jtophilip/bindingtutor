@@ -3422,23 +3422,23 @@ switch get(eventdata.NewValue, 'Tag')
                         
                     case 2
                         
-                        cooperatiivty_binding_labels2(hObject);
+                        seam_binding_labels2(hObject);
                         
                     case 3
                         
-                        seam_binding_labels2(hObject);
+                        dimer_binding_labels2(hObject);
                         
                     case 4
                         
-                        MAP_binding_labels2(hObject);
+                        cooperativity_binding_labels2(hObject);
                         
                     case 5
                         
-                        MAP2_binding_labels2(hObject);
+                        MAP_binding_labels2(hObject);
                         
                     case 6
                         
-                        dimer_binding_labels2(hObject);
+                        MAP2_binding_labels2(hObject);
                         
                     otherwise
                 end
@@ -3453,23 +3453,23 @@ switch get(eventdata.NewValue, 'Tag')
                         
                     case 2
                         
-                        cooperatiivty_saturation_labels2(hObject);
+                        seam_saturation_labels2(hObject);
                         
                     case 3
                         
-                        seam_saturation_labels2(hObject);
+                        dimer_saturation_labels2(hObject);
                         
                     case 4
                         
-                        MAP_saturation_labels2(hObject);
+                        cooperativity_saturation_labels2(hObject);
                         
                     case 5
                         
-                        MAP2_saturation_labels2(hObject);
+                        MAP_saturation_labels2(hObject);
                         
                     case 6
                         
-                        dimer_saturation_labels2(hObject);
+                        MAP2_saturation_labels2(hObject);
                         
                     otherwise
                 end
@@ -3541,7 +3541,7 @@ function first_order_strings(model, equation)
 
 global KAM;
 set_java_component(model, 'A + MT &harr; AMT');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT]']);
+set_java_component(equation, [KAM, ' = [A]n[MT]/[AMT]']);
 end
 
 function cooperativity_strings(model, equation)
@@ -3549,8 +3549,8 @@ function cooperativity_strings(model, equation)
 % Generates the model and equation strings for cooperatitivy
 
 global KAM;
-set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], &phi;&sdot;', KAM, ' = [A][AMT]/[A<sub><small>2</small</sub>MT]']);
+set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT<sub><small>2</small</sub>');
+set_java_component(equation, [KAM, ' = [A]n[MT]/[AMT], &phi;&sdot;', KAM, ' = [A][AMT]/[A<sub><small>2</small</sub>MT<sub><small>2</small</sub>]']);
 end
 
 function seam_strings(model, equation)
@@ -3559,7 +3559,7 @@ function seam_strings(model, equation)
 
 global KAS KAL;
 set_java_component(model, 'A + S &harr; AS, A + L &harr; AL');
-set_java_component(equation, [KAL, ' = [A][L]/[AL], ', KAS, ' = [A][S]/[AS]']);
+set_java_component(equation, [KAL, ' = [A]n[L]/[AL], ', KAS, ' = [A]n[S]/[AS]']);
 end
 
 function MAP_strings(model, equation)
@@ -3568,7 +3568,7 @@ function MAP_strings(model, equation)
 
 global KAM KAA;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ', KAA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT]']);
+set_java_component(equation, [KAM, ' = [A]n[MT]/[AMT], ', KAA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT]']);
 end
 
 function MAP2_strings(model, equation)
@@ -3577,7 +3577,7 @@ function MAP2_strings(model, equation)
 
 global KAM KAA;
 set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT, A + A<sub><small>2</small></sub>MT &harr; A<sub><small>3</small></sub>MT');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ', KAA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT],<br>', KAA, ' = [A][A<sub><small>2</small></sub>MT]/[A<sub><small>3</small></sub>MT]']);
+set_java_component(equation, [KAM, ' = [A]n[MT]/[AMT], ', KAA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT],<br>', KAA, ' = [A][A<sub><small>2</small></sub>MT]/[A<sub><small>3</small></sub>MT]']);
 end
 
 
@@ -3587,7 +3587,7 @@ function dimer_strings(model, equation)
 
 global KAA KAM KAAM;
 set_java_component(model, 'A + MT &harr; AMT, A<sub><small>2</small></sub> + MT &harr; A<sub><small>2</small></sub>MT<sub><small>2</small></sub>, A + A &harr A<sub><small>2</small></sub>');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ', KAAM, ' = [A<sub><small>2</small></sub>][MT]/[A<sub><small>2</small></sub>MT<sub><small>2</small></sub>], ', KAA, ' = [A][A]/[A<sub><small>2</small></sub>]']);
+set_java_component(equation, [KAM, ' = [A]n[MT]/[AMT], ', KAAM, ' = [A<sub><small>2</small></sub>](n/2)[MT]/[A<sub><small>2</small></sub>MT<sub><small>2</small></sub>], ', KAA, ' = [A][A]/[A<sub><small>2</small></sub>]']);
 end
 
 
