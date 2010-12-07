@@ -28,8 +28,8 @@ function [Abound, Afree] = seam_lattice_saturation(MTtot, Atot, KAS, KAL, N)
 % - 0.5: Initial version
 
 % Calculates the total concentrations of seam and lattice
-ST = MTtot.*N./13;
-LT = MTtot.*N.*12./13;
+ST = MTtot./13;
+LT = MTtot.*12./13;
 
 % Determines the size of Atot and creates an empty vector of the same size
 % for Afree
@@ -43,7 +43,7 @@ for n = 1:b
     Xint = [0, Atot(n)];
     
     % Sets up the equation for Afree and calculates its value
-    f = @(A)A + (1/KAS)*A*ST/(1 + (1/KAS)*A) + (1/KAL)*A*LT/(1 + (1/KAL)*A) - Atot(n);
+    f = @(A)A + (1/KAS)*A*ST/(1 + (1/(KAS*N))*A) + (1/KAL)*A*LT/(1 + (1/(KAL*N))*A) - Atot(n);
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzeros sucessfully calculated Afree and ends

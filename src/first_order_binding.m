@@ -39,7 +39,7 @@ Xint = [0,Atot];
 for n = 1:b
     
     % Creates a function of Afree and calculates the value of Afree
-    f = @(A)A + (1/KAM)*A*MTtot(n)*N/(1 + (1/KAM)*A) - Atot;
+    f = @(A)A + (1/KAM)*A*MTtot(n)/(1 + (1/(KAM*N))*A) - Atot;
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero has sucessfully calculated a value for
@@ -59,7 +59,7 @@ Abound = Atot - Afree;
 Frac = (Abound)./Atot;
 
 % Solves for free MT
-MTfree = MTtot./(1 + (1/KAM).*(Afree));
+MTfree = MTtot./(1 + (1/(KAM*N)).*(Afree));
 
 
 end

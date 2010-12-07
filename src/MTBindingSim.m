@@ -3361,41 +3361,40 @@ switch get(eventdata.NewValue, 'Tag')
         % Makes the X-axis selection box visible
         set(handles.tot_free, 'Visible', 'on');
         
-        % Gets the current value of the first curve slection box and
-        % changes the visible boxes accordingly
-        switch get(handles.curve1, 'Value')
-            % First order biding selected
-            case 1
-                
-                first_order_binding_labels1(hObject);
+        % Determines which model is selected and sets the labels
+        % accordingly
+
+        % First order biding selected
+        if strcmpi(handles.mode1, 'firstorder')
+
+            first_order_binding_labels1(hObject);
+
+        % Seam and lattice binding selected
+        elseif strcmpi(handles.mode1, 'seam')
+
+            seam_binding_labels1(hObject);
+
+        % Dimerization binding selected
+        elseif strcmpi(handles.mode1, 'dimer')
+
+            dimer_binding_labels1(hObject);
+
+        % Cooperativity selected
+        elseif strcmpi(handles.mode1, 'cooperativity')
+
+            cooperativity_binding_labels1(hObject);
+
+        % MAPs bind MT-bound MAPs selected
+        elseif strcmpi(handles.mode1, 'MAPbind')
+
+            MAP_binding_labels1(hObject);
+
+        elseif strcmpi(handles.mode1, 'MAPbind2')
+
+            MAP2_binding_labels1(hObject);
             
-            % Cooperative binding selected
-            case 2
-                
-                cooperativity_binding_labels1(hObject);
-                
-            % Seam and lattice binding selected
-            case 3
-                
-                seam_binding_labels1(hObject);
-                
-            % MAPs bind MT-bound MAPs selected
-            case 4
-                
-                MAP_binding_labels1(hObject);
-            
-            % 2 MAPs bind MT-bound MAPs selected
-            case 5
-                
-                MAP2_binding_labels1(hObject);
-                
-            case 6
-                
-                dimer_binding_labels1(hObject);
-                
-            otherwise
         end
-        
+
         % Determines if single or comparision mode is selected
         % Changes visible boxes for the second curve if comparision mode is
         % selected
@@ -3406,37 +3405,37 @@ switch get(eventdata.NewValue, 'Tag')
             
             % Gets the current value of the first curve slection box and
             % changes the visible boxes accordingly
-            switch get(handles.curve2, 'Value');
-                % First order biding selected
-                case 1
-                
-                    first_order_binding_labels2(hObject);
             
-                % Cooperative binding selected
-                case 2
-                
-                    cooperativity_binding_labels2(hObject);
-               
-                % Seam and lattice binding selected
-                case 3
-                
-                    seam_binding_labels2(hObject);
-                
-                % MAPs bind MT-bound MAPs selected
-                case 4
-                
-                    MAP_binding_labels2(hObject);
-                
-                % 2 MAPs bind MT-bound MAPs selected
-                case 5
-                    
-                    MAP2_binding_labels2(hObject);
-                    
-                case 6
-                    
-                    dimer_binding_labels2(hObject);
-                
-                otherwise
+            % First order biding selected
+            if strcmpi(handles.mode2, 'firstorder')
+                first_order_binding_labels2(hObject);
+
+            % Seam and lattice binding selected
+            elseif strcmpi(handles.mode2, 'seam')
+
+                seam_binding_labels2(hObject);
+
+            % Dimerization binding selected
+            elseif strcmpi(handles.mode2, 'dimer')
+
+                dimer_binding_labels2(hObject);
+
+            % Cooperativity is selected
+            elseif strcmpi(handles.mode2, 'cooperativity')
+
+                cooperativity_binding_labels2(hObject);
+
+            
+            % MAPs bind MT-bound MAPs selected
+            elseif strcmpi(handles.mode2, 'MAPbind')
+
+                MAP_binding_labels2(hObject);
+
+            % 2 MAPs bind MT-bound MAPs selected    
+            elseif strcmpi(handles.mode2, 'MAPbind2')
+
+                MAP2_binding_labels2(hObject);
+
             end
             
         end
@@ -3451,37 +3450,38 @@ switch get(eventdata.NewValue, 'Tag')
 
         % Gets the current value of the first curve slection box and
         % changes the visible boxes accordingly
-        switch get(handles.curve1, 'Value');
-            % First order biding selected
-            case 1
-                
-                first_order_saturation_labels1(hObject);
-            
-            % Cooperative binding selected
-            case 2
-                
-                cooperativity_saturation_labels1(hObject);
-                
-            % Seam and lattice binding selected
-            case 3
-                
-                seam_saturation_labels1(hObject);
-                
-            % MAPs bind MT-bound MAPs selected
-            case 4
-                
-                MAP_saturation_labels1(hObject);
-            
-            % 2 MAPs bind MT-bound MAPs selected
-            case 5
-                
-                MAP2_saturation_labels1(hObject);
-                
-            case 6
-                
-                dimer_saturation_labels1(hObject);
-                
-            otherwise
+        
+        % First order biding selected
+        if strcmpi(handles.mode1, 'firstorder')
+
+            first_order_saturation_labels1(hObject);
+
+        % Cooperative binding selected
+        elseif strcmpi(handles.mode1, 'cooperativity')
+
+            cooperativity_saturation_labels1(hObject);
+
+        % Seam and lattice binding selected
+        elseif strcmpi(handles.mode1, 'seam')
+
+            seam_saturation_labels1(hObject);
+
+        % MAPs bind MT-bound MAPs selected
+        elseif strcmpi(handles.mode1, 'MAPbind')
+
+            MAP_saturation_labels1(hObject);
+
+        % 2 MAPs bind MT-bound MAPs selected
+        elseif strcmpi(handles.mode1, 'MAPbind2')
+
+            MAP2_saturation_labels1(hObject);
+
+        % Dimer binding is selected
+        elseif strcmpi(handles.mode1, 'dimer')
+
+            dimer_saturation_labels1(hObject);
+
+
         end
         
         % Determines if single or comparision mode is selected
@@ -3494,37 +3494,37 @@ switch get(eventdata.NewValue, 'Tag')
             
             % Gets the current value of the second curve slection box and
             % changes the visible boxes accordingly
-            switch get(handles.curve2, 'Value');
-                % First order biding selected
-                case 1
-                
-                    first_order_saturation_labels2(hObject);
             
-                % Cooperative binding selected
-                case 2
-                
-                    cooperativity_saturation_labels2(hObject);
-                
-                % Seam and lattice binding selected
-                case 3
-                
-                    seam_saturation_labels2(hObject);
-                
-                % MAPs bind MT-bound MAPs selected
-                case 4
-                
-                    MAP_saturation_labels2(hObject);
-                
-                % 2 MAPs bind MT-bound MAPs selected
-                case 5
-                    
-                    MAP2_saturation_labels2(hObject);
-                    
-                case 6
-                    
-                    dimer_saturation_labels2(hObject);
-                
-                otherwise
+            % First order biding selected
+            if strcmpi(handles.mode2, 'firstorder')
+
+                first_order_saturation_labels2(hObject);
+
+            % Cooperative binding selected
+            elseif strcmpi(handles.mode2, 'cooperativity')
+
+                cooperativity_saturation_labels2(hObject);
+
+            % Seam and lattice binding selected
+            elseif strcmpi(handles.mode2, 'seam')
+
+                seam_saturation_labels2(hObject);
+
+            % MAPs bind MT-bound MAPs selected
+            elseif strcmpi(handles.mode2, 'MAPbind')
+
+                MAP_saturation_labels2(hObject);
+
+            % 2 MAPs bind MT-bound MAPs selected
+            elseif strcmpi(handles.mode2, 'MAPbind2')
+
+                MAP2_saturation_labels2(hObject);
+
+            % Dimer binding is selected
+            elseif strcmpi(handles.mode2, 'dimer')
+
+                dimer_saturation_labels2(hObject);
+
             end
             
         end

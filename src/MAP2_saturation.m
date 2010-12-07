@@ -40,7 +40,7 @@ for n = 1:b
     Xint = [0, Atot(n)];
     
     % Sets up the equation for Afree and calculates its value
-    f = @(A)A + (A/KAM + 2*A^2/(KAA*KAM) + 3*A^3/(KAA^2*KAM))*MTtot*N/(1 + A/KAM + A^2/(KAA*KAM) + A^3/(KAA^2*KAM)) - Atot(n);
+    f = @(A)A + (A/KAM + 2*A^2/(KAA*KAM) + 3*A^3/(KAA^2*KAM))*MTtot/(1 + A/(KAM*N) + A^2/(KAA*KAM*N) + A^3/(KAA^2*KAM*N)) - Atot(n);
     [Afree(n), y, exit] = fzero(f, Xint);
 
     % Checks to make sure fzero sucessfully calculated Afree and ends

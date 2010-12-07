@@ -41,7 +41,7 @@ for n = 1:b
     Xint = [0,Atot(n)];
     
     % Sets us the function to calculate Afree and calculates Afree
-    f = @(A)A + (1/KAM)*A*MTtot*N/(1 + (1/KAM)*A)- Atot(n);
+    f = @(A)A + (1/KAM)*A*MTtot/(1 + (1/(KAM*N))*A)- Atot(n);
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero has successfully calculated Afree and

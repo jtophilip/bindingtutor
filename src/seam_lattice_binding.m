@@ -28,8 +28,8 @@ function [Frac, MTfree] = seam_lattice_binding(MTtot, Atot, KAS, KAL, N)
 % - 0.5: Initial version
 
 % Calculates vectors for the total concentrations of seam and lattice
-ST = MTtot.*N./13;
-LT = MTtot.*N.*12./13;
+ST = MTtot./13;
+LT = MTtot.*12./13;
 
 % Determines the size of MTtot and creates an empty vector of the same size
 % for Afree
@@ -43,7 +43,7 @@ Xint = [0, Atot];
 for n = 1:b
     
     % Sets up the equation for Afree and calculates it
-    f = @(A)A + (1/KAS)*A*ST(n)/(1 + (1/KAS)*A) + (1/KAL)*A*LT(n)/(1 + (1/KAL)*A) - Atot;
+    f = @(A)A + (1/KAS)*A*ST(n)/(1 + (1/(KAS*N))*A) + (1/KAL)*A*LT(n)/(1 + (1/(KAL*N))*A) - Atot;
     [Afree(n), y, exit] = fzero(f,Xint);
     
     % Checks to make sure that fzero sucessfully calculated Afree and ends
@@ -63,8 +63,8 @@ Abound = Atot - Afree;
 Frac = Abound./Atot;
 
 % Calculates free seam, lattice, and total MT
-s = ST./(1+(1/KAS).*Afree);
-l = LT./(1 + (1/KAL).*Afree);
+s = ST./(1+(1/(KAS*N)).*Afree);
+l = LT./(1 + (1/(KAL*N)).*Afree);
 MTfree = s  + l;
 
 end
