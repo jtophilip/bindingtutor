@@ -50,10 +50,7 @@ fitting binding data to accommodate non 1:1 binding ratios. [#ackman]_
 
 We have included the binding ratio n as a parameter that can be set in 
 our binding curve calculations. Following Ackman *et. al.*, we have 
-defined n such that that binding ratio is n A : 1 tubulin dimer. The 
-impact of n on the binding models can be seen below. Given that MT are 
-polymeric, it is assumed that the binding ratio can be accounted for 
-simply by changing the number of available MT binding sites for A.
+defined n such that that binding ratio is n A : 1 tubulin dimer. However, we have differed from Ackaman *et. al.* in how we include the binding ratio in our binding equations. While they change the number of available binding sites based on the binding ratio, we do not change the number of available sites. We account for the binding ratio only in the mass balance for microtubules. This formulation assumes that the number of available binding sites is the number of free dimers, regardless of how many dimers an individual A binds.
 
 This method will break down in an extreme boundary case where a single A 
 binds so many tubulin dimers that a single MT polymer does not contain 
@@ -77,95 +74,38 @@ In first order binding, the relationship between A and MT is:
 
 .. latex-math::
    
-   A + MT/n \rightleftharpoons AMT.
+   A + MT \rightleftharpoons AMT.
 
 The dissociation constant is defined as:
 
 .. latex-math::
    
-   K_{AMT} = \frac{[A]n[MT]}{[AMT]}.
+   K_{AMT} = \frac{[A][MT]}{[AMT]}.
 
 We can also write mass balances for total A and total MT:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + [AMT] = [A] + \frac{1}{K_{AMT}}[A]n[MT]
+   [A]_{\mathrm{total}} = [A] + [AMT] = [A] + \frac{1}{K_{AMT}}[A][MT]
 
 .. latex-math::
    
-   [MT]_{\mathrm{total}} = [MT] + [AMT]/n = [MT] + \frac{1}{K_{AMT}}[A][MT].
+   [MT]_{\mathrm{total}} = [MT] + [AMT]/n = [MT] + \frac{1}{K_{AMT}n}[A][MT].
 
 We can rearrange the equation for total MT and solve for [MT] free:
 
 .. latex-math::
    
-   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A]}.
+   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}n}[A]}.
 
 We now can substitute this equation into the equation for total A:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + \frac{\frac{1}{K_{AMT}}[A]n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A]}.
+   [A]_{\mathrm{total}} = [A] + \frac{\frac{1}{K_{AMT}}[A][MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}n}[A]}.
 
 The program numerically finds the value of [A] free that solves this 
 equation, then uses that to calculate all other necessary parameters.
-
-Traditional Cooperativity
-=========================
-
-In the traditional cooperativity model, the binding of the first MAP 
-changes the dissociation constant for a second MAP binding. 
-
-.. image:: $(IMAGES)/Cooperativity.pdf
-   :width: 3in
-   :align: center
-
-The binding relationship is:
-
-.. latex-math::
-   
-   A + MT/n \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT_2.
-
-The dissociation constants for these interactions are:
-	
-.. latex-math::
-   
-   K_{AMT} = [A]n[MT]/[AMT], \phi K_{AMT} = [A][AMT]/[A_2MT_2].
-
-The mass balance equations are:
-
-.. latex-math::
-   
-   [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT_2] = [A] + \frac{1}{K_{AMT}}[A]n[MT] + \frac{2}{\phi K_{AMT}}[A][AMT]
-
-.. latex-math::
-   
-   [A]_{\mathrm{total}} = [A] + \frac{1}{K_{AMT}}[A]n[MT] + \frac{2}{\phi K_{AMT}^2}[A]^2n[MT]
-
-.. latex-math::
-   
-   [MT]_{\mathrm{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n \\ = [MT] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{\phi K_{AMT}^2}[A]^2[MT].
-
-Note that [A\ :sub:`2`\ MT\ :sub:`2`\ ] accounts for 2 MT monomers, but 
-there is only one instance of free MT in the dissociation constant 
-equations. This is due to the polymer nature of the MT: binding to one 
-free MT automatically brings the complex into contact with another free 
-MT.
-
-We can now solve the MT total equation for free MT:
-	
-.. latex-math::
-   
-   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{2}{\phi K_{AMT}^2}[A]^2}.
-
-This equation can be plugged into the A total equation:
-
-.. latex-math::
-   
-   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{AMT}}[A] + \frac{2}{\phi K_{AMT}^2}[A]^2 \right) \frac{n [MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{2}{\phi K_{AMT}^2}[A]^2}.
-
-This equation is numerically solved for [A] free and the resulting value 
-is used to calculate [A] bound as well as [MT] free and [MT] bound.
 
 Seam and Lattice Binding
 ========================
@@ -183,46 +123,169 @@ The binding relationship is:
 
 .. latex-math::
    
-   A + S/n \leftrightharpoons AS, A + L/n \leftrightharpoons AL.
+   A + S \leftrightharpoons AS, A + L \leftrightharpoons AL.
 
 The disocciation constants for these interactions are:
 
 .. latex-math::
    
-   K_{AS} = [A]n[S]/[AS], K_{AL} = [A]n[L]/[AL].
+   K_{AS} = [A][S]/[AS], K_{AL} = [A][L]/[AL].
 
 We can write a mass balance for all three species:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + [AS] + [AL] = [A] + \frac{1}{K_{AS}}[A]n[S] + \frac{1}{K_{AL}}[A]n[L]
+   [A]_{\mathrm{total}} = [A] + [AS] + [AL] = [A] + \frac{1}{K_{AS}}[A][S] + \frac{1}{K_{AL}}[A][L]
 
 .. latex-math::
    
-   [S]_{\mathrm{total}} = [S] + [AS]/n = [S] + \frac{1}{K_{AS}}[A][S]
+   [S]_{\mathrm{total}} = [S] + [AS]/n = [S] + \frac{1}{K_{AS}n}[A][S]
 
 .. latex-math::
    
-   [L]_{\mathrm{total}} = [L] + [AL]/n = [L] + \frac{1}{K_{AL}}[A][L].
+   [L]_{\mathrm{total}} = [L] + [AL]/n = [L] + \frac{1}{K_{AL}n}[A][L].
 
 We now can solve for free L and free S:
 
 .. latex-math::
    
-   [S] = \frac{[S]_{\mathrm{total}}}{1 + \frac{1}{K_{AS}}[A]}
+   [S] = \frac{[S]_{\mathrm{total}}}{1 + \frac{1}{K_{AS}n}[A]}
 
 .. latex-math::
    
-   [L] = \frac{[L]_{\mathrm{total}}}{1 + \frac{1}{K_{AL}}[A]}.
+   [L] = \frac{[L]_{\mathrm{total}}}{1 + \frac{1}{K_{AL}n}[A]}.
 
 We now can plug these values into the equation for total A:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + \frac{\frac{1}{K_{AS}}[A]n[S]_{\mathrm{total}}}{1 + \frac{1}{K_{AS}}[A]} + \frac{\frac{1}{K_{AL}}[A]n[L]_{\mathrm{total}}}{1 + \frac{1}{K_{AL}}[A]}.
+   [A]_{\mathrm{total}} = [A] + \frac{\frac{1}{K_{AS}}[A][S]_{\mathrm{total}}}{1 + \frac{1}{K_{AS}n}[A]} + \frac{\frac{1}{K_{AL}}[A][L]_{\mathrm{total}}}{1 + \frac{1}{K_{AL}n}[A]}.
 
 This equation is numerically solved for free A and the result is used to 
 calculate bound A and free and total MT.
+
+MAPs Dimerize
+=============
+
+In this model, A can form a dimer with itself, and can bind to the MT in 
+both the monomeric and dimeric forms with different disocciation 
+constants. 
+
+.. image:: $(IMAGES)/Dimer.pdf
+   :width: 3in
+   :align: center
+
+The binding interaction for this model is:
+
+.. latex-math::
+   
+   A + A \leftrightharpoons A_2, A + MT \leftrightharpoons AMT, A_2 + 2MT \leftrightharpoons A_2MT_2.
+
+The disocciation constants for these interactions are:
+
+.. latex-math::
+   
+   K_{AA} = [A][A]/[A_2], K_{AMT} = [A][MT]/[AMT], K_{AAMT} = \frac{[A_2][MT]}{[A_2MT_2]}.
+
+We can write mass balances for A and MT:
+
+.. latex-math::
+   
+   [A]_{\mathrm{total}} = [A] + 2[A_2] + [AMT] + 2[A_2MT_2]
+
+.. latex-math::
+   
+   = [A] + \frac{2}{K_{AA}}[A]^2 + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AAMT}}[A_2][MT]
+
+.. latex-math::
+   
+   = [A] + \frac{2}{K_{AA}}[A]^2 + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AMT}K_{AA}}[A]^2[MT],
+
+.. latex-math::
+   
+   [MT]_{\mathrm{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n 
+
+.. latex-math::
+   
+   = [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{2}{K_{AAMT}n}[A_2][MT]
+
+.. latex-math::
+   
+   = [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{2}{K_{AAMT}K_{AA}n}[A]^2[MT].
+
+We can now solve the MT mass balance for free MT to get:
+
+.. latex-math::
+   
+   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}n}[A] + \frac{2}{K_{AAMT}K_{AA}n}[A]^2}.
+
+We can plug this into the mass balance for A:
+
+.. latex-math::
+   
+   [A]_{\mathrm{total}} = [A] + \frac{2}{K_{AA}}[A]^2 + \left( \frac{1}{K_{AMT}}[A] + \frac{2}{K_{AAMT}K_{AA}}[A]^2 \right)\frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}n}[A] + \frac{2}{K_{AAMT}K_{AA}n}[A]^2}.
+
+This equation is numerically solved by the program for free A and the 
+result is used to calculate bound A and free and bound MT.
+
+
+
+Traditional Cooperativity
+=========================
+
+In the traditional cooperativity model, the binding of the first MAP 
+changes the dissociation constant for a second MAP binding. 
+
+.. image:: $(IMAGES)/Cooperativity.pdf
+   :width: 3in
+   :align: center
+
+The binding relationship is:
+
+.. latex-math::
+   
+   A + MT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT_2.
+
+The dissociation constants for these interactions are:
+	
+.. latex-math::
+   
+   K_{AMT} = [A][MT]/[AMT], \phi K_{AMT} = [A][AMT]/[A_2MT_2].
+
+The mass balance equations are:
+
+.. latex-math::
+   
+   [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT_2] = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{\phi K_{AMT}}[A][AMT]
+
+.. latex-math::
+   
+   [A]_{\mathrm{total}} = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{\phi K_{AMT}^2}[A]^2[MT]
+
+.. latex-math::
+   
+   [MT]_{\mathrm{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n \\ = [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{2}{\phi K_{AMT}^2 n}[A]^2[MT].
+
+Note that [A\ :sub:`2`\ MT\ :sub:`2`\ ] accounts for 2 MT monomers, but 
+there is only one instance of free MT in the dissociation constant 
+equations. This is due to the polymer nature of the MT: binding to one 
+free MT automatically brings the complex into contact with another free 
+MT.
+
+We can now solve the MT total equation for free MT:
+	
+.. latex-math::
+   
+   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}n}[A] + \frac{2}{\phi K_{AMT}^2 n}[A]^2}.
+
+This equation can be plugged into the A total equation:
+
+.. latex-math::
+   
+   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{AMT}}[A] + \frac{2}{\phi K_{AMT}^2}[A]^2 \right) \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}n}[A] + \frac{2}{\phi K_{AMT}^2 n}[A]^2}.
+
+This equation is numerically solved for [A] free and the resulting value 
+is used to calculate [A] bound as well as [MT] free and [MT] bound.
 
 
 MAPs Bind MT-bound MAPs
@@ -240,23 +303,23 @@ The binding relationship is:
 
 .. latex-math::
    
-   A + MT/n \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT.
+   A + MT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT.
 
 The disocciation constants for these interactions are:
 
 .. latex-math::
    
-   K_{AMT} = [A]n[MT]/[AMT], K_{AA} = [A][AMT]/[A_2MT].
+   K_{AMT} = [A][MT]/[AMT], K_{AA} = [A][AMT]/[A_2MT].
 
 We can write the mass balances for this situation:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT] = [A] + \frac{1}{K_{AMT}}[A]n[MT] + \frac{1}{K_{AA}}[A][AMT] \\ = [A] + \frac{1}{K_{AMT}}[A]n[MT] + \frac{1}{K_{AMT} K_{AA}}[A]^2n[MT]
+   [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT] = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{1}{K_{AA}}[A][AMT] \\ = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{1}{K_{AMT} K_{AA}}[A]^2[MT]
 
 .. latex-math::
    
-   [MT]_{\mathrm{total}} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_{AMT}}[A][MT] + \frac{1}{K_{AMT} K_{AA}}[A]^2[MT].
+   [MT]_{\mathrm{total}} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_{AMT} n}[A][MT] + \frac{1}{K_{AMT} K_{AA} n}[A]^2[MT].
 
 You may notice that this model is almost identical to the traditional 
 cooperativity model. The main difference occurs in the MT mass balance 
@@ -268,13 +331,13 @@ We can solve the MT mass balance for free MT as follows:
 
 .. latex-math::
    
-   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AMT} K_{AA}}[A]^2}.
+   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT} n}[A] + \frac{1}{K_{AMT} K_{AA} n}[A]^2}.
 
 We can then substitute this equation into the A mass balance to get:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{MT}}[A] + 2\frac{1}{K_{AMT} K_{AA}}[A]^2 \right) \frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AMT} K_{AA}}[A]^2}.
+   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{MT}}[A] + 2\frac{1}{K_{AMT} K_{AA}}[A]^2 \right) \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT} n}[A] + \frac{1}{K_{AMT} K_{AA} n}[A]^2}.
 
 This equation is numerically solved by the program to find the value of 
 free A, which is used to calculate bound A and free and bound MT.
@@ -294,13 +357,13 @@ The binding relationships for this model are:
 
 .. latex-math::
    
-   A + MT/n \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT, A + A_2MT \leftrightharpoons A_3MT.
+   A + MT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT, A + A_2MT \leftrightharpoons A_3MT.
 
 The disocciation constants for this model are:
 
 .. latex-math::
    
-   K_{AMT} = [A]n[MT]/[AMT], K_{AA} = [A][AMT]/[A_2MT], K_{AA} = [A][A_2MT]/[A_3MT].
+   K_{AMT} = [A][MT]/[AMT], K_{AA} = [A][AMT]/[A_2MT], K_{AA} = [A][A_2MT]/[A_3MT].
 
 Note that the disocciation constant for the first and second MAP 
 binding to the MT-bound MAP is the same. The mass balances for this 
@@ -312,15 +375,15 @@ model are:
 
 .. latex-math::
    
-   = [A] + \frac{1}{K_{AMT}}[A]n[MT] + \frac{2}{K_{AA}}[A][AMT] + \frac{3}{K_{AA}}[A][A_2MT] 
+   = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AA}}[A][AMT] + \frac{3}{K_{AA}}[A][A_2MT] 
 
 .. latex-math::
    
-   = [A] + \frac{1}{K_{AMT}}[A]n[MT] + \frac{2}{K_{AMT} K_{AA}} [A]^2n[MT] + \frac{3}{K_{AA}^2}[A]^2[AMT] 
+   = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AMT} K_{AA}} [A]^2[MT] + \frac{3}{K_{AA}^2}[A]^2[AMT] 
 
 .. latex-math::
    
-   = [A] + \frac{1}{K_{AMT}}[A]n[MT] + \frac{2}{K_{AMT} K_{AA}} [A]^2n[MT] + \frac{3}{K_{AMT} K_{AA}^2}[A]^3n[MT],
+   = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AMT} K_{AA}} [A]^2[MT] + \frac{3}{K_{AMT} K_{AA}^2}[A]^3[MT],
 
 .. latex-math::
    
@@ -328,85 +391,21 @@ model are:
 
 .. latex-math::
    
-    = [MT] + \frac{1}{K_{AMT}}[A][MT] + \frac{1}{K_{AMT} K_{AA}}[A]^2[MT] + \frac{1}{K_{AMT} K_{AA}^2}[A]^3[MT].
+    = [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{1}{K_{AMT} K_{AA} n}[A]^2[MT] + \frac{1}{K_{AMT} K_{AA}^2 n}[A]^3[MT].
 
 Notice that, as with the MAPs bind MT-bound MAPs model, all MT-A complexes 
 contain a single MT unit. The MT mass balance can be solved for free MT:
 
 .. latex-math::
    
-   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AMT} K_{AA}}[A]^2 + \frac{1}{K_{AMT} K_{AA}^2}[A]^3}.
+   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT} n}[A] + \frac{1}{K_{AMT} K_{AA} n}[A]^2 + \frac{1}{K_{AMT} K_{AA}^2 n}[A]^3}.
 
 This can then be substituted into the A mass balance equation, yielding:
 
 .. latex-math::
    
-   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{AMT}}[A] + \frac{2}{K_{AMT} K_{AA}}[A]^2 + \frac{3}{K_{AMT} K_{AA}^2}[A]^3 \right) \cdot \\ \frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AMT} K_{AA}}[A]^2 + \frac{1}{K_{AMT} K_{AA}^2}[A]^3}.
+   [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{AMT}}[A] + \frac{2}{K_{AMT} K_{AA}}[A]^2 + \frac{3}{K_{AMT} K_{AA}^2}[A]^3 \right) \cdot \\ \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT} n}[A] + \frac{1}{K_{AMT} K_{AA} n}[A]^2 + \frac{1}{K_{AMT} K_{AA}^2 n}[A]^3}.
 
 This equation is numerically solved by the program to get free A. This 
 is then used to calculate bound A and free and bound MT.
-
-MAPs Dimerize
-=============
-
-In this model, A can form a dimer with itself, and can bind to the MT in 
-both the monomeric and dimeric forms with different disocciation 
-constants. 
-
-.. image:: $(IMAGES)/Dimer.pdf
-   :width: 3in
-   :align: center
-
-The binding interaction for this model is:
-
-.. latex-math::
-   
-   A + A \leftrightharpoons A_2, A + MT/n \leftrightharpoons AMT, A_2 + 2MT/n \leftrightharpoons A_2MT_2.
-
-The disocciation constants for these interactions are:
-
-.. latex-math::
-   
-   K_{AA} = [A][A]/[A_2], K_{AMT} = [A]n[MT]/[AMT], K_{AAMT} = \frac{[A_2]n/2[MT]}{[A_2MT_2]}.
-
-We can write mass balances for A and MT:
-
-.. latex-math::
-   
-   [A]_{\mathrm{total}} = [A] + 2[A_2] + [AMT] + 2[A_2MT_2]
-
-.. latex-math::
-   
-   = [A] + \frac{2}{K_{AA}}[A]^2 + \frac{1}{K_{AMT}}[A]n[MT] + \frac{1}{K_{AAMT}}[A_2]n[MT]
-
-.. latex-math::
-   
-   = [A] + \frac{2}{K_{AA}}[A]^2 + \frac{1}{K_{AMT}}[A]n[MT] + \frac{1}{K_{AMT}K_{AA}}[A]^2n[MT],
-
-.. latex-math::
-   
-   [MT]_{\mathrm{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n 
-
-.. latex-math::
-   
-   = [MT] + \frac{1}{K_{AMT}}[A][MT] + \frac{1}{K_{AAMT}}[A_2][MT]
-
-.. latex-math::
-   
-   = [MT] + \frac{1}{K_{AMT}}[A][MT] + \frac{1}{K_{AAMT}K_{AA}}[A]^2[MT].
-
-We can now solve the MT mass balance for free MT to get:
-
-.. latex-math::
-   
-   [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AAMT}K_{AA}}[A]^2}.
-
-We can plug this into the mass balance for A:
-
-.. latex-math::
-   
-   [A]_{\mathrm{total}} = [A] + \frac{2}{K_{AA}}[A]^2 + \left( \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AAMT}K_{AA}}[A]^2 \right)\frac{n[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}}[A] + \frac{1}{K_{AAMT}K_{AA}}[A]^2}.
-
-This equation is numerically solved by the program for free A and the 
-result is used to calculate bound A and free and bound MT.
 
