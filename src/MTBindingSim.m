@@ -116,7 +116,7 @@ set(handles.tot_free, 'SelectionChangeFcn', @tot_free_SelectionChangeFcn);
 
 % Make some global string values for later
 global UM KAS KAL KAM KAA KBM KAAM;
-UM = '&mu;M';
+UM = '&#956;M';
 KAS = 'K<sub><small>AS</small></sub>';
 KAL = 'K<sub><small>AL</small></sub>';
 KAM = 'K<sub><small>AMT</small></sub>';
@@ -3728,8 +3728,8 @@ function cooperativity_strings(model, equation)
 % Generates the model and equation strings for cooperatitivy
 
 global KAM;
-set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT<sub><small>2</small</sub>');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], &phi;&sdot;', KAM, ' = [A][AMT]/[A<sub><small>2</small</sub>MT<sub><small>2</small</sub>]']);
+set_java_component(model, 'A + MT &#8596; AMT, A + AMT &#8596; A<sub><small>2</small></sub>MT<sub><small>2</small</sub>');
+set_java_component(equation, [KAM, ' = [A][MT]/[AMT], &#981;&#8901;', KAM, ' = [A][AMT]/[A<sub><small>2</small</sub>MT<sub><small>2</small</sub>]']);
 end
 
 function seam_strings(model, equation)
@@ -3737,7 +3737,7 @@ function seam_strings(model, equation)
 % Generates the model and equation strings for seam and lattice binding
 
 global KAS KAL;
-set_java_component(model, 'A + S &harr; AS, A + L &harr; AL');
+set_java_component(model, 'A + S &#8596; AS, A + L &#8596; AL');
 set_java_component(equation, [KAL, ' = [A][L]/[AL], ', KAS, ' = [A][S]/[AS]']);
 end
 
@@ -3746,7 +3746,7 @@ function MAP_strings(model, equation)
 % Generates the model and equation strings for MAPs bind MT-bound MAPs
 
 global KAM KAA;
-set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT');
+set_java_component(model, 'A + MT &#8596; AMT, A + AMT &#8596; A<sub><small>2</small></sub>MT');
 set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ', KAA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT]']);
 end
 
@@ -3755,7 +3755,7 @@ function MAP2_strings(model, equation)
 % Generates the model and equation strings for 2 MAPs bind MT-bound MAPs
 
 global KAM KAA;
-set_java_component(model, 'A + MT &harr; AMT, A + AMT &harr; A<sub><small>2</small></sub>MT, A + A<sub><small>2</small></sub>MT &harr; A<sub><small>3</small></sub>MT');
+set_java_component(model, 'A + MT &#8596; AMT, A + AMT &#8596; A<sub><small>2</small></sub>MT, A + A<sub><small>2</small></sub>MT &#8596; A<sub><small>3</small></sub>MT');
 set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ', KAA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT],<br>', KAA, ' = [A][A<sub><small>2</small></sub>MT]/[A<sub><small>3</small></sub>MT]']);
 end
 
@@ -3765,7 +3765,7 @@ function dimer_strings(model, equation)
 % Generates the model and equation strings for dimerization
 
 global KAA KAM KAAM;
-set_java_component(model, 'A + MT &harr; AMT, A<sub><small>2</small></sub> + MT &harr; A<sub><small>2</small></sub>MT<sub><small>2</small></sub>, A + A &harr A<sub><small>2</small></sub>');
+set_java_component(model, 'A + MT &#8596; AMT, A<sub><small>2</small></sub> + MT &#8596; A<sub><small>2</small></sub>MT<sub><small>2</small></sub>, A + A &#8596; A<sub><small>2</small></sub>');
 set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ', KAAM, ' = [A<sub><small>2</small></sub>][MT]/[A<sub><small>2</small></sub>MT<sub><small>2</small></sub>], ', KAA, ' = [A][A]/[A<sub><small>2</small></sub>]']);
 end
 
@@ -3775,7 +3775,7 @@ function competition_strings(model, equation)
 % Generates the model and equation strings for competition
 
 global KAM KBM;
-set_java_component(model, 'A + MT &harr; AMT, B + MT &harr; BMT');
+set_java_component(model, 'A + MT &#8596; AMT, B + MT &#8596; BMT');
 set_java_component(equation, [KAM, ' =[A][MT]/[AMT], ', KBM, ' =[B][MT]/[BMT]']);
 end
 
@@ -3872,7 +3872,7 @@ set(handles.total, 'String', '[MT] total');
 set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, '&phi; ');
+set_java_component(handles.label3_1, '&#981; ');
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
 
@@ -3911,7 +3911,7 @@ set(handles.total, 'String', '[A] total');
 set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, '&phi; ');
+set_java_component(handles.label3_1, '&#981; ');
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
 
@@ -4330,7 +4330,7 @@ cooperativity_strings(handles.model2, handles.equation2);
 % Sets labels for the input boxes
 set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, '&phi; ');
+set_java_component(handles.label3_2, '&#981; ');
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
 
@@ -4365,7 +4365,7 @@ cooperativity_strings(handles.model2, handles.equation2);
 %Sets labels for the input boxes
 set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, '&phi; ');
+set_java_component(handles.label3_2, '&#981; ');
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
 
