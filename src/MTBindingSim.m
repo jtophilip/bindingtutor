@@ -2936,7 +2936,7 @@ end
 
 % Got some good data, write it out
 if xls
-    % Try Excel, but fall through to CSV if there's any trouble!
+    % Try Excel, but be careful to detect errors (which are frequent)
     status = xlswrite(filename, data);
     
     if status == true
@@ -2946,6 +2946,11 @@ if xls
     % That failed, let's try to delete the bootleg file that xlswrite
     % produced -- it will choke on many platforms when passed a cell array.
     delete(filename);
+    
+    % Report an error and fail, anything else might delete user data.
+    msgbox('ERROR: Your platform does not support the creation of .XLS files.  If you wish to save a spreadsheet, you may save in CSV format instead.',...
+        'MTBindingSim Error', 'error');
+    return;
 end
 
 % Okay, write out a CSV file, the good old-fashioned way

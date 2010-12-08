@@ -69,9 +69,37 @@ graphing your curves one-at-a-time, and comparing the graphs.
 My graph looks wrong
 --------------------
 
-Your graph looking wrong could have several causes. First, make sure that the x- and y-axis ranges are appropriate for your graph.
+Your graph looking wrong could have several causes. First, make sure
+that the x- and y-axis ranges are appropriate for your graph.
 
-If you are confident that you are looking at the graph with appropriate axes and it still looks wrong or strange, it is possible that the program has calculated your graph incorrectly. While we have made every attempt to ensure that MTBindingSim will always calculate the correct graph, it is possible that we missed something. Please submit a bug report on our website and we will attempt to fix the problem. To help us diagnose the issue you are having, it would be very helpful if you can run the graph several times, tweaking the parameters, to determine what parameter or combination of parameters is causing the problem. Thank you for helping us keep MTBindingSim working properly!
+If you are confident that you are looking at the graph with
+appropriate axes and it still looks wrong or strange, it is possible
+that the program has calculated your graph incorrectly. While we have
+made every attempt to ensure that MTBindingSim will always calculate
+the correct graph, it is possible that we missed something. Please
+submit a bug report on our website and we will attempt to fix the
+problem. To help us diagnose the issue you are having, it would be
+very helpful if you can run the graph several times, tweaking the
+parameters, to determine what parameter or combination of parameters
+is causing the problem. Thank you for helping us keep MTBindingSim
+working properly!
+
+
+Saving Your Results
+===================
+
+I can't save XLS files
+----------------------
+
+MATLAB saves XLS-format spreadsheets by communicating with Microsoft
+Excel in a manner which only works on Windows.  If you wish to save a
+spreadsheet on Mac OS X or Linux, you can save in CSV format instead.
+CSV files can be opened by any version of Microsoft Excel or your
+favorite spreadsheet program.
+
+For more information about the limitations of MATLAB's communication
+with Microsoft Excel, see `MathWorks Solution 1-2SJUON
+<http://www.mathworks.com/support/solutions/en/data/1-2SJUON/index.html?solution=1-2SJUON>`_.
 
 
 Other
