@@ -461,7 +461,8 @@ class WikiVisitor(SparseNodeVisitor):
 
 settings_overrides = {
     'halt_level': 2,
-    'report_level': 5
+    'report_level': 5,
+    'trim_footnote_reference_space': True
 }
 
 def publish_file(rstfile, **kw):
