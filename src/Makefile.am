@@ -43,7 +43,8 @@ MTBindingSim_MATLAB = \
 MTBindingSim_FIG = MTBindingSim.fig
 
 # Build using MCC.  We fake out the automatic build by making it think we're building
-# the .prj file, which is an intermediate file produced by MCC.
+# the .prj file, which is an intermediate file produced by MCC.  Copy the icon file
+# into the bundle on OS X (which MATLAB chmod's to unwriteable by default).
 MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 	(MFILES=""; \
 	for i in $(MTBindingSim_MATLAB) ; do \
@@ -51,6 +52,10 @@ MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 	done; \
 	export MFILES; \
 	PATH="$$PATH:$(MATLABPATH)" $(MCC) $(MATLABFLAGS) -v -d $(builddir) -m $$MFILES)
+	if test -d $(builddir)/MTBindingSim.app ; then \
+		chmod 644 $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
+		cp $(top_srcdir)/doc/wiki/images/icon/icon.icns $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
+	fi
 
 
 # Clean up after MCC
