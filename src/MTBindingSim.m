@@ -3719,7 +3719,7 @@ function first_order_strings(model, equation)
 % Generates the model and equation strings for first order
 
 global KAM;
-set_java_component(model, 'A + MT &harr; AMT');
+set_java_component(model, 'A + MT &#8596; AMT');
 set_java_component(equation, [KAM, ' = [A][MT]/[AMT]']);
 end
 
