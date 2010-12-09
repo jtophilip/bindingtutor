@@ -1,3 +1,126 @@
+2010-12-09 22:04  Charles Pence <charles@charlespence.net>
+
+	* NEWS, configure.ac, doc/ChangeLog.rst: Updating with new 0.9 release
+	  info.
+
+2010-12-08 21:15  Charles Pence <charles@charlespence.net>
+
+	* src/Makefile.am, tools, tools/ResHacker.exe: Adding ResHacker to add
+	  icons to Windows executables.
+
+2010-12-08 20:35  Charles Pence <charles@charlespence.net>
+
+	* src/Makefile.am: Copy the icon across into the OS X bundle.
+
+2010-12-08 20:18  Charles Pence <charles@charlespence.net>
+
+	* tools/wikir.py: Updating Wikir, fixing issue 13.
+
+2010-12-08 19:41  Charles Pence <charles@charlespence.net>
+
+	* src/MTBindingSim.m: Changing to all numerical HTML entities. This
+	  should fix issue 23.
+
+2010-12-08 19:21  Charles Pence <charles@charlespence.net>
+
+	* src/MTBindingSim.m: Test for one way that we might fix issue 23.
+
+2010-12-08 18:46  Julia Philip <jtophilip@gmail.com>
+
+	* doc/HowTo.rst: Changed docs to reflect the new method of saving files.
+
+2010-12-08 15:26  Charles Pence <charles@charlespence.net>
+
+	* doc/Troubleshooting.rst, src/MTBindingSim.m: Just erroring out
+	  entirely when you attempt to make an XLS file on an unsupported
+	  platform. Mentioned in the docs, too.
+
+2010-12-07 21:09  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst: Updated docs to have the correct order of
+	  binding models and to have the new calcualtions of n.
+
+2010-12-07 20:42  Julia Philip <jtophilip@gmail.com>
+
+	* src/cooperativity_saturation.m: Fixed a bug in the coopeativity
+	  calculation code.
+
+2010-12-07 20:37  Julia Philip <jtophilip@gmail.com>
+
+	* src/MAP2_binding.m, src/MAP2_saturation.m, src/MAP_binding.m,
+	  src/MAP_saturation.m, src/MTBindingSim.m, src/cooperativity_binding.m,
+	  src/cooperativity_saturation.m, src/dimer_binding.m,
+	  src/dimer_saturation.m, src/first_order_binding.m,
+	  src/first_order_saturation.m, src/seam_lattice_binding.m,
+	  src/seam_lattice_saturation.m: Changed the treatment of n in the
+	  binding calcuation.
+
+2010-12-07 03:48  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m: Removed all "n"s from the equation displays.
+
+2010-12-07 03:13  Julia Philip <jtophilip@gmail.com>
+
+	* src/dimer_binding.m, src/dimer_saturation.m: Changed the dimer
+	  calculations.
+
+2010-12-06 21:45  Charles Pence <charles@charlespence.net>
+
+	* src/MTBindingSim.m: Big update to activate the save button for images,
+	  MATLAB, and spreadsheets (!).
+
+2010-12-06 19:45  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.m: Fixed model display strings to properly
+	  incorporate n.
+
+2010-12-06 19:14  Julia Philip <jtophilip@gmail.com>
+
+	* src/dimer_binding.m, src/dimer_saturation.m: Fixed a bug in the
+	  calculation code for dimer.
+
+2010-12-01 18:04  Charles Pence <charles@charlespence.net>
+
+	* src/MTBindingSim.m: Fixing closing bug, should close issue 29.
+
+2010-11-18 18:45  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Changed the order of the
+	  models in the drop down boxes.
+
+2010-11-18 15:43  Julia Philip <jtophilip@gmail.com>
+
+	* src/dimer_saturation.m: Fixed a bug in calculating Afree in dimer
+	  saturation.
+
+2010-11-17 21:01  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig: Added note in GUI to go to the website for help.
+
+2010-11-17 20:56  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Changed the default x-axis
+	  value to free.
+
+2010-11-17 19:50  Julia Philip <jtophilip@gmail.com>
+
+	* doc/HowTo.rst, doc/RunningMTBindingSim.rst, src/MTBindingSim.m:
+	  Updated docs and added changes to save and graph button when the graph
+	  is deleted.
+
+2010-11-17 02:25  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Added save button and
+	  modified code to make it active an inactive appropriatley.
+
+2010-11-16 21:49  Charles Pence <charles@charlespence.net>
+
+	* src/MTBindingSim.m: Add graph open/close detection for future UI work.
+
+2010-11-15 12:55  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Updated ChangeLog.
+
 2010-09-29 18:36  Charles Pence <charles@charlespence.net>
 
 	* NEWS, doc/ChangeLog.rst: Updated NEWS and ChangeLog doc page (which
