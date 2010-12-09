@@ -2,6 +2,12 @@
 MTBindingSim Revision History
 =============================
 
+Version 0.9
+===========
+
+* Changed calculation method for the binding ratio.
+* New way to save graphs and data.
+
 Version 0.8.1
 =============
 

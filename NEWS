@@ -3,6 +3,13 @@ MTBindingSim NEWS -- History of user-visible changes.
 Copyright (C) 2010 University of Notre Dame.
 See the end of the file for license conditions.
 
+* Version 0.9 [beta]
+
+** Updated calculation of binding ratio, this parameter now works differently.
+
+** New interface to save graphs and data.
+
+
 * Version 0.8.1 [beta]
 
 ** Fixed an urgent calculation bug.
