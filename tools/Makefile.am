@@ -1,6 +1,6 @@
 EXTRA_DIST = docutils rst2latex.py wikir.py \
 	authors.xml svn2cl.sh svn2cl.xsl \
-	googlecode_upload.py
+	googlecode_upload.py ResHacker.exe
 
 dist-hook:
 	rm -f `find $(distdir)/docutils -name *.pyc`
