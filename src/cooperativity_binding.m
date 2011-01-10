@@ -7,7 +7,7 @@ function [Frac, MTfree] = cooperativity_binding(MTtot, Atot, KAM, P, N)
 
 % This file is part of MTBindingSim.
 %
-% Copyright (C) 2010  University of Notre Dame
+% Copyright (C) 2010-2011  University of Notre Dame
 %
 % MTBindingSim is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

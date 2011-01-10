@@ -6,7 +6,7 @@ function [Frac, MTfree] = MAP2_binding(MTtot, Atot, KAM, KAA, N)
 
 % This file is part of MTBindingSim.
 %
-% Copyright (C) 2010  University of Notre Dame
+% Copyright (C) 2010-2011  University of Notre Dame
 %
 % MTBindingSim is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

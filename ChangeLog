@@ -1,0 +1,4 @@
+2011-01-10 01:29  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog, ChangeLog-2010, Makefile.am: Split the ChangeLog.
+
