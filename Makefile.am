@@ -12,7 +12,7 @@ doc_DATA = AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS
 
 # Update the ChangeLog
 changes:
-	$(srcdir)/tools/svn2cl.sh --linelen=80 --authors=$(srcdir)/tools/authors.xml --reparagraph -o $(srcdir)/ChangeLog https://mtbindingsim.googlecode.com/svn/trunk
+	$(srcdir)/tools/svn2cl.sh --linelen=80 --authors=$(srcdir)/tools/authors.xml --reparagraph -o $(srcdir)/ChangeLog -r 521:HEAD https://mtbindingsim.googlecode.com/svn/trunk
 
 
 # Build the binary distribution (only in src)
