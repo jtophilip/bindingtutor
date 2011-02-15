@@ -6,6 +6,9 @@
  <author uid="cpence">
   Charles Pence &lt;<html:a href="mailto:charles@charlespence.net">charles@charlespence.net</html:a>&gt;
  </author>
+ <author uid="charles@charlespence.net">
+  Charles Pence &lt;<html:a href="mailto:charles@charlespence.net">charles@charlespence.net</html:a>&gt;
+ </author>
  <author uid="pence">
   (early revision before Google Code import)
  </author>
