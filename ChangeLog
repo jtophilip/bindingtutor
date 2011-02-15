@@ -2,3 +2,17 @@
 
 	* ChangeLog, ChangeLog-2010, Makefile.am: Split the ChangeLog.
 
+2011-01-10 01:31  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog, NEWS, src/MAP2_binding.m, src/MAP2_saturation.m,
+	  src/MAP_binding.m, src/MAP_saturation.m, src/MTBindingSim.m,
+	  src/competition.m, src/cooperativity_binding.m,
+	  src/cooperativity_saturation.m, src/dimer_binding.m,
+	  src/dimer_saturation.m, src/first_order_binding.m,
+	  src/first_order_saturation.m, src/seam_lattice_binding.m,
+	  src/seam_lattice_saturation.m: Bump the copyright years.
+
+2011-02-15 15:05  Charles Pence <charles@charlespence.net>
+
+	* tools/authors.xml: Adding my new GC account to the authors file.
+
