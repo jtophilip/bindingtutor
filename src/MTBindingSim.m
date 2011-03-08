@@ -3120,27 +3120,32 @@ switch get(handles.curve1, 'Value')
                 
             otherwise
         end
+    
+        
+        
+    % Traditional cooperatitivity model removed because we are unsure about
+    % the calcualtions
         
     % Traditional cooperativity
-    case 4
-        
-        handles.mode1 = 'cooperativity';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                cooperativity_binding_labels1(hObject);
-                
-            case 'saturation'
-                cooperativity_saturation_labels1(hObject);
-                
-            otherwise
-        end
+    %case 4
+    %    
+    %    handles.mode1 = 'cooperativity';
+    %    
+    %    %determine which experimental mode is selected
+    %    switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+    %        case 'binding'
+    %            cooperativity_binding_labels1(hObject);
+    %            
+    %        case 'saturation'
+    %            cooperativity_saturation_labels1(hObject);
+    %            
+    %        otherwise
+    %    end
         
 
         
     % MAPs bind MT-bound MAPs
-    case 5
+    case 4
         
         handles.mode1 = 'MAPbind';
         
@@ -3158,7 +3163,7 @@ switch get(handles.curve1, 'Value')
         end
     
     % 2 MAPs bind MT-bound MAPs
-    case 6
+    case 5
         
         handles.mode1 = 'MAPbind2';
         
@@ -3247,27 +3252,31 @@ switch get(handles.curve2, 'Value')
                 
             otherwise
         end
+    
+        
+    % Traditional cooperatitivity model removed because we are unsure about
+    % the calcualtions    
         
     % Traditional cooperativity
-    case 4
-        
-        handles.mode2 = 'cooperativity';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                cooperativity_binding_labels2(hObject);
-                
-            case 'saturation'
-                cooperativity_saturation_labels2(hObject);
-                
-            otherwise
-        end
+    %case 4
+    %    
+    %    handles.mode2 = 'cooperativity';
+    %    
+    %    %determine which experimental mode is selected
+    %    switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+    %        case 'binding'
+    %            cooperativity_binding_labels2(hObject);
+    %            
+    %        case 'saturation'
+    %            cooperativity_saturation_labels2(hObject);
+    %            
+    %        otherwise
+    %    end
         
 
         
     % MAPs bind MT-bound MAPs
-    case 5
+    case 4
         
         handles.mode2 = 'MAPbind';
         
@@ -3285,7 +3294,7 @@ switch get(handles.curve2, 'Value')
         end
         
     % 2 MAPs bind MT-bound MAPs
-    case 6
+    case 5
         
         handles.mode2 = 'MAPbind2';
         
