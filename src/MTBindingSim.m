@@ -537,6 +537,31 @@ elseif strcmpi(handles.mode1, 'firstorder')
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
                     legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', N = ' get(handles.input3_1, 'String')];
+                    
+                case 'scatchard'
+                    
+                    % Calculates Abound and Afree
+                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, N);
+                    
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y data to plot
+                    y1 = Abound./Afree;
+                    x1 = Abound;
+                    
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] bound';
+                    yaxis = '[A] bound/ [A] free';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', N = ' get(handles.input3_1, 'String')];
+                    
 
                     
                 otherwise
@@ -735,7 +760,34 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                     plottitle = 'Vary [A] Binding Assay';
                     legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
+                
+                case 'saturation'
+                    
+                    % Calculates Abound and Afree
+                    [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KAM, p, N);
+                    
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y1 = Abound./Afree;
+                    x1 = Abound;
+
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] bound';
+                    yaxis = '[A] bound/ [A] free';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+
+                
                 otherwise
+                    
             end
             
             
@@ -931,6 +983,31 @@ elseif strcmpi(handles.mode1, 'seam')
                     plottitle = 'Vary [A] Binding Assay';
                     legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AS} = ' get(handles.input2_1, 'String') ', K_{AL} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
    
+                case 'scatchard'
+                    
+                    % Calculates concentration of A bound and MT free
+                    [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KAS, KAL, N);
+                    
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Sets the x and y values to plot
+                    y1 = Abound./Afree;
+                    x1 = Abound;
+
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] bound';
+                    yaxis = '[A] bound/[A] free';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AS} = ' get(handles.input2_1, 'String') ', K_{AL} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+                
+                
                 otherwise
             end
 
@@ -1125,6 +1202,31 @@ elseif strcmpi(handles.mode1, 'MAPbind')
                     plottitle = 'Vary [A] Binding Assay';
                     legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
+                case 'scatchard'
+                    
+                    % Calculates the concentration of A bound
+                    [Abound, Afree] = MAP_saturation(MTtot, xvals, KAM, KAA, N);
+                    
+                    % Determines whether the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y1 = Abound./Afree;
+                    x1 = Abound;
+
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] bound';
+                    yaxis = '[A] bound/[A] free';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+
+                
                 otherwise
             end
 
@@ -1319,6 +1421,31 @@ elseif strcmpi(handles.mode1, 'MAPbind2')
                     plottitle = 'Vary [A] Binding Assay';
                     legend1 = ['2 MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
+                case 'scatchard'
+                
+                    % Calculates the concentration of A bound
+                    [Abound, Afree] = MAP2_saturation(MTtot, xvals, KAM, KAA, N);
+                    
+                    % Ensures that the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y1 = Abound./Afree;
+                    x1 = Abound;
+                    
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] bound';
+                    yaxis = '[A] bound/Afree';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['2 MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+
+                
                 otherwise
             end
 
@@ -1528,6 +1655,31 @@ elseif strcmpi(handles.mode1, 'dimer')
                     plottitle = 'Vary [A] Binding Assay';
                     legend1 = ['Dimerization, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AAMT} = ' get(handles.input3_1, 'String') ', K_{AA} = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
 
+                case 'scatchard'
+                     
+                    % Calculates the concentration of A bound
+                    [Abound, Afree] = dimer_saturation(MTtot, xvals, KAM, KAAM, KAA, N);
+                    
+                    % Ensures that the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y1 = Abound./Afree;
+                    x1 = Abound;
+                    
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] bound';
+                    yaxis = '[A] bound/[A] free';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Dimerization, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AAMT} = ' get(handles.input3_1, 'String') ', K_{AA} = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
+
+                
                 otherwise
             end
 
@@ -1753,6 +1905,27 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Sets the legend text
                         legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
 
+                    case 'scatchard'
+                        
+                        % Function to get the concentration of A bound
+                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, N);
+                        
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
+
+                        % Sets the x and y values to graph
+                        y2 = Abound./Afree;
+                        x2 = Abound;
+
+                        % Sets the legend text
+                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
+
+                    
                     otherwise
                 end
 
@@ -1930,6 +2103,27 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Sets the legend text
                         legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
+                    case 'scatchard'
+                        
+                        % Function to get the concentration of A bound
+                        [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KAM, p, N);
+                        
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
+
+                        % Sets the x and y values to graph
+                        y2 = Abound./Afree;
+                        x2 = Abound;
+
+                        % Sets the legend text
+                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+
+                    
                     otherwise
                 end
             otherwise
@@ -2106,6 +2300,27 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Sets the legend text
                         legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AS} = ' get(handles.input2_2, 'String') ', K_{AL} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
                         
+                    case 'scatchard'
+                        
+                        % Function to get the concentration of A bound
+                        [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KAS, KAL, N);
+                        
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
+ 
+                        % Sets the x and y values to plot
+                        y2 = Abound./Afree;
+                        x2 = Abound;
+
+                        % Sets the legend text
+                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AS} = ' get(handles.input2_2, 'String') ', K_{AL} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+                        
+                    
                     otherwise
                 end 
             otherwise
@@ -2283,7 +2498,27 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Sets the legend text
                         legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
+                    case 'scatchard'
                         
+                        % Function to get the concentration of A bound
+                        [Abound, Afree] = MAP_saturation(MTtot, xvals, KAM, KAA, N);
+                        
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
+
+                        % Sets the x and y values to plot
+                        y2 = Abound./Afree;
+                        x2 = Abound;
+
+                        % Sets the legend text
+                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+
+                    
                     otherwise
                 end
             otherwise
@@ -2462,6 +2697,28 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                         
+                    case 'scatchard'
+                        
+                         % Function to get the concentration of A bound
+                        [Abound, Afree] = MAP2_saturation(MTtot, xvals, KAM, KAA, N);
+                        
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
+                        [a,b] = size(Abound);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
+
+                        % Sets the x and y values to plot
+                        y2 = Abound./Afree;
+                        x2 = Abound;
+
+                        % Sets the legend text
+                        legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+
+                        
+                    
                     otherwise
                 end
             otherwise
@@ -2657,6 +2914,28 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     legend2 = ['Dimerization, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AAMT} = ' get(handles.input3_2, 'String') ', K_{AA} = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
 
 
+                case 'scatchard'
+                    
+                    
+                     % Function to get the concentration of A bound
+                    [Abound, Afree] = dimer_saturation(MTtot, xvals, KAM, KAAM, KAA, N);
+
+                    % Ensures that the calculation was successful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Sets the x and y values to plot
+                    y2 = Abound./Afree;
+                    x2 = Abound;
+
+                    % Sets the legend text
+                    legend2 = ['Dimerization, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AAMT} = ' get(handles.input3_2, 'String') ', K_{AA} = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
+
+                
                 otherwise
             end
         otherwise
@@ -3375,6 +3654,9 @@ switch get(eventdata.NewValue, 'Tag')
         % Makes the X-axis selection box visible
         set(handles.tot_free, 'Visible', 'on');
         
+        % Makes the scatchard radio button invisible
+        set(handles.scatchard, 'Visible', 'off');
+        
         % Determines which model is selected and sets the labels
         % accordingly
 
@@ -3461,6 +3743,9 @@ switch get(eventdata.NewValue, 'Tag')
         
         % Makes the X-axis selection box visible
         set(handles.tot_free, 'Visible', 'on');
+        
+        % Makes the scatchard radio button visible
+        set(handles.scatchard, 'Visible', 'on');
 
         % Gets the current value of the first curve slection box and
         % changes the visible boxes accordingly
