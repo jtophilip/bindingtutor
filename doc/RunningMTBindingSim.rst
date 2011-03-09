@@ -122,20 +122,21 @@ For first order binding, you need to input the total concentration of A
 (or MT), the K\ :sub:`D`\ , and the binding ratio.  All of these must 
 be positive numbers.
 
-Traditional Cooperativity
--------------------------
+.. Traditional Cooperativity
+   -------------------------
 
-Traditional cooperativity simulates binding where one A binding to one 
-MT dimer influences the binding of another A to a neighboring MT dimer. For the purposes of this model only interactions between two As are considered.
+.. Traditional cooperativity simulates binding where one A binding to one 
+   MT dimer influences the binding of another A to a neighboring MT dimer.  For  the purposes of this model only interactions between two As are considered.
 
-.. image:: $(IMAGES)/running-cooperativity
+.. commented
+   image:: $(IMAGES)/running-cooperativity
    :width: 1.927in
    :align: center
 
-For cooperativity, you need to input the total concentration of A (or 
-MT), K\ :sub:`D`\, φ, which determines the dissociation constant for 
-the second A, and the binding ratio. All inputs must be positive 
-numbers.
+.. For cooperativity, you need to input the total concentration of A (or 
+   MT), K\ :sub:`D`\, φ, which determines the dissociation constant for 
+   the second A, and the binding ratio. All inputs must be positive 
+   numbers.
 
 Seam and Lattice Binding
 ------------------------

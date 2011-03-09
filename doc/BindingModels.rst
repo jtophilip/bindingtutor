@@ -230,62 +230,70 @@ result is used to calculate bound A and free and bound MT.
 
 
 
-Traditional Cooperativity
-=========================
+.. Traditional Cooperativity
+   =========================
 
-In the traditional cooperativity model, the binding of the first MAP 
-changes the dissociation constant for a second MAP binding. 
+.. In the traditional cooperativity model, the binding of the first MAP 
+   changes the dissociation constant for a second MAP binding. 
 
-.. image:: $(IMAGES)/Cooperativity.pdf
+.. commented
+   image:: $(IMAGES)/Cooperativity.pdf
    :width: 3in
    :align: center
 
-The binding relationship is:
+.. The binding relationship is:
 
-.. latex-math::
+.. commented
+   latex-math::
    
    A + MT \leftrightharpoons AMT, A + AMT \leftrightharpoons A_2MT_2.
 
-The dissociation constants for these interactions are:
+.. The dissociation constants for these interactions are:
 	
-.. latex-math::
+.. commented
+   latex-math::
    
    K_{AMT} = [A][MT]/[AMT], \phi K_{AMT} = [A][AMT]/[A_2MT_2].
 
-The mass balance equations are:
+.. The mass balance equations are:
 
-.. latex-math::
+.. commented
+   latex-math::
    
    [A]_{\mathrm{total}} = [A] + [AMT] + 2[A_2MT_2] = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{\phi K_{AMT}}[A][AMT]
 
-.. latex-math::
+.. commented
+   latex-math::
    
    [A]_{\mathrm{total}} = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{\phi K_{AMT}^2}[A]^2[MT]
 
-.. latex-math::
+.. commented
+   latex-math::
    
    [MT]_{\mathrm{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n \\ = [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{2}{\phi K_{AMT}^2 n}[A]^2[MT].
 
-Note that [A\ :sub:`2`\ MT\ :sub:`2`\ ] accounts for 2 MT monomers, but 
-there is only one instance of free MT in the dissociation constant 
-equations. This is due to the polymer nature of the MT: binding to one 
-free MT automatically brings the complex into contact with another free 
-MT.
+.. Note that [A\ :sub:`2`\ MT\ :sub:`2`\ ] accounts for 2 MT monomers, but 
+   there is only one instance of free MT in the dissociation constant 
+   equations. This is due to the polymer nature of the MT: binding to one 
+   free MT automatically brings the complex into contact with another free 
+   MT.
 
-We can now solve the MT total equation for free MT:
+.. We can now solve the MT total equation for free MT:
 	
-.. latex-math::
+.. commented
+   latex-math::
    
    [MT] = \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}n}[A] + \frac{2}{\phi K_{AMT}^2 n}[A]^2}.
 
-This equation can be plugged into the A total equation:
+.. This equation can be plugged into the A total equation:
 
-.. latex-math::
+.. commented
+   latex-math::
    
    [A]_{\mathrm{total}} = [A] + \left( \frac{1}{K_{AMT}}[A] + \frac{2}{\phi K_{AMT}^2}[A]^2 \right) \frac{[MT]_{\mathrm{total}}}{1 + \frac{1}{K_{AMT}n}[A] + \frac{2}{\phi K_{AMT}^2 n}[A]^2}.
 
-This equation is numerically solved for [A] free and the resulting value 
-is used to calculate [A] bound as well as [MT] free and [MT] bound.
+.. This equation is numerically solved for [A] free and the resulting value 
+   is used to calculate [A] bound as well as [MT] free and [MT] bound.
 
 
 MAPs Bind MT-bound MAPs
@@ -321,11 +329,10 @@ We can write the mass balances for this situation:
    
    [MT]_{\mathrm{total}} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_{AMT} n}[A][MT] + \frac{1}{K_{AMT} K_{AA} n}[A]^2[MT].
 
-You may notice that this model is almost identical to the traditional 
-cooperativity model. The main difference occurs in the MT mass balance 
-equation, where A\ :sub:`2`\ MT has only one MT subunit, as opposed to 2 
-MT subunits in the traditional cooperativity model in the A\ :sub:`2`\ MT\ 
-:sub:`2` complex.
+.. You may notice that this model is almost identical to the traditional 
+   cooperativity model. The main difference occurs in the MT mass balance 
+   equation, where A\ :sub:`2`\ MT has only one MT subunit, as opposed to 2 
+   MT subunits in the traditional cooperativity model in the A\ :sub:`2`\     MT\ :sub:`2` complex.
 
 We can solve the MT mass balance for free MT as follows:
 
