@@ -761,7 +761,7 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                     legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 
-                case 'saturation'
+                case 'scatchard'
                     
                     % Calculates Abound and Afree
                     [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KAM, p, N);
