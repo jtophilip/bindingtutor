@@ -64,6 +64,5 @@ Frac = Abound./Atot;
 % Calculates free MT
 MTfree = MTtot./(1 + 1/(KAM*N).*Afree + (2/(P*(KAM^2)*N)).*Afree.^2);
 
-
 end
 
