@@ -76,9 +76,9 @@ In Vary [MT] mode, the X-axis can be set to either [MT] total or [MT] free.
 calculated. However, the familiar Langmuir Isotherm equation uses [MT] free as 
 its independent variable, and the quick method of determining K\ 
 :sub:`D` by looking at the MT concentration when the fraction of A 
-bound is 0.5 *only* works if the x-axis is [MT] free.
+bound is 0.5 *only* works if the x-axis is [MT] free. In either X-axis mode the Y-axis will be the fraction of A bound.
 
-In Vary [A] mode, the x-axis can be set to either [A] total or [A] free.
+In Vary [A] mode there are three possible kinds of plots. In the first two the Y-axis is the concentration of A bound to MT, and the X-axis can be set to [A] free or [A] total. In addition, the data can be plotted in a Scatchard plot, where the X-axis is [A] bound and the Y-axis is is [A] bound/[A] free. This kind of plot is used to make the binding data linear. Binding data will be linear for simple interactions and a curved line in a Scatchard plot indicates the presence of cooperativity or other kinds of non-simple binding interactions.
 
 .. image:: $(IMAGES)/running-xaxisMT
    :width: 1.233in
