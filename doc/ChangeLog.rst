@@ -2,6 +2,12 @@
 MTBindingSim Revision History
 =============================
 
+Version 0.10
+============
+
+* Removed the cooperativity binding model.
+* Added ability to save Scatchard plots.
+
 Version 0.9
 ===========
 
