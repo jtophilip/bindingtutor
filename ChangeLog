@@ -16,3 +16,55 @@
 
 	* tools/authors.xml: Adding my new GC account to the authors file.
 
+2011-02-15 15:09  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Making sure the ChangeLog script still works.
+
+2011-03-08 23:57  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Removed the cooperativity
+	  model from the MatLab code.
+
+2011-03-09 00:07  Julia Philip <jtophilip@gmail.com>
+
+	* doc/BindingModels.rst, doc/RunningMTBindingSim.rst: Removed refereces
+	  to coopeartivity from docs.
+
+2011-03-09 00:32  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Added Scatchard plotting.
+
+2011-03-09 14:29  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig, src/cooperativity_binding.m: Adjusted the GUI
+	  layout.
+
+2011-03-09 14:41  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Adjusted GUI, fixed a typo
+	  in MTBindingSim.
+
+2011-03-09 14:55  Julia Philip <jtophilip@gmail.com>
+
+	* doc/RunningMTBindingSim.rst: Added Scatchard plotting to the
+	  documentation.
+
+2011-03-10 17:26  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig: Adjusted GUI layout.
+
+2011-03-10 17:27  Julia Philip <jtophilip@gmail.com>
+
+	* src/MTBindingSim.fig: Updated GUI to remove coopeartivity from model
+	  selection.
+
+2011-03-10 18:14  Charles Pence <charles@charlespence.net>
+
+	* NEWS, configure.ac, doc/ChangeLog.rst: Updating version number, NEWS,
+	  ChangeLog.
+
+2011-03-10 18:25  Charles Pence <charles@charlespence.net>
+
+	* build/Makefile.am: Fix a bug in the build Makefile, Automake is smart
+	  enough to distribute the m4 and aux files.
+
