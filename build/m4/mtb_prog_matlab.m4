@@ -20,8 +20,14 @@ dnl @version 2010-06-13
 dnl @license LGPL
 
 AC_DEFUN([MTB_PROG_MATLAB],[
+
+# Get the operating system
 AC_REQUIRE([AC_CANONICAL_HOST])
-AC_REQUIRE([MTB_PROG_WHICH])
+AS_CASE([$host_os],
+  [*mingw32*], [_matlab_os="windows"],
+  [*cygwin*],  [_matlab_os="windows"],
+               [_matlab_os=""])
+
 
 # Let the user specify the path to MATLAB
 AC_ARG_WITH([matlab],
@@ -30,19 +36,16 @@ AC_ARG_WITH([matlab],
   [],
   [with_matlab=""])
 
+
 # Locate MATLAB and set $matlab_path
 AS_IF([test "x$with_matlab" = "x"],
-  [AC_CHECK_PROGS([matlab], [matlab], [no])],
-  [AC_CHECK_PROGS([matlab], [matlab], [no], [$with_matlab])])
+  [AC_PATH_PROGS([matlab], [matlab], [no])],
+  [AC_PATH_PROGS([matlab], [matlab], [no], [$with_matlab])])
 AS_IF([test "x$matlab" = "xno"],
   [ifelse(["$#"], ["0"], [AC_MSG_ERROR([Unable to find MATLAB])], [$1])],
-  [matlab_binary=$($WHICH $matlab)
+  [matlab_binary="$matlab"
    matlab_path=$(AS_DIRNAME(["$matlab_binary"]))])
 
-# Make sure mcc or mcc.bat are in $matlab_path
-AC_CHECK_PROGS([mcc], [mcc mcc.bat], [no], [$matlab_path])
-AS_IF([test "x$mcc" = "xno"],
-  [ifelse(["$#"], ["0"], [AC_MSG_ERROR([Unable to find MATLAB MCC compiler])], [$1])])
 
 # Let the user send some command-line parameters to MATLAB if
 # required
@@ -52,27 +55,12 @@ AC_ARG_WITH([matlab-flags],
   [],
   [with_matlab_flags=""])
 
-MATLAB="$matlab $with_matlab_flags"
-MCC="$mcc $with_matlab_flags"
+
+MATLAB="\"$matlab\" $with_matlab_flags"
 MATLABPATH="$matlab_path"
 AC_SUBST([MATLAB])
-AC_SUBST([MCC])
 AC_SUBST([MATLABPATH])
 
-# If we're not on Win32, we can check to make sure these parameters
-# actually work (and not on Win32 is the only time we need to specify
-# complex parameters)
-AS_CASE([$host_os],
-  [*mingw32*], [_matlab_os="windows"],
-  [*cygwin*],  [_matlab_os="windows"],
-               [_matlab_os=""])
-AS_IF([test "x$_matlab_os" != "xwindows"],
-  [AC_MSG_CHECKING([whether matlab is properly configured])
-   PATH="$PATH:$MATLABPATH" $MATLAB -e > /dev/null 2>&1
-   AS_IF([test $? -eq 0],
-         [AC_MSG_RESULT([yes])],
-         [AC_MSG_RESULT([no])
-          AC_MSG_ERROR([MATLAB cannot be executed.  Specify a path to it with --with-matlab, and check whether you need to pass any command-line parameters to MATLAB with --with-matlab-flags.])])])
 
 # Figure out whether MATLAB is 32 or 64 bit, letting the user force it
 AC_ARG_WITH([matlab-bits],
@@ -83,7 +71,7 @@ AC_ARG_WITH([matlab-bits],
 AC_MSG_CHECKING([whether MATLAB is 32-bit or 64-bit])
 AS_IF([test "x$with_matlab_bits" = "x"],
   [AS_IF([test "x$_matlab_os" != "xwindows"],
-     [PATH="$PATH:$MATLABPATH" $MATLAB -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null
+     ["$matlab" -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null
       AS_IF([test $? -eq 0],
         [AC_MSG_RESULT([64-bit])
          MATLABBITS=64],
@@ -98,4 +86,27 @@ AS_IF([test "x$with_matlab_bits" = "x"],
    AC_MSG_RESULT([$with_matlab_bits (forced)])])
 AC_SUBST([MATLABBITS])
 
+
+# Make sure mcc is in $matlab_path (or, in the funny Windows location)
+AC_PATH_PROGS([mcc], [mcc], [no], [$matlab_path])
+AS_IF([test "x$mcc" = "xno"],
+  [AC_PATH_PROGS([mcc], [mcc], [no], [$matlab_path/win$MATLABBITS])
+   AS_IF([test "x$mcc" = "xno"],
+     [ifelse(["$#"], ["0"], [AC_MSG_ERROR([Unable to find MATLAB MCC compiler])], [$1])])])
+
+MCC="\"$mcc\" $with_matlab_flags"
+AC_SUBST([MCC])
+
+
+
+# If we're not on Win32, we can check to make sure these parameters
+# actually work (and not on Win32 is the only time we need to specify
+# complex parameters)
+AS_IF([test "x$_matlab_os" != "xwindows"],
+  [AC_MSG_CHECKING([whether matlab is properly configured])
+   "$MATLAB" -e > /dev/null 2>&1
+   AS_IF([test $? -eq 0],
+         [AC_MSG_RESULT([yes])],
+         [AC_MSG_RESULT([no])
+          AC_MSG_ERROR([MATLAB cannot be executed.  Specify a path to it with --with-matlab, and check whether you need to pass any command-line parameters to MATLAB with --with-matlab-flags.])])])
 ])

@@ -51,7 +51,7 @@ MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 		MFILES="$$MFILES $(top_srcdir)/src/$$i"; \
 	done; \
 	export MFILES; \
-	PATH="$$PATH:$(MATLABPATH)" $(MCC) $(MATLABFLAGS) -v -d $(builddir) -m $$MFILES)
+	$(MCC) $(MATLABFLAGS) -v -d $(builddir) -m $$MFILES)
 	if test -d $(builddir)/MTBindingSim.app ; then \
 		chmod 644 $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
 		cp $(top_srcdir)/doc/wiki/images/icon/icon.icns $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
