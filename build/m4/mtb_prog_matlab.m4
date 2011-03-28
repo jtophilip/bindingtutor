@@ -43,8 +43,7 @@ AS_IF([test "x$with_matlab" = "x"],
   [AC_PATH_PROGS([matlab], [matlab], [no], [$with_matlab])])
 AS_IF([test "x$matlab" = "xno"],
   [ifelse(["$#"], ["0"], [AC_MSG_ERROR([Unable to find MATLAB])], [$1])],
-  [matlab_binary="$matlab"
-   matlab_path=$(AS_DIRNAME(["$matlab_binary"]))])
+  [matlab_path=$(AS_DIRNAME(["$matlab"]))])
 
 
 # Let the user send some command-line parameters to MATLAB if
@@ -56,9 +55,11 @@ AC_ARG_WITH([matlab-flags],
   [with_matlab_flags=""])
 
 
-MATLAB="\"$matlab\" $with_matlab_flags"
+MATLAB="$matlab" 
+MATLABFLAGS="$with_matlab_flags"
 MATLABPATH="$matlab_path"
 AC_SUBST([MATLAB])
+AC_SUBST([MATLABFLAGS])
 AC_SUBST([MATLABPATH])
 
 
@@ -71,7 +72,7 @@ AC_ARG_WITH([matlab-bits],
 AC_MSG_CHECKING([whether MATLAB is 32-bit or 64-bit])
 AS_IF([test "x$with_matlab_bits" = "x"],
   [AS_IF([test "x$_matlab_os" != "xwindows"],
-     ["$matlab" -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null
+     ["$MATLAB" $MATLABFLAGS -e | $GREP -e ARCH= | $SED s/^ARCH=// | $GREP -q 64 2> /dev/null
       AS_IF([test $? -eq 0],
         [AC_MSG_RESULT([64-bit])
          MATLABBITS=64],
@@ -88,9 +89,9 @@ AC_SUBST([MATLABBITS])
 
 
 # Make sure mcc is in $matlab_path (or, in the funny Windows location)
-AC_PATH_PROGS([mcc], [mcc], [no], [$matlab_path])
+AC_PATH_PROGS([mcc], [mcc], [no], [$MATLABPATH])
 AS_IF([test "x$mcc" = "xno"],
-  [AC_PATH_PROGS([mcc], [mcc], [no], [$matlab_path/win$MATLABBITS])
+  [AC_PATH_PROGS([mcc], [mcc], [no], [$MATLABPATH/win$MATLABBITS])
    AS_IF([test "x$mcc" = "xno"],
      [ifelse(["$#"], ["0"], [AC_MSG_ERROR([Unable to find MATLAB MCC compiler])], [$1])])])
 
@@ -104,7 +105,7 @@ AC_SUBST([MCC])
 # complex parameters)
 AS_IF([test "x$_matlab_os" != "xwindows"],
   [AC_MSG_CHECKING([whether matlab is properly configured])
-   "$MATLAB" -e > /dev/null 2>&1
+   "$MATLAB" $MATLABFLAGS -e > /dev/null 2>&1
    AS_IF([test $? -eq 0],
          [AC_MSG_RESULT([yes])],
          [AC_MSG_RESULT([no])
