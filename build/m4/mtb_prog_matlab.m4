@@ -2,6 +2,8 @@ dnl @synopsis MTB_PROG_MATLAB([ACTION-IF-NOT-FOUND])
 dnl
 dnl This macro sets the following variables:
 dnl  - MATLAB (path to MATLAB)
+dnl  - MATLABFLAGS (command-line flags that should be used whenever
+dnl      the user calls MATLAB)
 dnl  - MCC (path to MCC)
 dnl  - MATLABBITS (32 or 64, installed version of matlab)
 dnl  - MATLABPATH (the path to MATLAB)
@@ -16,7 +18,7 @@ dnl if specified, otherwise fail with an error.
 dnl
 dnl @category Miscellaneous
 dnl @author Charles Pence <charles@charlespence.net>
-dnl @version 2010-06-13
+dnl @version 2011-03-28
 dnl @license LGPL
 
 AC_DEFUN([MTB_PROG_MATLAB],[
