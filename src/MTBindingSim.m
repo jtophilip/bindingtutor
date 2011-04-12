@@ -115,7 +115,7 @@ set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 set(handles.tot_free, 'SelectionChangeFcn', @tot_free_SelectionChangeFcn);
 
 % Make some global string values for later
-global UM KAS KAL KAM KAA KBM KAAM;
+global UM KAS KAL KAM KAA KBM KAAM KAM1 KAM2;
 UM = '&#956;M';
 KAS = 'K<sub><small>AS</small></sub>';
 KAL = 'K<sub><small>AL</small></sub>';
@@ -123,6 +123,8 @@ KAM = 'K<sub><small>AMT</small></sub>';
 KAA = 'K<sub><small>AA</small></sub>';
 KBM = 'K<sub><small>BMT</small></sub>';
 KAAM = 'K<sub><small>AAMT</small></sub>';
+KAM1 = 'K<sub><small>AMT1</small></sub>';
+KAM2 = 'K<sub><small>AMT2</small></sub>';
 
 
 % Convert a bunch of our controls to java controls
@@ -1687,6 +1689,191 @@ elseif strcmpi(handles.mode1, 'dimer')
         otherwise
     end
     
+elseif strcmpi(handles.mode1, 'sites')
+    
+    %%% Two site binding %%%
+    
+    % Determine the experimental mode
+    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+        % Binding mode is selected
+        case 'binding'
+
+            % Gets the value for [A] free and ensures that it's a
+            % positive number
+            Atot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(Atot) || Atot <= 0
+                errorbox('Please enter a positive number for [A] total', hObject); 
+                return
+            end
+
+            % Gets the value for KAS and ensures that it's a
+            % positive number
+            KA1 = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KA1) || KA1 <= 0
+                errorbox('K_A1 must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for KAL and ensures that it's a positive
+            % number
+            KA2 = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(KA2) || KA2 <= 0
+                errorbox('K_A2 must be a number greater than 0', hObject); 
+                return
+            end
+            
+
+            % Determines whether the X-axis is free MT or free MT
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                case 'free'
+
+                    errorbox('The two sites model cannot be graphed with an X-axis of [MT] free',hObject);
+                 
+                case 'total'
+
+                    % Calculates fraction of A bound and MT free
+                    [frac] = sites_binding(xvals, Atot, KA1, KA2);
+                    
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Sets the x and y values to plot
+                    y1 = frac;
+                    x1 = xvals;
+
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[MT] total';
+                    yaxis = 'Fraction of A bound';
+                    plottitle = 'Vary [MT] Binding Assay';
+                    legend1 = ['Two sites, [A] total = ' get(handles.input1_1, 'String') ', K_{A1} = ' get(handles.input2_1, 'String') ', K_{A2} = ' get(handles.input3_1, 'String')];
+
+                otherwise
+            end
+
+        % Saturation mode is selected
+        case 'saturation'
+
+            % Gets the value for [MT] free and ensures that it's a
+            % positive number
+            MTtot = str2double(get(handles.input1_1, 'String'));
+
+            if isnan(MTtot) || MTtot <= 0
+                errorbox('Please enter a positive number for [MT] total', hObject); 
+                return
+            end
+
+            % Gets the value for KAS and ensures that it's a
+            % positive number
+            KA1 = str2double(get(handles.input2_1, 'String'));
+
+            if isnan(KA1) || KA1 <= 0
+                errorbox('K_A1 must be a number greater than 0', hObject); 
+                return
+            end
+
+            % Gets the value for KAL and ensures that it's a positive
+            % number
+            KA2 = str2double(get(handles.input3_1, 'String'));
+
+            if isnan(KA2) || KA2 <= 0
+                errorbox('K_A2 must be a number greater than 0', hObject); 
+                return
+            end
+                        
+            % Determines whether the the x-axis is free or free
+            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                
+                case 'free'
+                    
+                    % Calculates concentration of Abound and A free
+                    [Abound, Afree] = sites_saturation(MTtot, xvals, KA1, KA2);
+                    
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Sets the x and y values to plot
+                    y1 = Abound;
+                    x1 = Afree;
+
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] free';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Two sites, [MT] total = ' get(handles.input1_1, 'String') ', K_{A1} = ' get(handles.input2_1, 'String') ', K_{A2} = ' get(handles.input3_1, 'String')];
+
+
+                case 'total'
+                    
+                    % Calculates concentration of A bound and MT free
+                    [Abound, Afree] = sites_saturation(MTtot, xvals, KA1, KA2);
+                    
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Sets the x and y values to plot
+                    y1 = Abound;
+                    x1 = xvals;
+
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] total';
+                    yaxis = '[A] bound';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Two sites, [MT] total = ' get(handles.input1_1, 'String') ', K_{A1} = ' get(handles.input2_1, 'String') ', K_{A2} = ' get(handles.input3_1, 'String')];
+   
+                case 'scatchard'
+                    
+                    % Calculates concentration of A bound and MT free
+                    [Abound, Afree] = sites_saturation(MTtot, xvals, KA1, KA2);
+                    
+                    % Checks to make sure the calculation was sucessful and
+                    % returns an error if it was not
+                    [a,b] = size(Abound);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Sets the x and y values to plot
+                    y1 = Abound./Afree;
+                    x1 = Abound;
+
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[A] bound';
+                    yaxis = '[A] bound/[A] free';
+                    plottitle = 'Vary [A] Binding Assay';
+                    legend1 = ['Two sites, [MT] total = ' get(handles.input1_1, 'String') ', K_{A1} = ' get(handles.input2_1, 'String') ', K_{A2} = ' get(handles.input3_1, 'String')];
+                
+                
+                otherwise
+            end
+
+            
+        otherwise
+    end
+
+
 
 
 end
@@ -2942,8 +3129,172 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     end
 
 
-    end
 
+    elseif strcmpi(handles.mode2, 'sites')
+
+            %%%% Two sites binding %%%%%
+
+            % Determine the experimental mode
+            switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
+                % Binding mode is selected
+                case 'binding'
+
+                    % Gets the value for [A] free and ensures that it's a
+                    % positive number
+                    Atot = str2double(get(handles.input1_2, 'String'));
+
+                    if isnan(Atot) || Atot <= 0
+                        errorbox('Please enter a positive number for [A] total', hObject); 
+                        return
+                    end
+
+                    % Gets the value for KAS and ensures that it's a
+                    % positive number
+                    KA1 = str2double(get(handles.input2_2, 'String'));
+
+                    if isnan(KA1) || KA1 <= 0
+                        errorbox('K_A1 must be a number greater than 0', hObject); 
+                        return
+                    end
+
+                    % Gets the value for KAL and ensures that it's a positive
+                    % number
+                    KA2 = str2double(get(handles.input3_2, 'String'));
+
+                    if isnan(KA2) || KA2 <= 0
+                        errorbox('K_A2 must be a number greater than 0', hObject); 
+                        return
+                    end
+
+
+                    % Determines whether the X-axis is free MT or free MT
+                    switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                        case 'free'
+
+                          errorbox('The two sites model cannot be graphed with an x-axis of [MT] free',hObject);
+                            
+                        case 'total'
+
+                            % Function to get fraction A bound
+                            [frac] = sites_binding(xvals, Atot, KA1, KA2);
+
+                            % Ensures that the calculation was successful and
+                            % returns an error if it was not
+                            [a,b] = size(frac);
+                            if a == 1 && b == 1
+                               errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                               return
+                            end
+
+                            % Sets the x and y values to plot
+                            y2 = frac;
+                            x2 = xvals;
+
+                            % Sets the legend text
+                            legend2 = ['Two sites, [A] total = ' get(handles.input1_2, 'String') ', K_{A1} = ' get(handles.input2_2, 'String') ', K_{A2} = ' get(handles.input3_2, 'String')];
+
+                        otherwise
+                    end
+
+                % Saturation mode is selected
+                case 'saturation'
+
+                    % Gets the value for [MT] free and ensures that it's a
+                    % positive number
+                    MTtot = str2double(get(handles.input1_2, 'String'));
+
+                    if isnan(MTtot) || MTtot <= 0
+                        errorbox('Please enter a positive number for [MT] total', hObject); 
+                        return
+                    end
+
+                    % Gets the value for KAS and ensures that it's a
+                    % positive number
+                    KA1 = str2double(get(handles.input2_2, 'String'));
+
+                    if isnan(KA1) || KA1 <= 0
+                        errorbox('K_A1 must be a number greater than 0', hObject); 
+                        return
+                    end
+
+                    % Gets the value for KAL and ensures that it's a positive
+                    % number
+                    KA2 = str2double(get(handles.input3_2, 'String'));
+
+                    if isnan(KA2) || KA2 <= 0
+                        errorbox('K_A2 must be a number greater than 0', hObject); 
+                        return
+                    end
+
+
+                    % Checks to see whether the x-axis is free or free A
+                    switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
+                        case 'free'
+
+                            % Function to get the concentration of A bound
+                            [Abound, Afree] = sites_saturation(MTtot, xvals, KA1, KA2);
+
+                            % Ensures that the calculation was successful and
+                            % returns an error if it was not
+                            [a,b] = size(Abound);
+                            if a == 1 && b == 1
+                               errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                               return
+                            end
+
+                            % Sets the x and y values to plot
+                            y2 = Abound;
+                            x2 = Afree;
+
+                            % Sets the legend text
+                            legend2 = ['Two sites, [MT] total = ' get(handles.input1_2, 'String') ', K_{A1} = ' get(handles.input2_2, 'String') ', K_{A2} = ' get(handles.input3_2, 'String')];
+
+                        case 'total'
+
+                            % Function to get the concentration of A bound
+                            [Abound, Afree] = sites_saturation(MTtot, xvals, KA1, KA2);
+
+                            % Ensures that the calculation was successful and
+                            % returns an error if it was not
+                            [a,b] = size(Abound);
+                            if a == 1 && b == 1
+                               errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                               return
+                            end
+
+                            % Sets the x and y values to plot
+                            y2 = Abound;
+                            x2 = xvals;
+
+                            % Sets the legend text
+                            legend2 = ['Two sites, [MT] total = ' get(handles.input1_2, 'String') ', K_{A1} = ' get(handles.input2_2, 'String') ', K_{A2} = ' get(handles.input3_2, 'String')];
+
+                        case 'scatchard'
+
+                            % Function to get the concentration of A bound
+                            [Abound, Afree] = sites_saturation(MTtot, xvals, KA1, KA2);
+
+                            % Ensures that the calculation was successful and
+                            % returns an error if it was not
+                            [a,b] = size(Abound);
+                            if a == 1 && b == 1
+                               errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                               return
+                            end
+
+                            % Sets the x and y values to plot
+                            y2 = Abound./Afree;
+                            x2 = Abound;
+
+                            % Sets the legend text
+                            legend2 = ['Two sites, [MT] total = ' get(handles.input1_2, 'String') ', K_{A1} = ' get(handles.input2_2, 'String') ', K_{A2} = ' get(handles.input3_2, 'String')];
+
+
+                        otherwise
+                    end 
+                otherwise
+            end
+    end
     
 end
 
@@ -3458,10 +3809,84 @@ switch get(handles.curve1, 'Value')
                 
             otherwise
         end
-     
+        
+    case 6
+        
+        handles.mode1 = 'Sites';
+        
+        % Determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                % Checks to see if the x-axis is MT free and deletes the
+                % graph
+                if strcmpi(get(get(handles.tot_free, 'SelectedObject'),'Tag'), 'free') && (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
+                    
+                    clear = questdlg('The 2 Sites model cannot be graphed with the x-axis as [MT] free. Do you want to close the current graph?', 'Close Graph Window?', 'Yes','No','No');
+    
+                    % Returns the selection to is previous value and stops evaluating further
+                    % code if the user selects no
+                    if strcmp(clear, 'No')
+                        set(handles.curve1, 'Value', 1);
+                        handles.mode1 = 'firstorder';
+                        first_order_binding_labels1(hObject);
+                        % Updates the handles
+                        guidata(hObject, handles);
+                        return
+                    end
+    
+                % Deletes the axes
+                if (ishandle(handles.graphaxes))
+                    delete(handles.graphaxes);
+                    handles.graphaxes = -1;
+                end
+                
+                if (ishandle(handles.graphfigure))
+                    delete(handles.graphfigure);
+                    handles.graphfigure = -1;
+                end
+    
+                % Resets xmin_all and xmax_all
+                handles.xmin_all = 1*10^20;
+                handles.xmax_all = 0;
+    
+                % Changes the graph and save buttons
+                figureclose(hObject);
+    
+                % Updates the handles structure
+                guidata(hObject, handles);
+    
+            end
+
+                
+                Sites_binding_labels1(hObject);
+               
+            case 'saturation'
+                
+                Sites_saturation_labels1(hObject);
+                
+            otherwise
+        end
         
     otherwise
 end
+
+% Checks to see if the 2 site mode is selected in binding mode and turns MT
+% free on or off accordingly
+if strcmpi(get(get(handles.exp_mode, 'SelectedObject'),'Tag'), 'binding')
+    if strcmpi(handles.mode1, 'Sites')
+        set(handles.free, 'Visible','off');
+        set(handles.tot_free, 'SelectedObject', handles.total);
+    elseif strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare') && strcmpi(handles.mode2, 'Sites')
+        set(handles.free, 'Visible','off');
+        set(handles.tot_free, 'SelectedObject', handles.total);
+    else
+        set(handles.free, 'Visible', 'on');
+    end
+else
+    set(handles.free, 'Visible', 'on');
+end
+
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -3590,8 +4015,81 @@ switch get(handles.curve2, 'Value')
             otherwise
         end
         
+      case 6
+        
+        handles.mode2 = 'sites';
+        
+        % Determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                
+                % Checks to see if the x-axis is set to MT free and deletes the graph 
+                if strcmpi(get(get(handles.tot_free, 'SelectedObject'),'Tag'), 'free') && (ishandle(handles.graphaxes) || ishandle(handles.graphfigure))
+                    
+                    clear = questdlg('The 2 Sites model cannot be graphed with the x-axis as [MT] free. Do you want to close the current graph?', 'Close Graph Window?', 'Yes','No','No');
+    
+                    % Returns the selection to is previous value and stops evaluating further
+                    % code if the user selects no
+                    if strcmp(clear, 'No')
+                        set(handles.curve2, 'Value', 1);
+                        handles.mode2 = 'firstorder';
+                        first_order_binding_lables2(hObject);
+                        % Updates the handles
+                        guidata(hObject, handles);
+                        return
+                    end
+    
+                % Deletes the axes
+                if (ishandle(handles.graphaxes))
+                    delete(handles.graphaxes);
+                    handles.graphaxes = -1;
+                end
+                
+                if (ishandle(handles.graphfigure))
+                    delete(handles.graphfigure);
+                    handles.graphfigure = -1;
+                end
+    
+                % Resets xmin_all and xmax_all
+                handles.xmin_all = 1*10^20;
+                handles.xmax_all = 0;
+    
+                % Changes the graph and save buttons
+                figureclose(hObject);
+    
+                % Updates the handles structure
+                guidata(hObject, handles);
+    
+            end
+                
+                Sites_binding_labels2(hObject);
+               
+            case 'saturation'
+                
+                Sites_saturation_labels2(hObject);
+                
+            otherwise
+        end
+        
+
         
     otherwise
+end
+
+% Checks to see if the 2 site mode is selected in binding mode and turns MT
+% free on or off accordingly
+if strcmpi(get(get(handles.exp_mode, 'SelectedObject'),'Tag'), 'binding')
+    if strcmpi(handles.mode1, 'Sites')
+        set(handles.free, 'Visible','off');
+        set(handles.tot_free, 'SelectedObject', handles.total)
+    elseif strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare') && strcmpi(handles.mode2, 'Sites')
+        set(handles.free, 'Visible','off');
+        set(handles.tot_free, 'SelectedObject', handles.total)
+    else
+        set(handles.free, 'Visible', 'on');
+    end
+else
+    set(handles.free, 'Visible', 'on');
 end
 
 % Updates the handles structure
@@ -3689,6 +4187,10 @@ switch get(eventdata.NewValue, 'Tag')
 
             MAP2_binding_labels1(hObject);
             
+        elseif strcmpi(handles.mode1, 'Sites')
+            
+            Sites_binding_labels1(hObject);
+            
         end
 
         % Determines if single or comparision mode is selected
@@ -3731,6 +4233,10 @@ switch get(eventdata.NewValue, 'Tag')
             elseif strcmpi(handles.mode2, 'MAPbind2')
 
                 MAP2_binding_labels2(hObject);
+                
+            elseif strcmpi(handles.mode2, 'Sites')
+                
+                Sites_binding_labels2(hObject);
 
             end
             
@@ -3779,6 +4285,11 @@ switch get(eventdata.NewValue, 'Tag')
         elseif strcmpi(handles.mode1, 'dimer')
 
             dimer_saturation_labels1(hObject);
+            
+        % The two site model is selected    
+        elseif strcmpi(handles.mode1, 'Seam')
+            
+            Seam_saturation_lables1(hObject);
 
 
         end
@@ -3823,6 +4334,11 @@ switch get(eventdata.NewValue, 'Tag')
             elseif strcmpi(handles.mode2, 'dimer')
 
                 dimer_saturation_labels2(hObject);
+                
+            % Two sites is selected
+            elseif strcmpi(handles.mode2, 'Sites')
+                
+                Sites_saturation_labels2(hObject);
 
             end
             
@@ -3849,6 +4365,24 @@ switch get(eventdata.NewValue, 'Tag')
     otherwise
 end
 
+
+% Checks to see if the 2 site mode is selected in binding mode and turns MT
+% free on or off accordingly
+if strcmpi(get(eventdata.NewValue, 'Tag'), 'binding')
+    if strcmpi(handles.mode1, 'Sites')
+        set(handles.free, 'Visible','off');
+        set(handles.tot_free, 'SelectedObject', handles.total)
+    elseif strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare') && strcmpi(handles.mode2, 'Sites')
+        set(handles.free, 'Visible','off');
+        set(handles.tot_free, 'SelectedObject', handles.total)
+    else
+        set(handles.free, 'Visible', 'on');
+    end
+else
+    set(handles.free, 'Visible', 'on');
+end
+
+
 % Retreives the new guidata after the input boxes have been changed
 handles = guidata(hObject);
 
@@ -3873,6 +4407,11 @@ switch get(eventdata.NewValue, 'Tag')
         set(handles.equation2, 'Visible', 'off');
         set(handles.result, 'Visible', 'off');
         
+        if strcmpi(handles.mode1, 'Sites')
+        elseif strcmpi(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding')
+            set(handles.free, 'Visible', 'on');
+        end
+        
     case 'compare'
         
         % Sets the curve selection box and curve data boxes as visible
@@ -3887,31 +4426,33 @@ switch get(eventdata.NewValue, 'Tag')
            
             case 'binding'
                 
-                switch get(handles.curve2, 'Value')
+                switch handles.mode2
                     
-                    case 1
+                    case 'firstorder'
                         
                         first_order_binding_labels2(hObject);
                         
-                    case 2
+                    case 'seam'
                         
                         seam_binding_labels2(hObject);
                         
-                    case 3
+                    case 'dimer'
                         
                         dimer_binding_labels2(hObject);
                         
-                    case 4
-                        
-                        cooperativity_binding_labels2(hObject);
-                        
-                    case 5
+                    case 'MAPbind'
                         
                         MAP_binding_labels2(hObject);
                         
-                    case 6
+                    case 'MAPbind2'
                         
                         MAP2_binding_labels2(hObject);
+                        
+                    case 'Sites'
+                        
+                        Sites_binding_labels2(hObject);
+                        set(handles.free, 'Visible','off');
+                        set(handles.tot_free, 'SelectedObject', handles.total);
                         
                     otherwise
                 end
@@ -3920,29 +4461,29 @@ switch get(eventdata.NewValue, 'Tag')
                 
                 switch get(handles.curve2, 'Value')
                     
-                    case 1
+                    case 'firstorder'
                         
                         first_order_saturation_labels2(hObject);
                         
-                    case 2
+                    case 'seam'
                         
                         seam_saturation_labels2(hObject);
                         
-                    case 3
+                    case 'dimer'
                         
                         dimer_saturation_labels2(hObject);
                         
-                    case 4
-                        
-                        cooperativity_saturation_labels2(hObject);
-                        
-                    case 5
+                    case 'MAPbind'
                         
                         MAP_saturation_labels2(hObject);
                         
-                    case 6
+                    case 'MAPbind2'
                         
                         MAP2_saturation_labels2(hObject);
+                        
+                    case 'Sites'
+                        
+                        Sites_saturation_labels2(hObject);
                         
                     otherwise
                 end
@@ -4073,6 +4614,16 @@ set_java_component(model, 'A + MT &#8596; AMT, B + MT &#8596; BMT');
 set_java_component(equation, [KAM, ' =[A][MT]/[AMT], ', KBM, ' =[B][MT]/[BMT]']);
 end
 
+
+function Sites_strings(model, equation)
+
+% Generates the model and equation strings for two sites
+
+global KAM1 KAM2;
+set_java_component(model, 'A + MT1 &#8596; AMT1, A + MT2 &#8596; AMT2');
+set_java_component(equation, [KAM1 ' =[A][MT1]/[AMT1], ', KAM2, ' =[A][MT2]/[AMT2]']);
+
+end
 
 function first_order_binding_labels1(hObject)
 % Function to update the apperence of MTBindingSim for the case where the
@@ -4514,6 +5065,66 @@ guidata(hObject, handles);
 
 end
 
+function Sites_binding_labels1(hObject)
+% Function to update the appearnce of MTBindinSim for the case where the
+% first function is dimerization in binding mode
+
+global KAM1 KAM2 UM;
+
+% Sets the visibility for all imput boxes
+inputboxes_display1(hObject, 3);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets the model equation and text
+Sites_strings(handles.model1, handles.equation1);
+
+% Sets labels for the input boxes
+set(handles.label_xmin, 'String', '[MT] total min ');
+set(handles.label_xmax, 'String', '[MT] total max ');
+set(handles.total, 'String', '[MT] total');
+set(handles.free, 'String', '[MT] free');
+set_java_component(handles.label1_1, '[A] total ');
+set_java_component(handles.label2_1, [KAM1, ' ']);
+set_java_component(handles.label3_1, [KAM2, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
+function Sites_saturation_labels1(hObject)
+% Function to update the appearnce of MTBindinSim for the case where the
+% first function is dimerization in saturation mode
+
+global KAM1 KAM2 UM;
+
+% Sets the visibility for all imput boxes
+inputboxes_display1(hObject, 3);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets the model equation and text
+Sites_strings(handles.model1, handles.equation1);
+
+% Sets labels for the input boxes
+set(handles.label_xmin, 'String', '[A] total min ');
+set(handles.label_xmax, 'String', '[A] total max ');
+set(handles.total, 'String', '[A] total');
+set(handles.free, 'String', '[A] free');
+set_java_component(handles.label1_1, '[MT] total ');
+set_java_component(handles.label2_1, [KAM1, ' ']);
+set_java_component(handles.label3_1, [KAM2, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
 
 function competition_labels1(hObject)
 % Function to update the appearnce of MTBindingSim for the case where
@@ -4932,6 +5543,57 @@ guidata(hObject, handles);
 end
 
 
+function Sites_binding_labels2(hObject)
+% Function to update the appearnce of MTBindinSim for the case where the
+% first function is dimerization in binding mode
+
+global KAM1 KAM2 UM;
+
+% Sets the visibility for all imput boxes
+inputboxes_display2(hObject, 3);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets the model equation and text
+Sites_strings(handles.model2, handles.equation2);
+
+% Sets labels for the input boxes
+set_java_component(handles.label1_2, '[A] total ');
+set_java_component(handles.label2_2, [KAM1, ' ']);
+set_java_component(handles.label3_2, [KAM2, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
+
+function Sites_saturation_labels2(hObject)
+% Function to update the appearnce of MTBindinSim for the case where the
+% first function is dimerization in saturation mode
+
+global KAM1 KAM2 UM;
+
+% Sets the visibility for all imput boxes
+inputboxes_display2(hObject, 3);
+
+% Retreives the GUI handles structure
+handles = guidata(hObject);
+
+% Sets the model equation and text
+Sites_strings(handles.model2, handles.equation2);
+
+% Sets labels for the input boxes
+set_java_component(handles.label1_2, '[MT] total ');
+set_java_component(handles.label2_2, [KAM1, ' ']);
+set_java_component(handles.label3_2, [KAM2, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
+
+% Updates the handles structure
+guidata(hObject, handles);
+
+end
 
 function competition_labels2(hObject)
 % Function to update the appearnce of MTBindingSIm for the case where
