@@ -66,7 +66,7 @@ MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 	fi
 
 # Clean up after MCC
-CLEANFILES = *.c MTBindingSim.prj MTBindingSim MTBindingSim.exe mccExcludedFiles.log readme.txt run_MTBindingsim.sh
+CLEANFILES = *.c MTBindingSim.prj MTBindingSim MTBindingSim.exe mccExcludedFiles.log readme.txt run_MTBindingSim.sh
 clean-local: clean-local-mac64app
 clean-local-mac64app:
 	-rm -rf MTBindingSim.app
