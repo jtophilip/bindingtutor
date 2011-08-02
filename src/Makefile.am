@@ -36,10 +36,11 @@ MTBindingSim_MATLAB = \
 	MAP2_binding.m MAP2_saturation.m \
 	MAP_binding.m MAP_saturation.m \
 	competition.m \
-	cooperativity_binding.m cooperativity_saturation.m \
 	dimer_binding.m dimer_saturation.m \
 	first_order_binding.m first_order_saturation.m \
-	seam_lattice_binding.m seam_lattice_saturation.m
+	pseudocooperativity_binding.m pseudocooperativity_saturation.m \
+	seam_lattice_binding.m seam_lattice_saturation.m \
+	sites_binding.m sites_saturation.m
 MTBindingSim_FIG = MTBindingSim.fig
 
 # Build using MCC.  We fake out the automatic build by making it think we're building
