@@ -18,11 +18,13 @@
 ; along with MTBindingSim.  If not, see <http://www.gnu.org/licenses/>.
 
 !include "MUI2.nsh"
+!include "WinVer.nsh"
 
 
 ;; Name and output
 Name "MTBindingSim"
 OutFile "@top_builddir@\MTBindingSim-@PACKAGE_VERSION@.exe"
+SetCompressor /SOLID lzma
 
 ;; Default installation folder
 InstallDir "$PROGRAMFILES\MTBindingSim"
@@ -36,6 +38,8 @@ RequestExecutionLevel admin
 
 ;; Interface settings
 Var StartMenuFolder
+Var WindowsPlatform
+Var VCTest
 !define MUI_ABORTWARNING
 
 
@@ -70,6 +74,23 @@ Var StartMenuFolder
 !insertmacro MUI_LANGUAGE "English"
 
 
+;; Get the Windows platform (x86, ia64, x64)
+Function GetWindowsPlatform
+  StrCpy $WindowsPlatform "0"
+  
+  ${If} ${AtLeastWinXP}
+    System::Alloc 36
+    pop $0
+    ${If} $0 <> 0
+      System::Call 'kernel32::GetNativeSystemInfo(i $0)'
+      System::Call "*$0(&i2.r1)"
+      StrCpy $WindowsPlatform $1
+      System::Free $0
+    ${EndIf}
+  ${EndIf}
+FunctionEnd
+
+
 ;; Installer sections
 Section "MTBindingSim" SecMTBS
 
@@ -100,6 +121,44 @@ Section "MTBindingSim" SecMTBS
 
 SectionEnd
 
+Section -Prerequisites
+  
+  SetOutPath $INSTDIR\redist
+  Call GetWindowsPlatform
+
+  ${Switch} $WindowsPlatform
+    ${Case} 6
+      File "redist\vcredist_ia64.exe"
+      ExecWait '"$INSTDIR\redist\vcredist_ia64.exe" /q /norestart' $VCTest
+      ${Break}
+    ${Case} 9
+      File "redist\vcredist_x64.exe"
+      ExecWait '"$INSTDIR\redist\vcredist_x64.exe" /q /norestart' $VCTest
+      ${Break}
+    ${Default}
+      File "redist\vcredist_x86.exe"
+      ExecWait '"$INSTDIR\redist\vcredist_x86.exe" /q /norestart' $VCTest
+      ${Break}
+  ${EndSwitch}
+  
+  ${If} $VCTest == "3010"
+    SetRebootFlag true
+  ${ElseIf} $VCTest == "0"
+    Goto VCRedistInstalled
+  ${Else}
+    Abort "Failed to install the Visual C++ 2010 redistributable package"
+  ${EndIf}
+
+VCRedistInstalled:
+  
+  IfFileExists "$PROGRAMFILES\MATLAB\MATLAB Compiler Runtime\v713\bin\mex.bat" MCRInstalled
+  File "redist\MCRInstaller.exe"
+  ExecWait '"$INSTDIR\redist\MCRInstaller.exe" /w /s /v/qn'
+  
+MCRInstalled:
+  
+SectionEnd
+
 
 ;; Uninstaller section
 Section "Uninstall"
@@ -114,6 +173,12 @@ Section "Uninstall"
   Delete "$INSTDIR\THANKS"
   Delete "$INSTDIR\mtbindingsim.pdf"
   Delete "$INSTDIR\Uninstall.exe"
+  
+  Delete "$INSTDIR\redist\vcredist_x86.exe"
+  Delete "$INSTDIR\redist\vcredist_x64.exe"
+  Delete "$INSTDIR\redist\vcredist_ia64.exe"
+  Delete "$INSTDIR\redist\MCRInstaller.exe"
+  RMDir "$INSTDIR\redist"
   
   RMDir "$INSTDIR"
   
