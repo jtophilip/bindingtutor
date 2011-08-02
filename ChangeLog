@@ -142,3 +142,12 @@
 
 	* NEWS, configure.ac: Bump version to 0.11.
 
+2011-08-02 23:09  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Update ChangeLog.
+
+2011-08-02 23:13  Charles Pence <charles@charlespence.net>
+
+	* src/Makefile.am: Huge bug, Makefile.am hasn't been getting updated
+	  lately.
+
