@@ -122,21 +122,6 @@ For first order binding, you need to input the total concentration of A
 (or MT), the K\ :sub:`D`\ , and the binding ratio.  All of these must 
 be positive numbers.
 
-.. Traditional Cooperativity
-   -------------------------
-
-.. Traditional cooperativity simulates binding where one A binding to one 
-   MT dimer influences the binding of another A to a neighboring MT dimer.  For  the purposes of this model only interactions between two As are considered.
-
-.. commented
-   image:: $(IMAGES)/running-cooperativity
-   :width: 1.927in
-   :align: center
-
-.. For cooperativity, you need to input the total concentration of A (or 
-   MT), K\ :sub:`D`\, φ, which determines the dissociation constant for 
-   the second A, and the binding ratio. All inputs must be positive 
-   numbers.
 
 Seam and Lattice Binding
 ------------------------
@@ -151,6 +136,31 @@ to the MT seam dimers with a different affinity than the MT lattice dimers.
 For this model you need to input the total concentration of A (or MT), 
 the dissociation constants for the seam, K\ :sub:`S`\ , lattice, K\
 :sub:`L`\ , and the binding ratio. All inputs must be positive numbers.
+
+MAPs Dimerize
+-------------
+
+In this model, A can exist either as a monomer or as a dimer, and both the 
+monomer and dimer forms can bind to MT.
+
+.. image:: $(IMAGES)/running-dimer
+   :width: 1.933in
+   :align: center
+
+For this model, you need to input the total amount of A (or MT), the 
+dissociation constant for monomeric A binding MT, K\ :sub:`1`\ , the 
+dissociation constant for dimeric A binding MT, K\ :sub:`2`\ , the 
+dissociation constant for the A dimer, K\ :sub:`A`\ , and the binding 
+ratio. All inputs must be positive numbers.
+
+Pseudocooperativity
+-------------------
+
+This model simulates a situation where the binding of an A to an MT site changes the conformation of another MT site, creating an MT* site which has a different affinity for A than the MT sites.
+
+IMAGE GOES HERE
+
+For this model, you need to input the total amount of A (or MT), the dissociation constant for A binding to MT, K\ :sub:`AMT`\, the dissociation constant for A binding to MT*, K\ :sub:`AMT`\*, and the binding ratio. All inputs must be positive numbers.
 
 MAPs Bind MT-bound MAPs
 -----------------------
@@ -183,19 +193,14 @@ binding ratio. All inputs must be positive numbers.
 
 This model can be used in concert with the MAPs bind MT-bound MAPs model described above to begin to understand the behavior of MAPs that use the MT as a nucleation site for MAP polymerization. It is impractical to model a case where the MAP can form a large polymer, but these two models together establish the trend of the binding data in such a case.
 
-MAPs Dimerize
--------------
+Two Binding Sites
+-----------------
 
-In this model, A can exist either as a monomer or as a dimer, and both the 
-monomer and dimer forms can bind to MT.
+In this model, A can bind to two sites per tubulin dimer, site 1 and site 2 with different dissociation constants.
 
-.. image:: $(IMAGES)/running-dimer
-   :width: 1.933in
-   :align: center
+*Put pic here*
 
-For this model, you need to input the total amount of A (or MT), the 
-dissociation constant for monomeric A binding MT, K\ :sub:`1`\ , the 
-dissociation constant for dimeric A binding MT, K\ :sub:`2`\ , the 
-dissociation constant for the A dimer, K\ :sub:`A`\ , and the binding 
-ratio. All inputs must be positive numbers.
+In this model, you input the total amount of A (or MT), the dissociation constant for A binding to MT\ :sub:`1`\ sites, K\ :sub:`AMT1`\ and the dissociation constant for A binding to MT\ :sub:`2`\ sites, K\ :sub:`AMT2`\. All inputs must be positive numbers. Note that the total amount of MT is the total amount of MT\ :sub:`1`\ and MT\ :sub:`2`\.
+
+This model cannot be graphed with an x-axis of [MT] free.
 

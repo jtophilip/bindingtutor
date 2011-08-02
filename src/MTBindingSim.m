@@ -115,7 +115,7 @@ set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 set(handles.tot_free, 'SelectionChangeFcn', @tot_free_SelectionChangeFcn);
 
 % Make some global string values for later
-global UM KAS KAL KAM KAA KBM KAAM KAM1 KAM2;
+global UM KAS KAL KAM KAA KBM KAAM KAM1 KAM2 KAMS;
 UM = '&#956;M';
 KAS = 'K<sub><small>AS</small></sub>';
 KAL = 'K<sub><small>AL</small></sub>';
@@ -125,6 +125,7 @@ KBM = 'K<sub><small>BMT</small></sub>';
 KAAM = 'K<sub><small>AAMT</small></sub>';
 KAM1 = 'K<sub><small>AMT1</small></sub>';
 KAM2 = 'K<sub><small>AMT2</small></sub>';
+KAMS = 'K<sub><small>AMT</small></sub>*';
 
 
 % Convert a bunch of our controls to java controls
@@ -572,9 +573,9 @@ elseif strcmpi(handles.mode1, 'firstorder')
         otherwise
     end
 
-elseif strcmpi(handles.mode1, 'cooperativity')
+elseif strcmpi(handles.mode1, 'pseudocooperativity')
     
-    %%% Cooperative binding %%% 
+    %%% Pseudocooperative binding %%% 
 
     % Determine the experimental mode
     switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
@@ -599,12 +600,12 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                 return
             end
 
-            % Gets the value for phi and ensures that it's a
+            % Gets the value for KAMS and ensures that it's a
             % number
-            p = str2double(get(handles.input3_1, 'String'));
+            KAMS = str2double(get(handles.input3_1, 'String'));
 
-            if isnan(p) || p <= 0
-                errorbox('phi must be a positive number', hObject); 
+            if isnan(KAMS) || KAMS <= 0
+                errorbox('K_AMT^* must be a positive number', hObject); 
                 return
             end
             
@@ -622,7 +623,7 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                 case 'free'
 
                     % Calculates frac and MTfree
-                    [frac, MTfree] = cooperativity_binding(xvals, Atot, KAM, p, N);
+                    [frac, MTfree] = pseudocooperativity_binding(xvals, Atot, KAM, KAMS, N);
                     
                     % Checks to make sure that the calculation was
                     % successful and returns an error if it was not
@@ -642,12 +643,12 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                     xaxis = '[MT] free';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+                    legend1 = ['Pseduocooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 case 'total'
 
                     % Calculates frac, MTfree
-                    [frac, MTfree] = cooperativity_binding(xvals, Atot, KAM, p, N);
+                    [frac, MTfree] = pseudocooperativity_binding(xvals, Atot, KAM, KAMS, N);
                     
                     % Checks to make sure the calculation was sucessful and
                     % returns an error if it was not
@@ -666,7 +667,7 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                     xaxis = '[MT] total';
                     yaxis = 'Fraction of A bound';
                     plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Cooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+                    legend1 = ['Pseudocooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 otherwise
             end
@@ -694,10 +695,10 @@ elseif strcmpi(handles.mode1, 'cooperativity')
 
             % Gets the value for phi and ensures that it's a
             % number
-            p = str2double(get(handles.input3_1, 'String'));
+            KAMS = str2double(get(handles.input3_1, 'String'));
 
-            if isnan(p) || p <= 0
-                errorbox('phi must be a number greater than 0', hObject); 
+            if isnan(KAMS) || KAMS <= 0
+                errorbox('K_AMT^* must be a number greater than 0', hObject); 
                 return
             end
             
@@ -716,7 +717,7 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                 case 'free'
                     
                     % Calculates Abound and Afree
-                    [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KAM, p, N);
+                    [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
                     
                     % Checks to make sure the calculation was sucessful and
                     % returns an error if it was not
@@ -735,13 +736,13 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                     xaxis = '[A] free';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+                    legend1 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                     
                 case 'total'
                     
                     % Calculates Abound and Afree
-                    [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KAM, p, N);
+                    [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
                     
                     % Checks to make sure the calculation was sucessful and
                     % returns an error if it was not
@@ -760,13 +761,13 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                     xaxis = '[A] total';
                     yaxis = '[A] bound';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+                    legend1 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 
                 case 'scatchard'
                     
                     % Calculates Abound and Afree
-                    [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KAM, p, N);
+                    [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
                     
                     % Checks to make sure the calculation was sucessful and
                     % returns an error if it was not
@@ -785,7 +786,7 @@ elseif strcmpi(handles.mode1, 'cooperativity')
                     xaxis = '[A] bound';
                     yaxis = '[A] bound/ [A] free';
                     plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Cooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', \phi = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+                    legend1 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
 
                 
                 otherwise
@@ -2121,9 +2122,9 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
         end
 
      
-    elseif strcmpi(handles.mode2, 'cooperativity')
+    elseif strcmpi(handles.mode2, 'pseudocooperativity')
         
-        %%%% Cooperative binding %%%%
+        %%%% Pseudocooperative binding %%%%
 
         % Determine the experimental mode
         switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
@@ -2150,10 +2151,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 
                 % Gets the value for p and ensures that it's a positive
                 % number
-                p = str2double(get(handles.input3_2, 'String'));
+                KAMS = str2double(get(handles.input3_2, 'String'));
 
-                if isnan(p) || p <= 0
-                    errorbox('phi must be a number greater than 0', hObject); 
+                if isnan(KAMS) || KAMS <= 0
+                    errorbox('K_AMT^* must be a number greater than 0', hObject); 
                     return
                 end
                 
@@ -2170,7 +2171,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [frac, MTfree] = cooperativity_binding(xvals, Atot, KAM, p, N);
+                       [frac, MTfree] = pseudocooperativity_binding(xvals, Atot, KAM, KAMS, N);
                        
                        % Ensures that the calculation was successful and
                        % returns an error if it was not
@@ -2185,12 +2186,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        x2 = MTfree;
 
                        % Sets the legend text
-                       legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+                       legend2 = ['Pseudocooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     case 'total'
 
                        % Function to get fraction A bound
-                       [frac, MTfree] = cooperativity_binding(xvals, Atot, KAM, p, N);
+                       [frac, MTfree] = pseudocooperativity_binding(xvals, Atot, KAM, KAMS, N);
                        
                        % Ensures that the calculation was successful and
                        % returns an error if it was not
@@ -2205,7 +2206,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        x2 = xvals;
 
                        % Sets the legend text
-                       legend2 = ['Cooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+                       legend2 = ['Pseudocooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     otherwise
                 end
@@ -2233,10 +2234,10 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 
                 % Gets the value for p and ensures that it's a
                 % number
-                p = str2double(get(handles.input3_2, 'String'));
+                KAMS = str2double(get(handles.input3_2, 'String'));
 
-                if isnan(p) || p <= 0
-                    errorbox('phi must be a number greatern than 0', hObject); 
+                if isnan(KAMS) || KAMS <= 0
+                    errorbox('K_AMT^* must be a number greatern than 0', hObject); 
                     return
                 end
                 
@@ -2253,7 +2254,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
                         
                         % Function to get the concentration of A bound
-                        [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KAM, p, N);
+                        [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
                         
                         % Ensures that the calculation was successful and
                         % returns an error if it was not
@@ -2268,12 +2269,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = Afree;
 
                         % Sets the legend text
-                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     case 'total'
                         
                         % Function to get the concentration of A bound
-                        [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KAM, p, N);
+                        [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
                         
                         % Ensures that the calculation was successful and
                         % returns an error if it was not
@@ -2288,12 +2289,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = xvals;
 
                         % Sets the legend text
-                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+                        legend2 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     case 'scatchard'
                         
                         % Function to get the concentration of A bound
-                        [Abound, Afree] = cooperativity_saturation(MTtot, xvals, KAM, p, N);
+                        [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
                         
                         % Ensures that the calculation was successful and
                         % returns an error if it was not
@@ -2308,7 +2309,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = Abound;
 
                         % Sets the legend text
-                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', \phi = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+                        legend2 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     
                     otherwise
@@ -3753,29 +3754,26 @@ switch get(handles.curve1, 'Value')
     
         
         
-    % Traditional cooperatitivity model removed because we are unsure about
-    % the calcualtions
+    % Pseudocooperativity
+    case 4
         
-    % Traditional cooperativity
-    %case 4
-    %    
-    %    handles.mode1 = 'cooperativity';
-    %    
-    %    %determine which experimental mode is selected
-    %    switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-    %        case 'binding'
-    %            cooperativity_binding_labels1(hObject);
-    %            
-    %        case 'saturation'
-    %            cooperativity_saturation_labels1(hObject);
-    %            
-    %        otherwise
-    %    end
+        handles.mode1 = 'pseudocooperativity';
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                pseudocooperativity_binding_labels1(hObject);
+                
+            case 'saturation'
+                pseudocooperativity_saturation_labels1(hObject);
+                
+            otherwise
+        end
         
 
         
     % MAPs bind MT-bound MAPs
-    case 4
+    case 5
         
         handles.mode1 = 'MAPbind';
         
@@ -3793,7 +3791,7 @@ switch get(handles.curve1, 'Value')
         end
     
     % 2 MAPs bind MT-bound MAPs
-    case 5
+    case 6
         
         handles.mode1 = 'MAPbind2';
         
@@ -3810,7 +3808,7 @@ switch get(handles.curve1, 'Value')
             otherwise
         end
         
-    case 6
+    case 7
         
         handles.mode1 = 'Sites';
         
@@ -3956,31 +3954,28 @@ switch get(handles.curve2, 'Value')
                 
             otherwise
         end
-    
         
-    % Traditional cooperatitivity model removed because we are unsure about
-    % the calcualtions    
         
-    % Traditional cooperativity
-    %case 4
-    %    
-    %    handles.mode2 = 'cooperativity';
-    %    
-    %    %determine which experimental mode is selected
-    %    switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-    %        case 'binding'
-    %            cooperativity_binding_labels2(hObject);
-    %            
-    %        case 'saturation'
-    %            cooperativity_saturation_labels2(hObject);
-    %            
-    %        otherwise
-    %    end
+    % Pseudocooperativity
+    case 4
+        
+        handles.mode2 = 'pseudocooperativity';
+        
+        %determine which experimental mode is selected
+        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
+            case 'binding'
+                pseudocooperativity_binding_labels2(hObject);
+                
+            case 'saturation'
+                pseudocooperativity_saturation_labels2(hObject);
+                
+            otherwise
+        end
         
 
         
     % MAPs bind MT-bound MAPs
-    case 4
+    case 5
         
         handles.mode2 = 'MAPbind';
         
@@ -3998,7 +3993,7 @@ switch get(handles.curve2, 'Value')
         end
         
     % 2 MAPs bind MT-bound MAPs
-    case 5
+    case 6
         
         handles.mode2 = 'MAPbind2';
         
@@ -4015,7 +4010,7 @@ switch get(handles.curve2, 'Value')
             otherwise
         end
         
-      case 6
+      case 7
         
         handles.mode2 = 'sites';
         
@@ -4440,6 +4435,10 @@ switch get(eventdata.NewValue, 'Tag')
                         
                         dimer_binding_labels2(hObject);
                         
+                    case 'pseduocooperativity'
+                        
+                        pseudocooperativity_binding_labels2(hObject);
+                        
                     case 'MAPbind'
                         
                         MAP_binding_labels2(hObject);
@@ -4459,7 +4458,7 @@ switch get(eventdata.NewValue, 'Tag')
                 
             case 'saturation'
                 
-                switch get(handles.curve2, 'Value')
+                switch handles.mode2
                     
                     case 'firstorder'
                         
@@ -4472,6 +4471,10 @@ switch get(eventdata.NewValue, 'Tag')
                     case 'dimer'
                         
                         dimer_saturation_labels2(hObject);
+                        
+                    case 'pseudocooperativity'
+                        
+                        pseudocooperativity_saturation_labels2(hObject);
                         
                     case 'MAPbind'
                         
@@ -4558,13 +4561,13 @@ set_java_component(model, 'A + MT &#8596; AMT');
 set_java_component(equation, [KAM, ' = [A][MT]/[AMT]']);
 end
 
-function cooperativity_strings(model, equation)
+function pseudocooperativity_strings(model, equation)
 
-% Generates the model and equation strings for cooperatitivy
+% Generates the model and equation strings for pseudocooperatitivy
 
-global KAM;
-set_java_component(model, 'A + MT &#8596; AMT, A + AMT &#8596; A<sub><small>2</small></sub>MT<sub><small>2</small</sub>');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], &#981;&#8901;', KAM, ' = [A][AMT]/[A<sub><small>2</small</sub>MT<sub><small>2</small</sub>]']);
+global KAM KAMS;
+set_java_component(model, 'A + MT &#8596; AMT, A + MT* &#8596; AMT*');
+set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ' KAMS, ' = [A][MT*]/[AMT*], [MT*]<sub><small>Total</small></sub> = [AMT] + [AMT*]' ]);
 end
 
 function seam_strings(model, equation)
@@ -4695,11 +4698,11 @@ end
 
 
 
-function cooperativity_binding_labels1(hObject)
+function pseudocooperativity_binding_labels1(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
-% first function is cooperative binding in binding mode
+% first function is pseudocooperative binding in binding mode
 
-global KAM;
+global KAM KAMS UM;
 
 % Sets the visibility for all input boxes
 inputboxes_display1(hObject, 4);
@@ -4708,7 +4711,7 @@ inputboxes_display1(hObject, 4);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-cooperativity_strings(handles.model1, handles.equation1);
+pseudocooperativity_strings(handles.model1, handles.equation1);
                 
 % Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[MT] total min ');
@@ -4717,7 +4720,8 @@ set(handles.total, 'String', '[MT] total');
 set(handles.free, 'String', '[MT] free');
 set_java_component(handles.label1_1, '[A] total ');
 set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, '&#981; ');
+set_java_component(handles.label3_1, [KAMS, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
 
@@ -4734,11 +4738,11 @@ end
 
 
 
-function cooperativity_saturation_labels1(hObject)
+function pseudocooperativity_saturation_labels1(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
-%first function is cooperative binding in saturation mode
+%first function is pseudocooperative binding in saturation mode
 
-global KAM;
+global KAM KAMS UM;
 
 % Sets the visibility for all input boxes
 inputboxes_display1(hObject, 4);
@@ -4747,7 +4751,7 @@ inputboxes_display1(hObject, 4);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-cooperativity_strings(handles.model1, handles.equation1);
+pseudocooperativity_strings(handles.model1, handles.equation1);
 
 %Sets labels for the input boxes
 set(handles.label_xmin, 'String', '[A] total min ');
@@ -4756,7 +4760,8 @@ set(handles.total, 'String', '[A] total');
 set(handles.free, 'String', '[A] free');
 set_java_component(handles.label1_1, '[MT] total ');
 set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, '&#981; ');
+set_java_component(handles.label3_1, [KAMS, ' ']);
+set_java_component(handles.units3_1, [UM, ' ']);
 set_java_component(handles.label4_1, '1 MT : ');
 set_java_component(handles.units4_1, 'A');
 
@@ -5217,11 +5222,11 @@ end
 
 
 
-function cooperativity_binding_labels2(hObject)
+function pseudocooperativity_binding_labels2(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
-% first function is cooperative binding in binding mode
+% first function is pseudocooperative binding in binding mode
 
-global KAM;
+global KAM KAMS UM;
 
 % Sets the visibility for all input boxes
 inputboxes_display2(hObject, 4);
@@ -5230,12 +5235,13 @@ inputboxes_display2(hObject, 4);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-cooperativity_strings(handles.model2, handles.equation2);
+pseudocooperativity_strings(handles.model2, handles.equation2);
                 
 % Sets labels for the input boxes
 set_java_component(handles.label1_2, '[A] total ');
 set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, '&#981; ');
+set_java_component(handles.label3_2, [KAMS, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
 
@@ -5252,11 +5258,11 @@ end
 
 
 
-function cooperativity_saturation_labels2(hObject)
+function pseudocooperativity_saturation_labels2(hObject)
 %Function to update the appearance of MTBindingSim for the case where the
-%first function is cooperative binding in saturation mode
+%first function is pseduocooperative binding in saturation mode
 
-global KAM;
+global KAM KAMS UM;
 
 % Sets the visibility for all input boxes
 inputboxes_display2(hObject, 4);
@@ -5265,12 +5271,13 @@ inputboxes_display2(hObject, 4);
 handles = guidata(hObject);
 
 % Sets the equations and model text
-cooperativity_strings(handles.model2, handles.equation2);
+pseudocooperativity_strings(handles.model2, handles.equation2);
 
 %Sets labels for the input boxes
 set_java_component(handles.label1_2, '[MT] total ');
 set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, '&#981; ');
+set_java_component(handles.label3_2, [KAMS, ' ']);
+set_java_component(handles.units3_2, [UM, ' ']);
 set_java_component(handles.label4_2, '1 MT : ');
 set_java_component(handles.units4_2, 'A');
 
