@@ -108,5 +108,13 @@ AM_CONDITIONAL([DOCS],
 # Output
 ###############################################################################
 
-AC_CONFIG_FILES([Makefile build/Makefile doc/Makefile doc/mtbindingsim.tex src/Makefile tools/Makefile])
+AC_CONFIG_FILES([
+  Makefile
+    build/Makefile
+      build/MTBindingSim.nsi
+    doc/Makefile
+      doc/mtbindingsim.tex
+    src/Makefile
+    tools/Makefile
+])
 AC_OUTPUT

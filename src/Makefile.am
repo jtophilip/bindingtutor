@@ -101,7 +101,7 @@ BINARY_NAME=@PACKAGE_TARNAME@-@PACKAGE_VERSION@-$(PLATFORM_NAME)$(BITS_NAME)-bin
 
 
 # Figure out the contents of the binary distribution
-ALL_BINARY_FILES=@top_srcdir@/AUTHORS @top_srcdir@/COPYING @top_srcdir@/ChangeLog @top_srcdir@/NEWS @top_srcdir@/README @top_srcdir@/THANKS
+ALL_BINARY_FILES=@top_srcdir@/AUTHORS @top_srcdir@/COPYING @top_srcdir@/ChangeLog @top_srcdir@/ChangeLog-2010 @top_srcdir@/NEWS @top_srcdir@/README @top_srcdir@/THANKS
 
 if WINDOWS
   PLATFORM_BINARY_FILES=@builddir@/MTBindingSim.exe
