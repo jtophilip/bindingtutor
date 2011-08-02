@@ -68,3 +68,77 @@
 	* build/Makefile.am: Fix a bug in the build Makefile, Automake is smart
 	  enough to distribute the m4 and aux files.
 
+2011-03-10 18:26  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Updated ChangeLog.
+
+2011-03-28 16:13  Charles Pence <charles@charlespence.net>
+
+	* build/m4/mtb_prog_matlab.m4, build/m4/mtb_prog_which.m4,
+	  src/Makefile.am: Large change to make the MATLAB detection code a bit
+	  less hack-tastic. Should be more solid on Windows, especially (need to
+	  test this on Mac).
+
+2011-03-28 16:36  Charles Pence <charles@charlespence.net>
+
+	* build/m4/mtb_prog_matlab.m4: Can't pass MATLABFLAGS in as part of the
+	  environment variable; don't try.
+
+2011-03-28 16:36  Charles Pence <charles@charlespence.net>
+
+	* build/m4/mtb_prog_matlab.m4: Update docs for MTB_PROG_MATLAB.
+
+2011-04-12 20:38  jtophilip@gmail.com
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m, src/sites_binding.m,
+	  src/sites_saturation.m: Added the two sites model as an option.
+
+2011-07-06 14:53  Charles Pence <charles@charlespence.net>
+
+	* src/Makefile.am: Spotted a typo when doing a little code review.
+
+2011-08-02 15:25  Charles Pence <charles@charlespence.net>
+
+	* build, build/MTBindingSim.nsi.in, build/Makefile.am, configure.ac,
+	  src/Makefile.am: Add an initial NSI script for building an installer
+	  on Windows.
+
+2011-08-02 15:33  Charles Pence <charles@charlespence.net>
+
+	* build/MTBindingSim.nsi.in: Add some pretty checkboxes to the finish
+	  page, delete some unused variables.
+
+2011-08-02 17:42  Charles Pence <charles@charlespence.net>
+
+	* build/redist, build/redist/MCRInstaller.exe,
+	  build/redist/vcredist_ia64.exe, build/redist/vcredist_x64.exe,
+	  build/redist/vcredist_x86.exe: Add all the redistributable files to
+	  the SVN tree, for the Windows installer build.
+
+2011-08-02 21:32  Charles Pence <charles@charlespence.net>
+
+	* build/MTBindingSim.nsi.in: Add automatic installation of required
+	  prerequisites in Windows installer.
+
+2011-08-02 21:46  Charles Pence <charles@charlespence.net>
+
+	* build, build/Common.nsh.in, build/MTBindingSim.nsi.in,
+	  build/MTBindingSimUpdate.nsi.in, configure.ac: Split out common NSIS
+	  code, and have both "patch" and "full" binary installers.
+
+2011-08-02 22:21  jtophilip@gmail.com
+
+	* doc/BindingModels.rst, doc/RunningMTBindingSim.rst,
+	  src/MTBindingSim.fig, src/MTBindingSim.m, src/cooperativity_binding.m,
+	  src/cooperativity_saturation.m, src/pseudocooperativity_binding.m,
+	  src/pseudocooperativity_saturation.m: Added Pseudocooperativity model.
+
+2011-08-02 22:33  Charles Pence <charles@charlespence.net>
+
+	* doc/RunningMTBindingSim.rst: Added pictures to the documentation for
+	  the pseudocooperativity and 2 sites models.
+
+2011-08-02 22:50  Charles Pence <charles@charlespence.net>
+
+	* NEWS, configure.ac: Bump version to 0.11.
+
