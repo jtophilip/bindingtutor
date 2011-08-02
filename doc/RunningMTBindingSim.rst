@@ -80,7 +80,7 @@ bound is 0.5 *only* works if the x-axis is [MT] free. In either X-axis mode the 
 
 In Vary [A] mode there are three possible kinds of plots. In the first two the Y-axis is the concentration of A bound to MT, and the X-axis can be set to [A] free or [A] total. In addition, the data can be plotted in a Scatchard plot, where the X-axis is [A] bound and the Y-axis is is [A] bound/[A] free. This kind of plot is used to make the binding data linear. Binding data will be linear for simple interactions and a curved line in a Scatchard plot indicates the presence of cooperativity or other kinds of non-simple binding interactions.
 
-.. image:: $(IMAGES)/running-xaxisMT
+.. image:: $(IMAGES)/running-xaxisA
    :width: 1.233in
    :align: center
 
@@ -158,7 +158,9 @@ Pseudocooperativity
 
 This model simulates a situation where the binding of an A to an MT site changes the conformation of another MT site, creating an MT* site which has a different affinity for A than the MT sites.
 
-IMAGE GOES HERE
+.. image:: $(IMAGES)/running-pseudocooperativity
+   :width: 1.153in
+   :align: center
 
 For this model, you need to input the total amount of A (or MT), the dissociation constant for A binding to MT, K\ :sub:`AMT`\, the dissociation constant for A binding to MT*, K\ :sub:`AMT`\*, and the binding ratio. All inputs must be positive numbers.
 
@@ -198,7 +200,9 @@ Two Binding Sites
 
 In this model, A can bind to two sites per tubulin dimer, site 1 and site 2 with different dissociation constants.
 
-*Put pic here*
+.. image:: $(IMAGES)/running-2sites
+   :width: 1.153in
+   :align: center
 
 In this model, you input the total amount of A (or MT), the dissociation constant for A binding to MT\ :sub:`1`\ sites, K\ :sub:`AMT1`\ and the dissociation constant for A binding to MT\ :sub:`2`\ sites, K\ :sub:`AMT2`\. All inputs must be positive numbers. Note that the total amount of MT is the total amount of MT\ :sub:`1`\ and MT\ :sub:`2`\.
 
