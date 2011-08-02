@@ -3,6 +3,13 @@ MTBindingSim NEWS -- History of user-visible changes.
 Copyright (C) 2010-2011 University of Notre Dame.
 See the end of the file for license conditions.
 
+* Version 0.11 [beta]
+
+** Added back a new pseudo-cooperativity model.
+
+** Added a new two-sites binding model.
+
+
 * Version 0.10 [beta]
 
 ** Removed cooperativity binding mode.
