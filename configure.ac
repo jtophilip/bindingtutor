@@ -78,10 +78,6 @@ AC_SUBST([PROG_NAME])
 # because it acts much differently in the installation phase
 AM_CONDITIONAL([MACBUNDLE], [test "x$os" = "xmac" -a "x$MATLABBITS" = "x64"])
 
-# Look for ZIP, and enable binary distributions if we have it
-MTB_PROG_ZIP([AC_MSG_WARN([no valid zip binary found, cannot make bindist])])
-AM_CONDITIONAL([BINDIST], [test "x$ZIP" != "x"])
-
 
 ###############################################################################
 # Documentation

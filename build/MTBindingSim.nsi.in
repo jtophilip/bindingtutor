@@ -50,20 +50,8 @@ Section -Prerequisites
   SetOutPath $INSTDIR\redist
   Call GetWindowsPlatform
 
-  ${Switch} $WindowsPlatform
-    ${Case} 6
-      File "redist\vcredist_ia64.exe"
-      ExecWait '"$INSTDIR\redist\vcredist_ia64.exe" /q /norestart' $VCTest
-      ${Break}
-    ${Case} 9
-      File "redist\vcredist_x64.exe"
-      ExecWait '"$INSTDIR\redist\vcredist_x64.exe" /q /norestart' $VCTest
-      ${Break}
-    ${Default}
-      File "redist\vcredist_x86.exe"
-      ExecWait '"$INSTDIR\redist\vcredist_x86.exe" /q /norestart' $VCTest
-      ${Break}
-  ${EndSwitch}
+  File "redist\vcredist_x86.exe"
+  ExecWait '"$INSTDIR\redist\vcredist_x86.exe" /q /norestart' $VCTest
   
   ${If} $VCTest == "3010"
     SetRebootFlag true
@@ -75,10 +63,7 @@ Section -Prerequisites
 
 VCRedistInstalled:
   
-  IfFileExists "$PROGRAMFILES\MATLAB\MATLAB Compiler Runtime\v713\bin\mex.bat" MCRInstalled
   File "redist\MCRInstaller.exe"
   ExecWait '"$INSTDIR\redist\MCRInstaller.exe" /w /s /v/qn'
-  
-MCRInstalled:
   
 SectionEnd

@@ -3,7 +3,7 @@
 
 # Make sure to build the binary
 all: MTBindingSim.prj
-.PHONY: bindist rcsclean clean-local-mac64app
+.PHONY: dmg rcsclean clean-local-mac64app
 
 
 # Indicate that we're going to install the binary (with a slight hack).  Note that
@@ -81,60 +81,42 @@ rcsclean:
 EXTRA_DIST = $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 
 
-# Figure out the name of the binary distribution
-if WINDOWS
-  PLATFORM_NAME=win
-else !WINDOWS
-if MAC
-  PLATFORM_NAME=mac
-else !MAC
-  PLATFORM_NAME=linux
-endif
-endif
+# Make a DMG file on Mac OS X
+if MACBUNDLE
 
-if THIRTYTWO
-  BITS_NAME=
-else
-  BITS_NAME=64
-endif
+DMG_NAME=@PACKAGE_TARNAME@-@PACKAGE_VERSION@.dmg
 
-BINARY_NAME=@PACKAGE_TARNAME@-@PACKAGE_VERSION@-$(PLATFORM_NAME)$(BITS_NAME)-bin
+TEMPLATE_DMG_SRC=@top_srcdir@/build/dmg/template.dmg.bz2
 
+WC_DMG=@builddir@/wc.dmg
+WC_DIR=@builddir@/wc
 
-# Figure out the contents of the binary distribution
-ALL_BINARY_FILES=@top_srcdir@/AUTHORS @top_srcdir@/COPYING @top_srcdir@/ChangeLog @top_srcdir@/ChangeLog-2010 @top_srcdir@/NEWS @top_srcdir@/README @top_srcdir@/THANKS
+DMG_DOCUMENTATION_FILES=@top_srcdir@/AUTHORS @top_srcdir@/COPYING @top_srcdir@/ChangeLog @top_srcdir@/ChangeLog-2010 @top_srcdir@/NEWS @top_srcdir@/THANKS
 
-if WINDOWS
-  PLATFORM_BINARY_FILES=@builddir@/MTBindingSim.exe
-else !WINDOWS
+$(WC_DMG): $(TEMPLATE_DMG_SRC)
+	bzcat $< > $@
 
-if MAC
-if SIXTYFOUR
-  PLATFORM_BINARY_FILES=@builddir@/MTBindingSim.app
-else !SIXTYFOUR
-  PLATFORM_BINARY_FILES=@builddir@/MTBindingSim @builddir@/run_MTBindingSim.sh
-endif
-
-else !MAC
-  PLATFORM_BINARY_FILES=@builddir@/MTBindingSim @builddir@/run_MTBindingSim.sh
-endif
-endif
-
-BINARY_FILES=$(ALL_BINARY_FILES) $(PLATFORM_BINARY_FILES)
+$(DMG_NAME): MTBindingSim.prj $(WC_DMG)
+	mkdir -p $(WC_DIR)
+	hdiutil attach "$(WC_DMG)" -noautoopen -quiet -mountpoint "$(WC_DIR)"
+	ditto @builddir@/MTBindingSim.app "$(WC_DIR)/MTBindingSim.app"
+	cp @top_srcdir@/README $(WC_DIR)
+	for i in $(DMG_DOCUMENTATION_FILES); do \
+		cp "$$i" "$(WC_DIR)/Documentation/"; \
+	done
+	WC_DEV=`hdiutil info | grep "$(WC_DIR)" | grep "Apple_HFS" | awk '{print $$1}'` && \
+	hdiutil detach $$WC_DEV -quiet -force
+	rm -f "$(DMG_NAME)"
+	hdiutil convert "$(WC_DMG)" -quiet -format UDZO -imagekey zlib-level=9 -o "$@"
+	rm -rf $(WC_DIR)
+	rm $(WC_DMG)
 
 
-# And, make the binary package
-bindist: MTBindingSim.prj
-	$(MKDIR_P) @builddir@/$(BINARY_NAME)
-	test ! -d @builddir@/MTBindingSim.app || find @builddir@/MTBindingSim.app -exec chmod u+rwx "{}" \;
-	cp -fR @top_builddir@/doc/mtbindingsim.pdf @builddir@/$(BINARY_NAME)/ || exit 1
-	cp -fR $(BINARY_FILES) @builddir@/$(BINARY_NAME)/ || exit 1
-	$(ZIP) -r $(BINARY_NAME).zip $(BINARY_NAME)
-	rm -rf $(BINARY_NAME)/
-	mv $(BINARY_NAME).zip @top_builddir@
+dmg: $(DMG_NAME)
+	mv $(DMG_NAME) @top_builddir@
 	@echo ==================================================
-	@echo @PACKAGE_TARNAME@-@PACKAGE_VERSION@ binary ready for distribution:
-	@echo $(BINARY_NAME).zip
+	@echo @PACKAGE_TARNAME@-@PACKAGE_VERSION@ installer ready for distribution:
+	@echo $(DMG_NAME)
 	@echo ==================================================
 
-
+endif

@@ -3,7 +3,7 @@
 
 ACLOCAL_AMFLAGS = -I build/m4
 SUBDIRS = build doc src tools
-.PHONY: changes bindist rcsclean
+.PHONY: changes dmg rcsclean
 
 
 # Install the docs here to $(docdir)
@@ -15,19 +15,16 @@ changes:
 	$(srcdir)/tools/svn2cl.sh --linelen=80 --authors=$(srcdir)/tools/authors.xml --reparagraph -o $(srcdir)/ChangeLog -r 521:HEAD https://mtbindingsim.googlecode.com/svn/trunk
 
 
-# Build the binary distribution (only in src)
-if BINDIST
+# Build the Mac DMG file (only in src, only on Mac)
+if MACBUNDLE
 if DOCS
-bindist:
+dmg:
 	(cd doc && $(MAKE) mtbindingsim.pdf) || exit 1
 	(cd src && $(MAKE) $(AM_MAKEFLAGS) $@) || exit 1
 else
-bindist:
+dmg:
 	@echo "Cannot build binary distribution, TeX is required to build the PDF documentation."
 endif
-else
-bindist:
-	@echo "Cannot build binary distribution, the 'zip' utility cannot be found."
 endif
 
 

@@ -116,10 +116,7 @@ Section "Uninstall"
   Delete "$INSTDIR\mtbindingsim.pdf"
   Delete "$INSTDIR\Uninstall.exe"
   
-  ;; Try to remove the redist files, even if they haven't been installed
   Delete "$INSTDIR\redist\vcredist_x86.exe"
-  Delete "$INSTDIR\redist\vcredist_x64.exe"
-  Delete "$INSTDIR\redist\vcredist_ia64.exe"
   Delete "$INSTDIR\redist\MCRInstaller.exe"
   RMDir "$INSTDIR\redist"
   
