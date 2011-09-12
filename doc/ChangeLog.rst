@@ -2,6 +2,17 @@
 MTBindingSim Revision History
 =============================
 
+Version 0.12
+============
+
+* Fixes to the MTBindingSim installation system.
+
+Version 0.11
+============
+
+* Added a new pseudo-cooperativity model.
+* Added a new two-sites binding model.
+
 Version 0.10
 ============
 
