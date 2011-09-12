@@ -1,8 +1,91 @@
 
-We need to write this README file.  It should be written assuming that it is the
-*only* thing that someone downloading the source code reads (in spite of all the
-other awesome documentation we'll write).
+                   MTBindingSim
 
-It'd probably be nice if it could be the same README for the source code release
-and the binary releases.
+
+About MTBindingSim
+------------------
+
+MTBindingSim is a program to plot binding curves under
+various conditions, particularly those encountered in
+microtubule binding or other polymer binding situations.
+
+
+Downloading
+-----------
+
+You can get MTBindingSim from its website:
+
+  http://mtbindingsim.googlecode.com
+
+
+Documentation
+-------------
+
+If this is a binary release of MTBindingSim, you should
+have a copy of the user's manual, in PDF format.  The
+documentation may be built from source, if you have TeX.
+The manual for the current version is also available
+online, at:
+
+  http://code.google.com/p/mtbindingsim/wiki/Introduction
+
+
+Installation
+------------
+
+ - Windows installer:
+
+   Run the included Windows installer, which will install
+   MTBindingSim and its dependencies.  If you have trouble
+   getting MTBindingSim to run, make sure you are using
+   the "full installer," not the "update installer."
+
+ - Mac installer:
+
+   First, install the MATLAB Compiler Runtime by 
+   downloading it from the MTBindingSim website:
+
+     http://code.google.com/p/mtbindingsim/wiki/Download
+
+   Then, double-click the DMG file, and drag the app
+   icon into your Applications folder.  To run, just
+   double-click the MTBindingSim icon.
+
+ - Source
+
+   From source, you may either build a binary and run it,
+   or you may run MTBindingSim directly in MATLAB by
+   opening the file src/MTBindingSim.m.
+
+
+Licensing
+---------
+
+Please see the file called COPYING.
+
+
+Development
+-----------
+
+MTBindingSim development is hosted by Google Code.  You
+can find our page here:
+
+  http://code.google.com/p/mtbindingsim/
+
+
+Bug Reporting
+-------------
+
+You can file bug reports using our online development site.
+For more information about filing a bug report, see here:
+
+  http://code.google.com/p/mtbindingsim/wiki/FilingATicket
+
+
+Authors
+-------
+
+MTBindingSim was primarily authored by Julia Philip and
+Charles Pence.  For more information, see the files called
+AUTHORS and THANKS.
 
