@@ -172,3 +172,16 @@
 
 	* NEWS, configure.ac: Bump version to 0.12.
 
+2011-09-12 13:46  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Update ChangeLog.
+
+2011-09-12 13:50  Charles Pence <charles@charlespence.net>
+
+	* doc/ChangeLog.rst: Missed a few versions worth of ChangeLog.rst
+	  entries.
+
+2011-09-12 14:01  Charles Pence <charles@charlespence.net>
+
+	* README: Update the README file with useful info.
+
