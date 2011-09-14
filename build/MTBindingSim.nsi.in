@@ -55,15 +55,13 @@ Section -Prerequisites
   
   ${If} $VCTest == "3010"
     SetRebootFlag true
-  ${ElseIf} $VCTest == "0"
-    Goto VCRedistInstalled
-  ${Else}
+  ${ElseIf} $VCTest != "0"
     Abort "Failed to install the Visual C++ 2010 redistributable package"
   ${EndIf}
-
-VCRedistInstalled:
+  
+  MessageBox MB_OK "Press OK to run the MATLAB Compiler Runtime installer."
   
   File "redist\MCRInstaller.exe"
-  ExecWait '"$INSTDIR\redist\MCRInstaller.exe" /w /s /v/qn'
+  ExecWait '"$INSTDIR\redist\MCRInstaller.exe" /w'
   
 SectionEnd
