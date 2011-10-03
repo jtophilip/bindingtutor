@@ -2269,7 +2269,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = Afree;
 
                         % Sets the legend text
-                        legend2 = ['Cooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
+                        legend2 = ['Pseudoooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
 
                     case 'total'
                         
