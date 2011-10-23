@@ -127,6 +127,16 @@ KAM1 = 'K<sub><small>AMT1</small></sub>';
 KAM2 = 'K<sub><small>AMT2</small></sub>';
 KAMS = 'K<sub><small>AMT</small></sub>*';
 
+% More global string values for curve explanation boxes
+global firstorder dimer MAPbind MAP2bind pseudocooperativity sites seam;
+firstorder = 'Simple A binds MT binding interaction.';
+dimer = 'A can bind to MT either as a monomer or as a dimer.';
+MAPbind = 'A binds to MT and then another A can bind to MT-bound As.';
+MAP2bind = 'A binds to MT and then 2 As can bind to each MT-bound A.';
+pseudocooperativity = 'For every MT site that binds and A, another MT site is converted to an MT` site, which binds to A with a different dissociation constant.';
+sites = 'A can bind to two sites on each MT.';
+seam = 'A binds to the MT seam (1/13 of the MT) with a different affinity from the MT lattice (12/13 of the MT).';
+
 
 % Convert a bunch of our controls to java controls
 handles.units_xmin = make_java_component(handles.units_xmin, UM, 0);
@@ -4141,8 +4151,9 @@ end
 switch get(eventdata.NewValue, 'Tag')
     case 'binding'
         
-        % Makes the curve selection drop down boxes visible
+        % Makes the curve selection drop down boxes and info box visible
         set(handles.curve1, 'Visible', 'on');
+        set(handles.info1, 'Visible', 'on');
         
         % Makes the X-axis selection box visible
         set(handles.tot_free, 'Visible', 'on');
@@ -4169,9 +4180,9 @@ switch get(eventdata.NewValue, 'Tag')
             dimer_binding_labels1(hObject);
 
         % Cooperativity selected
-        elseif strcmpi(handles.mode1, 'cooperativity')
+        elseif strcmpi(handles.mode1, 'pseudocooperativity')
 
-            cooperativity_binding_labels1(hObject);
+            pseudocooperativity_binding_labels1(hObject);
 
         % MAPs bind MT-bound MAPs selected
         elseif strcmpi(handles.mode1, 'MAPbind')
@@ -4193,8 +4204,9 @@ switch get(eventdata.NewValue, 'Tag')
         % selected
         if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             
-            % Makes the curve selction box visible
+            % Makes the curve selction box and info button visible
             set(handles.curve2, 'Visible', 'on');
+            set(handles.info2, 'Visible', 'on');
             
             % Gets the current value of the first curve slection box and
             % changes the visible boxes accordingly
@@ -4214,9 +4226,9 @@ switch get(eventdata.NewValue, 'Tag')
                 dimer_binding_labels2(hObject);
 
             % Cooperativity is selected
-            elseif strcmpi(handles.mode2, 'cooperativity')
+            elseif strcmpi(handles.mode2, 'pseudocooperativity')
 
-                cooperativity_binding_labels2(hObject);
+                pseudocooperativity_binding_labels2(hObject);
 
             
             % MAPs bind MT-bound MAPs selected
@@ -4239,8 +4251,9 @@ switch get(eventdata.NewValue, 'Tag')
         
     case 'saturation'
         
-        % Makes the curve selection drop down boxes visible
+        % Makes the curve selection drop down boxes and info box visible
         set(handles.curve1, 'Visible', 'on');
+        set(handles.info1, 'Visible', 'on');
         
         % Makes the X-axis selection box visible
         set(handles.tot_free, 'Visible', 'on');
@@ -4257,9 +4270,9 @@ switch get(eventdata.NewValue, 'Tag')
             first_order_saturation_labels1(hObject);
 
         % Cooperative binding selected
-        elseif strcmpi(handles.mode1, 'cooperativity')
+        elseif strcmpi(handles.mode1, 'pseudocooperativity')
 
-            cooperativity_saturation_labels1(hObject);
+            pseudocooperativity_saturation_labels1(hObject);
 
         % Seam and lattice binding selected
         elseif strcmpi(handles.mode1, 'seam')
@@ -4294,8 +4307,9 @@ switch get(eventdata.NewValue, 'Tag')
         % selected
         if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
             
-            % Makes the curve selection box visible
+            % Makes the curve selection box and info box visible
             set(handles.curve2, 'Visible', 'on');
+            set(handles.info2, 'Visible', 'on');
             
             % Gets the current value of the second curve slection box and
             % changes the visible boxes accordingly
@@ -4306,9 +4320,9 @@ switch get(eventdata.NewValue, 'Tag')
                 first_order_saturation_labels2(hObject);
 
             % Cooperative binding selected
-            elseif strcmpi(handles.mode2, 'cooperativity')
+            elseif strcmpi(handles.mode2, 'pseudocooperativity')
 
-                cooperativity_saturation_labels2(hObject);
+                pseudocooperativity_saturation_labels2(hObject);
 
             % Seam and lattice binding selected
             elseif strcmpi(handles.mode2, 'seam')
@@ -4344,9 +4358,11 @@ switch get(eventdata.NewValue, 'Tag')
         % Sets the visibility of the x-axis selection box
         set(handles.tot_free, 'Visible', 'off');
         
-        % Makes the curve selection drop down boxes invisible
+        % Makes the curve selection drop down boxes and info boxes invisible
         set(handles.curve1, 'Visible', 'off');
+        set(handles.info1, 'Visible', 'off');
         set(handles.curve2, 'Visible', 'off');
+        set(handles.info2, 'Visible', 'off');
         
         competition_labels1(hObject);
         
@@ -4398,6 +4414,7 @@ switch get(eventdata.NewValue, 'Tag')
         
         inputboxes_display2(hObject, 0);
         set(handles.curve2, 'Visible', 'off');
+        set(handles.info2, 'Visible', 'off');
         set(handles.model2, 'Visible', 'off');
         set(handles.equation2, 'Visible', 'off');
         set(handles.result, 'Visible', 'off');
@@ -4411,6 +4428,7 @@ switch get(eventdata.NewValue, 'Tag')
         
         % Sets the curve selection box and curve data boxes as visible
         set(handles.curve2, 'Visible', 'on');
+        set(handles.info2, 'Visible', 'on');
         set(handles.model2, 'Visible', 'on');
         set(handles.equation2, 'Visible', 'on');
         set(handles.result, 'Visible', 'on');
@@ -4495,6 +4513,7 @@ switch get(eventdata.NewValue, 'Tag')
             case 'competition'
                 
                 set(handles.curve2, 'Visible', 'off');
+                set(handles.info2, 'Visible', 'off');
                 competition_labels2(hObject);
                 
             otherwise
@@ -6016,4 +6035,101 @@ function input6_1_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+end
+
+
+% --- Executes on button press in info1.
+function info1_Callback(hObject, eventdata, handles)
+% hObject    handle to info1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+global firstorder dimer MAPbind MAP2bind pseudocooperativity sites seam;
+
+% Determines which model is selected an displays the appropriate info box
+
+% First order biding selected
+if strcmpi(handles.mode1, 'firstorder')
+
+    msgbox(firstorder);
+
+% Seam and lattice binding selected
+elseif strcmpi(handles.mode1, 'seam')
+
+    msgbox(seam);
+
+% Dimerization binding selected
+elseif strcmpi(handles.mode1, 'dimer')
+
+    msgbox(dimer);
+
+% Cooperativity selected
+elseif strcmpi(handles.mode1, 'pseudocooperativity')
+
+    msgbox(pseudocooperativity);
+
+% MAPs bind MT-bound MAPs selected
+elseif strcmpi(handles.mode1, 'MAPbind')
+
+    msgbox(MAPbind);
+
+elseif strcmpi(handles.mode1, 'MAPbind2')
+
+    msgbox(MAP2bind);
+
+elseif strcmpi(handles.mode1, 'Sites')
+
+    msgbox(sites);
+
+end
+
+end
+
+
+% --- Executes on button press in info2.
+function info2_Callback(hObject, eventdata, handles)
+% hObject    handle to info2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+global firstorder dimer MAPbind MAP2bind pseudocooperativity sites seam;
+
+
+% Determines which model is selected an displays the appropriate info box
+
+% First order biding selected
+if strcmpi(handles.mode2, 'firstorder')
+
+    msgbox(firstorder);
+
+% Seam and lattice binding selected
+elseif strcmpi(handles.mode2, 'seam')
+
+    msgbox(seam);
+
+% Dimerization binding selected
+elseif strcmpi(handles.mode2, 'dimer')
+
+    msgbox(dimer);
+
+% Cooperativity selected
+elseif strcmpi(handles.mode2, 'pseudocooperativity')
+
+    msgbox(pseudocooperativity);
+
+% MAPs bind MT-bound MAPs selected
+elseif strcmpi(handles.mode2, 'MAPbind')
+
+    msgbox(MAPbind);
+
+elseif strcmpi(handles.mode2, 'MAPbind2')
+
+    msgbox(MAP2bind);
+
+elseif strcmpi(handles.mode2, 'Sites')
+
+    msgbox(sites);
+
+end
+
 end
