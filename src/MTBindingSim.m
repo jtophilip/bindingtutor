@@ -172,6 +172,91 @@ handles.units4_2 = make_java_component(handles.units4_2, UM, 0);
 handles.units5_2 = make_java_component(handles.units5_2, UM, 0);
 handles.units6_2 = make_java_component(handles.units6_2, UM, 0);
 
+% Prettify the info buttons
+set(handles.info1, 'String', '');
+set(handles.info2, 'String', '');
+
+set(handles.info1, 'Units', 'pixels');
+set(handles.info2, 'Units', 'pixels');
+
+% Set the button sizes
+info1_pos = get(handles.info1, 'Position');
+info1_pos(3) = 24;
+info1_pos(4) = 24;
+set(handles.info1, 'Position', info1_pos);
+
+info2_pos = get(handles.info2, 'Position');
+info2_pos(3) = 24;
+info2_pos(4) = 24;
+set(handles.info2, 'Position', info2_pos);
+
+% Get 24x24 images of the background behind both of the buttons
+frame = getframe(hObject, info1_pos);
+info1_base_cdata = frame.cdata;
+
+frame = getframe(hObject, info2_pos);
+info2_base_cdata = frame.cdata;
+
+% Load the 22x22 icon data
+info_filename = fullfile(matlabroot, '/toolbox/matlab/icons/csh_icon.png');
+[cdata, map, alpha] = imread(info_filename, 'png');
+x_alpha = blkdiag(zeros(1,1), alpha, zeros(1,1));
+
+% Mix in base * ~alpha + icon * alpha
+r = cdata(:,:,1);
+r(alpha == 0) = 0;
+r = blkdiag(zeros(1,1), r, zeros(1,1));
+
+base_r = info1_base_cdata(:,:,1);
+base_r(x_alpha ~= 0) = 0;
+
+g = cdata(:,:,2);
+g(alpha == 0) = 0;
+g = blkdiag(zeros(1,1), g, zeros(1,1));
+
+base_g = info1_base_cdata(:,:,2);
+base_g(x_alpha ~= 0) = 0;
+
+b = cdata(:,:,3);
+b(alpha == 0) = 0;
+b = blkdiag(zeros(1,1), b, zeros(1,1));
+
+base_b = info1_base_cdata(:,:,3);
+base_b(x_alpha ~= 0) = 0;
+
+info1_cdata = cat(3, r + base_r, g + base_g, b + base_b);
+
+r = cdata(:,:,1);
+r(alpha == 0) = 0;
+r = blkdiag(zeros(1,1), r, zeros(1,1));
+
+base_r = info2_base_cdata(:,:,1);
+base_r(x_alpha ~= 0) = 0;
+
+g = cdata(:,:,2);
+g(alpha == 0) = NaN;
+g = blkdiag(zeros(1,1), g, zeros(1,1));
+
+base_g = info2_base_cdata(:,:,2);
+base_g(x_alpha ~= 0) = 0;
+
+b = cdata(:,:,3);
+b(alpha == 0) = 0;
+b = blkdiag(zeros(1,1), b, zeros(1,1));
+
+base_b = info2_base_cdata(:,:,3);
+base_b(x_alpha ~= 0) = 0;
+
+info2_cdata = cat(3, r + base_r, g + base_g, b + base_b);
+
+% Set the images, etc.
+set(handles.info1, 'CData', info1_cdata);
+set(handles.info2, 'CData', info2_cdata);
+set(handles.info1, 'TooltipString', 'Display model information');
+set(handles.info2, 'TooltipString', 'Display model information');
+
+set(handles.info2, 'Visible', 'Off');
+
 % Update handles structure
 guidata(hObject, handles);
 end
@@ -6051,35 +6136,35 @@ global firstorder dimer MAPbind MAP2bind pseudocooperativity sites seam;
 % First order biding selected
 if strcmpi(handles.mode1, 'firstorder')
 
-    msgbox(firstorder);
+    msgbox(firstorder, 'Model Information');
 
 % Seam and lattice binding selected
 elseif strcmpi(handles.mode1, 'seam')
 
-    msgbox(seam);
+    msgbox(seam, 'Model Information');
 
 % Dimerization binding selected
 elseif strcmpi(handles.mode1, 'dimer')
 
-    msgbox(dimer);
+    msgbox(dimer, 'Model Information');
 
 % Cooperativity selected
 elseif strcmpi(handles.mode1, 'pseudocooperativity')
 
-    msgbox(pseudocooperativity);
+    msgbox(pseudocooperativity, 'Model Information');
 
 % MAPs bind MT-bound MAPs selected
 elseif strcmpi(handles.mode1, 'MAPbind')
 
-    msgbox(MAPbind);
+    msgbox(MAPbind, 'Model Information');
 
 elseif strcmpi(handles.mode1, 'MAPbind2')
 
-    msgbox(MAP2bind);
+    msgbox(MAP2bind, 'Model Information');
 
 elseif strcmpi(handles.mode1, 'Sites')
 
-    msgbox(sites);
+    msgbox(sites, 'Model Information');
 
 end
 
@@ -6100,35 +6185,35 @@ global firstorder dimer MAPbind MAP2bind pseudocooperativity sites seam;
 % First order biding selected
 if strcmpi(handles.mode2, 'firstorder')
 
-    msgbox(firstorder);
+    msgbox(firstorder, 'Model Information');
 
 % Seam and lattice binding selected
 elseif strcmpi(handles.mode2, 'seam')
 
-    msgbox(seam);
+    msgbox(seam, 'Model Information');
 
 % Dimerization binding selected
 elseif strcmpi(handles.mode2, 'dimer')
 
-    msgbox(dimer);
+    msgbox(dimer, 'Model Information');
 
 % Cooperativity selected
 elseif strcmpi(handles.mode2, 'pseudocooperativity')
 
-    msgbox(pseudocooperativity);
+    msgbox(pseudocooperativity, 'Model Information');
 
 % MAPs bind MT-bound MAPs selected
 elseif strcmpi(handles.mode2, 'MAPbind')
 
-    msgbox(MAPbind);
+    msgbox(MAPbind, 'Model Information');
 
 elseif strcmpi(handles.mode2, 'MAPbind2')
 
-    msgbox(MAP2bind);
+    msgbox(MAP2bind, 'Model Information');
 
 elseif strcmpi(handles.mode2, 'Sites')
 
-    msgbox(sites);
+    msgbox(sites, 'Model Information');
 
 end
 
