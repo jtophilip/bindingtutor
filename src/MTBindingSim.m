@@ -129,13 +129,13 @@ KAMS = 'K<sub><small>AMT</small></sub>*';
 
 % More global string values for curve explanation boxes
 global firstorder dimer MAPbind MAP2bind pseudocooperativity sites seam;
-firstorder = 'Simple A binds MT binding interaction.';
-dimer = 'A can bind to MT either as a monomer or as a dimer.';
-MAPbind = 'A binds to MT and then another A can bind to MT-bound As.';
-MAP2bind = 'A binds to MT and then 2 As can bind to each MT-bound A.';
-pseudocooperativity = 'For every MT site that binds and A, another MT site is converted to an MT` site, which binds to A with a different dissociation constant.';
-sites = 'A can bind to two sites on each MT.';
-seam = 'A binds to the MT seam (1/13 of the MT) with a different affinity from the MT lattice (12/13 of the MT).';
+firstorder = {'Simple A binds MT binding interaction.';'This model is valid for any protein-protein or protein-ligand interaction.'};
+dimer = {'A can bind to MT either as a monomer or as a dimer.';'This model is valid for any polymer-protein or polymer-ligand interaction.'};
+MAPbind = {'A binds to MT and then another A can bind to each MT-bound A.';'This model is valid for any protein-protein or protein-ligand interaction.'};
+MAP2bind = {'A binds to MT and then 2 As can bind to each MT-bound A.';'This model is valid for any protein-protein or protein-ligand interaction.'};
+pseudocooperativity = {'For every MT site that binds and A, another MT site is converted to an MT` site, which binds to A with a different dissociation constant.';'This model is valid for any polymer-protein or polymer-ligand interaction.'};
+sites = {'A can bind to two sites on each MT.';'This model is valid for any protein-protein or protein-ligand interaction.'};
+seam = {'A binds to the MT seam (1/13 of the MT) with a different affinity from the MT lattice (12/13 of the MT).';'This model is valid only for protein-microtubule or ligand-microtubule interactions.'};
 
 
 % Convert a bunch of our controls to java controls
