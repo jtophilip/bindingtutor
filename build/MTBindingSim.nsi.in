@@ -19,14 +19,62 @@
 
 !include "MUI2.nsh"
 !include "WinVer.nsh"
-!include "Common.nsh"
 
 
+;; Name and output
+Name "MTBindingSim"
 OutFile "@top_builddir@\MTBindingSim-@PACKAGE_VERSION@.exe"
+SetCompressor /SOLID lzma
 
+;; Default installation folder
+InstallDir "$PROGRAMFILES\MTBindingSim"
+
+;; Get the installation directory from the registry, if possible
+InstallDirRegKey HKCU "Software\MTBindingSim" "Install Directory"
+
+;; Request admin rights on Vista and higher
+RequestExecutionLevel admin
+
+
+;; Interface settings
+Var StartMenuFolder
+!define MUI_ABORTWARNING
+
+
+;; Pages
+!insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_LICENSE "..\COPYING"
+!insertmacro MUI_PAGE_DIRECTORY
+
+!define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU"
+!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\MTBindingSim"
+!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
+
+!insertmacro MUI_PAGE_STARTMENU Application $StartMenuFolder
+
+!insertmacro MUI_PAGE_INSTFILES
+
+!define MUI_FINISHPAGE_RUN "$INSTDIR/MTBindingSim.exe"
+!define MUI_FINISHPAGE_RUN_NOTCHECKED
+!define MUI_FINISHPAGE_SHOWREADME http://code.google.com/p/mtbindingsim/wiki/GettingStarted
+!define MUI_FINISHPAGE_SHOWREADME_TEXT "Visit the MTBindingSim Getting Started tutorial"
+!define MUI_FINISHPAGE_SHOWREADME_NOTCHECKED
+
+!insertmacro MUI_PAGE_FINISH
+
+!insertmacro MUI_UNPAGE_WELCOME
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
+
+
+;; Languages
+!insertmacro MUI_LANGUAGE "English"
+
+
+;; Installer sections
 Var WindowsPlatform
 Var VCTest
-
 
 ;; Get the Windows platform (x86, ia64, x64)
 Function GetWindowsPlatform
@@ -59,9 +107,65 @@ Section -Prerequisites
     Abort "Failed to install the Visual C++ 2010 redistributable package"
   ${EndIf}
   
-  MessageBox MB_OK "Press OK to run the MATLAB Compiler Runtime installer."
+SectionEnd
+
+
+Section "MTBindingSim" SecMTBS
+
+  SetOutPath "$INSTDIR"
   
-  File "redist\MCRInstaller.exe"
-  ExecWait '"$INSTDIR\redist\MCRInstaller.exe" /w'
+  File "@top_builddir@\src\MTBindingSim.exe"
+  File "@top_srcdir@\AUTHORS"
+  File "@top_srcdir@\COPYING"
+  File "@top_srcdir@\ChangeLog"
+  File "@top_srcdir@\ChangeLog-2010"
+  File "@top_srcdir@\NEWS"
+  File "@top_srcdir@\README"
+  File "@top_srcdir@\THANKS"
+  File "@top_builddir@\doc\mtbindingsim.pdf"
   
+  ;; Store the installation directory
+  WriteRegStr HKCU "Software\MTBindingSim" "Install Directory" $INSTDIR
+  
+  ;; Create uninstaller
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+  
+  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+    CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\MTBindingSim.lnk" "$INSTDIR\MTBindingSim.exe"
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\User Manual.lnk" "$INSTDIR\mtbindingsim.pdf"
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
+  !insertmacro MUI_STARTMENU_WRITE_END
+
+SectionEnd
+
+
+;; Uninstaller section
+Section "Uninstall"
+  
+  Delete "$INSTDIR\MTBindingSim.exe"
+  Delete "$INSTDIR\AUTHORS"
+  Delete "$INSTDIR\COPYING"
+  Delete "$INSTDIR\ChangeLog"
+  Delete "$INSTDIR\ChangeLog-2010"
+  Delete "$INSTDIR\NEWS"
+  Delete "$INSTDIR\README"
+  Delete "$INSTDIR\THANKS"
+  Delete "$INSTDIR\mtbindingsim.pdf"
+  Delete "$INSTDIR\Uninstall.exe"
+  
+  Delete "$INSTDIR\redist\vcredist_x86.exe"
+  Delete "$INSTDIR\redist\MCRInstaller.exe"
+  RMDir "$INSTDIR\redist"
+  
+  RMDir "$INSTDIR"
+  
+  !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
+  Delete "$SMPROGRAMS\$StartMenuFolder\MTBindingSim.lnk"
+  Delete "$SMPROGRAMS\$StartMenuFolder\User Manual.lnk"
+  Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"
+  RMDir "$SMPROGRAMS\$StartMenuFolder"
+  
+  DeleteRegKey HKCU "Software\MTBindingSim"
+
 SectionEnd

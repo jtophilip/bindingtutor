@@ -108,8 +108,6 @@ AC_CONFIG_FILES([
   Makefile
     build/Makefile
       build/MTBindingSim.nsi
-      build/MTBindingSimUpdate.nsi
-      build/Common.nsh
     doc/Makefile
       doc/mtbindingsim.tex
     src/Makefile
