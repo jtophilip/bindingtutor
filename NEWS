@@ -3,6 +3,12 @@ MTBindingSim NEWS -- History of user-visible changes.
 Copyright (C) 2010-2011 University of Notre Dame.
 See the end of the file for license conditions.
 
+* Version 0.13 [beta]
+
+** Add an info button which opens a box with some information about the current
+selected binding model.
+
+
 * Version 0.12 [beta]
 
 ** Fixes to the installation system on Windows and Mac.

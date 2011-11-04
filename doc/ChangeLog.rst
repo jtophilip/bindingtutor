@@ -2,6 +2,12 @@
 MTBindingSim Revision History
 =============================
 
+Version 0.13
+============
+
+* Add an info button which opens a box with information about the
+  currently selected binding model.
+
 Version 0.12
 ============
 
