@@ -124,8 +124,6 @@ Section -Prerequisites
   
   Pop $0
   
-  MessageBox MB_OK "Right, click to get on with it"
-  
   ;; Unzip the MCR
   CreateDirectory "$PLUGINSDIR\mcr"
   nsisunz::Unzip "$PLUGINSDIR\mcr.exe" "$PLUGINSDIR\mcr"
