@@ -185,3 +185,62 @@
 
 	* README: Update the README file with useful info.
 
+2011-09-12 14:02  Charles Pence <charles@charlespence.net>
+
+	* ChangeLog: Update ChangeLog.
+
+2011-09-12 20:42  Charles Pence <charles@charlespence.net>
+
+	* src/Makefile.am: Put the user manual in the Mac DMG installer.
+
+2011-09-14 15:25  Charles Pence <charles@charlespence.net>
+
+	* build/MTBindingSim.nsi.in: Run the MCR installer in the foreground --
+	  requires user interaction, but if it works, it works.
+
+2011-10-03 15:29  jtophilip@gmail.com
+
+	* src/MTBindingSim.m: Fixed typo in legend text.
+
+2011-10-23 22:29  jtophilip@gmail.com
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m: Added an info box with text
+	  about each binding model.
+
+2011-10-24 01:03  Charles Pence <charles@charlespence.net>
+
+	* src/MTBindingSim.fig, src/MTBindingSim.m, src/findjobj.m: Add
+	  functional image-based buttons for the info box.
+
+2011-10-24 01:05  Charles Pence <charles@charlespence.net>
+
+	* src/findjobj.m: Not using findjobj after all, remove it.
+
+2011-10-25 23:47  jtophilip@gmail.com
+
+	* src/MTBindingSim.m: Added more text to the explanation boxes.
+
+2011-10-26 19:06  jtophilip@gmail.com
+
+	* src/MTBindingSim.m: Changed model info text.
+
+2011-11-01 00:48  Charles Pence <charles@charlespence.net>
+
+	* build/Common.nsh.in, build/MTBindingSim.nsi.in,
+	  build/MTBindingSimUpdate.nsi.in, build/redist/MCRInstaller.exe,
+	  configure.ac: Merge the installer scripts, now only one sort of
+	  installer. Delete the MCR from the repo.
+
+2011-11-04 19:49  Charles Pence <charles@charlespence.net>
+
+	* build/MTBindingSim.nsi.in, src/MTBindingSim.m: Go from 24x24 buttons
+	  to 28x28 buttons to look good on Windows.
+
+2011-11-04 20:09  jtophilip@gmail.com
+
+	* doc/RunningMTBindingSim.rst: Update documentation.
+
+2011-11-04 20:29  Charles Pence <charles@charlespence.net>
+
+	* NEWS, configure.ac, doc/ChangeLog.rst: Bump to 0.13.
+
