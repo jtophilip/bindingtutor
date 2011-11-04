@@ -107,6 +107,43 @@ Section -Prerequisites
     Abort "Failed to install the Visual C++ 2010 redistributable package"
   ${EndIf}
   
+  IfFileExists "$PROGRAMFILES\MATLAB\MATLAB Compiler Runtime\v716\license.txt" MCRInstalled
+  
+  ;; Get the MCR from the ND website
+  InitPluginsDir
+  Push $0
+  ClearErrors
+  
+  inetc::get /RESUME "Your internet connection seems to have dropped out!\nPlease reconnect and click Retry to resume downloading..." /CAPTION "MTBindingSim" /POPUP "Downloading MATLAB Compiler Runtime" "http://www.nd.edu/~goodlab/MCRInstaller-7.16-Win.exe" "$PLUGINSDIR\mcr.exe" /END
+  Pop $0
+  
+  ${Unless} $0 == "OK"
+    SetErrors
+    Abort "Failed to download the MATLAB Compiler Runtime: $0"
+  ${EndUnless}
+  
+  Pop $0
+  
+  MessageBox MB_OK "Right, click to get on with it"
+  
+  ;; Unzip the MCR
+  CreateDirectory "$PLUGINSDIR\mcr"
+  nsisunz::Unzip "$PLUGINSDIR\mcr.exe" "$PLUGINSDIR\mcr"
+  Pop $0
+  ${Unless} $0 == "success"
+    Abort "Failed to unpack the MATLAB Compiler Runtime: $0"
+  ${EndUnless}
+  
+  ;; Call the MCR installer
+  MessageBox MB_OK "Press OK to launch the MATLAB Compiler Runtime installer.  Wait for it to start, and allow it to complete.  When it is finished, return to the MTBindingSim installer."
+  
+  SetOutPath $PLUGINSDIR\mcr
+  ExecWait '"$PLUGINSDIR\mcr\setup.exe" -mode automated'
+  
+  MessageBox MB_OK "Press OK when the MATLAB Compiler Runtime installer has finished."
+  
+  MCRInstalled:
+  
 SectionEnd
 
 
@@ -155,7 +192,6 @@ Section "Uninstall"
   Delete "$INSTDIR\Uninstall.exe"
   
   Delete "$INSTDIR\redist\vcredist_x86.exe"
-  Delete "$INSTDIR\redist\MCRInstaller.exe"
   RMDir "$INSTDIR\redist"
   
   RMDir "$INSTDIR"
