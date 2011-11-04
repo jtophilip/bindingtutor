@@ -107,6 +107,26 @@ description of the math used to generate the curves, please see the
 `Binding Model Mathematics chapter <$(DOCS):BindingModels>`_. Note that 
 all models use the dissociation constant, K\ :sub:`D`\ .
 
+The info button to the right of the model selection box provides a brief description of each model, reproduced below.
+
+.. image:: $(IMAGES)/running-infobutton
+   :width: 1.92in
+   :align: center
+
+First order binding: Simple A binds MT interaction. This model is valid for any simple protein-protein or potein-ligand interaction.
+
+Seam and lattice binding: A binds to the MT seam (1/13 of the MT) with a different affinity from the MT lattice (12/13 of the MT). This model is valid only for binding of proteins or ligands to 13-protofilament MTs with a seam.
+
+MAPs dimerize: A can bind to MT either as a monomer or as a dimer. This model is valid for any polymer-protein or polymer-ligand interaction.
+
+Pseudocooperativity: For every MT site that binds an A, another MT site is converted to an MT* site, which binds to A with a different dissociation constant. This model is applicable to polymer-protein or polymer-ligand interactions in which one binding event influences other binding events.
+
+MAPs bind MT-bound MAPs: A binds to MT and then another A can bind to each MT-bound A. This model is valid for any protein-protein or protein-ligand interaction in which one binding event reveals another binding surface.
+
+Two MAPs bind MT-bound MAPs: A binds to MT and then two As can bind to each MT-bound A. This model is valid for any protein-protein or protein-ligand interaction in which one binding event reveals another binding site.';'This is an extension of the MAPs bind MT-bound MAPs model.
+
+Two binding sites: A can bind to two sites on each MT. This model is valid for any protein-protein or protein-ligand interaction with two independent binding sites.
+
 First Order Binding
 -------------------
 
