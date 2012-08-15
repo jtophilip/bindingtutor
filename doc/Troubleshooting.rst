@@ -31,19 +31,9 @@ If you are not running Windows, or if you have trouble even when using
 MTBindingSim doesn't run
 ------------------------
 
-First, make sure that you have downloaded and installed the appropriate 
-prerequisites: for both Mac and Windows, the MATLAB Compiler Runtime, 
-and for Windows, the Visual C Runtime.  If you have not, `visit the 
-MTBindingSim downloads page 
-<http://code.google.com/p/mtbindingsim/wiki/Download?tm=2>`_ and 
-download the ones you need.
+On a Mac, make sure you have downloaded and installed the MATLAB Compiler Runtime (MCR), available at the MTBindingSim Downloads page: <http://code.google.com/p/mtbindingsim/wiki/Download?tm=2>`_.
 
-If you have downloaded the 32-bit Macintosh package, its usage is rather 
-difficult.  Be sure that you really need the 32-bit download (by 
-visiting the download page and clicking the link for "Do you have 32-bit 
-or 64-bit Mac OS X?").  If you really require the 32-bit version, `read 
-our directions for running the 32-bit Mac version 
-<http://mtbindingsim.googlecode.com/svn/wiki/widgets/mac32run.html>`_.
+On Windows, the installer should download and install the MATLAB Compiler Runtime (MCR) if you don't already have it. If you get an error that the MCR cannot be found, you probably have an old version of the MCR, which prevents the installer from installing the new version. Uninstall the old version if you don't need it for any other programs and then manually download and install the updated version from the MTBindingSim Downloads page: <http://code.google.com/p/mtbindingsim/wiki/Download?tm=2>`_.
 
 If you have successfully installed all the prerequisites and still 
 cannot get MTBindingSim to run, try `Filing a Support Ticket`_.
