@@ -12,23 +12,20 @@ endif
 
 docs-wiki: $(WIKI_FILES)
 
-DOCS_RST_SOURCE = \
-	BindingModels.rst ChangeLog.rst GettingStarted.rst HowTo.rst \
-	Introduction.rst RunningMTBindingSim.rst Troubleshooting.rst \
-	Acknowledgments.rst ContactUs.rst
+DOCS_MARKDOWN_SOURCE = \
+	Acknowledgments.md BindingModels.md ChangeLog.md ContactUs.md \
+	GettingStarted.md HowTo.md RunningMTBindingSim.md Troubleshooting.md
 
-EXTRA_DIST = $(DOCS_RST_SOURCE) gpl-3.0.tex cc-by-sa.tex docutils-template.inc wiki
+EXTRA_DIST = $(DOCS_RST_SOURCE) COPYING Introduction.md Introduction.tex
+	_Sidebar.md images 
 
 #
 # Find the files
 #
-RST_FILES = $(DOCS_RST_SOURCE:%.rst=$(srcdir)/%.rst)
+MARKDOWN_FILES = $(DOCS_MARKDOWN_SOURCE:%.md=$(srcdir)/%.md)
 
-# This substitution for WIKI_FILES will work, we're doing the more complicated substitution
-# in the suffix rule down below.
-WIKI_FILES = $(DOCS_RST_SOURCE:.rst=.wiki)
-BUILT_TEX_FILES = $(DOCS_RST_SOURCE:.rst=.tex)
-TEX_FILES = $(BUILT_TEX_FILES) $(srcdir)/gpl-3.0.tex $(srcdir)/cc-by-sa.tex
+BUILT_TEX_FILES = $(DOCS_MARKDOWN_SOURCE:.md=.tex)
+TEX_FILES = $(BUILT_TEX_FILES)
 MASTER_FILE = $(builddir)/mtbindingsim.tex
 
 #
@@ -45,7 +42,7 @@ else
   SEPARATOR=":"
 endif
 
-TEXINPUTS_PATH = "$(srcdir)$(SEPARATOR)$(builddir)$(SEPARATOR)$(srcdir)/wiki/images$(SEPARATOR)"
+TEXINPUTS_PATH = "$(srcdir)$(SEPARATOR)$(builddir)$(SEPARATOR)$(srcdir)/images$(SEPARATOR)"
 
 
 #
@@ -76,11 +73,8 @@ mtbindingsim.pdf: %.pdf: $(TEX_FILES) $(MASTER_FILE)
 #
 # Suffix rules to build various documentation files
 #
-.rst.wiki:
-	(OUTFILE=$(srcdir)/wiki/$*.wiki; export OUTFILE; $(top_srcdir)/tools/wikir.py $< | $(SED) "s|\$$(IMAGES)\(.*\)$$|http://mtbindingsim.googlecode.com/svn/wiki/images\1.png|g" | $(SED) "s|\$$(DOCS):||g" | $(SED) "s@ \([A-Z][a-z]\+[A-Z][a-z]\+\([A-Z][a-z]\+\)*\) @ !\1 @g" > $$OUTFILE)
-
-.rst.tex: docutils-template.inc
-	$(top_srcdir)/tools/rst2latex.py --no-section-numbering --template=$(top_srcdir)/doc/docutils-template.inc $< | $(SED) "s|itemize|compactitem|g" | $(SED) "s|enumerate|compactenum|g" | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1}}|g" | $(PYTHON) -c "import sys,re;x=re.compile(r'href{[$$][(]DOCS[)]:(.*?)}{(.*?)}',re.M|re.S);print re.sub(x,r'hyperref[chapter:\1]{\2}',sys.stdin.read())" > $@
+.rst.tex:
+	$(PANDOC) -f markdown -t latex --chapters $< | $(SED) "s|itemize|compactitem|g" | $(SED) "s|enumerate|compactenum|g" | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1}}|g" | $(PYTHON) -c "import sys,re;x=re.compile(r'href{[$$][(]DOCS[)]:(.*?)}{(.*?)}',re.M|re.S);print re.sub(x,r'hyperref[chapter:\1]{\2}',sys.stdin.read())" > $@
 
 
 #

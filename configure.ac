@@ -92,11 +92,13 @@ if [ test "x$have_kpsewhich" != "xno" ] ; then
   ACLTX_PACKAGE([mathpazo],[book],[have_mathpazo])
   ACLTX_PACKAGE([hyperref],[book],[have_hyperref])
 fi
+AC_CHECK_PROGS([PANDOC],[pandoc],[have_pandoc="no"])
 AM_CONDITIONAL([DOCS],
   [test "x$have_pdflatex" != "xno" -a "x$have_kpsewhich" != "xno" -a \
         "x$have_book" = "xyes" -a \
         "x$have_inputenc" = "xyes" -a "x$have_mathpazo" = "xyes" -a \
         "x$have_hyperref" = "xyes" -a \
+        "x$have_pandoc" = "xyes" -a \
         "x$PYTHON" != "x:"])
 
 

@@ -74,21 +74,6 @@
 }
 
 
-% RST footnote support
-\providecommand*{\DUfootnotemark}[3]{%
-  \raisebox{1em}{\hypertarget{#1}{}}%
-  \hyperlink{#2}{\textsuperscript{#3}}%
-}
-\providecommand{\DUfootnotetext}[4]{%
-  \begingroup%
-  \renewcommand{\thefootnote}{%
-    \protect\raisebox{1em}{\protect\hypertarget{#1}{}}%
-    \protect\hyperlink{#2}{#3}}%
-  \footnotetext{#4}%
-  \endgroup%
-}
-
-
 %
 % Page headers
 %
@@ -144,14 +129,5 @@
 \chapter{Revision History}
 \label{chapter:ChangeLog}
 \input{@top_builddir@/doc/ChangeLog}
-
-\fontsize{9}{11} \selectfont
-\chapter{GNU General Public License}
-\label{chapter:GPLLicense}
-\input{@top_srcdir@/doc/gpl-3.0}
-
-\chapter{Creative Commons CC-BY-SA License}
-\label{chapter:CreativeCommonsLicense}
-\input{@top_srcdir@/doc/cc-by-sa}
 
 \end{document}
