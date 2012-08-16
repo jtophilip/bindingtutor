@@ -98,7 +98,7 @@ AM_CONDITIONAL([DOCS],
         "x$have_book" = "xyes" -a \
         "x$have_inputenc" = "xyes" -a "x$have_mathpazo" = "xyes" -a \
         "x$have_hyperref" = "xyes" -a \
-        "x$have_pandoc" = "xyes" -a \
+        "x$have_pandoc" != "xno" -a \
         "x$PYTHON" != "x:"])
 
 

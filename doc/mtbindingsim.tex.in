@@ -97,37 +97,15 @@
 \tableofcontents
 \clearpage
 
-\chapter{Getting Started}
-\label{chapter:GettingStarted}
 \input{@top_builddir@/doc/GettingStarted}
-
-\chapter{Running MTBindingSim}
-\label{chapter:RunningMTBindingSim}
 \input{@top_builddir@/doc/RunningMTBindingSim}
-
-\chapter{How To...}
-\label{chapter:HowTo}
 \input{@top_builddir@/doc/HowTo}
-
-\chapter{Binding Model Mathematics}
-\label{chapter:BindingModels}
 \input{@top_builddir@/doc/BindingModels}
-
-\chapter{Troubleshooting}
-\label{chapter:Troubleshooting}
 \input{@top_builddir@/doc/Troubleshooting}
-
-\chapter{Contact Us}
-\label{chapter:ContactUs}
 \input{@top_builddir@/doc/ContactUs}
-
-\chapter{Acknowledgments}
-\label{chapter:Acknowledgments}
 \input{@top_builddir@/doc/Acknowledgments}
 
 \appendix
-\chapter{Revision History}
-\label{chapter:ChangeLog}
 \input{@top_builddir@/doc/ChangeLog}
 
 \end{document}

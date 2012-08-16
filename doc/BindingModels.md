@@ -106,7 +106,7 @@ $= [A] + \frac{2}{K_{AA}}[A]^2 + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AAMT}}[A
 
 $= [A] + \frac{2}{K_{AA}}[A]^2 + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AMT}K_{AA}}[A]^2[MT],$
 
-$[MT]_{\textup{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n $
+$[MT]_{\textup{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n$
 
 $= [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{2}{K_{AAMT}n}[A_2][MT]$
 
@@ -204,9 +204,9 @@ Note that the disocciation constant for the first and second MAP binding to the 
 
 $[A]_{\textup{total}} = [A] + [AMT] + 2[A_2MT] + 3[A_3MT]$
 
-$= [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AA}}[A][AMT] + \frac{3}{K_{AA}}[A][A_2MT] $
+$= [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AA}}[A][AMT] + \frac{3}{K_{AA}}[A][A_2MT]$
 
-$= [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AMT} K_{AA}} [A]^2[MT] + \frac{3}{K_{AA}^2}[A]^2[AMT] $
+$= [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AMT} K_{AA}} [A]^2[MT] + \frac{3}{K_{AA}^2}[A]^2[AMT]$
 
 $= [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{2}{K_{AMT} K_{AA}} [A]^2[MT] + \frac{3}{K_{AMT} K_{AA}^2}[A]^3[MT],$
 

@@ -10,14 +10,12 @@ else
 all: 
 endif
 
-docs-wiki: $(WIKI_FILES)
-
 DOCS_MARKDOWN_SOURCE = \
 	Acknowledgments.md BindingModels.md ChangeLog.md ContactUs.md \
 	GettingStarted.md HowTo.md RunningMTBindingSim.md Troubleshooting.md
 
 EXTRA_DIST = $(DOCS_RST_SOURCE) COPYING Introduction.md Introduction.tex \
-  AutoTools.md DeveloperDocs.md FilingATicket.md ReleasePolicy.md \
+	AutoTools.md DeveloperDocs.md FilingATicket.md ReleasePolicy.md \
 	Download.md _Sidebar.md images 
 
 #
@@ -74,8 +72,8 @@ mtbindingsim.pdf: %.pdf: $(TEX_FILES) $(MASTER_FILE)
 #
 # Suffix rules to build various documentation files
 #
-.rst.tex:
-	$(PANDOC) -f markdown -t latex --chapters $< | $(SED) "s|itemize|compactitem|g" | $(SED) "s|enumerate|compactenum|g" | $(SED) "s|\$$(IMAGES)/\(.*\)}}$$|\1}}|g" | $(PYTHON) -c "import sys,re;x=re.compile(r'href{[$$][(]DOCS[)]:(.*?)}{(.*?)}',re.M|re.S);print re.sub(x,r'hyperref[chapter:\1]{\2}',sys.stdin.read())" > $@
+.md.tex:
+	$(PANDOC) -f markdown -t latex --chapters --no-wrap $< | $(SED) "s|itemize|compactitem|g" | $(SED) "s|enumerate|compactenum|g" | $(SED) 's|\$${IMAGES}/\(.*\)}\\{.*\\}$$|\1}|g' | $(SED) 's|href{\\\$$\\{DOCS\\}:\([^}]*\)}{\([^}]*\)}|hyperref[chapter:\1]{\2}|g' | $(SED) "s|\(\\\\chapter{.*}\)|\1\\\\label{chapter:$*}|" > $@
 
 
 #
