@@ -61,4 +61,4 @@ MTBindingSim is hosted on Google Code, and we use its "Issues" system for keepin
 
 When should you file a support ticket? In general, if you have a question that you just can't get answered in the documentation, if you have a bug to report, or if you have an idea for a new feature, you should send us a message.
 
-Rather than including it in the documentation, we keep up-to-date information about how to file a support ticket on the MTBindingSim website, under the [Issues tab](http://code.google.com/p/mtbindingsim/wiki/FilingATicket?tm=3). Please visit there for the latest information about how to get MTBindingSim support.
+Rather than including it in the documentation, we keep up-to-date information about [how to file a support ticket](https://github.com/cpence/mtbindingsim/wiki/FilingATicket) on the MTBindingSim website. Please visit there for the latest information about how to get MTBindingSim support.

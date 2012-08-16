@@ -7,6 +7,7 @@
 * [[How To...|HowTo]]
 * [[Binding Model Mathematics|BindingModels]]
 * [[Troubleshooting]]
+  * [[Filing A Support Ticket|FilingATicket]]
 * [[Contact the Developers|ContactUs]]
 * [[Acknowledgments]]
 * Appendices
