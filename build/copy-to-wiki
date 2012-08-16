@@ -1,13 +1,13 @@
 #!/bin/sh
 
 if [ ! -d doc ]; then
-	echo "You must run this script from the root of the master checkout."
-	exit 1
+  echo "You must run this script from the root of the master checkout."
+  exit 1
 fi
 
 if [ ! -d ../wiki ]; then
-	echo "You must have a checkout of the GH wiki at ../wiki."
-	exit 1
+  echo "You must have a checkout of the GH wiki at ../wiki."
+  exit 1
 fi
 
 # Find a decent sed
@@ -37,7 +37,7 @@ mv ../wiki/Introduction.md ../wiki/Home.md
 # Current GitHub wiki URLs to the images are:
 # https://raw.github.com/wiki/cpence/mtbindingsim/image.ext
 for i in ../wiki/*.md; do
-	$SED -i'' 's@(${IMAGES}/\(.*\))\({.*}\)@(https://raw.github.com/wiki/cpence/mtbindingsim/\1.png)@g' $i
+  $SED -i'' 's@(${IMAGES}/\(.*\))\({.*}\)@(https://raw.github.com/wiki/cpence/mtbindingsim/\1.png)@g' $i
 done
 
 # Transform equations into image links
@@ -48,9 +48,18 @@ for i in ../wiki/*.md; do
   $SED -i'' 's@^\$\(.*\)\$$@![equation](http://latex.codecogs.com/gif.latex?\1)@g' $i
 done
 
-# Fix subscripts, everywhere
+# Change the within-docs links
 for i in ../wiki/*.md; do
-  cat $i | perl -pe 's|~(.*?)~|<sub>\1</sub>|g' > $i.new
+  cat $i | perl -pe 's@\[([^\]]*?)\]\(\$\{DOCS\}:(.*?)\)@\[\[\1|\2\]\]@g' > $i.new
+  mv $i.new $i
+done
+
+# Fix subscripts and superscripts
+for i in ../wiki/*.md; do
+  cat $i | perl -pe 's|~([^~]*?)~|<sub>\1</sub>|g' > $i.new
+  mv $i.new $i
+
+  cat $i | perl -pe 's|\^([^\^]*?)\^|<sup>\1</sup>|g' > $i.new
   mv $i.new $i
 done
 
