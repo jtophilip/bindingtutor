@@ -107,7 +107,7 @@
 \begin{document}
 \fontsize{11}{15} \selectfont
 
-\input{@top_builddir@/doc/Introduction}
+\input{@top_srcdir@/doc/Introduction}
 
 \tableofcontents
 \clearpage

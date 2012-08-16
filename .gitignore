@@ -13,11 +13,13 @@ Makefile.in
 *.out
 *.pdf
 *.toc
-*.tex
 *.pyc
 *~
 
 build/Common.nsh
+
+*.tex
+!doc/Introduction.tex
 
 src/MTBindingSim
 src/MTBindingSim.exe
