@@ -54,7 +54,7 @@ MTBindingSim can plot curves for several binding models. For a detailed descript
 
 The info button to the right of the model selection box provides a brief description of each model, reproduced below.
 
-![image]($(IMAGES)/running-infobutton){width=1.92in align=center}
+![image](${IMAGES}/running-infobutton){width=1.92in align=center}
 
 First order binding: Simple A binds MT interaction. This model is valid for any simple protein-protein or potein-ligand interaction.
 
@@ -98,7 +98,7 @@ For this model, you need to input the total amount of A (or MT), the dissociatio
 
 This model simulates a situation where the binding of an A to an MT site changes the conformation of another MT site, creating an MT\* site which has a different affinity for A than the MT sites.
 
-![image]($(IMAGES)/running-pseudocooperativity){width=1.153in align=center}
+![image](${IMAGES}/running-pseudocooperativity){width=1.153in align=center}
 
 For this model, you need to input the total amount of A (or MT), the dissociation constant for A binding to MT, K~AMT~, the dissociation constant for A binding to MT\*, K~AMT~\*, and the binding ratio. All inputs must be positive numbers.
 
@@ -106,7 +106,7 @@ For this model, you need to input the total amount of A (or MT), the dissociatio
 
 In this model, once one A has bound to an MT dimer, another A can bind to it without taking up another MT binding site.
 
-![image]($(IMAGES)/running-MAP){width=1.833in align=center}
+![image](${IMAGES}/running-MAP){width=1.833in align=center}
 
 For this model, you need to input the total concentration of A (or MT), the dissociation constant for A binding to MT, K~M~, the dissociation constant for A binding to MT-bound A, K~A~, and the binding ratio. All inputs must be positive numbers.
 
@@ -114,7 +114,7 @@ For this model, you need to input the total concentration of A (or MT), the diss
 
 In this model, once one A has bound to the MT, two more As can bind to it without taking up additional MT binding sites.
 
-![image]($(IMAGES)/running-2MAP){width=2.087in align=center}
+![image](${IMAGES}/running-2MAP){width=2.087in align=center}
 
 For this model, you need to input the total concentration of A (or MT), the dissociation constant for A binding to MT, K~M~, the dissociation constant for A binding to MT-bound A, K~A~, and the binding ratio. All inputs must be positive numbers.
 
@@ -124,7 +124,7 @@ This model can be used in concert with the MAPs bind MT-bound MAPs model describ
 
 In this model, A can bind to two sites per tubulin dimer, site 1 and site 2 with different dissociation constants.
 
-![image]($(IMAGES)/running-2sites){width=1.153in align=center}
+![image](${IMAGES}/running-2sites){width=1.153in align=center}
 
 In this model, you input the total amount of A (or MT), the dissociation constant for A binding to MT~1~sites, K~AMT1~and the dissociation constant for A binding to MT~2~sites, K~AMT2~. All inputs must be positive numbers. Note that the total amount of MT is the total amount of MT~1~and MT~2~.
 

@@ -30,11 +30,11 @@ Congratulations, you've just plotted your first binding curve using MTBindingSim
 
 Try changing the values of [A] total, K~D~, or the binding ratio to see how the curves change. After plotting four curves you'll have a graph that might look something like this:
 
-![image]($(IMAGES)/gettingstarted-4curves){width=4.407in align=center}
+![image](${IMAGES}/gettingstarted-4curves){width=4.407in align=center}
 
 If you'd like to start over with a new graph, click the clear button. This will delete the current graph, and subsequent curves will be plotted on a new plot.
 
-![image]($(IMAGES)/gettingstarted-clearbutton){width=0.693in align=center}
+![image](${IMAGES}/gettingstarted-clearbutton){width=0.693in align=center}
 
 For more detailed information about what you can do with MTBindingSim, see the [Running MTBindingSim](${DOCS}:RunningMTBindingSim) and [How To...](${DOCS}:HowTo) chapters. If you have any trouble, see the [Troubleshooting](${DOCS}:Troubleshooting) section.
 

@@ -46,15 +46,15 @@ This will cause a second model selection drop down box and set of model paramete
 
 Enter the parameters for the curves you wish to compare in the two columns. The curves are independent of each other. An example of two curves to be compared is below.
 
-![image]($(IMAGES)/howto-enter2){width=5.127in align=center}
+![image](${IMAGES}/howto-enter2){width=5.127in align=center}
 
 When you click the graph button, the curves will be plotted on the active graph or a new graph.
 
-![image]($(IMAGES)/howto-2curves){width=4.047in align=center}
+![image](${IMAGES}/howto-2curves){width=4.047in align=center}
 
 If the X-axis is plotting total [MT] or total [A], or in competition mode he program also will calculate the difference between the two curves and display the result.
 
-![image]($(IMAGES)/howto-result){width=2.013in align=center}
+![image](${IMAGES}/howto-result){width=2.013in align=center}
 
 These values are calculated by computing the absolute and percentage difference between the curves at each point, and both the average and largest difference are reported for each. This feature is designed to help researchers determine whether the predicted differences between two curves are detectable given their expected experimental error.
 

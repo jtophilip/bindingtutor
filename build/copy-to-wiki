@@ -1,0 +1,62 @@
+#!/bin/sh
+
+if [ ! -d doc ]; then
+	echo "You must run this script from the root of the master checkout."
+	exit 1
+fi
+
+if [ ! -d ../wiki ]; then
+	echo "You must have a checkout of the GH wiki at ../wiki."
+	exit 1
+fi
+
+# Find a decent sed
+if [ command -v gsed >/dev/null 2>&1 ]; then
+  SED=sed
+else
+  SED=gsed
+fi
+
+# Clean out the old stuff
+cd ../wiki
+rm -fv *.md *.png *.jpg
+cd -
+
+# Copy images
+cp -v doc/images/*.png doc/images/*.jpg ../wiki/
+
+# Copy the docs themselves
+cp -v doc/*.md ../wiki/
+
+# Rename "Introduction" to "Home" for GitHub
+mv ../wiki/Introduction.md ../wiki/Home.md
+
+# Transform the image file names, from (${IMAGES}/something){stuff...} to
+# (THE PATH TO something.png).
+#
+# Current GitHub wiki URLs to the images are:
+# https://raw.github.com/wiki/cpence/mtbindingsim/image.ext
+for i in ../wiki/*.md; do
+	$SED -i'' 's@(${IMAGES}/\(.*\))\({.*}\)@(https://raw.github.com/wiki/cpence/mtbindingsim/\1.png)@g' $i
+done
+
+# Transform equations into image links
+for i in ../wiki/*.md; do
+  # First, URLencode these bad boys (woah)
+  $SED -i'' '/^\$\(.*\)\$$/{s: ::g;s:<:%3C:g;s:>:%3E:g;s:#:%23:g;s:%:%25:g;s:{:%7B:g;s:}:%7D:g;s:|:%7C:g;s:\\:%5C:g;s:\^:%5E:g;s:~:%7E:g;s:\[:%5B:g;s:\]:%5D:g;s:`:%60:g;s:;:%3B:g;s:/:%2F:g;s:?:%3F:g;s^:^%3A^g;s:@:%40:g;s:=:%3D:g;s:&:%26:g;s:(:%28:g;s:):%29:g;}' $i
+  # Now, turn them into image links
+  $SED -i'' 's@^\$\(.*\)\$$@![equation](http://latex.codecogs.com/gif.latex?\1)@g' $i
+done
+
+# Fix subscripts, everywhere
+for i in ../wiki/*.md; do
+  cat $i | perl -pe 's|~(.*?)~|<sub>\1</sub>|g' > $i.new
+  mv $i.new $i
+done
+
+# Change into the wiki directory and commit
+#cd ../wiki
+#git add -A
+#git commit
+#git push
+#cd -
