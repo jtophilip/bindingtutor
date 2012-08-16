@@ -27,22 +27,15 @@ If you do want to submit a support ticket, you will need to sign in with a GitHu
 
 While we've done all we can to make sure that MTBindingSim is bug-free, nobody's perfect.  To submit a bug report or to let us know about an incorrect graph, please follow these steps.
 
-  1. First, can you reproduce the bug?  Try closing out MTBindingSim and duplicating the exact series of steps which caused the bug.  If you can get the bug to occur more than once, it's probably our fault.  If not, you may submit a ticket anyway, but there is little chance the developers will be able to assist you.
-     
-  2. Once you have a set of steps that can cause the bug, [enter a new ticket.](https://github.com/cpence/mtbindingsim/issues/new)  On the right-hand side, under "Add Labels," click "bug".
-     
-  3. Give the bug a nice, pithy title that summarizes what went wrong.
-     
-  4. In the main body of the issue message, it is *vital* that you answer all the following questions:
-     
-     * Enter a short description of the problem.  What did MTBindingSim do?
-     * What should it have done?
-     * What are the steps needed to cause this bug? Include all of the MTBindingSim settings required (graph range, model used, model parameters, etc.). If you cannot reproduce the bug, tell us what you were doing when it occurred.
-     * What version of MTBindingSim are you using, and what is your operating system?
-     
-     If you leave out any of this information, it is *very* likely that the developers will not be able to assist you.
-
-  4. Click "Submit New Issue," and we'll contact you when we have a fix for your problem!
+1. First, can you reproduce the bug?  Try closing out MTBindingSim and duplicating the exact series of steps which caused the bug.  If you can get the bug to occur more than once, it's probably our fault.  If not, you may submit a ticket anyway, but there is little chance the developers will be able to assist you.
+2. Once you have a set of steps that can cause the bug, [enter a new ticket.](https://github.com/cpence/mtbindingsim/issues/new)  On the right-hand side, under "Add Labels," click "bug".
+3. Give the bug a nice, pithy title that summarizes what went wrong.
+4. In the main body of the issue message, it is *vital* that you answer all the following questions. If you leave out any of this information, it is *very* likely that the developers will not be able to assist you:
+    * Enter a short description of the problem.  What did MTBindingSim do?
+    * What should it have done?
+    * What are the steps needed to cause this bug? Include all of the MTBindingSim settings required (graph range, model used, model parameters, etc.). If you cannot reproduce the bug, tell us what you were doing when it occurred.
+    * What version of MTBindingSim are you using, and what is your operating system?
+4. Click "Submit New Issue," and we'll contact you when we have a fix for your problem!
 
 
 ### Feature requests
