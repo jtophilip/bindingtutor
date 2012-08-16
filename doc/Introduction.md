@@ -21,3 +21,6 @@ MTBindingSim is licensed under the [GNU General Public License](https://raw.gith
 
 ^1^ University of Notre Dame, Department of Chemistry and Biochemistry  
 ^2^ University of Notre Dame, Program in History and Philosophy of Science
+
+<!-- Gollum extension for image alignment -->
+[ [[nsf.jpg|align=right]] ](http://www.nsf.gov/)
