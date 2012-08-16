@@ -12,9 +12,9 @@ If you are running Windows, there is a bug in the built-in Windows ZIP file extr
 
 ### MTBindingSim doesn't run
 
-On a Mac, make sure you have downloaded and installed the MATLAB Compiler Runtime (MCR), available at the MTBindingSim Downloads page: <[http://code.google.com/p/mtbindingsim/wiki/Download?tm=2>
+On a Mac, make sure you have downloaded and installed the MATLAB Compiler Runtime (MCR), available at [the MTBindingSim downloads page.](https://github.com/cpence/mtbindingsim/wiki/Download)
 
-On Windows, the installer should download and install the MATLAB Compiler Runtime (MCR) if you don't already have it. If you get an error that the MCR cannot be found, you probably have an old version of the MCR, which prevents the installer from installing the new version. Uninstall the old version if you don't need it for any other programs and then manually download and install the updated version from the MTBindingSim Downloads page: <[http://code.google.com/p/mtbindingsim/wiki/Download?tm=2>
+On Windows, the installer should download and install the MATLAB Compiler Runtime (MCR) if you don't already have it. If you get an error that the MCR cannot be found, you probably have an old version of the MCR, which prevents the installer from installing the new version. Uninstall the old version if you don't need it for any other programs and then manually download and install the updated version from [the MTBindingSim downloads page.](https://github.com/cpence/mtbindingsim/wiki/Download)
 
 If you have successfully installed all the prerequisites and still cannot get MTBindingSim to run, try Filing a Support Ticket below.
 

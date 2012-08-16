@@ -23,7 +23,7 @@ rm -fv *.md *.png *.jpg
 cd -
 
 # Copy images
-cp -v doc/images/*.png doc/images/*.jpg ../wiki/
+cp -v doc/images/*.png doc/images/*.jpg doc/images/icon/*.png ../wiki/
 
 # Copy the docs themselves
 cp -v doc/*.md ../wiki/
@@ -32,12 +32,9 @@ cp -v doc/*.md ../wiki/
 mv ../wiki/Introduction.md ../wiki/Home.md
 
 # Transform the image file names, from (${IMAGES}/something){stuff...} to
-# (THE PATH TO something.png).
-#
-# Current GitHub wiki URLs to the images are:
-# https://raw.github.com/wiki/cpence/mtbindingsim/image.ext
+# [[something.png]].
 for i in ../wiki/*.md; do
-  $SED -i'' 's@(${IMAGES}/\(.*\))\({.*}\)@(https://raw.github.com/wiki/cpence/mtbindingsim/\1.png)@g' $i
+  $SED -i'' 's@!\[.*\](${IMAGES}/\(.*\))\({.*}\)@\[\[\1.png\]\]@g' $i
 done
 
 # Transform equations into image links

@@ -1,7 +1,6 @@
 <!-- This is the sidebar for the web-based documentation. -->
-<!-- FIXME: DL PAGE -->
 * [[Home]]
-* [Download and Install](http://google.com)
+* [[Download and Install|Download]]
 * [[Getting Started|GettingStarted]]
 * [[Running MTBindingSim|RunningMTBindingSim]]
 * [[How To...|HowTo]]
