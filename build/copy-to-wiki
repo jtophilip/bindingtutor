@@ -55,8 +55,8 @@ for i in ../wiki/*.md; do
 done
 
 # Change into the wiki directory and commit
-#cd ../wiki
-#git add -A
-#git commit
-#git push
-#cd -
+cd ../wiki
+git add -A
+git commit
+git push
+cd -
