@@ -7,12 +7,12 @@
     <p>If you do not already have it installed, the Windows installer will automatically download and run the MATLAB Compiler Runtime installer.  Note that this is a large download, and an internet connection is required during MTBindingSim installation.</p></td></tr>
   
 <!-- TODO Change this next line -->
-  <tr><td></td><td><a href="http://mtbindingsim.googlecode.com/files/MTBindingSim-0.13.1.exe">
+  <tr><td></td><td><a href="https://github.com/downloads/cpence/mtbindingsim/MTBindingSim-0.13.1.exe">
       <img src="https://raw.github.com/wiki/cpence/mtbindingsim/icon-16.png" width="16" height="16" alt="Download MTBindingSim" title="Download MTBindingSim" />
       Download MTBindingSim</a></td></tr>
   
 <!-- TODO Change this next line -->
-  <tr><td></td><td><a href="http://mtbindingsim.googlecode.com/files/mtbindingsim-0.13.pdf">
+  <tr><td></td><td><a href="https://github.com/downloads/cpence/mtbindingsim/mtbindingsim-0.13.pdf">
       <img src="https://raw.github.com/wiki/cpence/mtbindingsim/icon-16.png" width="16" height="16" alt="Download User Manual" title="Download User Manual" />
       Download User Manual</a></td></tr>
   
@@ -37,12 +37,12 @@
     <p>Then, download MTBindingSim.  Double-click to open the disk image and drag the MTBindingSim icon to your Applications folder.</p></td></tr>
   
 <!-- TODO Change this next line -->
-  <tr><td></td><td><a href="http://mtbindingsim.googlecode.com/files/mtbindingsim-0.13.dmg">
+  <tr><td></td><td><a href="https://github.com/downloads/cpence/mtbindingsim/mtbindingsim-0.13.dmg">
       <img src="https://raw.github.com/wiki/cpence/mtbindingsim/icon-16.png" width="16" height="16" alt="Download MTBindingSim" title="Download MTBindingSim" />
       Download MTBindingSim</a></td></tr>
 
 <!-- TODO Change this next line -->
-  <tr><td></td><td><a href="http://mtbindingsim.googlecode.com/files/mtbindingsim-0.13.pdf">
+  <tr><td></td><td><a href="https://github.com/downloads/cpence/mtbindingsim/mtbindingsim-0.13.pdf">
       <img src="https://raw.github.com/wiki/cpence/mtbindingsim/icon-16.png" width="16" height="16" alt="Download User Manual" title="Download User Manual" />
       Download User Manual</a></td></tr>
 </table>
@@ -54,12 +54,12 @@
     <p>If you wish to run MTBindingSim either on another platform, or within MATLAB itself, you need only to download one file, the MTBindingSim source package.  After extracting it, open the "MTBindingSim.m" file in MATLAB and execute it to run MTBindingSim.</p></td></tr>
   
 <!-- TODO Change this next line -->
-  <tr><td></td><td><a href="http://mtbindingsim.googlecode.com/files/mtbindingsim-0.13.zip">
+  <tr><td></td><td><a href="https://github.com/downloads/cpence/mtbindingsim/mtbindingsim-0.13.zip">
       <img src="https://raw.github.com/wiki/cpence/mtbindingsim/icon-16.png" width="16" height="16" alt="Download Source" title="Download Source" />
       Download Source</a></td></tr>
   
 <!-- TODO Change this next line -->
-  <tr><td></td><td><a href="http://mtbindingsim.googlecode.com/files/mtbindingsim-0.13.pdf">
+  <tr><td></td><td><a href="https://github.com/downloads/cpence/mtbindingsim/mtbindingsim-0.13.pdf">
       <img src="https://raw.github.com/wiki/cpence/mtbindingsim/icon-16.png" width="16" height="16" alt="Download User Manual" title="Download User Manual" />
       Download User Manual</a></td></tr>
 </table>
