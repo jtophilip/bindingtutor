@@ -28,7 +28,7 @@ documentation may be built from source, if you have TeX.
 The manual for the current version is also available
 online, at:
 
-  http://code.google.com/p/mtbindingsim/wiki/Introduction
+  https://github.com/cpence/mtbindingsim/wiki
 
 
 Installation
@@ -68,10 +68,10 @@ Please see the file called COPYING.
 Development
 -----------
 
-MTBindingSim development is hosted by Google Code.  You
-can find our page here:
+MTBindingSim development is hosted by GitHub.  You can find
+our page here:
 
-  http://code.google.com/p/mtbindingsim/
+  https://github.com/cpence/mtbindingsim
 
 
 Bug Reporting
@@ -80,7 +80,7 @@ Bug Reporting
 You can file bug reports using our online development site.
 For more information about filing a bug report, see here:
 
-  http://code.google.com/p/mtbindingsim/wiki/FilingATicket
+  https://github.com/cpence/mtbindingsim/wiki/FilingATicket
 
 
 Authors
