@@ -12,9 +12,9 @@ If you are running Windows, there is a bug in the built-in Windows ZIP file extr
 
 ### MTBindingSim doesn't run
 
-On a Mac, make sure you have downloaded and installed the MATLAB Compiler Runtime (MCR), available at [the MTBindingSim downloads page.](https://github.com/cpence/mtbindingsim/wiki/Download)
+On a Mac, make sure you have downloaded and installed the MATLAB Compiler Runtime (MCR), available at [the MTBindingSim home page.](http://bindingtutor.org/mtbindingsim/)
 
-On Windows, the installer should download and install the MATLAB Compiler Runtime (MCR) if you don't already have it. If you get an error that the MCR cannot be found, you probably have an old version of the MCR, which prevents the installer from installing the new version. Uninstall the old version if you don't need it for any other programs and then manually download and install the updated version from [the MTBindingSim downloads page.](https://github.com/cpence/mtbindingsim/wiki/Download)
+On Windows, the installer should download and install the MATLAB Compiler Runtime (MCR) if you don't already have it. If you get an error that the MCR cannot be found, you probably have an old version of the MCR, which prevents the installer from installing the new version. Uninstall the old version if you don't need it for any other programs and then manually download and install the updated version from [the MTBindingSim home page.](http://bindingtutor.org/mtbindingsim/)
 
 If you have successfully installed all the prerequisites and still cannot get MTBindingSim to run, try Filing a Support Ticket below.
 
@@ -61,4 +61,4 @@ MTBindingSim is hosted on Google Code, and we use its "Issues" system for keepin
 
 When should you file a support ticket? In general, if you have a question that you just can't get answered in the documentation, if you have a bug to report, or if you have an idea for a new feature, you should send us a message.
 
-Rather than including it in the documentation, we keep up-to-date information about [how to file a support ticket](https://github.com/cpence/mtbindingsim/wiki/FilingATicket) on the MTBindingSim website. Please visit there for the latest information about how to get MTBindingSim support.
+Rather than including it in the documentation, we keep up-to-date information about [how to file a support ticket](https://github.com/jtophilip/mtbindingsim/wiki/FilingATicket) on the MTBindingSim website. Please visit there for the latest information about how to get MTBindingSim support.

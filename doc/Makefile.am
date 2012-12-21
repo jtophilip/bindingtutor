@@ -16,7 +16,7 @@ DOCS_MARKDOWN_SOURCE = \
 
 EXTRA_DIST = $(DOCS_RST_SOURCE) COPYING Introduction.md Introduction.tex \
 	AutoTools.md DeveloperDocs.md FilingATicket.md ReleasePolicy.md \
-	Download.md _Sidebar.md images 
+	_Sidebar.md images 
 
 #
 # Find the files

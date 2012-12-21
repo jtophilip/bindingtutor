@@ -4,7 +4,7 @@ Thanks for checking out MTBindingSim! Here's a quick-start tutorial designed to 
 
 ## Running MTBindingSim for the First Time
 
-To begin, you will need to [download and install MTBindingSim](https://github.com/cpence/mtbindingsim/wiki/Download). When you run MTBindingSim for the first time, you should see a window that looks like this:
+To begin, you will need to [download and install MTBindingSim](http://bindingtutor.org/mtbindingsim/). When you run MTBindingSim for the first time, you should see a window that looks like this:
 
 ![image](${IMAGES}/gettingstarted-open){width=5.127in align=center}
 

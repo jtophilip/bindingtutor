@@ -16,7 +16,7 @@ Downloading
 
 You can get MTBindingSim from its website:
 
-  http://mtbindingsim.googlecode.com
+  http://bindingtutor.org/mtbindingsim/
 
 
 Documentation
@@ -28,7 +28,7 @@ documentation may be built from source, if you have TeX.
 The manual for the current version is also available
 online, at:
 
-  https://github.com/cpence/mtbindingsim/wiki
+  https://github.com/jtophilip/mtbindingsim/wiki
 
 
 Installation
@@ -46,7 +46,7 @@ Installation
    First, install the MATLAB Compiler Runtime by 
    downloading it from the MTBindingSim website:
 
-     http://code.google.com/p/mtbindingsim/wiki/Download
+     http://bindingtutor.org/mtbindingsim/
 
    Then, double-click the DMG file, and drag the app
    icon into your Applications folder.  To run, just
@@ -71,7 +71,7 @@ Development
 MTBindingSim development is hosted by GitHub.  You can find
 our page here:
 
-  https://github.com/cpence/mtbindingsim
+  https://github.com/jtophilip/mtbindingsim
 
 
 Bug Reporting
@@ -80,7 +80,7 @@ Bug Reporting
 You can file bug reports using our online development site.
 For more information about filing a bug report, see here:
 
-  https://github.com/cpence/mtbindingsim/wiki/FilingATicket
+  https://github.com/jtophilip/mtbindingsim/wiki/FilingATicket
 
 
 Authors
