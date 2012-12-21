@@ -55,10 +55,10 @@ MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 	$(MCC) $(MATLABFLAGS) -v -d $(builddir) -m $$MFILES)
 	if test -d $(builddir)/MTBindingSim.app ; then \
 		chmod 644 $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
-		cp $(top_srcdir)/doc/wiki/images/icon/icon.icns $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
+		cp $(top_srcdir)/doc/images/icon/icon.icns $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
 	fi
 	if test -e $(builddir)/MTBindingSim.exe ; then \
-		cp $(top_srcdir)/doc/wiki/images/icon/icon.ico $(builddir)/out.ico; \
+		cp $(top_srcdir)/doc/images/icon/icon.ico $(builddir)/out.ico; \
 		$(top_srcdir)/tools/ResHacker.exe -add MTBindingSim.exe, out.exe, out.ico, ICONGROUP, AAA,; \
 		if test -e $(builddir)/out.exe ; then \
 			mv -f $(builddir)/out.exe $(builddir)/MTBindingSim.exe; \

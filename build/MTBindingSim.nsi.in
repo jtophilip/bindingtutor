@@ -56,8 +56,8 @@ Var StartMenuFolder
 
 !define MUI_FINISHPAGE_RUN "$INSTDIR/MTBindingSim.exe"
 !define MUI_FINISHPAGE_RUN_NOTCHECKED
-!define MUI_FINISHPAGE_SHOWREADME http://code.google.com/p/mtbindingsim/wiki/GettingStarted
-!define MUI_FINISHPAGE_SHOWREADME_TEXT "Visit the MTBindingSim Getting Started tutorial"
+!define MUI_FINISHPAGE_SHOWREADME http://bindingtutor.org/mtbindingsim/
+!define MUI_FINISHPAGE_SHOWREADME_TEXT "Visit the MTBindingSim home page"
 !define MUI_FINISHPAGE_SHOWREADME_NOTCHECKED
 
 !insertmacro MUI_PAGE_FINISH
