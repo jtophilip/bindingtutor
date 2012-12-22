@@ -13,5 +13,3 @@
   * [Code License (GNU GPLv3)](https://raw.github.com/jtophilip/mtbindingsim/master/COPYING)
   * [Documentation License (CC-BY-SA 3.0)](https://raw.github.com/jtophilip/mtbindingsim/master/doc/COPYING)
 * [[Developer Documentation|DeveloperDocs]]
-
-<!-- FIXME: developer docs -->
