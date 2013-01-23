@@ -3607,7 +3607,7 @@ for i = 1:length(list)
     yca = strread(num2str(ydata), '%s');
     
     % Get the legend string for this graph
-    ls = legend_strings(i);
+    ls = legend_strings(length(list) - i + 1);
     
     % Hack something up if there's a problem
     if isempty(ls)
