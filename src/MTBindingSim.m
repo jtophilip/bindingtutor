@@ -84,6 +84,9 @@ function MTBindingSim_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for MTBindingSim
 handles.output = hObject;
 
+% Set the window title
+set(hObject, 'Name', 'BindingTutor');
+
 % Save this main figure in the handles object
 handles.mainfigure = hObject;
 
