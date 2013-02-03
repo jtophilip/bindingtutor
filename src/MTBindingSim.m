@@ -1,5 +1,6 @@
 function varargout = MTBindingSim(varargin)
-% MTBindingSim - plot microtubule binding curves under various conditions
+% MTBindingSim - BindingTutor - an educational tool for teaching students
+% about protein binding
 %      MTBINDINGSIM, by itself, creates a new MTBINDINGSIM or raises the existing
 %      singleton*.
 %
@@ -18,28 +19,31 @@ function varargout = MTBindingSim(varargin)
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %       
-%   mtbindingsim is a program to plot binding curves under various
-%   conditions, particularly those encountered in microtubule binding or
-%   other polymer binding situations.
+%   BindingTutpr is a program to plot binding curves under various
+%   conditions
 % 
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% This file is part of MTBindingSim.
+% This file is part of BindingTutor. BindingTutor is a version of
+% MTBindingSim which has been modified to be useful for teaching. The
+% variable names in the m files have been retained from MTBindingSim (using
+% MT and A as the two main components), but the user interface variablees
+% have been modified to P and L, as commonly used in binding instruction.
 %
-% Copyright (C) 2010-2011  University of Notre Dame
+% Copyright (C) 2010-2013  University of Notre Dame
 %
-% MTBindingSim is free software: you can redistribute it and/or modify
+% BiningTutor is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the free Software Foundation, either version 3 of the License, or
 % (at your option) any later version.
 %
-% MTBindingSim is distributed in the hope that it will be useful,
+% BindingTutor is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
 % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 % GNU General Public License for more details.
 % 
 % You should have received a copy of the GNU General Public License
-% along with MTBindingSim.  If not, see <http://www.gnu.org/licenses/>.
+% along with BindingTutor.  If not, see <http://www.gnu.org/licenses/>.
 
 % Author:
 %   Julia Philip <jphilip@nd.edu>
@@ -118,27 +122,19 @@ set(handles.plot_mode, 'SelectionChangeFcn', @plot_mode_SelectionChangeFcn);
 set(handles.tot_free, 'SelectionChangeFcn', @tot_free_SelectionChangeFcn);
 
 % Make some global string values for later
-global UM KAS KAL KAM KAA KBM KAAM KAM1 KAM2 KAMS;
+global UM KD KD1 KD2 KDP KDB;
 UM = '&#956;M';
-KAS = 'K<sub><small>AS</small></sub>';
-KAL = 'K<sub><small>AL</small></sub>';
-KAM = 'K<sub><small>AMT</small></sub>';
-KAA = 'K<sub><small>AA</small></sub>';
-KBM = 'K<sub><small>BMT</small></sub>';
-KAAM = 'K<sub><small>AAMT</small></sub>';
-KAM1 = 'K<sub><small>AMT1</small></sub>';
-KAM2 = 'K<sub><small>AMT2</small></sub>';
-KAMS = 'K<sub><small>AMT</small></sub>*';
+KD = 'K<sub><small>D</small></sub>';
+KD1 = 'K<sub><small>D1</small></sub>';
+KD2 = 'K<sub><small>D2</small></sub>';
+KDP = 'K<sub><small>DP</small></sub>';
+KDB = 'K<sub><small>DB</small></sub>';
+
 
 % More global string values for curve explanation boxes
-global firstorder dimer MAPbind MAP2bind pseudocooperativity sites seam;
-firstorder = {'Simple A binds MT binding interaction.';'This model is valid for any simple protein-protein or protein-ligand interaction.'};
-dimer = {'A can bind to MT either as a monomer or as a dimer.';'This model is valid for any polymer-protein or polymer-ligand interaction.'};
-MAPbind = {'A binds to MT and then another A can bind to each MT-bound A.';'This model is valid for any protein-protein or protein-ligand interaction in which one binding event reveals another binding surface.'};
-MAP2bind = {'A binds to MT and then two As can bind to each MT-bound A.';'This model is valid for any protein-protein or protein-ligand interaction in which one binding event reveals another binding site.';'This is an extension of the MAPs bind MT-bound MAPs model.'};
-pseudocooperativity = {'For every MT site that binds an A, another MT site is converted to an MT* site, which binds to A with a different dissociation constant.';'This model is applicable to polymer-protein or polymer-ligand interactions in which one binding event influences other binding events.'};
-sites = {'A can bind to two sites on each MT.';'This model is valid for any protein-protein or protein-ligand interaction with two independent binding sites.'};
-seam = {'A binds to the MT seam (1/13 of the MT) with a different affinity from the MT lattice (12/13 of the MT).';'This model is valid only for binding of proteins or ligands to 13-protofilament MTs with a seam.'};
+global firstorder sites;
+firstorder = {'Simple P binds L binding interaction.';'This model is valid for any simple protein-protein or protein-ligand interaction.'};
+sites = {'P can bind to two sites on each L.';'This model is valid for any protein-protein or protein-ligand interaction with two independent binding sites.'};
 
 
 % Convert a bunch of our controls to java controls
@@ -150,21 +146,21 @@ handles.model2 = make_java_component(handles.model2, '', 1);
 handles.equation2 = make_java_component(handles.equation2, '', 1);
 first_order_strings(handles.model1, handles.equation1);
 first_order_strings(handles.model2, handles.equation2);
-handles.label1_1 = make_java_component(handles.label1_1, '[A] total ', 2);
-handles.label2_1 = make_java_component(handles.label2_1, [KAM, ' '], 2);
-handles.label3_1 = make_java_component(handles.label3_1, '1 MT : ', 2);
+handles.label1_1 = make_java_component(handles.label1_1, '[P] total ', 2);
+handles.label2_1 = make_java_component(handles.label2_1, [KD, ' '], 2);
+handles.label3_1 = make_java_component(handles.label3_1, '', 2);
 handles.label4_1 = make_java_component(handles.label4_1, '', 2);
 handles.label5_1 = make_java_component(handles.label5_1, '', 2);
 handles.label6_1 = make_java_component(handles.label6_1, '', 2);
-handles.label1_2 = make_java_component(handles.label1_2, '[A] total ', 2);
-handles.label2_2 = make_java_component(handles.label2_2, [KAM, ' '], 2);
+handles.label1_2 = make_java_component(handles.label1_2, '[P] total ', 2);
+handles.label2_2 = make_java_component(handles.label2_2, [KD, ' '], 2);
 handles.label3_2 = make_java_component(handles.label3_2, '', 2);
 handles.label4_2 = make_java_component(handles.label4_2, '', 2);
 handles.label5_2 = make_java_component(handles.label5_2, '', 2);
 handles.label6_2 = make_java_component(handles.label6_2, '', 2);
 handles.units1_1 = make_java_component(handles.units1_1, UM, 0);
 handles.units2_1 = make_java_component(handles.units2_1, UM, 0);
-handles.units3_1 = make_java_component(handles.units3_1, 'A', 0);
+handles.units3_1 = make_java_component(handles.units3_1, UM, 0);
 handles.units4_1 = make_java_component(handles.units4_1, UM, 0);
 handles.units5_1 = make_java_component(handles.units5_1, UM, 0);
 handles.units6_1 = make_java_component(handles.units6_1, UM, 0);
@@ -419,7 +415,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     MTtot = str2double(get(handles.input1_1, 'String'));
     
     if isnan(MTtot) || MTtot <= 0
-        errorbox('Please enter a positive number for [MT] total', hObject);
+        errorbox('Please enter a positive number for [L] total', hObject);
         return
     end
     
@@ -427,7 +423,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     Atot = str2double(get(handles.input2_1, 'String'));
     
     if isnan(Atot) || Atot <= 0
-        errorbox('Please enter a positive number for [A] total', hObject);
+        errorbox('Please enter a positive number for [P] total', hObject);
         return
     end
     
@@ -435,7 +431,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     KAM = str2double(get(handles.input3_1, 'String'));
     
     if isnan(KAM) || KAM <= 0
-        errorbox('Please enter a positive number for K_AMT', hObject);
+        errorbox('Please enter a positive number for K_DP', hObject);
         return
     end
     
@@ -443,7 +439,7 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     KBM = str2double(get(handles.input4_1, 'String'));
     
     if isnan(KBM) || KBM <= 0
-        errorbox('Please enter a positive number for K_BMT', hObject);
+        errorbox('Please enter a positive number for K_DB', hObject);
         return
     end
     
@@ -464,9 +460,9 @@ if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
     
     % Sets the x-axis title, y-axis title, plot title, and legend text
     xaxis = '[B] total';
-    yaxis = 'Fraction of A bound';
+    yaxis = 'Fraction of P bound';
     plottitle = 'Competition Binding Assay';
-    legend1 = ['[MT] total = ' get(handles.input1_1, 'String') ', [A] total = ' get(handles.input2_1, 'String') ', K_{AMT} = ' get(handles.input3_1, 'String') ', K_{BMT} = ' get(handles.input4_1, 'String') ];
+    legend1 = ['[L] total = ' get(handles.input1_1, 'String') ', [P] total = ' get(handles.input2_1, 'String') ', K_{DP} = ' get(handles.input3_1, 'String') ', K_{DB} = ' get(handles.input4_1, 'String') ];
 
 
 elseif strcmpi(handles.mode1, 'firstorder')
@@ -483,7 +479,7 @@ elseif strcmpi(handles.mode1, 'firstorder')
             Atot = str2double(get(handles.input1_1, 'String'));
 
             if isnan(Atot) || Atot <= 0
-                errorbox('Please enter a positive number for [A] total', hObject); 
+                errorbox('Please enter a positive number for [P] total', hObject); 
                 return
             end
 
@@ -492,16 +488,8 @@ elseif strcmpi(handles.mode1, 'firstorder')
             KAM = str2double(get(handles.input2_1, 'String'));
 
             if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
+                errorbox('K_D must be a number greater than 0', hObject); 
                 return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
             end
 
 
@@ -510,7 +498,7 @@ elseif strcmpi(handles.mode1, 'firstorder')
                 case 'free'
 
                    %Calculates the value of frac, MTfree, and Abound
-                   [frac, MTfree] = first_order_binding(xvals, Atot, KAM, N);
+                   [frac, MTfree] = first_order_binding(xvals, Atot, KAM, 1);
                    
                    % Checks to make sure that the calculation suceeded and
                    % returns an error if it did not
@@ -526,15 +514,15 @@ elseif strcmpi(handles.mode1, 'firstorder')
 
                    % Sets the x-axis title, y-axis title, plot title, and
                    % legend text
-                   xaxis = '[MT] free';
-                   yaxis = 'Fraction of A bound';
-                   plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String'), ', N = ' get(handles.input3_1, 'String')];
+                   xaxis = '[L] free';
+                   yaxis = 'Fraction of P bound';
+                   plottitle = 'Vary [L] Binding Assay';
+                   legend1 = ['First order, [P] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String')];
 
                 case 'total'
 
                    % Calculates the value of frac and MTfree
-                   [frac, MTfree] = first_order_binding(xvals, Atot, KAM, N);
+                   [frac, MTfree] = first_order_binding(xvals, Atot, KAM, 1);
                    
                    % Checks to make sure that the calculation suceeded and
                    % returns an error if it did not
@@ -550,10 +538,10 @@ elseif strcmpi(handles.mode1, 'firstorder')
 
                    % Sets the x-axis title, y-axis title, plot title, and
                    % legend text
-                   xaxis = '[MT] total';
-                   yaxis = 'Fraction of A bound';
-                   plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['First order, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', N = ' get(handles.input3_1, 'String')];
+                   xaxis = '[L] total';
+                   yaxis = 'Fraction of P bound';
+                   plottitle = 'Vary [L] Binding Assay';
+                   legend1 = ['First order, [P] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String')];
 
                 otherwise
             end
@@ -566,7 +554,7 @@ elseif strcmpi(handles.mode1, 'firstorder')
             MTtot = str2double(get(handles.input1_1, 'String'));
 
             if isnan(MTtot) || MTtot <= 0
-                errorbox('Please enter a positive number for [MT] total', hObject); 
+                errorbox('Please enter a positive number for [L] total', hObject); 
                 return
             end
 
@@ -575,25 +563,17 @@ elseif strcmpi(handles.mode1, 'firstorder')
             KAM = str2double(get(handles.input2_1, 'String'));
 
             if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
+                errorbox('K_D must be a number greater than 0', hObject); 
                 return
             end
             
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
             
             % Determines whether free or free [A] should be graphed
             switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                 case 'free'
                     
                     % Calculates Abound, and Afree
-                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, N);
+                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, 1);
                     
                     % Checks to make sure the calculation suceeded and
                     % returns an error if it did not
@@ -609,40 +589,16 @@ elseif strcmpi(handles.mode1, 'firstorder')
 
                     % Sets the x-axis title, y-axis title, plot title, and
                     % legend text
-                    xaxis = '[A] free';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', N = ' get(handles.input3_1, 'String')];
+                    xaxis = '[P] free';
+                    yaxis = '[P] bound';
+                    plottitle = 'Vary [P] Binding Assay';
+                    legend1 = ['First order, [L] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String')];
 
                     
                 case 'total'
                 
                     % Calculates Abound and Afree
-                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, N);
-                    
-                    % Checks to make sure the calculation suceeded and
-                    % returns an error if it did not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y data to plot
-                    y1 = Abound;
-                    x1 = xvals;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] total';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', N = ' get(handles.input3_1, 'String')];
-                    
-                case 'scatchard'
-                    
-                    % Calculates Abound and Afree
-                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, N);
+                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, 1);
                     
                     % Checks to make sure the calculation suceeded and
                     % returns an error if it did not
@@ -653,1141 +609,48 @@ elseif strcmpi(handles.mode1, 'firstorder')
                     end
 
                     % Sets the x and y data to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-                    
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] bound';
-                    yaxis = '[A] bound/ [A] free';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['First order, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', N = ' get(handles.input3_1, 'String')];
-                    
-
-                    
-                otherwise
-            end
-
-        otherwise
-    end
-
-elseif strcmpi(handles.mode1, 'pseudocooperativity')
-    
-    %%% Pseudocooperative binding %%% 
-
-    % Determine the experimental mode
-    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-        % Binding mode is selected
-        case 'binding'
-
-            % Gets the value for [A] free and ensures that it's a
-            % positive number
-            Atot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(Atot) || Atot <= 0
-                errorbox('Please enter a positive number for [A] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAMS and ensures that it's a
-            % number
-            KAMS = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAMS) || KAMS <= 0
-                errorbox('K_AMT^* must be a positive number', hObject); 
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input4_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-
-            % Determines whether the X-axis is free MT or free MT
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-
-                    % Calculates frac and MTfree
-                    [frac, MTfree] = pseudocooperativity_binding(xvals, Atot, KAM, KAMS, N);
-                    
-                    % Checks to make sure that the calculation was
-                    % successful and returns an error if it was not
-                    [a,b] = size(frac);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-
-                    % Sets the x and y values to plot
-                    y1 = frac;
-                    x1 = MTfree;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[MT] free';
-                    yaxis = 'Fraction of A bound';
-                    plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Pseduocooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                case 'total'
-
-                    % Calculates frac, MTfree
-                    [frac, MTfree] = pseudocooperativity_binding(xvals, Atot, KAM, KAMS, N);
-                    
-                    % Checks to make sure the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(frac);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-
-                    % Sets the x and y values to plot
-                    y1 = frac;
-                    x1 = xvals;
-
-                    % Sets the x-axis title, y-axis title, plot title, and legend text 
-                    xaxis = '[MT] total';
-                    yaxis = 'Fraction of A bound';
-                    plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Pseudocooperativity, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                otherwise
-            end
-
-        % Saturation mode is selected
-        case 'saturation'
-
-            % Gets the value for [MT] free and ensures that it's a
-            % positive number
-            MTtot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(MTtot) || MTtot <= 0
-                errorbox('Please enter a positive number for [MT] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for phi and ensures that it's a
-            % number
-            KAMS = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAMS) || KAMS <= 0
-                errorbox('K_AMT^* must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input4_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-
-            % Determines wether free or free mode is selected
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                
-                case 'free'
-                    
-                    % Calculates Abound and Afree
-                    [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
-                    
-                    % Checks to make sure the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = Abound;
-                    x1 = Afree;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] free';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                    
-                case 'total'
-                    
-                    % Calculates Abound and Afree
-                    [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
-                    
-                    % Checks to make sure the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
                     y1 = Abound;
                     x1 = xvals;
 
                     % Sets the x-axis title, y-axis title, plot title, and
                     % legend text
-                    xaxis = '[A] total';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                
+                    xaxis = '[P] total';
+                    yaxis = '[P] bound';
+                    plottitle = 'Vary [P] Binding Assay';
+                    legend1 = ['First order, [L] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String')];
+                    
                 case 'scatchard'
                     
                     % Calculates Abound and Afree
-                    [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
+                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, 1);
                     
-                    % Checks to make sure the calculation was sucessful and
-                    % returns an error if it was not
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
                     [a,b] = size(Abound);
                     if a == 1 && b == 1
                        errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
                        return
                     end
 
-                    % Sets the x and y values to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] bound';
-                    yaxis = '[A] bound/ [A] free';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AMT}* = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                
-                otherwise
-                    
-            end
-            
-            
-        otherwise
-    end
-
-
-
-elseif strcmpi(handles.mode1, 'seam')
-    %%% Seam and lattice binding %%%
-    
-    % Determine the experimental mode
-    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-        % Binding mode is selected
-        case 'binding'
-
-            % Gets the value for [A] free and ensures that it's a
-            % positive number
-            Atot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(Atot) || Atot <= 0
-                errorbox('Please enter a positive number for [A] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAS and ensures that it's a
-            % positive number
-            KAS = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAS) || KAS <= 0
-                errorbox('K_AS must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAL and ensures that it's a positive
-            % number
-            KAL = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAL) || KAL <= 0
-                errorbox('K_AL must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input4_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-
-            % Determines whether the X-axis is free MT or free MT
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-
-                   % Calculates fraction of A bound and free MT
-                   [frac, MTfree] = seam_lattice_binding(xvals, Atot, KAS, KAL, N);
-                   
-                   % Checks to make sure the calculation was sucessful and
-                   % returns an error if it was not
-                   [a,b] = size(frac);
-                   if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                   end
-                   
-                   % Sets the x and y values to plot
-                   y1 = frac;
-                   x1 = MTfree;
-
-                   % Sets the x-axis title, y-axis title, plot title, and
-                   % legend text
-                   xaxis = '[MT] free';
-                   yaxis = 'Fraction of A bound';
-                   plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_{AS} = ' get(handles.input2_1, 'String') ', K_{AL} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                case 'total'
-
-                    % Calculates fraction of A bound and MT free
-                    [frac, MTfree] = seam_lattice_binding(xvals, Atot, KAS, KAL, N);
-                    
-                    % Checks to make sure the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(frac);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-                    
-                    % Sets the x and y values to plot
-                    y1 = frac;
-                    x1 = xvals;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[MT] total';
-                    yaxis = 'Fraction of A bound';
-                    plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Seam binding, [A] total = ' get(handles.input1_1, 'String') ', K_{AS} = ' get(handles.input2_1, 'String') ', K_{AL} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                otherwise
-            end
-
-        % Saturation mode is selected
-        case 'saturation'
-
-            % Gets the value for [MT] free and ensures that it's a
-            % positive number
-            MTtot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(MTtot) || MTtot <= 0
-                errorbox('Please enter a positive number for [MT] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAS and ensures that it's a
-            % positive number
-            KAS = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAS) || KAS <= 0
-                errorbox('K_AS must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAL and ensures that it's a positive
-            % number
-            KAL = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAL) || KAL <= 0
-                errorbox('K_AL must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input4_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-            
-            % Determines whether the the x-axis is free or free
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                
-                case 'free'
-                    
-                    % Calculates concentration of Abound and A free
-                    [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KAS, KAL, N);
-                    
-                    % Checks to make sure the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-                    
-                    % Sets the x and y values to plot
-                    y1 = Abound;
-                    x1 = Afree;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] free';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AS} = ' get(handles.input2_1, 'String') ', K_{AL} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-
-                case 'total'
-                    
-                    % Calculates concentration of A bound and MT free
-                    [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KAS, KAL, N);
-                    
-                    % Checks to make sure the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-                    
-                    % Sets the x and y values to plot
-                    y1 = Abound;
-                    x1 = xvals;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] total';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AS} = ' get(handles.input2_1, 'String') ', K_{AL} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-   
-                case 'scatchard'
-                    
-                    % Calculates concentration of A bound and MT free
-                    [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KAS, KAL, N);
-                    
-                    % Checks to make sure the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-                    
-                    % Sets the x and y values to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] bound';
-                    yaxis = '[A] bound/[A] free';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Seam binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AS} = ' get(handles.input2_1, 'String') ', K_{AL} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-                
-                
-                otherwise
-            end
-
-            
-        otherwise
-    end
-
-
-
-elseif strcmpi(handles.mode1, 'MAPbind')
-    
-    %%% MAPs bind MT-bound MAPS %%%
-
-    % Determine the experimental mode
-    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-        % Binding mode is selected
-        case 'binding'
-
-            % Gets the value for [A] free and ensures that it's a
-            % positive number
-            Atot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(Atot) || Atot <= 0
-                errorbox('Please enter a positive number for [A] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAA and ensures that it's a positive
-            % number
-            KAA = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAA) || KAA <= 0
-                errorbox('K_AA must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input4_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-            % Determines whether the X-axis is free MT or free MT
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-
-                   % Calculates fraction of A bound and free MT
-                   [frac, MTfree] =MAP_binding(xvals, Atot, KAM, KAA, N);
-                   
-                   % Determines whether the calculation was successful and
-                   % returns an error if it was not
-                   [a,b] = size(frac);
-                   if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                   end
-
-                   % Sets the x and y values to plot
-                   y1 = frac;
-                   x1 = MTfree;
-
-                   % Sets the x-axis title, y-axis title, plot title, and
-                   % legend text
-                   xaxis = '[MT] free';
-                   yaxis = 'Fraction of A bound';
-                   plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                case 'total'
-
-                    % Calculates fraction of A bound and free MT
-                    [frac, MTfree] =MAP_binding(xvals, Atot, KAM, KAA, N);
-                    
-                    % Determines whether the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(frac);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = frac;
-                    x1 = xvals;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[MT] total';
-                    yaxis = 'Fraction of A bound';
-                    plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                otherwise
-            end
-
-        % Saturation mode is selected
-        case 'saturation'
-
-            % Gets the value for [MT] free and ensures that it's a
-            % positive number
-            MTtot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(MTtot) || MTtot <= 0
-                errorbox('Please enter a positive number for [MT] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAA and ensures that it's a positive
-            % number
-            KAA = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAA) || KAA <= 0
-                errorbox('K_AA must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input4_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-            % Determines whether the x-axis is free A or free A
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-                    
-                    % Calculates the concentration of A bound and A free
-                    [Abound, Afree] = MAP_saturation(MTtot, xvals, KAM, KAA, N);
-                    
-                    % Determines whether the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = Abound;
-                    x1 = Afree;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] free';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-                    
-                case 'total'
-                    
-                    % Calculates the concentration of A bound
-                    [Abound, Afree] = MAP_saturation(MTtot, xvals, KAM, KAA, N);
-                    
-                    % Determines whether the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = Abound;
-                    x1 =xvals;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] total';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                case 'scatchard'
-                    
-                    % Calculates the concentration of A bound
-                    [Abound, Afree] = MAP_saturation(MTtot, xvals, KAM, KAA, N);
-                    
-                    % Determines whether the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] bound';
-                    yaxis = '[A] bound/[A] free';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                
-                otherwise
-            end
-
-            
-        otherwise
-    end
-
-   
-elseif strcmpi(handles.mode1, 'MAPbind2')
-    
-    %%% 2 MAPs bind MT-bound MAPs %%%
-    
-    % Determine the experimental mode
-    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-        % Binding mode is selected
-        case 'binding'
-
-            % Gets the value for [A] free and ensures that it's a
-            % positive number
-            Atot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(Atot) || Atot <= 0
-                errorbox('Please enter a positive number for [A] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAA and ensures that it's a positive
-            % number
-            KAA = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAA) || KAA <= 0
-                errorbox('K_AA must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input4_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-            % Determines whether the X-axis is free MT or free MT
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-
-                   % Calculates fraction of A bound and free MT
-                   [frac, MTfree] =MAP2_binding(xvals, Atot, KAM, KAA, N);
-                   
-                   % Determine whether the calculation was sucessful and
-                   % reutrn an error if it was not
-                   [a,b] = size(frac);
-                   if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                   end
-
-                   % Set the x and y values to plot
-                   y1 = frac;
-                   x1 = MTfree;
-
-                   
-                   % Set the x-axis title, y-axis title, plot title, and
-                   % legend text
-                   xaxis = '[MT] free';
-                   yaxis = 'Fraction of A bound';
-                   plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['2 MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                case 'total'
-
-                    % Calculates fraction of A bound and free MT
-                    [frac, MTfree] =MAP2_binding(xvals, Atot, KAM, KAA, N);
-                    
-                    % Ensure that the calculation was sucessful and return
-                    % an error if it was not
-                    [a,b] = size(frac);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Set the x and y values to plot
-                    y1 = frac;
-                    x1 = xvals;
-
-                    % Set the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[MT] total';
-                    yaxis = 'Fraction of A bound';
-                    plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['2 MAP binding, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                otherwise
-            end
-
-        % Saturation mode is selected
-        case 'saturation'
-
-            % Gets the value for [MT] free and ensures that it's a
-            % positive number
-            MTtot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(MTtot) || MTtot <= 0
-                errorbox('Please enter a positive number for [MT] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAA and ensures that it's a positive
-            % number
-            KAA = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAA) || KAA <= 0
-                errorbox('K_AA must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input4_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-            % Determine whether the x-axis is free A or free A
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-                    
-                    % Calculates the concentration of A bound
-                    [Abound, Afree] = MAP2_saturation(MTtot, xvals, KAM, KAA, N);
-                    
-                    % Ensure that the calculation was sucessful and returns
-                    % an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = Abound;
-                    x1 = Afree;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] free';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['2 MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-                    
-                case 'total'
-                    
-                    % Calculates the concentration of A bound
-                    [Abound, Afree] = MAP2_saturation(MTtot, xvals, KAM, KAA, N);
-                    
-                    % Ensures that the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = Abound;
-                    x1 =xvals;
-                    
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] total';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['2 MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
-
-                case 'scatchard'
-                
-                    % Calculates the concentration of A bound
-                    [Abound, Afree] = MAP2_saturation(MTtot, xvals, KAM, KAA, N);
-                    
-                    % Ensures that the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
+                    % Sets the x and y data to plot
                     y1 = Abound./Afree;
                     x1 = Abound;
                     
                     % Sets the x-axis title, y-axis title, plot title, and
                     % legend text
-                    xaxis = '[A] bound';
-                    yaxis = '[A] bound/Afree';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['2 MAP binding, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AA} = ' get(handles.input3_1, 'String') ', N = ' get(handles.input4_1, 'String')];
+                    xaxis = '[P] bound';
+                    yaxis = '[P] bound/ [P] free';
+                    plottitle = 'Vary [P] Binding Assay';
+                    legend1 = ['First order, [L] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String')];
+                    
 
-                
+                    
                 otherwise
             end
 
-            
         otherwise
     end
-    
-elseif strcmpi(handles.mode1, 'dimer')
-    
-    %%% Dimerization and binding %%%
-    
-    % Determine the experimental mode
-    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-        % Binding mode is selected
-        case 'binding'
 
-            % Gets the value for [A] free and ensures that it's a
-            % positive number
-            Atot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(Atot) || Atot <= 0
-                errorbox('Please enter a positive number for [A] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAAM and ensures that it's a positive
-            % number
-            KAAM = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAAM) || KAAM <= 0
-                errorbox('K_AAMT must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the value for KAA and ensures that it's a positive number
-            KAA = str2double(get(handles.input4_1, 'String'));
-            
-            if isnan(KAA) || KAA  <= 0
-                errorbox('K_AA must be a number greater than 0', hObject);
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input5_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-            % Determines whether the X-axis is free MT or free MT
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-
-                   % Calculates fraction of A bound and free MT
-                   [frac, MTfree] = dimer_binding(xvals, Atot, KAM, KAAM, KAA, N);
-                   
-                   % Determine whether the calculation was sucessful and
-                   % reutrn an error if it was not
-                   [a,b] = size(frac);
-                   if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                   end
-
-                   % Set the x and y values to plot
-                   y1 = frac;
-                   x1 = MTfree;
-
-                   
-                   % Set the x-axis title, y-axis title, plot title, and
-                   % legend text
-                   xaxis = '[MT] free';
-                   yaxis = 'Fraction of A bound';
-                   plottitle = 'Vary [MT] Binding Assay';
-                   legend1 = ['Dimerization, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AAMT} = ' get(handles.input3_1, 'String') ', K_{AA} = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
-                case 'total'
-
-                    % Calculates fraction of A bound and free MT
-                    [frac, MTfree] = dimer_binding(xvals, Atot, KAM, KAAM, KAA, N);
-                    
-                    % Ensure that the calculation was sucessful and return
-                    % an error if it was not
-                    [a,b] = size(frac);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Set the x and y values to plot
-                    y1 = frac;
-                    x1 = xvals;
-
-                    % Set the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[MT] total';
-                    yaxis = 'Fraction of A bound';
-                    plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Dimerization, [A] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AAMT} = ' get(handles.input3_1, 'String') ', K_{AA} = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
-
-                otherwise
-            end
-
-        % Saturation mode is selected
-        case 'saturation'
-
-            % Gets the value for [MT] free and ensures that it's a
-            % positive number
-            MTtot = str2double(get(handles.input1_1, 'String'));
-
-            if isnan(MTtot) || MTtot <= 0
-                errorbox('Please enter a positive number for [MT] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_1, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAAM and ensures that it's a positive
-            % number
-            KAAM = str2double(get(handles.input3_1, 'String'));
-
-            if isnan(KAAM) || KAAM <= 0
-                errorbox('K_AAMT must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the value for KAA and ensures that it's a positive
-            % number
-            KAA = str2double(get(handles.input4_1, 'String'));
-
-            if isnan(KAA) || KAA <= 0
-                errorbox('K_AA must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input5_1, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-            % Determine whether the x-axis is free A or free A
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-                    
-                    % Calculates the concentration of A bound
-                    [Abound, Afree] = dimer_saturation(MTtot, xvals, KAM, KAAM, KAA, N);
-                    
-                    % Ensure that the calculation was sucessful and returns
-                    % an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = Abound;
-                    x1 = Afree;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] free';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Dimerization, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AAMT} = ' get(handles.input3_1, 'String') ', K_{AA} = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
-                    
-                case 'total'
-                    
-                    % Calculates the concentration of A bound
-                    [Abound, Afree] = dimer_saturation(MTtot, xvals, KAM, KAAM, KAA, N);
-                    
-                    % Ensures that the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = Abound;
-                    x1 =xvals;
-                    
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] total';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Dimerization, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AAMT} = ' get(handles.input3_1, 'String') ', K_{AA} = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
-
-                case 'scatchard'
-                     
-                    % Calculates the concentration of A bound
-                    [Abound, Afree] = dimer_saturation(MTtot, xvals, KAM, KAAM, KAA, N);
-                    
-                    % Ensures that the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-                    
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[A] bound';
-                    yaxis = '[A] bound/[A] free';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Dimerization, [MT] total = ' get(handles.input1_1, 'String') ', K_{AMT} = ' get(handles.input2_1, 'String') ', K_{AAMT} = ' get(handles.input3_1, 'String') ', K_{AA} = ' get(handles.input4_1, 'String') ', N = ' get(handles.input5_1, 'String')];
-
-                
-                otherwise
-            end
-
-            
-        otherwise
-    end
-    
 elseif strcmpi(handles.mode1, 'sites')
     
     %%% Two site binding %%%
@@ -1802,7 +665,7 @@ elseif strcmpi(handles.mode1, 'sites')
             Atot = str2double(get(handles.input1_1, 'String'));
 
             if isnan(Atot) || Atot <= 0
-                errorbox('Please enter a positive number for [A] total', hObject); 
+                errorbox('Please enter a positive number for [P] total', hObject); 
                 return
             end
 
@@ -1811,7 +674,7 @@ elseif strcmpi(handles.mode1, 'sites')
             KA1 = str2double(get(handles.input2_1, 'String'));
 
             if isnan(KA1) || KA1 <= 0
-                errorbox('K_A1 must be a number greater than 0', hObject); 
+                errorbox('K_D1 must be a number greater than 0', hObject); 
                 return
             end
 
@@ -1820,7 +683,7 @@ elseif strcmpi(handles.mode1, 'sites')
             KA2 = str2double(get(handles.input3_1, 'String'));
 
             if isnan(KA2) || KA2 <= 0
-                errorbox('K_A2 must be a number greater than 0', hObject); 
+                errorbox('K_D2 must be a number greater than 0', hObject); 
                 return
             end
             
@@ -1850,10 +713,10 @@ elseif strcmpi(handles.mode1, 'sites')
 
                     % Sets the x-axis title, y-axis title, plot title, and
                     % legend text
-                    xaxis = '[MT] total';
-                    yaxis = 'Fraction of A bound';
-                    plottitle = 'Vary [MT] Binding Assay';
-                    legend1 = ['Two sites, [A] total = ' get(handles.input1_1, 'String') ', K_{A1} = ' get(handles.input2_1, 'String') ', K_{A2} = ' get(handles.input3_1, 'String')];
+                    xaxis = '[L] total';
+                    yaxis = 'Fraction of P bound';
+                    plottitle = 'Vary [L] Binding Assay';
+                    legend1 = ['Two sites, [P] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
 
                 otherwise
             end
@@ -1866,7 +729,7 @@ elseif strcmpi(handles.mode1, 'sites')
             MTtot = str2double(get(handles.input1_1, 'String'));
 
             if isnan(MTtot) || MTtot <= 0
-                errorbox('Please enter a positive number for [MT] total', hObject); 
+                errorbox('Please enter a positive number for [L] total', hObject); 
                 return
             end
 
@@ -1875,7 +738,7 @@ elseif strcmpi(handles.mode1, 'sites')
             KA1 = str2double(get(handles.input2_1, 'String'));
 
             if isnan(KA1) || KA1 <= 0
-                errorbox('K_A1 must be a number greater than 0', hObject); 
+                errorbox('K_D1 must be a number greater than 0', hObject); 
                 return
             end
 
@@ -1884,7 +747,7 @@ elseif strcmpi(handles.mode1, 'sites')
             KA2 = str2double(get(handles.input3_1, 'String'));
 
             if isnan(KA2) || KA2 <= 0
-                errorbox('K_A2 must be a number greater than 0', hObject); 
+                errorbox('K_D2 must be a number greater than 0', hObject); 
                 return
             end
                         
@@ -1910,10 +773,10 @@ elseif strcmpi(handles.mode1, 'sites')
 
                     % Sets the x-axis title, y-axis title, plot title, and
                     % legend text
-                    xaxis = '[A] free';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Two sites, [MT] total = ' get(handles.input1_1, 'String') ', K_{A1} = ' get(handles.input2_1, 'String') ', K_{A2} = ' get(handles.input3_1, 'String')];
+                    xaxis = '[P] free';
+                    yaxis = '[P] bound';
+                    plottitle = 'Vary [P] Binding Assay';
+                    legend1 = ['Two sites, [L] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
 
 
                 case 'total'
@@ -1935,10 +798,10 @@ elseif strcmpi(handles.mode1, 'sites')
 
                     % Sets the x-axis title, y-axis title, plot title, and
                     % legend text
-                    xaxis = '[A] total';
-                    yaxis = '[A] bound';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Two sites, [MT] total = ' get(handles.input1_1, 'String') ', K_{A1} = ' get(handles.input2_1, 'String') ', K_{A2} = ' get(handles.input3_1, 'String')];
+                    xaxis = '[P] total';
+                    yaxis = '[P] bound';
+                    plottitle = 'Vary [P] Binding Assay';
+                    legend1 = ['Two sites, [L] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
    
                 case 'scatchard'
                     
@@ -1959,10 +822,10 @@ elseif strcmpi(handles.mode1, 'sites')
 
                     % Sets the x-axis title, y-axis title, plot title, and
                     % legend text
-                    xaxis = '[A] bound';
-                    yaxis = '[A] bound/[A] free';
-                    plottitle = 'Vary [A] Binding Assay';
-                    legend1 = ['Two sites, [MT] total = ' get(handles.input1_1, 'String') ', K_{A1} = ' get(handles.input2_1, 'String') ', K_{A2} = ' get(handles.input3_1, 'String')];
+                    xaxis = '[P] bound';
+                    yaxis = '[P] bound/[P] free';
+                    plottitle = 'Vary [P] Binding Assay';
+                    legend1 = ['Two sites, [L] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
                 
                 
                 otherwise
@@ -1991,7 +854,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
       MTtot = str2double(get(handles.input1_2, 'String'));
     
       if isnan(MTtot) || MTtot <= 0
-          errorbox('Please enter a positive number for [MT] total', hObject);
+          errorbox('Please enter a positive number for [L] total', hObject);
           return
       end
     
@@ -1999,7 +862,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     Atot = str2double(get(handles.input2_2, 'String'));
     
     if isnan(Atot) || Atot <= 0
-        errorbox('Please enter a positive number for [A] total', hObject);
+        errorbox('Please enter a positive number for [P] total', hObject);
         return
     end
     
@@ -2007,7 +870,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     KAM = str2double(get(handles.input3_2, 'String'));
     
     if isnan(KAM) || KAM <= 0
-        errorbox('Please enter a positive number for K_AMT', hObject);
+        errorbox('Please enter a positive number for K_DP', hObject);
         return
     end
     
@@ -2015,7 +878,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     KBM = str2double(get(handles.input4_2, 'String'));
     
     if isnan(KBM) || KBM <= 0
-        errorbox('Please enter a positive number for K_BMT', hObject);
+        errorbox('Please enter a positive number for K_DB', hObject);
         return
     end
     
@@ -2036,7 +899,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     x2 = xvals;
 
     % Sets the legend text
-    legend2 = ['[MT] total = ' get(handles.input1_2, 'String') ', [A] total = ' get(handles.input2_2, 'String') ', K_{AMT} = ' get(handles.input3_2, 'String') ', K_{BMT} = ' get(handles.input4_2, 'String')];
+    legend2 = ['[L] total = ' get(handles.input1_2, 'String') ', [P] total = ' get(handles.input2_2, 'String') ', K_{DP} = ' get(handles.input3_2, 'String') ', K_{DB} = ' get(handles.input4_2, 'String')];
 
   % Determines the parameters selected for curve2
   elseif strcmpi(handles.mode2, 'firstorder')
@@ -2053,7 +916,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 Atot = str2double(get(handles.input1_2, 'String'));
 
                 if isnan(Atot) || Atot <= 0
-                    errorbox('Please enter a positive number for [A] total', hObject); 
+                    errorbox('Please enter a positive number for [P] total', hObject); 
                     return
                 end
 
@@ -2062,25 +925,17 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 KAM = str2double(get(handles.input2_2, 'String'));
 
                 if isnan(KAM) || KAM <= 0
-                    errorbox('K_AMT must be a number greater than 0', hObject); 
+                    errorbox('K_D must be a number greater than 0', hObject); 
                     return
                 end
                 
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
-                end
-
 
                 % Determines whether the X-axis is free B or free B
                 switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
                     case 'free'
 
                        % Function to get fraction A bound and free MT 
-                       [frac, MTfree] = first_order_binding(xvals, Atot, KAM, N);
+                       [frac, MTfree] = first_order_binding(xvals, Atot, KAM, 1);
                        
                        % Ensures that the calculation worked and returns an
                        % error if it did not
@@ -2095,12 +950,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        x2 = MTfree;
 
                        % Sets the legend text
-                       legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
+                       legend2 = ['First order, [P] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String')];
 
                     case 'total'
 
                        % Function to get fraction A bound
-                       [frac, MTfree] = first_order_binding(xvals, Atot, KAM, N);
+                       [frac, MTfree] = first_order_binding(xvals, Atot, KAM, 1);
                        
                        % Ensures that the calculation succeeded and returns
                        % an error if it did not
@@ -2115,7 +970,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        x2 = xvals;
 
                        % Sets the legend text
-                       legend2 = ['First order, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
+                       legend2 = ['First order, [P] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String')];
 
                     otherwise
                 end
@@ -2128,7 +983,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 MTtot = str2double(get(handles.input1_2, 'String'));
 
                 if isnan(MTtot) || MTtot <= 0
-                    errorbox('Please enter a positive number for [MT] total', hObject); 
+                    errorbox('Please enter a positive number for [L] total', hObject); 
                     return
                 end
 
@@ -2137,16 +992,8 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 KAM = str2double(get(handles.input2_2, 'String'));
 
                 if isnan(KAM) || KAM <= 0
-                    errorbox('K_AMT must be a number greater than 0', hObject); 
+                    errorbox('K_D must be a number greater than 0', hObject); 
                     return
-                end
-                
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
                 end
                 
                 % Determines whether the x-axis is free or free A
@@ -2154,7 +1001,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     case 'free'
                         
                         % Function to get the concentration of A bound
-                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, N);
+                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, 1);
                         
                         % Ensures that the calculation succeeded and
                         % returns an error if it did not
@@ -2169,12 +1016,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = Afree;
 
                         % Sets the legend text
-                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
+                        legend2 = ['First order, [L] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String')];
 
                     case 'total'
                         
                         % Function to get the concentration of A bound
-                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, N);
+                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, 1);
                         
                         % Ensures that the calculation was successful and
                         % returns an error if it was not
@@ -2189,12 +1036,12 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = xvals;
 
                         % Sets the legend text
-                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
+                        legend2 = ['First order, [L] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String')];
 
                     case 'scatchard'
                         
                         % Function to get the concentration of A bound
-                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, N);
+                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, 1);
                         
                         % Ensures that the calculation was successful and
                         % returns an error if it was not
@@ -2209,7 +1056,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         x2 = Abound;
 
                         % Sets the legend text
-                        legend2 = ['First order, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', N = ' get(handles.input3_2, 'String')];
+                        legend2 = ['First order, [L] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String')];
 
                     
                     otherwise
@@ -2218,1016 +1065,6 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                 
             otherwise
         end
-
-     
-    elseif strcmpi(handles.mode2, 'pseudocooperativity')
-        
-        %%%% Pseudocooperative binding %%%%
-
-        % Determine the experimental mode
-        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-            % Binding mode is selected
-            case 'binding'
-
-                % Gets the value for [A] free and ensures that it's a
-                % positive number
-                Atot = str2double(get(handles.input1_2, 'String'));
-
-                if isnan(Atot) || Atot <= 0
-                    errorbox('Please enter a positive number for [A] total', hObject); 
-                    return
-                end
-
-                % Gets the value for KAM and ensures that it's a
-                % positive number
-                KAM = str2double(get(handles.input2_2, 'String'));
-
-                if isnan(KAM) || KAM <= 0
-                    errorbox('K_AMT must be a number greater than 0', hObject); 
-                    return
-                end
-
-                % Gets the value for p and ensures that it's a positive
-                % number
-                KAMS = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(KAMS) || KAMS <= 0
-                    errorbox('K_AMT^* must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input4_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
-                end
-
-                % Determines whether the X-axis is free MT or free MT
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-
-                       % Function to get fraction A bound and free MT 
-                       [frac, MTfree] = pseudocooperativity_binding(xvals, Atot, KAM, KAMS, N);
-                       
-                       % Ensures that the calculation was successful and
-                       % returns an error if it was not
-                       [a,b] = size(frac);
-                       if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                       end
-
-                       % Sets the x and y values to graph
-                       y2 = frac;
-                       x2 = MTfree;
-
-                       % Sets the legend text
-                       legend2 = ['Pseudocooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    case 'total'
-
-                       % Function to get fraction A bound
-                       [frac, MTfree] = pseudocooperativity_binding(xvals, Atot, KAM, KAMS, N);
-                       
-                       % Ensures that the calculation was successful and
-                       % returns an error if it was not
-                       [a,b] = size(frac);
-                       if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                       end
-
-                       % Sets the x and y values to graph
-                       y2 = frac;
-                       x2 = xvals;
-
-                       % Sets the legend text
-                       legend2 = ['Pseudocooperativity, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    otherwise
-                end
-
-            % Saturation mode is selected
-            case 'saturation'
-
-                % Gets the value for [MT] free and ensures that it's a
-                % positive number
-                MTtot = str2double(get(handles.input1_2, 'String'));
-
-                if isnan(MTtot) || MTtot <= 0
-                    errorbox('Please enter a positive number for [MT] total', hObject); 
-                    return
-                end
-
-                % Gets the value for KAM and ensures that it's a
-                % positive number
-                KAM = str2double(get(handles.input2_2, 'String'));
-
-                if isnan(KAM) || KAM <= 0
-                    errorbox('K_AMT must be a number greater than 0', hObject); 
-                    return
-                end
-
-                % Gets the value for p and ensures that it's a
-                % number
-                KAMS = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(KAMS) || KAMS <= 0
-                    errorbox('K_AMT^* must be a number greatern than 0', hObject); 
-                    return
-                end
-                
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input4_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
-                end
-
-                % Determines whether the x-axis is free or free A
-                switch get(get(handles.tot_free, 'SelectedObject'), 'Tag')
-                    case 'free'
-                        
-                        % Function to get the concentration of A bound
-                        [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to graph
-                        y2 = Abound;
-                        x2 = Afree;
-
-                        % Sets the legend text
-                        legend2 = ['Pseudoooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    case 'total'
-                        
-                        % Function to get the concentration of A bound
-                        [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to graph
-                        y2 = Abound;
-                        x2 = xvals;
-
-                        % Sets the legend text
-                        legend2 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    case 'scatchard'
-                        
-                        % Function to get the concentration of A bound
-                        [Abound, Afree] = pseudocooperativity_saturation(MTtot, xvals, KAM, KAMS, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to graph
-                        y2 = Abound./Afree;
-                        x2 = Abound;
-
-                        % Sets the legend text
-                        legend2 = ['Pseudocooperativity, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AMT}* = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    
-                    otherwise
-                end
-            otherwise
-        end
-
-
-    
-    elseif strcmpi(handles.mode2, 'seam')
-        
-        %%%% Seam and lattice binding %%%%%
-        
-        % Determine the experimental mode
-        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-            % Binding mode is selected
-            case 'binding'
-
-                % Gets the value for [A] free and ensures that it's a
-                % positive number
-                Atot = str2double(get(handles.input1_2, 'String'));
-
-                if isnan(Atot) || Atot <= 0
-                    errorbox('Please enter a positive number for [A] total', hObject); 
-                    return
-                end
-
-                % Gets the value for KAS and ensures that it's a
-                % positive number
-                KAS = str2double(get(handles.input2_2, 'String'));
-
-                if isnan(KAS) || KAS <= 0
-                    errorbox('K_AS must be a number greater than 0', hObject); 
-                    return
-                end
-
-                % Gets the value for KAL and ensures that it's a positive
-                % number
-                KAL = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(KAL) || KAL <= 0
-                    errorbox('K_AL must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input4_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
-                end
-
-                % Determines whether the X-axis is free MT or free MT
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-
-                       % Function to get fraction A bound and free MT 
-                       [frac, MTfree] = seam_lattice_binding(xvals, Atot, KAS, KAL, N);
-                       
-                       % Ensures that the calculation was successful and
-                       % returns an error if it was not
-                       [a,b] = size(frac);
-                       if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                       end
-
-                       % Sets the x and y values to plot
-                       y2 = frac;
-                       x2 = MTfree;
-
-                       % Sets the legend text
-                       legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_{AS} = ' get(handles.input2_2, 'String') ', K_{AL} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    case 'total'
-
-                        % Function to get fraction A bound
-                        [frac, MTfree] = seam_lattice_binding(xvals, Atot, KAS, KAL, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(frac);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to plot
-                        y2 = frac;
-                        x2 = xvals;
-
-                        % Sets the legend text
-                        legend2 = ['Seam binding, [A] total = ' get(handles.input1_2, 'String') ', K_{AS} = ' get(handles.input2_2, 'String') ', K_{AL} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    otherwise
-                end
-
-            % Saturation mode is selected
-            case 'saturation'
-
-                % Gets the value for [MT] free and ensures that it's a
-                % positive number
-                MTtot = str2double(get(handles.input1_2, 'String'));
-
-                if isnan(MTtot) || MTtot <= 0
-                    errorbox('Please enter a positive number for [MT] total', hObject); 
-                    return
-                end
-
-                % Gets the value for KAS and ensures that it's a
-                % positive number
-                KAS = str2double(get(handles.input2_2, 'String'));
-
-                if isnan(KAS) || KAS <= 0
-                    errorbox('K_AS must be a number greater than 0', hObject); 
-                    return
-                end
-
-                % Gets the value for KAL and ensures that it's a positive
-                % number
-                KAL = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(KAL) || KAL <= 0
-                    errorbox('K_AL must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input4_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
-                end
-                
-                % Checks to see whether the x-axis is free or free A
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-                        
-                        % Function to get the concentration of A bound
-                        [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KAS, KAL, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-                        
-                        % Sets the x and y values to plot
-                        y2 = Abound;
-                        x2 = Afree;
-
-                        % Sets the legend text
-                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AS} = ' get(handles.input2_2, 'String') ', K_{AL} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-                        
-                    case 'total'
-                        
-                        % Function to get the concentration of A bound
-                        [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KAS, KAL, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
- 
-                        % Sets the x and y values to plot
-                        y2 = Abound;
-                        x2 = xvals;
-
-                        % Sets the legend text
-                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AS} = ' get(handles.input2_2, 'String') ', K_{AL} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-                        
-                    case 'scatchard'
-                        
-                        % Function to get the concentration of A bound
-                        [Abound, Afree] = seam_lattice_saturation(MTtot, xvals, KAS, KAL, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
- 
-                        % Sets the x and y values to plot
-                        y2 = Abound./Afree;
-                        x2 = Abound;
-
-                        % Sets the legend text
-                        legend2 = ['Seam binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AS} = ' get(handles.input2_2, 'String') ', K_{AL} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-                        
-                    
-                    otherwise
-                end 
-            otherwise
-        end
-
-
-    
-    elseif strcmpi(handles.mode2, 'MAPbind')
-        
-        %%%% MAPs bind MT-bound MAPS %%%%
-
-        % Determine the experimental mode
-        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-            % Binding mode is selected
-            case 'binding'
-
-                % Gets the value for [A] free and ensures that it's a
-                % positive number
-                Atot = str2double(get(handles.input1_2, 'String'));
-
-                if isnan(Atot) || Atot <= 0
-                    errorbox('Please enter a positive number for [A] total', hObject); 
-                    return
-                end
-
-                % Gets the value for KAM and ensures that it's a
-                % positive number
-                KAM = str2double(get(handles.input2_2, 'String'));
-
-                if isnan(KAM) || KAM <= 0
-                    errorbox('K_AMT must be a number greater than 0', hObject); 
-                    return
-                end
-
-                % Gets the value for KAA and ensures that it's a positive
-                % number
-                KAA = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(KAA) || KAA <= 0
-                    errorbox('K_AA must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input4_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
-                end
-
-                % Determines whether the X-axis is free MT or free MT
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-
-                       % Function to get fraction A bound and free MT 
-                       [frac, MTfree] = MAP_binding(xvals, Atot, KAM, KAA, N);
-                       
-                       % Ensures that the calculation was successful and
-                       % returns an error if it was not
-                       [a,b] = size(frac);
-                       if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                       end
-
-                       % Sets the x and y values to plot
-                       y2 = frac;
-                       x2 = MTfree;
-
-                       % Sets the legend text
-                       legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    case 'total'
-
-                        % Function to get fraction A bound
-                        [frac, MTfree] = MAP_binding(xvals, Atot, KAM, KAA, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(frac);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to plot
-                        y2 = frac;
-                        x2 = xvals;
-
-                        % Sets the legend text
-                        legend2 = ['MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    otherwise
-                end
-
-            % Saturation mode is selected
-            case 'saturation'
-
-                % Gets the value for [MT] free and ensures that it's a
-                % positive number
-                MTtot = str2double(get(handles.input1_2, 'String'));
-
-                if isnan(MTtot) || MTtot <= 0
-                    errorbox('Please enter a positive number for [MT] total', hObject); 
-                    return
-                end
-
-                % Gets the value for KAM and ensures that it's a
-                % positive number
-                KAM = str2double(get(handles.input2_2, 'String'));
-
-                if isnan(KAM) || KAM <= 0
-                    errorbox('K_AMT must be a number greater than 0', hObject); 
-                    return
-                end
-
-                % Gets the value for KAA and ensures that it's a positive
-                % number
-                KAA = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(KAA) || KAA <= 0
-                    errorbox('K_AA must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input4_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
-                end
-                
-                % Determines whether the x-axis mode is free or free A
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-                        
-                         % Function to get the concentration of A bound
-                        [Abound, Afree] = MAP_saturation(MTtot, xvals, KAM, KAA, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to plot
-                        y2 = Abound;
-                        x2 = Afree;
-
-                        % Sets the legend text
-                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                        
-                    case 'total'
-                        
-                         % Function to get the concentration of A bound
-                        [Abound, Afree] = MAP_saturation(MTtot, xvals, KAM, KAA, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to plot
-                        y2 = Abound;
-                        x2 = xvals;
-
-                        % Sets the legend text
-                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    case 'scatchard'
-                        
-                        % Function to get the concentration of A bound
-                        [Abound, Afree] = MAP_saturation(MTtot, xvals, KAM, KAA, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to plot
-                        y2 = Abound./Afree;
-                        x2 = Abound;
-
-                        % Sets the legend text
-                        legend2 = ['MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    
-                    otherwise
-                end
-            otherwise
-        end
-        
-        
-    
-    elseif strcmpi(handles.mode2, 'MAPbind2')
-        
-        %%%% 2 MAPs bind MT-bound MAPS %%%%
-
-        % Determine the experimental mode
-        switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-            % Binding mode is selected
-            case 'binding'
-
-                % Gets the value for [A] free and ensures that it's a
-                % positive number
-                Atot = str2double(get(handles.input1_2, 'String'));
-
-                if isnan(Atot) || Atot <= 0
-                    errorbox('Please enter a positive number for [A] total', hObject); 
-                    return
-                end
-
-                % Gets the value for KAM and ensures that it's a
-                % positive number
-                KAM = str2double(get(handles.input2_2, 'String'));
-
-                if isnan(KAM) || KAM <= 0
-                    errorbox('K_AMT must be a number greater than 0', hObject); 
-                    return
-                end
-
-                % Gets the value for KAA and ensures that it's a positive
-                % number
-                KAA = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(KAA) || KAA <= 0
-                    errorbox('K_AA must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input4_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
-                end
-
-                % Determines whether the X-axis is free MT or free MT
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-
-                       % Function to get fraction A bound and free MT 
-                       [frac, MTfree] = MAP2_binding(xvals, Atot, KAM, KAA, N);
-                       
-                       % Ensures that the calculation was successful and
-                       % retuns an error if it was not
-                       [a,b] = size(frac);
-                       if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                       end
-
-                       % Sets the x and y values to plot
-                       y2 = frac;
-                       x2 = MTfree;
-
-                       % Sets the legend text
-                       legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    case 'total'
-
-                        % Function to get fraction A bound
-                        [frac, MTfree] = MAP2_binding(xvals, Atot, KAM, KAA, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(frac);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to plot
-                        y2 = frac;
-                        x2 = xvals;
-
-                        % Sets the legend text
-                        legend2 = ['2 MAP binding, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                    otherwise
-                end
-
-            % Saturation mode is selected
-            case 'saturation'
-
-                % Gets the value for [MT] free and ensures that it's a
-                % positive number
-                MTtot = str2double(get(handles.input1_2, 'String'));
-
-                if isnan(MTtot) || MTtot <= 0
-                    errorbox('Please enter a positive number for [MT] total', hObject); 
-                    return
-                end
-
-                % Gets the value for KAM and ensures that it's a
-                % positive number
-                KAM = str2double(get(handles.input2_2, 'String'));
-
-                if isnan(KAM) || KAM <= 0
-                    errorbox('K_AMT must be a number greater than 0', hObject); 
-                    return
-                end
-
-                % Gets the value for KAA and ensures that it's a positive
-                % number
-                KAA = str2double(get(handles.input3_2, 'String'));
-
-                if isnan(KAA) || KAA <= 0
-                    errorbox('K_AA must be a number greater than 0', hObject); 
-                    return
-                end
-                
-                % Gets the binding ratio and ensures that it's a positive number
-                N = str2double(get(handles.input4_2, 'String'));
-
-                if isnan(N) || N <= 0
-                   errorbox('The ratio must be a number greater than 0', hObject);
-                   return
-                end
-                
-                % Determines whether the x-axis is free or free A
-                switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                    case 'free'
-                        
-                         % Function to get the concentration of A bound
-                        [Abound, Afree] = MAP2_saturation(MTtot, xvals, KAM, KAA, N);
-                        
-                        % Determines whether the calculation was successful
-                        % and returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to plot
-                        y2 = Abound;
-                        x2 = Afree;
-
-                        % Sets the legend text
-                        legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                        
-                    case 'total'
-                        
-                         % Function to get the concentration of A bound
-                        [Abound, Afree] = MAP2_saturation(MTtot, xvals, KAM, KAA, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to plot
-                        y2 = Abound;
-                        x2 = xvals;
-
-                        % Sets the legend text
-                        legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                        
-                    case 'scatchard'
-                        
-                         % Function to get the concentration of A bound
-                        [Abound, Afree] = MAP2_saturation(MTtot, xvals, KAM, KAA, N);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to plot
-                        y2 = Abound./Afree;
-                        x2 = Abound;
-
-                        % Sets the legend text
-                        legend2 = ['2 MAP binding, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AA} = ' get(handles.input3_2, 'String') ', N = ' get(handles.input4_2, 'String')];
-
-                        
-                    
-                    otherwise
-                end
-            otherwise
-        end
-
-        
-    elseif strcmpi(handles.mode2, 'dimer')
-
-    %%%% Dimerization and binding %%%%
-
-    % Determine the experimental mode
-    switch get(get(handles.exp_mode, 'SelectedObject'), 'Tag')
-        % Binding mode is selected
-        case 'binding'
-
-            % Gets the value for [A] free and ensures that it's a
-            % positive number
-            Atot = str2double(get(handles.input1_2, 'String'));
-
-            if isnan(Atot) || Atot <= 0
-                errorbox('Please enter a positive number for [A] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_2, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AMT must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAAM and ensures that it's a positive
-            % number
-            KAAM = str2double(get(handles.input3_2, 'String'));
-            
-            if isnan(KAAM) || KAAM <= 0
-                errorbox('K_AAMT must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the value for KAA and ensures that it's a positive
-            % number
-            KAA = str2double(get(handles.input4_2, 'String'));
-
-            if isnan(KAA) || KAA <= 0
-                errorbox('K_AA must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input5_2, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-            % Determines whether the X-axis is free MT or free MT
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-
-                   % Function to get fraction A bound and free MT 
-                   [frac, MTfree] = dimer_binding(xvals, Atot, KAM, KAAM, KAA, N);
-
-                   % Ensures that the calculation was successful and
-                   % retuns an error if it was not
-                   [a,b] = size(frac);
-                   if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                   end
-
-                   % Sets the x and y values to plot
-                   y2 = frac;
-                   x2 = MTfree;
-
-                   % Sets the legend text
-                   legend2 = ['Dimerization, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AAMT} = ' get(handles.input3_2, 'String') ', K_{AA} = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
-
-                case 'total'
-
-                    % Function to get fraction A bound
-                    [frac, MTfree] = dimer_binding(xvals, Atot, KAM, KAAM, KAA, N);
-
-                    % Ensures that the calculation was successful and
-                    % returns an error if it was not
-                    [a,b] = size(frac);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y2 = frac;
-                    x2 = xvals;
-
-                    % Sets the legend text
-                    legend2 = ['Dimerization, [A] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AAMT} = ' get(handles.input3_2, 'String') ', K_{AA} = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
-
-                otherwise
-            end
-
-        % Saturation mode is selected
-        case 'saturation'
-
-            % Gets the value for [MT] free and ensures that it's a
-            % positive number
-            MTtot = str2double(get(handles.input1_2, 'String'));
-
-            if isnan(MTtot) || MTtot <= 0
-                errorbox('Please enter a positive number for [MT] total', hObject); 
-                return
-            end
-
-            % Gets the value for KAM and ensures that it's a
-            % positive number
-            KAM = str2double(get(handles.input2_2, 'String'));
-
-            if isnan(KAM) || KAM <= 0
-                errorbox('K_AM must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the value for KAAM and ensures that it's a positive
-            % number
-            KAAM = str2double(get(handles.input3_2, 'String'));
-
-            if isnan(KAAM) || KAAM <= 0
-                errorbox('K_AAMT must be a number greater than 0', hObject); 
-                return
-            end
-            
-            % Gets the value for KAA and ensures that it's a positive
-            % number
-            KAA = str2double(get(handles.input3_2, 'String'));
-
-            if isnan(KAA) || KAA <= 0
-                errorbox('K_AA must be a number greater than 0', hObject); 
-                return
-            end
-
-            % Gets the binding ratio and ensures that it's a positive number
-            N = str2double(get(handles.input5_2, 'String'));
-
-            if isnan(N) || N <= 0
-               errorbox('The ratio must be a number greater than 0', hObject);
-               return
-            end
-
-            % Determines whether the x-axis is free or free A
-            switch get(get(handles.tot_free, 'SelectedObject'),'Tag')
-                case 'free'
-
-                     % Function to get the concentration of A bound
-                    [Abound, Afree] = dimer_saturation(MTtot, xvals, KAM, KAAM, KAA, N);
-
-                    % Determines whether the calculation was successful
-                    % and returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y2 = Abound;
-                    x2 = Afree;
-
-                    % Sets the legend text
-                    legend2 = ['Dimerization, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AAMT} = ' get(handles.input3_2, 'String') ', K_{AA} = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
-
-
-                case 'total'
-
-                     % Function to get the concentration of A bound
-                    [Abound, Afree] = dimer_saturation(MTtot, xvals, KAM, KAAM, KAA, N);
-
-                    % Ensures that the calculation was successful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y2 = Abound;
-                    x2 = xvals;
-
-                    % Sets the legend text
-                    legend2 = ['Dimerization, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AAMT} = ' get(handles.input3_2, 'String') ', K_{AA} = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
-
-
-                case 'scatchard'
-                    
-                    
-                     % Function to get the concentration of A bound
-                    [Abound, Afree] = dimer_saturation(MTtot, xvals, KAM, KAAM, KAA, N);
-
-                    % Ensures that the calculation was successful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y values to plot
-                    y2 = Abound./Afree;
-                    x2 = Abound;
-
-                    % Sets the legend text
-                    legend2 = ['Dimerization, [MT] total = ' get(handles.input1_2, 'String') ', K_{AMT} = ' get(handles.input2_2, 'String') ', K_{AAMT} = ' get(handles.input3_2, 'String') ', K_{AA} = ' get(handles.input4_2, 'String') ', N = ' get(handles.input5_2, 'String')];
-
-                
-                otherwise
-            end
-        otherwise
-    end
-
-
 
     elseif strcmpi(handles.mode2, 'sites')
 
@@ -3243,7 +1080,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     Atot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(Atot) || Atot <= 0
-                        errorbox('Please enter a positive number for [A] total', hObject); 
+                        errorbox('Please enter a positive number for [P] total', hObject); 
                         return
                     end
 
@@ -3252,7 +1089,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KA1 = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KA1) || KA1 <= 0
-                        errorbox('K_A1 must be a number greater than 0', hObject); 
+                        errorbox('K_D1 must be a number greater than 0', hObject); 
                         return
                     end
 
@@ -3261,7 +1098,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KA2 = str2double(get(handles.input3_2, 'String'));
 
                     if isnan(KA2) || KA2 <= 0
-                        errorbox('K_A2 must be a number greater than 0', hObject); 
+                        errorbox('K_D2 must be a number greater than 0', hObject); 
                         return
                     end
 
@@ -3290,7 +1127,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                             x2 = xvals;
 
                             % Sets the legend text
-                            legend2 = ['Two sites, [A] total = ' get(handles.input1_2, 'String') ', K_{A1} = ' get(handles.input2_2, 'String') ', K_{A2} = ' get(handles.input3_2, 'String')];
+                            legend2 = ['Two sites, [P] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
 
                         otherwise
                     end
@@ -3303,7 +1140,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     MTtot = str2double(get(handles.input1_2, 'String'));
 
                     if isnan(MTtot) || MTtot <= 0
-                        errorbox('Please enter a positive number for [MT] total', hObject); 
+                        errorbox('Please enter a positive number for [L] total', hObject); 
                         return
                     end
 
@@ -3312,7 +1149,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KA1 = str2double(get(handles.input2_2, 'String'));
 
                     if isnan(KA1) || KA1 <= 0
-                        errorbox('K_A1 must be a number greater than 0', hObject); 
+                        errorbox('K_D1 must be a number greater than 0', hObject); 
                         return
                     end
 
@@ -3321,7 +1158,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     KA2 = str2double(get(handles.input3_2, 'String'));
 
                     if isnan(KA2) || KA2 <= 0
-                        errorbox('K_A2 must be a number greater than 0', hObject); 
+                        errorbox('K_D2 must be a number greater than 0', hObject); 
                         return
                     end
 
@@ -3346,7 +1183,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                             x2 = Afree;
 
                             % Sets the legend text
-                            legend2 = ['Two sites, [MT] total = ' get(handles.input1_2, 'String') ', K_{A1} = ' get(handles.input2_2, 'String') ', K_{A2} = ' get(handles.input3_2, 'String')];
+                            legend2 = ['Two sites, [L] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
 
                         case 'total'
 
@@ -3366,7 +1203,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                             x2 = xvals;
 
                             % Sets the legend text
-                            legend2 = ['Two sites, [MT] total = ' get(handles.input1_2, 'String') ', K_{A1} = ' get(handles.input2_2, 'String') ', K_{A2} = ' get(handles.input3_2, 'String')];
+                            legend2 = ['Two sites, [L] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
 
                         case 'scatchard'
 
@@ -3386,7 +1223,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                             x2 = Abound;
 
                             % Sets the legend text
-                            legend2 = ['Two sites, [MT] total = ' get(handles.input1_2, 'String') ', K_{A1} = ' get(handles.input2_2, 'String') ', K_{A2} = ' get(handles.input3_2, 'String')];
+                            legend2 = ['Two sites, [L] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
 
 
                         otherwise
@@ -3492,7 +1329,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     end
     
     % Computes and displays the differences between the two curves if the
-    % x-axis is in free mode
+    % x-axis is in total mode
     if strcmp(get(get(handles.tot_free, 'SelectedObject'), 'Tag'), 'total') || strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'competition')
 
         % Computes absolute and percent differences, then calculates the
@@ -3814,99 +1651,8 @@ switch get(handles.curve1, 'Value')
             otherwise
         end
         
-    % MT seam and lattice binding
+   % 2 Sites model     
     case 2
-        
-        handles.mode1 = 'seam';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-               seam_binding_labels1(hObject);
-                
-            case 'saturation'
-                
-               seam_saturation_labels1(hObject);
-                
-            otherwise
-        end
-        
-    % Dimer binding    
-    case 3
-        
-        handles.mode1 = 'dimer';
-        
-        % Determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                dimer_binding_labels1(hObject);
-               
-            case 'saturation'
-                
-                dimer_saturation_labels1(hObject);
-                
-            otherwise
-        end
-    
-        
-        
-    % Pseudocooperativity
-    case 4
-        
-        handles.mode1 = 'pseudocooperativity';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                pseudocooperativity_binding_labels1(hObject);
-                
-            case 'saturation'
-                pseudocooperativity_saturation_labels1(hObject);
-                
-            otherwise
-        end
-        
-
-        
-    % MAPs bind MT-bound MAPs
-    case 5
-        
-        handles.mode1 = 'MAPbind';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                MAP_binding_labels1(hObject);
-               
-            case 'saturation'
-                
-                MAP_saturation_labels1(hObject);
-                
-            otherwise
-        end
-    
-    % 2 MAPs bind MT-bound MAPs
-    case 6
-        
-        handles.mode1 = 'MAPbind2';
-        
-        % Determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                MAP2_binding_labels1(hObject);
-               
-            case 'saturation'
-                
-                MAP2_saturation_labels1(hObject);
-                
-            otherwise
-        end
-        
-    case 7
         
         handles.mode1 = 'Sites';
         
@@ -4015,100 +1761,8 @@ switch get(handles.curve2, 'Value')
             otherwise
         end
         
-    % MT seam and lattice binding
-    case 2
-         
-        handles.mode2 = 'seam';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-               seam_binding_labels2(hObject);
-                
-            case 'saturation'
-                
-               seam_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
-        
-               
-    % Dimerization binding
-    case 3
-        
-        handles.mode2 = 'dimer';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                dimer_binding_labels2(hObject);
-               
-            case 'saturation'
-                
-                dimer_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
-        
-    % Pseudocooperativity
-    case 4
-        
-        handles.mode2 = 'pseudocooperativity';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                pseudocooperativity_binding_labels2(hObject);
-                
-            case 'saturation'
-                pseudocooperativity_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
-
-        
-    % MAPs bind MT-bound MAPs
-    case 5
-        
-        handles.mode2 = 'MAPbind';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                MAP_binding_labels2(hObject);
-               
-            case 'saturation'
-                
-                MAP_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
-    % 2 MAPs bind MT-bound MAPs
-    case 6
-        
-        handles.mode2 = 'MAPbind2';
-        
-        %determine which experimental mode is selected
-        switch get(get(handles.exp_mode, 'SelectedObject'),'Tag')
-            case 'binding'
-                
-                MAP2_binding_labels2(hObject);
-               
-            case 'saturation'
-                
-                MAP2_saturation_labels2(hObject);
-                
-            otherwise
-        end
-        
-      case 7
+      % 2 sites model     
+      case 2
         
         handles.mode2 = 'sites';
         
@@ -4257,30 +1911,7 @@ switch get(eventdata.NewValue, 'Tag')
 
             first_order_binding_labels1(hObject);
 
-        % Seam and lattice binding selected
-        elseif strcmpi(handles.mode1, 'seam')
-
-            seam_binding_labels1(hObject);
-
-        % Dimerization binding selected
-        elseif strcmpi(handles.mode1, 'dimer')
-
-            dimer_binding_labels1(hObject);
-
-        % Cooperativity selected
-        elseif strcmpi(handles.mode1, 'pseudocooperativity')
-
-            pseudocooperativity_binding_labels1(hObject);
-
-        % MAPs bind MT-bound MAPs selected
-        elseif strcmpi(handles.mode1, 'MAPbind')
-
-            MAP_binding_labels1(hObject);
-
-        elseif strcmpi(handles.mode1, 'MAPbind2')
-
-            MAP2_binding_labels1(hObject);
-            
+        % 2 sites model is selected    
         elseif strcmpi(handles.mode1, 'Sites')
             
             Sites_binding_labels1(hObject);
@@ -4303,32 +1934,7 @@ switch get(eventdata.NewValue, 'Tag')
             if strcmpi(handles.mode2, 'firstorder')
                 first_order_binding_labels2(hObject);
 
-            % Seam and lattice binding selected
-            elseif strcmpi(handles.mode2, 'seam')
-
-                seam_binding_labels2(hObject);
-
-            % Dimerization binding selected
-            elseif strcmpi(handles.mode2, 'dimer')
-
-                dimer_binding_labels2(hObject);
-
-            % Cooperativity is selected
-            elseif strcmpi(handles.mode2, 'pseudocooperativity')
-
-                pseudocooperativity_binding_labels2(hObject);
-
-            
-            % MAPs bind MT-bound MAPs selected
-            elseif strcmpi(handles.mode2, 'MAPbind')
-
-                MAP_binding_labels2(hObject);
-
-            % 2 MAPs bind MT-bound MAPs selected    
-            elseif strcmpi(handles.mode2, 'MAPbind2')
-
-                MAP2_binding_labels2(hObject);
-                
+            % 2 sites model is selected
             elseif strcmpi(handles.mode2, 'Sites')
                 
                 Sites_binding_labels2(hObject);
@@ -4356,36 +1962,11 @@ switch get(eventdata.NewValue, 'Tag')
         if strcmpi(handles.mode1, 'firstorder')
 
             first_order_saturation_labels1(hObject);
-
-        % Cooperative binding selected
-        elseif strcmpi(handles.mode1, 'pseudocooperativity')
-
-            pseudocooperativity_saturation_labels1(hObject);
-
-        % Seam and lattice binding selected
-        elseif strcmpi(handles.mode1, 'seam')
-
-            seam_saturation_labels1(hObject);
-
-        % MAPs bind MT-bound MAPs selected
-        elseif strcmpi(handles.mode1, 'MAPbind')
-
-            MAP_saturation_labels1(hObject);
-
-        % 2 MAPs bind MT-bound MAPs selected
-        elseif strcmpi(handles.mode1, 'MAPbind2')
-
-            MAP2_saturation_labels1(hObject);
-
-        % Dimer binding is selected
-        elseif strcmpi(handles.mode1, 'dimer')
-
-            dimer_saturation_labels1(hObject);
             
         % The two site model is selected    
-        elseif strcmpi(handles.mode1, 'Seam')
+        elseif strcmpi(handles.mode1, 'Sites')
             
-            Seam_saturation_lables1(hObject);
+            Sites_saturation_labels1(hObject);
 
 
         end
@@ -4406,31 +1987,6 @@ switch get(eventdata.NewValue, 'Tag')
             if strcmpi(handles.mode2, 'firstorder')
 
                 first_order_saturation_labels2(hObject);
-
-            % Cooperative binding selected
-            elseif strcmpi(handles.mode2, 'pseudocooperativity')
-
-                pseudocooperativity_saturation_labels2(hObject);
-
-            % Seam and lattice binding selected
-            elseif strcmpi(handles.mode2, 'seam')
-
-                seam_saturation_labels2(hObject);
-
-            % MAPs bind MT-bound MAPs selected
-            elseif strcmpi(handles.mode2, 'MAPbind')
-
-                MAP_saturation_labels2(hObject);
-
-            % 2 MAPs bind MT-bound MAPs selected
-            elseif strcmpi(handles.mode2, 'MAPbind2')
-
-                MAP2_saturation_labels2(hObject);
-
-            % Dimer binding is selected
-            elseif strcmpi(handles.mode2, 'dimer')
-
-                dimer_saturation_labels2(hObject);
                 
             % Two sites is selected
             elseif strcmpi(handles.mode2, 'Sites')
@@ -4533,26 +2089,6 @@ switch get(eventdata.NewValue, 'Tag')
                         
                         first_order_binding_labels2(hObject);
                         
-                    case 'seam'
-                        
-                        seam_binding_labels2(hObject);
-                        
-                    case 'dimer'
-                        
-                        dimer_binding_labels2(hObject);
-                        
-                    case 'pseduocooperativity'
-                        
-                        pseudocooperativity_binding_labels2(hObject);
-                        
-                    case 'MAPbind'
-                        
-                        MAP_binding_labels2(hObject);
-                        
-                    case 'MAPbind2'
-                        
-                        MAP2_binding_labels2(hObject);
-                        
                     case 'Sites'
                         
                         Sites_binding_labels2(hObject);
@@ -4570,25 +2106,6 @@ switch get(eventdata.NewValue, 'Tag')
                         
                         first_order_saturation_labels2(hObject);
                         
-                    case 'seam'
-                        
-                        seam_saturation_labels2(hObject);
-                        
-                    case 'dimer'
-                        
-                        dimer_saturation_labels2(hObject);
-                        
-                    case 'pseudocooperativity'
-                        
-                        pseudocooperativity_saturation_labels2(hObject);
-                        
-                    case 'MAPbind'
-                        
-                        MAP_saturation_labels2(hObject);
-                        
-                    case 'MAPbind2'
-                        
-                        MAP2_saturation_labels2(hObject);
                         
                     case 'Sites'
                         
@@ -4663,65 +2180,9 @@ function first_order_strings(model, equation)
 
 % Generates the model and equation strings for first order
 
-global KAM;
-set_java_component(model, 'A + MT &#8596; AMT');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT]']);
-end
-
-function pseudocooperativity_strings(model, equation)
-
-% Generates the model and equation strings for pseudocooperatitivy
-
-global KAM KAMS;
-set_java_component(model, 'A + MT &#8596; AMT, A + MT* &#8596; AMT*');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ' KAMS, ' = [A][MT*]/[AMT*], [MT*]<sub><small>Total</small></sub> = [AMT] + [AMT*]' ]);
-end
-
-function seam_strings(model, equation)
-
-% Generates the model and equation strings for seam and lattice binding
-
-global KAS KAL;
-set_java_component(model, 'A + S &#8596; AS, A + L &#8596; AL');
-set_java_component(equation, [KAL, ' = [A][L]/[AL], ', KAS, ' = [A][S]/[AS]']);
-end
-
-function MAP_strings(model, equation)
-
-% Generates the model and equation strings for MAPs bind MT-bound MAPs
-
-global KAM KAA;
-set_java_component(model, 'A + MT &#8596; AMT, A + AMT &#8596; A<sub><small>2</small></sub>MT');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ', KAA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT]']);
-end
-
-function MAP2_strings(model, equation)
-
-% Generates the model and equation strings for 2 MAPs bind MT-bound MAPs
-
-global KAM KAA;
-set_java_component(model, 'A + MT &#8596; AMT, A + AMT &#8596; A<sub><small>2</small></sub>MT, A + A<sub><small>2</small></sub>MT &#8596; A<sub><small>3</small></sub>MT');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ', KAA, ' = [A][AMT]/[A<sub><small>2</small></sub>MT],<br>', KAA, ' = [A][A<sub><small>2</small></sub>MT]/[A<sub><small>3</small></sub>MT]']);
-end
-
-
-function dimer_strings(model, equation)
-
-% Generates the model and equation strings for dimerization
-
-global KAA KAM KAAM;
-set_java_component(model, 'A + MT &#8596; AMT, A<sub><small>2</small></sub> + MT &#8596; A<sub><small>2</small></sub>MT<sub><small>2</small></sub>, A + A &#8596; A<sub><small>2</small></sub>');
-set_java_component(equation, [KAM, ' = [A][MT]/[AMT], ', KAAM, ' = [A<sub><small>2</small></sub>][MT]/[A<sub><small>2</small></sub>MT<sub><small>2</small></sub>], ', KAA, ' = [A][A]/[A<sub><small>2</small></sub>]']);
-end
-
-
-function competition_strings(model, equation)
-
-% Generates the model and equation strings for competition
-
-global KAM KBM;
-set_java_component(model, 'A + MT &#8596; AMT, B + MT &#8596; BMT');
-set_java_component(equation, [KAM, ' =[A][MT]/[AMT], ', KBM, ' =[B][MT]/[BMT]']);
+global KD;
+set_java_component(model, 'P + L &#8596; PL');
+set_java_component(equation, [KD, ' = [P][L]/[PL]']);
 end
 
 
@@ -4729,20 +2190,29 @@ function Sites_strings(model, equation)
 
 % Generates the model and equation strings for two sites
 
-global KAM1 KAM2;
-set_java_component(model, 'A + MT1 &#8596; AMT1, A + MT2 &#8596; AMT2');
-set_java_component(equation, [KAM1 ' =[A][MT1]/[AMT1], ', KAM2, ' =[A][MT2]/[AMT2]']);
+global KD1 KD2;
+set_java_component(model, 'P + L1 &#8596; PL1, P + L2 &#8596; PL2');
+set_java_component(equation, [KD1 ' =[P][L1]/[PL1], ', KD2, ' =[P][L2]/[PL2]']);
 
+end
+
+function competition_strings(model, equation)
+
+% Generates the model and equation strings for competition
+
+global KDP KDB;
+set_java_component(model, 'P + L &#8596; PL, B + L &#8596; BL');
+set_java_component(equation, [KDP, ' =[P][L]/[PL], ', KDB, ' =[B][L]/[BL]']);
 end
 
 function first_order_binding_labels1(hObject)
 % Function to update the apperence of MTBindingSim for the case where the
 % first function is first order binding in binding mode
 
-global KAM;
+global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 3);
+inputboxes_display1(hObject, 2);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -4752,17 +2222,13 @@ first_order_strings(handles.model1, handles.equation1);
 
 
 % Sets labels for the visible input boxes
-set(handles.label_xmin, 'String', '[MT] total min ');
-set(handles.label_xmax, 'String', '[MT] total max ');
-set(handles.total, 'String', '[MT] total');
-set(handles.free, 'String', '[MT] free');
-set_java_component(handles.label1_1, '[A] total');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, '1 MT : ');
-set_java_component(handles.units3_1, 'A');
+set(handles.label_xmin, 'String', '[L] total min ');
+set(handles.label_xmax, 'String', '[L] total max ');
+set(handles.total, 'String', '[L] total');
+set(handles.free, 'String', '[L] free');
+set_java_component(handles.label1_1, '[P] total');
+set_java_component(handles.label2_1, [KD, ' ']);
 
-% Sets the default ratio to 1
-set(handles.input3_1, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -4775,10 +2241,10 @@ function first_order_saturation_labels1(hObject)
 % Function to update the appearence of binding_BUI for the case where the
 % first function is first oder binding in saturation mode
 
-global KAM;
+global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display1(hObject, 3);
+inputboxes_display1(hObject, 2);
 
 handles = guidata(hObject);
 
@@ -4786,391 +2252,13 @@ handles = guidata(hObject);
 first_order_strings(handles.model1, handles.equation1);
 
 %Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[A] total min ');
-set(handles.label_xmax, 'String', '[A] total max ');
-set(handles.total, 'String', '[A] total');
-set(handles.free, 'String', '[A] free');
-set_java_component(handles.label1_1, '[MT] total ');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, '1 MT : ');
-set_java_component(handles.units3_1, 'A');
+set(handles.label_xmin, 'String', '[P] total min ');
+set(handles.label_xmax, 'String', '[P] total max ');
+set(handles.total, 'String', '[P] total');
+set(handles.free, 'String', '[P] free');
+set_java_component(handles.label1_1, '[L] total ');
+set_java_component(handles.label2_1, [KD, ' ']);
 
-% Sets the default ratio to 1
-set(handles.input3_1, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function pseudocooperativity_binding_labels1(hObject)
-% Function to update the appearence of MTBindingSim for the case where the
-% first function is pseudocooperative binding in binding mode
-
-global KAM KAMS UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display1(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets the equations and model text
-pseudocooperativity_strings(handles.model1, handles.equation1);
-                
-% Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[MT] total min ');
-set(handles.label_xmax, 'String', '[MT] total max ');
-set(handles.total, 'String', '[MT] total');
-set(handles.free, 'String', '[MT] free');
-set_java_component(handles.label1_1, '[A] total ');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, [KAMS, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 MT : ');
-set_java_component(handles.units4_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_1, 'String', '1');
-
-% Hides the units label for p
-set(handles.units3_1, 'Visible', 'off');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function pseudocooperativity_saturation_labels1(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is pseudocooperative binding in saturation mode
-
-global KAM KAMS UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display1(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets the equations and model text
-pseudocooperativity_strings(handles.model1, handles.equation1);
-
-%Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[A] total min ');
-set(handles.label_xmax, 'String', '[A] total max ');
-set(handles.total, 'String', '[A] total');
-set(handles.free, 'String', '[A] free');
-set_java_component(handles.label1_1, '[MT] total ');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, [KAMS, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 MT : ');
-set_java_component(handles.units4_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_1, 'String', '1');
-
-% Hides the units label for p
-set(handles.units3_1, 'Visible', 'off');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function seam_binding_labels1(hObject)
-% Function to update the appearence of MTBindingSim for the case where the
-% first function is seam and lattice binding in binding mode
-
-global KAS KAL UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display1(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-%Set model and equation text
-seam_strings(handles.model1, handles.equation1);
-
-% Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[MT] total min ');
-set(handles.label_xmax, 'String', '[MT] total max ');
-set(handles.total, 'String', '[MT] total');
-set(handles.free, 'String', '[MT] free');
-set_java_component(handles.label1_1, '[A] total ');
-set_java_component(handles.label2_1, [KAS, ' ']);
-set_java_component(handles.label3_1, [KAL, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 MT : ');
-set_java_component(handles.units4_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_1, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function seam_saturation_labels1(hObject)
-% Function to update the appearence of MTBindingSim for the case where the
-% first function is seam and lattice binding in saturation mode
-
-global KAS KAL UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display1(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-%Set model and equation text
-seam_strings(handles.model1, handles.equation1);
-
-% Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[A] total min ');
-set(handles.label_xmax, 'String', '[A] total max ');
-set(handles.total, 'String', '[A] total');
-set(handles.free, 'String', '[A] free');
-set_java_component(handles.label1_1, '[MT] total ');
-set_java_component(handles.label2_1, [KAS, ' ']);
-set_java_component(handles.label3_1, [KAL, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 MT : ');
-set_java_component(handles.units4_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_1, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function MAP_binding_labels1(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is the MAPs bind to MT-bound MAPs model in binding mode
-
-global KAM KAA UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display1(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets model equation and text
-MAP_strings(handles.model1, handles.equation1);
-
-% Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[MT] total min ');
-set(handles.label_xmax, 'String', '[MT] total max ');
-set(handles.total, 'String', '[MT] total');
-set(handles.free, 'String', '[MT] free');
-set_java_component(handles.label1_1, '[A] total ');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, [KAA, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 MT : ');
-set_java_component(handles.units4_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_1, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function MAP_saturation_labels1(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is the MAPs bind to MT-bound MAPs model in saturation mode
-
-global KAM KAA UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display1(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets model equation and text
-MAP_strings(handles.model1, handles.equation1);
-
-% Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[A] total min ');
-set(handles.label_xmax, 'String', '[A] total max ');
-set(handles.total, 'String', '[A] total');
-set(handles.free, 'String', '[A] free');
-set_java_component(handles.label1_1, '[MT] total ');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, [KAA, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 MT : ');
-set_java_component(handles.units4_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_1, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-function MAP2_binding_labels1(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is 2 MAPs bind to MT-bound MAPs model in binding mode
-
-global KAM KAA UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display1(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets model equation and text
-MAP2_strings(handles.model1, handles.equation1);
-
-% Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[MT] total min ');
-set(handles.label_xmax, 'String', '[MT] total max ');
-set(handles.total, 'String', '[MT] total');
-set(handles.free, 'String', '[MT] free');
-set_java_component(handles.label1_1, '[A] total ');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, [KAA, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 MT : ');
-set_java_component(handles.units4_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_1, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function MAP2_saturation_labels1(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is 2 MAPs bind to MT-bound MAPs model in saturation mode
-
-global KAM KAA UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display1(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets model equation and text
-MAP2_strings(handles.model1, handles.equation1);
-
-% Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[A] total min ');
-set(handles.label_xmax, 'String', '[A] total max ');
-set(handles.total, 'String', '[A] total');
-set(handles.free, 'String', '[A] free');
-set_java_component(handles.label1_1, '[MT] total ');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, [KAA, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, '1 MT : ');
-set_java_component(handles.units4_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_1, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-function dimer_binding_labels1(hObject)
-% Function to update the appearnce of MTBindinSim for the case where the
-% first function is dimerization in binding mode
-
-global KAA KAM KAAM UM;
-
-% Sets the visibility for all imput boxes
-inputboxes_display1(hObject, 5);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets the model equation and text
-dimer_strings(handles.model1, handles.equation1);
-
-% Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[MT] total min ');
-set(handles.label_xmax, 'String', '[MT] total max ');
-set(handles.total, 'String', '[MT] total');
-set(handles.free, 'String', '[MT] free');
-set_java_component(handles.label1_1, '[A] total ');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, [KAAM, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, [KAA, ' ']);
-set_java_component(handles.units4_1, [UM, ' ']);
-set_java_component(handles.label5_1, '1 MT : ');
-set_java_component(handles.units5_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input5_1, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-function dimer_saturation_labels1(hObject)
-% Function to update the appearnce of MTBindinSim for the case where the
-% first function is dimerization in saturation mode
-
-global KAA KAM KAAM UM;
-
-% Sets the visibility for all imput boxes
-inputboxes_display1(hObject, 5);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets the model equation and text
-dimer_strings(handles.model1, handles.equation1);
-
-% Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[A] total min ');
-set(handles.label_xmax, 'String', '[A] total max ');
-set(handles.total, 'String', '[A] total');
-set(handles.free, 'String', '[A] free');
-set_java_component(handles.label1_1, '[MT] total ');
-set_java_component(handles.label2_1, [KAM, ' ']);
-set_java_component(handles.label3_1, [KAAM, ' ']);
-set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, [KAA, ' ']);
-set_java_component(handles.units4_1, [UM, ' ']);
-set_java_component(handles.label5_1, '1 MT : ');
-set_java_component(handles.units5_1, 'A');
-
-% Sets the default ratio to 1
-set(handles.input5_1, 'String', '1');
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -5181,7 +2269,7 @@ function Sites_binding_labels1(hObject)
 % Function to update the appearnce of MTBindinSim for the case where the
 % first function is dimerization in binding mode
 
-global KAM1 KAM2 UM;
+global KD1 KD2 UM;
 
 % Sets the visibility for all imput boxes
 inputboxes_display1(hObject, 3);
@@ -5193,13 +2281,13 @@ handles = guidata(hObject);
 Sites_strings(handles.model1, handles.equation1);
 
 % Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[MT] total min ');
-set(handles.label_xmax, 'String', '[MT] total max ');
-set(handles.total, 'String', '[MT] total');
-set(handles.free, 'String', '[MT] free');
-set_java_component(handles.label1_1, '[A] total ');
-set_java_component(handles.label2_1, [KAM1, ' ']);
-set_java_component(handles.label3_1, [KAM2, ' ']);
+set(handles.label_xmin, 'String', '[L] total min ');
+set(handles.label_xmax, 'String', '[L] total max ');
+set(handles.total, 'String', '[L] total');
+set(handles.free, 'String', '[L] free');
+set_java_component(handles.label1_1, '[P] total ');
+set_java_component(handles.label2_1, [KD1, ' ']);
+set_java_component(handles.label3_1, [KD2, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
 
 % Updates the handles structure
@@ -5211,7 +2299,7 @@ function Sites_saturation_labels1(hObject)
 % Function to update the appearnce of MTBindinSim for the case where the
 % first function is dimerization in saturation mode
 
-global KAM1 KAM2 UM;
+global KD1 KD2 UM;
 
 % Sets the visibility for all imput boxes
 inputboxes_display1(hObject, 3);
@@ -5223,13 +2311,13 @@ handles = guidata(hObject);
 Sites_strings(handles.model1, handles.equation1);
 
 % Sets labels for the input boxes
-set(handles.label_xmin, 'String', '[A] total min ');
-set(handles.label_xmax, 'String', '[A] total max ');
-set(handles.total, 'String', '[A] total');
-set(handles.free, 'String', '[A] free');
-set_java_component(handles.label1_1, '[MT] total ');
-set_java_component(handles.label2_1, [KAM1, ' ']);
-set_java_component(handles.label3_1, [KAM2, ' ']);
+set(handles.label_xmin, 'String', '[P] total min ');
+set(handles.label_xmax, 'String', '[P] total max ');
+set(handles.total, 'String', '[P] total');
+set(handles.free, 'String', '[P] free');
+set_java_component(handles.label1_1, '[L] total ');
+set_java_component(handles.label2_1, [KD1, ' ']);
+set_java_component(handles.label3_1, [KD2, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
 
 % Updates the handles structure
@@ -5242,7 +2330,7 @@ function competition_labels1(hObject)
 % Function to update the appearnce of MTBindingSim for the case where
 % the competition experimental mode is selected
 
-global KAM KBM UM;
+global KDP KDB UM;
 
 % Sets the visibility for all imput boxes
 inputboxes_display1(hObject, 4);
@@ -5255,11 +2343,11 @@ competition_strings(handles.model1, handles.equation1);
 % Sets the labels for the visible imput boxes
 set(handles.label_xmin, 'String', '[B] total min ');
 set(handles.label_xmax, 'String', '[B] total max ');
-set_java_component(handles.label1_1, '[MT] total ');
-set_java_component(handles.label2_1, '[A] total ');
-set_java_component(handles.label3_1, [KAM, ' ']);
+set_java_component(handles.label1_1, '[L] total ');
+set_java_component(handles.label2_1, '[P] total ');
+set_java_component(handles.label3_1, [KDP, ' ']);
 set_java_component(handles.units3_1, [UM, ' ']);
-set_java_component(handles.label4_1, [KBM, ' ']);
+set_java_component(handles.label4_1, [KDB, ' ']);
 set_java_component(handles.units4_1, [UM, ' ']);
 
 % Updates the handles structure
@@ -5273,10 +2361,10 @@ function first_order_binding_labels2(hObject)
 % Function to update the apperence of MTBindingSim for the case where the
 % first function is first order binding in binding mode
 
-global KAM;
+global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 3);
+inputboxes_display2(hObject, 2);
 
 % Retreives the GUI handles structure
 handles = guidata(hObject);
@@ -5285,13 +2373,8 @@ handles = guidata(hObject);
 first_order_strings(handles.model2, handles.equation2);
 
 % Sets labels for the visible input boxes
-set_java_component(handles.label1_2, '[A] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, '1 MT : ');
-set_java_component(handles.units3_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input3_2, 'String', '1');
+set_java_component(handles.label1_2, '[P] total ');
+set_java_component(handles.label2_2, [KD, ' ']);
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -5303,10 +2386,10 @@ function first_order_saturation_labels2(hObject)
 % Function to update the appearence of MTBindingSim for the case where the
 % frist function is first oder binding in saturation mode
 
-global KAM;
+global KD;
 
 % Sets the visibility for all input boxes
-inputboxes_display2(hObject, 3);
+inputboxes_display2(hObject, 2);
 
 handles = guidata(hObject);
 
@@ -5314,342 +2397,8 @@ handles = guidata(hObject);
 first_order_strings(handles.model2, handles.equation2);
 
 % Sets labels for the input boxes
-set_java_component(handles.label1_2, '[MT] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, '1 MT : ');
-set_java_component(handles.units3_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input3_2, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function pseudocooperativity_binding_labels2(hObject)
-% Function to update the appearence of MTBindingSim for the case where the
-% first function is pseudocooperative binding in binding mode
-
-global KAM KAMS UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display2(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets the equations and model text
-pseudocooperativity_strings(handles.model2, handles.equation2);
-                
-% Sets labels for the input boxes
-set_java_component(handles.label1_2, '[A] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, [KAMS, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 MT : ');
-set_java_component(handles.units4_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_2, 'String', '1');
-
-% Hides the units label for phi
-set(handles.units3_2, 'Visible', 'off');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function pseudocooperativity_saturation_labels2(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is pseduocooperative binding in saturation mode
-
-global KAM KAMS UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display2(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets the equations and model text
-pseudocooperativity_strings(handles.model2, handles.equation2);
-
-%Sets labels for the input boxes
-set_java_component(handles.label1_2, '[MT] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, [KAMS, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 MT : ');
-set_java_component(handles.units4_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_2, 'String', '1');
-
-% Hides the units label for p
-set(handles.units3_2, 'Visible', 'off');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-function seam_binding_labels2(hObject)
-% Function to update the appearence of MTBindingSim for the case where the
-% first function is seam and lattice binding in binding mode
-
-global KAS KAL UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display2(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-%Set model and equation text
-seam_strings(handles.model2, handles.equation2);
-
-% Sets labels for the input boxes
-set_java_component(handles.label1_2, '[A] total ');
-set_java_component(handles.label2_2, [KAS, ' ']);
-set_java_component(handles.label3_2, [KAL, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 MT : ');
-set_java_component(handles.units4_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_2, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-
-function seam_saturation_labels2(hObject)
-% Function to update the appearence of MTBindingSim for the case where the
-% first function is seam and lattice binding in saturation mode
-
-global KAS KAL UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display2(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-%Set model and equation text
-seam_strings(handles.model2, handles.equation2);
-
-% Sets labels for the input boxes
-set_java_component(handles.label1_2, '[MT] total ');
-set_java_component(handles.label2_2, [KAS, ' ']);
-set_java_component(handles.label3_2, [KAL, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 MT : ');
-set_java_component(handles.units4_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_2, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-function MAP_binding_labels2(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is MAPs bind to MT-bound MAPs model in binding mode
-
-global KAM KAA UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display2(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets model equation and text
-MAP_strings(handles.model2, handles.equation2);
-
-% Sets labels for the input boxes
-set_java_component(handles.label1_2, '[A] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, [KAA, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 MT : ');
-set_java_component(handles.units4_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_2, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-               
-function MAP_saturation_labels2(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is MAPs bind to MT-bound MAPs model in saturation mode
-
-global KAM KAA UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display2(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets model equation and text
-MAP_strings(handles.model2, handles.equation2);
-
-% Sets labels for the input boxes
-set_java_component(handles.label1_2, '[MT] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, [KAA, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 MT : ');
-set_java_component(handles.units4_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_2, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-function MAP2_binding_labels2(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is 2 MAPs bind to MT-bound MAPs model in binding mode
-
-global KAM KAA UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display2(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets model equation and text
-MAP2_strings(handles.model2, handles.equation2);
-
-% Sets labels for the input boxes
-set_java_component(handles.label1_2, '[A] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, [KAA, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 MT : ');
-set_java_component(handles.units4_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_2, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-
-                
-function MAP2_saturation_labels2(hObject)
-%Function to update the appearance of MTBindingSim for the case where the
-%first function is 2 MAPs bind to MT-bound MAPs model in saturation mode
-
-global KAM KAA UM;
-
-% Sets the visibility for all input boxes
-inputboxes_display2(hObject, 4);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets model equation and text
-MAP2_strings(handles.model2, handles.equation2);
-
-% Sets labels for the input boxes
-set_java_component(handles.label1_2, '[MT] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, [KAA, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, '1 MT : ');
-set_java_component(handles.units4_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input4_2, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-function dimer_binding_labels2(hObject)
-% Function to update the appearnce of MTBindinSim for the case where the
-% second function is dimerization in binding mode
-
-global KAA KAM KAAM UM;
-
-% Sets the visibility for all imput boxes
-inputboxes_display2(hObject, 5);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets the model equation and text
-dimer_strings(handles.model2, handles.equation2);
-
-% Sets labels for the input boxes
-set_java_component(handles.label1_2, '[A] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, [KAAM, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, [KAA, ' ']);
-set_java_component(handles.units4_2, [UM, ' ']);
-set_java_component(handles.label5_2, '1 MT : ');
-set_java_component(handles.units5_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input5_2, 'String', '1');
-
-% Updates the handles structure
-guidata(hObject, handles);
-
-end
-
-function dimer_saturation_labels2(hObject)
-% Function to update the appearnce of MTBindinSim for the case where the
-% first function is dimerization in saturation mode
-
-global KAA KAM KAAM UM;
-
-% Sets the visibility for all imput boxes
-inputboxes_display2(hObject, 5);
-
-% Retreives the GUI handles structure
-handles = guidata(hObject);
-
-% Sets the model equation and text
-dimer_strings(handles.model2, handles.equation2);
-
-% Sets labels for the input boxes
-set_java_component(handles.label1_2, '[MT] total ');
-set_java_component(handles.label2_2, [KAM, ' ']);
-set_java_component(handles.label3_2, [KAAM, ' ']);
-set_java_component(handles.units3_2, [UM, ' ']);
-set_java_component(handles.label4_2, [KAA, ' ']);
-set_java_component(handles.units4_2, [UM, ' ']);
-set_java_component(handles.label5_2, '1 MT : ');
-set_java_component(handles.units5_2, 'A');
-
-% Sets the default ratio to 1
-set(handles.input5_2, 'String', '1');
+set_java_component(handles.label1_2, '[L] total ');
+set_java_component(handles.label2_2, [KD, ' ']);
 
 % Updates the handles structure
 guidata(hObject, handles);
@@ -5661,7 +2410,7 @@ function Sites_binding_labels2(hObject)
 % Function to update the appearnce of MTBindinSim for the case where the
 % first function is dimerization in binding mode
 
-global KAM1 KAM2 UM;
+global KD1 KD2 UM;
 
 % Sets the visibility for all imput boxes
 inputboxes_display2(hObject, 3);
@@ -5673,9 +2422,9 @@ handles = guidata(hObject);
 Sites_strings(handles.model2, handles.equation2);
 
 % Sets labels for the input boxes
-set_java_component(handles.label1_2, '[A] total ');
-set_java_component(handles.label2_2, [KAM1, ' ']);
-set_java_component(handles.label3_2, [KAM2, ' ']);
+set_java_component(handles.label1_2, '[P] total ');
+set_java_component(handles.label2_2, [KD1, ' ']);
+set_java_component(handles.label3_2, [KD2, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
 
 % Updates the handles structure
@@ -5687,7 +2436,7 @@ function Sites_saturation_labels2(hObject)
 % Function to update the appearnce of MTBindinSim for the case where the
 % first function is dimerization in saturation mode
 
-global KAM1 KAM2 UM;
+global KD1 KD2 UM;
 
 % Sets the visibility for all imput boxes
 inputboxes_display2(hObject, 3);
@@ -5699,9 +2448,9 @@ handles = guidata(hObject);
 Sites_strings(handles.model2, handles.equation2);
 
 % Sets labels for the input boxes
-set_java_component(handles.label1_2, '[MT] total ');
-set_java_component(handles.label2_2, [KAM1, ' ']);
-set_java_component(handles.label3_2, [KAM2, ' ']);
+set_java_component(handles.label1_2, '[L] total ');
+set_java_component(handles.label2_2, [KD1, ' ']);
+set_java_component(handles.label3_2, [KD2, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
 
 % Updates the handles structure
@@ -5713,7 +2462,7 @@ function competition_labels2(hObject)
 % Function to update the appearnce of MTBindingSIm for the case where
 % the competition experimental mode is selected
 
-global KAM KBM UM;
+global KDP KDB UM;
 
 % Sets the visibility for all imput boxes
 inputboxes_display2(hObject, 4);
@@ -5724,10 +2473,10 @@ handles = guidata(hObject);
 competition_strings(handles.model2, handles.equation2);
 
 % Sets the labels for the visible imput boxes
-set_java_component(handles.label1_2, '[MT] total ');
-set_java_component(handles.label2_2, '[A] total ');
-set_java_component(handles.label3_2, [KAM, ' ']);
-set_java_component(handles.label4_2, [KBM, ' ']);
+set_java_component(handles.label1_2, '[L] total ');
+set_java_component(handles.label2_2, '[P] total ');
+set_java_component(handles.label3_2, [KDP, ' ']);
+set_java_component(handles.label4_2, [KDB, ' ']);
 set_java_component(handles.units3_2, [UM, ' ']);
 set_java_component(handles.units4_2, [UM, ' ']);
 
@@ -6141,30 +2890,7 @@ if strcmpi(handles.mode1, 'firstorder')
 
     msgbox(firstorder, 'Model Information');
 
-% Seam and lattice binding selected
-elseif strcmpi(handles.mode1, 'seam')
-
-    msgbox(seam, 'Model Information');
-
-% Dimerization binding selected
-elseif strcmpi(handles.mode1, 'dimer')
-
-    msgbox(dimer, 'Model Information');
-
-% Cooperativity selected
-elseif strcmpi(handles.mode1, 'pseudocooperativity')
-
-    msgbox(pseudocooperativity, 'Model Information');
-
-% MAPs bind MT-bound MAPs selected
-elseif strcmpi(handles.mode1, 'MAPbind')
-
-    msgbox(MAPbind, 'Model Information');
-
-elseif strcmpi(handles.mode1, 'MAPbind2')
-
-    msgbox(MAP2bind, 'Model Information');
-
+% 2 sites is selected
 elseif strcmpi(handles.mode1, 'Sites')
 
     msgbox(sites, 'Model Information');
@@ -6190,30 +2916,7 @@ if strcmpi(handles.mode2, 'firstorder')
 
     msgbox(firstorder, 'Model Information');
 
-% Seam and lattice binding selected
-elseif strcmpi(handles.mode2, 'seam')
-
-    msgbox(seam, 'Model Information');
-
-% Dimerization binding selected
-elseif strcmpi(handles.mode2, 'dimer')
-
-    msgbox(dimer, 'Model Information');
-
-% Cooperativity selected
-elseif strcmpi(handles.mode2, 'pseudocooperativity')
-
-    msgbox(pseudocooperativity, 'Model Information');
-
-% MAPs bind MT-bound MAPs selected
-elseif strcmpi(handles.mode2, 'MAPbind')
-
-    msgbox(MAPbind, 'Model Information');
-
-elseif strcmpi(handles.mode2, 'MAPbind2')
-
-    msgbox(MAP2bind, 'Model Information');
-
+% 2 sites is selected
 elseif strcmpi(handles.mode2, 'Sites')
 
     msgbox(sites, 'Model Information');
