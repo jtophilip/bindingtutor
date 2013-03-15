@@ -38,7 +38,7 @@ We can also write mass balances for total A and total MT:
 
 $[A]_{\textup{total}} = [A] + [AMT] = [A] + \frac{1}{K_{AMT}}[A][MT]$
 
-$[MT]_{\textup{total}} = [MT] + [AMT]/n = [MT] + \frac{1}{K_{AMT}n}[A][MT].$
+$[MT]_{\textup{total}} = [MT] + [AMT]/n = [MT] + \frac{1}{K_{AMT}n}[A][MT] = [MT](1 + \frac{1}{K_{AMT}n}[A]).$
 
 We can rearrange the equation for total MT and solve for [MT] free:
 
@@ -68,9 +68,9 @@ We can write a mass balance for all three species:
 
 $[A]_{\textup{total}} = [A] + [AS] + [AL] = [A] + \frac{1}{K_{AS}}[A][S] + \frac{1}{K_{AL}}[A][L]$
 
-$[S]_{\textup{total}} = [S] + [AS]/n = [S] + \frac{1}{K_{AS}n}[A][S]$
+$[S]_{\textup{total}} = [S] + [AS]/n = [S] + \frac{1}{K_{AS}n}[A][S] = [S](1 + \frac{1}{K_{AS}n}[A])$
 
-$[L]_{\textup{total}} = [L] + [AL]/n = [L] + \frac{1}{K_{AL}n}[A][L].$
+$[L]_{\textup{total}} = [L] + [AL]/n = [L] + \frac{1}{K_{AL}n}[A][L] = [L](1 + \frac{1}{K_{AL}n}[A]).$
 
 We now can solve for free L and free S:
 
@@ -110,7 +110,9 @@ $[MT]_{\textup{total}} = [MT] + [AMT]/n + 2[A_2MT_2]/n$
 
 $= [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{2}{K_{AAMT}n}[A_2][MT]$
 
-$= [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{2}{K_{AAMT}K_{AA}n}[A]^2[MT].$
+$= [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{2}{K_{AAMT}K_{AA}n}[A]^2[MT]$
+
+$= [MT](1 + \frac{1}{K_{AMT}n}[A] + \frac{2}{K_{AAMT}K_{AA}n}[A]^2).$
 
 We can now solve the MT mass balance for free MT to get:
 
@@ -143,7 +145,7 @@ later.
 
 $[A]_{\textup{total}} = [A] + [AMT] + [AMT*]  = [A] + \frac{[A][MT]}{K_{AMT}} + \frac{[A][MT*]}{K_{AMT}*} \\ = [A] + \frac{[A][MT]}{K_{AMT}} + \frac{[A][AMT]}{K_{AMT}*}  = [A] + \frac{[A][MT]}{K_{AMT}} + \frac{[A][A][MT]}{K_{AMT}K_{AMT}*} \\ = [A] + [MT](\frac{[A]}{K_{AMT}} + \frac{[A]^2}{K_{AMT}K_{AMT}*})$
 
-$[MT]_{\textup{total}} = [MT] + [AMT] + [MT*] + [AMT*]  = [MT] + [AMT] + [AMT] + [AMT*] \\ = [MT] + 2[AMT] + [AMT*]  = [MT] + \frac{2[A][MT]}{K_{AMT}} + \frac{[A][MT*]}{K_{AMT}*} \\ = [MT] + \frac{2[A][MT]}{K_{AMT}} + \frac{[A][AMT*]}{K_{AMT}} = [MT] + \frac{2[A][MT]}{K_{AMT}} + \frac{[A][A][MT]}{K_{AMT}K_{AMT}*}$
+$[MT]_{\textup{total}} = [MT] + [AMT] + [MT*] + [AMT*]  = [MT] + [AMT] + [AMT] + [AMT*] \\ = [MT] + 2[AMT] + [AMT*]  = [MT] + \frac{2[A][MT]}{K_{AMT}} + \frac{[A][MT*]}{K_{AMT}*} \\ = [MT] + \frac{2[A][MT]}{K_{AMT}} + \frac{[A][AMT*]}{K_{AMT}} = [MT] + \frac{2[A][MT]}{K_{AMT}} + \frac{[A][A][MT]}{K_{AMT}K_{AMT}*} \\ = [MT](1 + \frac{2[A]}{K_{AMT}} + \frac{[A][A]}{K_{AMT}K_{AMT}*})$
 
 The MT mass balance can be solved for free MT as follows:
 
@@ -174,7 +176,8 @@ We can write the mass balances for this situation:
 
 $[A]_{\textup{total}} = [A] + [AMT] + 2[A_2MT] = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{1}{K_{AA}}[A][AMT] \\ = [A] + \frac{1}{K_{AMT}}[A][MT] + \frac{1}{K_{AMT} K_{AA}}[A]^2[MT]$
 
-$[MT]_{\textup{total}} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_{AMT} n}[A][MT] + \frac{1}{K_{AMT} K_{AA} n}[A]^2[MT].$
+$[MT]_{\textup{total}} = [MT] + [AMT]/n + [A_2MT]/n = [MT] + \frac{1}{K_{AMT} n}[A][MT] + \frac{1}{K_{AMT} K_{AA} n}[A]^2[MT] \\ = [MT](1 + \frac{1}{K_{AMT} n}[A] + \frac{1}{K_{AMT} K_{AA} n}[A]^2).$
+
 
 We can solve the MT mass balance for free MT as follows:
 
@@ -214,6 +217,8 @@ $[MT]_{\textup{total}} = [MT] + [AMT]/n + [A_2MT]/n + [A_3MT]/n$
 
 $= [MT] + \frac{1}{K_{AMT}n}[A][MT] + \frac{1}{K_{AMT} K_{AA} n}[A]^2[MT] + \frac{1}{K_{AMT} K_{AA}^2 n}[A]^3[MT].$
 
+$= [MT](1 + \frac{1}{K_{AMT}n}[A] + \frac{1}{K_{AMT} K_{AA} n}[A]^2 + \frac{1}{K_{AMT} K_{AA}^2 n}[A]^3).$
+
 Notice that, as with the MAPs bind MT-bound MAPs model, all MT-A complexes contain a single MT unit. The MT mass balance can be solved for free MT:
 
 $[MT] = \frac{[MT]_{\textup{total}}}{1 + \frac{1}{K_{AMT} n}[A] + \frac{1}{K_{AMT} K_{AA} n}[A]^2 + \frac{1}{K_{AMT} K_{AA}^2 n}[A]^3}.$
@@ -240,9 +245,9 @@ The mass balances for this model are:
 
 $[A]_{\textup{total}} = [A] + [AMT_1] + [AMT_2] = [A] + [A][MT_1]/K_{AMT1} + [A][MT_2]/K_{AMT2},$
 
-$[MT_1]_{\textup{total}} = [MT_1] + [AMT_1] = [MT_1] + [A][MT_1]/K_{AMT1},$
+$[MT_1]_{\textup{total}} = [MT_1] + [AMT_1] = [MT_1] + [A][MT_1]/K_{AMT1} = [MT_1](1 + [A]/K_{AMT1}),$
 
-$[MT_2]_{\textup{total}} = [MT_2] + [AMT_2] = [MT_2] + [A][MT_2]/K_{AMT2}.$
+$[MT_2]_{\textup{total}} = [MT_2] + [AMT_2] = [MT_2] + [A][MT_2]/K_{AMT2} = [MT_2](1 + [A]/K_{AMT2}).$
 
 The MT~1~ and MT~2~mass balances can be solved for free MT~1~ and MT~2~:
 
