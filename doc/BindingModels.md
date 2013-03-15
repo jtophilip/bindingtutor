@@ -19,7 +19,7 @@ We can also write mass balances for total P and total L:
 
 $[P]_{\textup{total}} = [P] + [PL] = [P] + \frac{1}{K_{D}}[P][L]$
 
-$[L]_{\textup{total}} = [L] + [PL] = [L] + \frac{1}{K_{D}n}[P][L].$
+$[L]_{\textup{total}} = [L] + [PL] = [L] + \frac{1}{K_{D}n}[P][L] = [L](1 + \frac{1}{K_{D}n}[P][L]).$
 
 We can rearrange the equation for total L and solve for [L] free:
 
@@ -46,11 +46,11 @@ $K_{D1} = [P][L_1]/[PL_1], K_{D2} = [P][L_2]/[PL_2].$
 
 The mass balances for this model are:
 
-$[P]_{\textup{total}} = [P] + [PL_1] + [PL_2] = [P] + [P][L_1]/K_{D1} + [P][L_2]/K_{D2},$
+$[P]_{\textup{total}} = [P] + [PL_1] + [PL_2] = [P] + [P][L_1]/K_{D1} + [P][L_2]/K_{D2} = [P](1 + [L_1]/K_{D1} + [P][L_2]/K_{D2}),$
 
-$[L_1]_{\textup{total}} = [L_1] + [PL_1] = [L_1] + [P][L_1]/K_{D1},$
+$[L_1]_{\textup{total}} = [L_1] + [PL_1] = [L_1] + [P][L_1]/K_{D1} = [L_1](1 + [P]/K_{D1}),$
 
-$[L_2]_{\textup{total}} = [L_2] + [PL_2] = [L_2] + [P][L_2]/K_{D2}.$
+$[L_2]_{\textup{total}} = [L_2] + [PL_2] = [L_2] + [P][L_2]/K_{D2} = [L_2](1 + [P]/K_{D2}).$
 
 The L~1~ and L~2~mass balances can be solved for free L~1~ and L~2~:
 
