@@ -1,0 +1,61 @@
+2012-12-21  Charles Pence  <charles@charlespence.net>
+
+	Update sidebar, that FIXME is already done.
+
+	Update paths to the new website.
+
+	Fix some bad paths to the old wiki files.
+
+2012-08-16  Charles Pence  <charles@charlespence.net>
+
+	Get the TeX building completely up and running.
+
+	Add the NSF logo to the home page.
+
+	Update to GH download links, nice introduction page.
+
+	Add a fully working downloads page.
+
+	Get the nested list syntax right.
+
+	Update docs for GH issue system.
+
+	Update README with GH links.
+
+	Add the filing-a-ticket page.
+
+	Add the old developer documentation.
+
+	Updated version of autoconf/automake.  Also some changes toward TeX build.
+
+	Fix superscripts, and remove the GPL in TeX.
+
+	Update the sidebar.
+
+	Add the CC-BY-SA license.
+
+	Clean up all the unneded tools in the tools dir.
+
+	Add the sidebar, and make the script commit the wiki.
+
+	Get a version of the docs working on the wiki.
+
+2012-08-15  Charles Pence  <charles@charlespence.net>
+
+	Add the documentation images.
+
+	Convert the docs to (Pandoc-format) Markdown.
+
+	Update README formatting.
+
+	Add a link to README.md for GitHub formatting.
+
+	Add a gitignore with the old svn:ignore properties.
+
+2012-08-15  Julia Philip  <jtophilip@gmail.com>
+
+	Updated the troubleshooting instructions in the docs.
+
+2012-02-14  Charles Pence  <charles@charlespence.net>
+
+	Update the VC redistributable to VS2010SP1.

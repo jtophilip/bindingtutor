@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! -d doc ]; then
   echo "You must run this script from the root of the master checkout."
@@ -11,10 +11,10 @@ if [ ! -d ../wiki ]; then
 fi
 
 # Find a decent sed
-if [ command -v gsed >/dev/null 2>&1 ]; then
-  SED=sed
-else
+if type -P gsed > /dev/null; then
   SED=gsed
+else
+  SED=sed
 fi
 
 # Clean out the old stuff
