@@ -7,7 +7,7 @@ A few things need to be checked before we release a new version of MTBindingSim.
      *  Split the `ChangeLog`, update the `ChangeLog` creation setup in `Makefile.am`.
      *  Add the old `ChangeLog` file to `src/Makefile.am` (in `DMG_DOCUMENTATION_FILES`) and to the NSIS install script in `build/MTBindingSim.nsi.in`.
   3. Bump the version number in `configure.ac`.
-  4. Update the NEWS file with current user-visible changes.  Duplicate the same thing in the `ChangeLog.rst` file in the documentation.
+  4. Update the NEWS file with current user-visible changes.  Duplicate the same thing in the `ChangeLog.md` file in the documentation.
   5. Double-check THANKS and AUTHORS to make sure they reflect reality.
   6. Make sure that all new features have been documented in the documentation.
   7. Once the code is frozen, update the changelog (`make changes`).
