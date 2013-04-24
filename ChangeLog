@@ -1,5 +1,19 @@
 2013-04-24  Charles Pence  <charles@charlespence.net>
 
+	Update ChangeLogs, THANKS, NEWS.
+
+	Add ChangeLogs to distribution builds.
+
+	Update copyright year.
+
+	Fix capitalization.
+
+	Updates to aux build files.
+
+	Fix 'make changes'.
+
+	Fix copy-to-wiki and ChangeLog generation, update ChangeLogs.
+
 	Update MCR to R2012B, direct from MathWorks.
 
 2013-03-15  Julia Philip  <jtophilip@gmail.com>
