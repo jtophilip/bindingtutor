@@ -91,7 +91,7 @@ TEMPLATE_DMG_SRC=@top_srcdir@/build/dmg/template.dmg.bz2
 WC_DMG=@builddir@/wc.dmg
 WC_DIR=@builddir@/wc
 
-DMG_DOCUMENTATION_FILES=@top_builddir@/doc/mtbindingsim.pdf @top_srcdir@/AUTHORS @top_srcdir@/COPYING @top_srcdir@/ChangeLog @top_srcdir@/ChangeLog-2010 @top_srcdir@/NEWS @top_srcdir@/THANKS
+DMG_DOCUMENTATION_FILES=@top_builddir@/doc/mtbindingsim.pdf @top_srcdir@/AUTHORS @top_srcdir@/COPYING @top_srcdir@/ChangeLog @top_srcdir@/ChangeLog-2012 @top_srcdir@/ChangeLog-2011 @top_srcdir@/ChangeLog-2010 @top_srcdir@/NEWS @top_srcdir@/THANKS
 
 $(WC_DMG): $(TEMPLATE_DMG_SRC)
 	bzcat $< > $@
