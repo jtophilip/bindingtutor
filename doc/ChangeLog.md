@@ -1,5 +1,10 @@
 # MTBindingSim Revision History
 
+## Version 0.14
+
+-   Fix a bug in the CSV file exporter's column headings.
+-   Add some more detail to the discussion of the binding model mathematics in the documentation.
+
 ## Version 0.13
 
 -   Add an info button which opens a box with information about the currently selected binding model.
