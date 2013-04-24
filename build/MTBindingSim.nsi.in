@@ -107,14 +107,14 @@ Section -Prerequisites
     Abort "Failed to install the Visual C++ 2010 redistributable package"
   ${EndIf}
   
-  IfFileExists "$PROGRAMFILES\MATLAB\MATLAB Compiler Runtime\v716\license.txt" MCRInstalled
+  IfFileExists "$PROGRAMFILES\MATLAB\MATLAB Compiler Runtime\v80\license.txt" MCRInstalled
   
   ;; Get the MCR from the ND website
   InitPluginsDir
   Push $0
   ClearErrors
   
-  inetc::get /RESUME "Your internet connection seems to have dropped out!\nPlease reconnect and click Retry to resume downloading..." /CAPTION "MTBindingSim" /POPUP "Downloading MATLAB Compiler Runtime" "http://www.nd.edu/~goodlab/MCRInstaller-7.16-Win.exe" "$PLUGINSDIR\mcr.exe" /END
+  inetc::get /RESUME "Your internet connection seems to have dropped out!\nPlease reconnect and click Retry to resume downloading..." /CAPTION "MTBindingSim" /POPUP "Downloading MATLAB Compiler Runtime" "http://www.mathworks.com/supportfiles/MCR_Runtime/R2012b/MCR_R2012b_win32_installer.exe" "$PLUGINSDIR\mcr.exe" /END
   Pop $0
   
   ${Unless} $0 == "OK"
