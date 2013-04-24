@@ -12,7 +12,7 @@ doc_DATA = AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS
 
 # Update the ChangeLog
 changes:
-	$(srcdir)/tools/svn2cl.sh --linelen=80 --authors=$(srcdir)/tools/authors.xml --reparagraph -o $(srcdir)/ChangeLog -r 521:HEAD https://mtbindingsim.googlecode.com/svn/trunk
+	$(srcdir)/tools/gitlog-to-changelog --since=2013-01-01 > $(srcdir)/ChangeLog
 
 
 # Build the Mac DMG file (only in src, only on Mac)
