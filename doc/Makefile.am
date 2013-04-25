@@ -15,8 +15,7 @@ DOCS_MARKDOWN_SOURCE = \
 	GettingStarted.md HowTo.md RunningBindingTutor.md Troubleshooting.md
 
 EXTRA_DIST = $(DOCS_MARKDOWN_SOURCE) COPYING Introduction.md Introduction.tex \
-	AutoTools.md DeveloperDocs.md FilingATicket.md ReleasePolicy.md \
-	_Sidebar.md images 
+	FilingATicket.md _Sidebar.md images 
 
 #
 # Find the files
