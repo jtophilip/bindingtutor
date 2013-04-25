@@ -14,7 +14,7 @@ DOCS_MARKDOWN_SOURCE = \
 	Acknowledgments.md BindingModels.md ChangeLog.md ContactUs.md \
 	GettingStarted.md HowTo.md RunningMTBindingSim.md Troubleshooting.md
 
-EXTRA_DIST = $(DOCS_RST_SOURCE) COPYING Introduction.md Introduction.tex \
+EXTRA_DIST = $(DOCS_MARKDOWN_SOURCE) COPYING Introduction.md Introduction.tex \
 	AutoTools.md DeveloperDocs.md FilingATicket.md ReleasePolicy.md \
 	Download.md _Sidebar.md images 
 
