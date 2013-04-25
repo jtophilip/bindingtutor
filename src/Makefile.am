@@ -56,7 +56,7 @@ MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 	if test -d $(builddir)/MTBindingSim.app ; then \
 		chmod 644 $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
 		cp $(top_srcdir)/doc/wiki/images/icon/icon.icns $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
-		mv MTBindingSim.app BindingTutor.app \
+		mv $(builddir)/MTBindingSim.app $(builddir)/BindingTutor.app \
 	fi
 	if test -e $(builddir)/MTBindingSim.exe ; then \
 		cp $(top_srcdir)/doc/wiki/images/icon/icon.ico $(builddir)/out.ico; \
@@ -65,7 +65,10 @@ MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 			mv -f $(builddir)/out.exe $(builddir)/MTBindingSim.exe; \
 		fi; \
 		rm -f out.exe out.ico; \
-		mv MTBindingSim.exe BindingTutor.exe \
+		mv $(builddir)/MTBindingSim.exe $(builddir)/BindingTutor.exe \
+	fi
+	if test -e $(builddir)/MTBindingSim ; then \
+	    mv $(builddir)/MTBindingSim $(builddir)/BindingTutor \
 	fi
 
 # Clean up after MCC

@@ -1,8 +1,7 @@
 <!-- This is the sidebar for the web-based documentation. -->
 * [[Home]]
-* [[Download and Install|Download]]
 * [[Getting Started|GettingStarted]]
-* [[Running MTBindingSim|RunningMTBindingSim]]
+* [[Running BindingTutor|RunningBindingTutor]]
 * [[How To...|HowTo]]
 * [[Binding Model Mathematics|BindingModels]]
 * [[Troubleshooting]]
@@ -11,5 +10,5 @@
 * [[Acknowledgments]]
 * Appendices
   * [[Revision History|ChangeLog]]
-  * [Code License (GNU GPLv3)](https://raw.github.com/cpence/mtbindingsim/master/COPYING)
-  * [Documentation License (CC-BY-SA 3.0)](https://raw.github.com/cpence/mtbindingsim/master/doc/COPYING)
+  * [Code License (GNU GPLv3)](https://raw.github.com/jtophilip/bindingtutor/master/COPYING)
+  * [Documentation License (CC-BY-SA 3.0)](https://raw.github.com/jtophilip/bindingtutor/master/doc/COPYING)

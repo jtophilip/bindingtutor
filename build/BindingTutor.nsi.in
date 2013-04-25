@@ -1,36 +1,36 @@
-; MTBindingSim NSIS Installer Script (full installer + prereqs)
+; BindingTutor NSIS Installer Script (full installer + prereqs)
 ;
-; This file is part of MTBindingSim.
+; This file is part of BindingTutor.
 ;
 ; Copyright (C) 2010-2013  University of Notre Dame
 ;
-; MTBindingSim is free software: you can redistribute it and/or modify
+; BindingTutor is free software: you can redistribute it and/or modify
 ; it under the terms of the GNU General Public License as published by
 ; the free Software Foundation, either version 3 of the License, or
 ; (at your option) any later version.
 ;
-; MTBindingSim is distributed in the hope that it will be useful,
+; BindingTutor is distributed in the hope that it will be useful,
 ; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ; GNU General Public License for more details.
 ;
 ; You should have received a copy of the GNU General Public License
-; along with MTBindingSim.  If not, see <http://www.gnu.org/licenses/>.
+; along with BindingTutor.  If not, see <http://www.gnu.org/licenses/>.
 
 !include "MUI2.nsh"
 !include "WinVer.nsh"
 
 
 ;; Name and output
-Name "MTBindingSim"
-OutFile "@top_builddir@\MTBindingSim-@PACKAGE_VERSION@.exe"
+Name "BindingTutor"
+OutFile "@top_builddir@\BindingTutor-@PACKAGE_VERSION@.exe"
 SetCompressor /SOLID lzma
 
 ;; Default installation folder
-InstallDir "$PROGRAMFILES\MTBindingSim"
+InstallDir "$PROGRAMFILES\BindingTutor"
 
 ;; Get the installation directory from the registry, if possible
-InstallDirRegKey HKCU "Software\MTBindingSim" "Install Directory"
+InstallDirRegKey HKCU "Software\BindingTutor" "Install Directory"
 
 ;; Request admin rights on Vista and higher
 RequestExecutionLevel admin
@@ -47,17 +47,17 @@ Var StartMenuFolder
 !insertmacro MUI_PAGE_DIRECTORY
 
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU"
-!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\MTBindingSim"
+!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\BindingTutor"
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
 
 !insertmacro MUI_PAGE_STARTMENU Application $StartMenuFolder
 
 !insertmacro MUI_PAGE_INSTFILES
 
-!define MUI_FINISHPAGE_RUN "$INSTDIR/MTBindingSim.exe"
+!define MUI_FINISHPAGE_RUN "$INSTDIR/BindingTutor.exe"
 !define MUI_FINISHPAGE_RUN_NOTCHECKED
-!define MUI_FINISHPAGE_SHOWREADME http://code.google.com/p/mtbindingsim/wiki/GettingStarted
-!define MUI_FINISHPAGE_SHOWREADME_TEXT "Visit the MTBindingSim Getting Started tutorial"
+!define MUI_FINISHPAGE_SHOWREADME http://github.com/jtophilip/bindingtutor/wiki/
+!define MUI_FINISHPAGE_SHOWREADME_TEXT "Read the BindingTutor manual online"
 !define MUI_FINISHPAGE_SHOWREADME_NOTCHECKED
 
 !insertmacro MUI_PAGE_FINISH
@@ -114,7 +114,7 @@ Section -Prerequisites
   Push $0
   ClearErrors
   
-  inetc::get /RESUME "Your internet connection seems to have dropped out!\nPlease reconnect and click Retry to resume downloading..." /CAPTION "MTBindingSim" /POPUP "Downloading MATLAB Compiler Runtime" "http://www.mathworks.com/supportfiles/MCR_Runtime/R2012b/MCR_R2012b_win32_installer.exe" "$PLUGINSDIR\mcr.exe" /END
+  inetc::get /RESUME "Your internet connection seems to have dropped out!\nPlease reconnect and click Retry to resume downloading..." /CAPTION "BindingTutor" /POPUP "Downloading MATLAB Compiler Runtime" "http://www.mathworks.com/supportfiles/MCR_Runtime/R2012b/MCR_R2012b_win32_installer.exe" "$PLUGINSDIR\mcr.exe" /END
   Pop $0
   
   ${Unless} $0 == "OK"
@@ -133,7 +133,7 @@ Section -Prerequisites
   ${EndUnless}
   
   ;; Call the MCR installer
-  MessageBox MB_OK "Press OK to launch the MATLAB Compiler Runtime installer.  Wait for it to start, and allow it to complete.  When it is finished, return to the MTBindingSim installer."
+  MessageBox MB_OK "Press OK to launch the MATLAB Compiler Runtime installer.  Wait for it to start, and allow it to complete.  When it is finished, return to the BindingTutor installer."
   
   SetOutPath $PLUGINSDIR\mcr
   ExecWait '"$PLUGINSDIR\mcr\setup.exe" -mode automated'
@@ -145,11 +145,11 @@ Section -Prerequisites
 SectionEnd
 
 
-Section "MTBindingSim" SecMTBS
+Section "BindingTutor" SecBT
 
   SetOutPath "$INSTDIR"
   
-  File "@top_builddir@\src\MTBindingSim.exe"
+  File "@top_builddir@\src\BindingTutor.exe"
   File "@top_srcdir@\AUTHORS"
   File "@top_srcdir@\COPYING"
   File "@top_srcdir@\ChangeLog"
@@ -159,18 +159,18 @@ Section "MTBindingSim" SecMTBS
   File "@top_srcdir@\NEWS"
   File "@top_srcdir@\README"
   File "@top_srcdir@\THANKS"
-  File "@top_builddir@\doc\mtbindingsim.pdf"
+  File "@top_builddir@\doc\bindingtutor.pdf"
   
   ;; Store the installation directory
-  WriteRegStr HKCU "Software\MTBindingSim" "Install Directory" $INSTDIR
+  WriteRegStr HKCU "Software\BindingTutor" "Install Directory" $INSTDIR
   
   ;; Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
   
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\MTBindingSim.lnk" "$INSTDIR\MTBindingSim.exe"
-    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\User Manual.lnk" "$INSTDIR\mtbindingsim.pdf"
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\BindingTutor.lnk" "$INSTDIR\BindingTutor.exe"
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\User Manual.lnk" "$INSTDIR\bindingtutor.pdf"
     CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
   !insertmacro MUI_STARTMENU_WRITE_END
 
@@ -180,7 +180,7 @@ SectionEnd
 ;; Uninstaller section
 Section "Uninstall"
   
-  Delete "$INSTDIR\MTBindingSim.exe"
+  Delete "$INSTDIR\BindingTutor.exe"
   Delete "$INSTDIR\AUTHORS"
   Delete "$INSTDIR\COPYING"
   Delete "$INSTDIR\ChangeLog"
@@ -188,7 +188,7 @@ Section "Uninstall"
   Delete "$INSTDIR\NEWS"
   Delete "$INSTDIR\README"
   Delete "$INSTDIR\THANKS"
-  Delete "$INSTDIR\mtbindingsim.pdf"
+  Delete "$INSTDIR\bindingtutor.pdf"
   Delete "$INSTDIR\Uninstall.exe"
   
   Delete "$INSTDIR\redist\vcredist_x86.exe"
@@ -197,11 +197,11 @@ Section "Uninstall"
   RMDir "$INSTDIR"
   
   !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
-  Delete "$SMPROGRAMS\$StartMenuFolder\MTBindingSim.lnk"
+  Delete "$SMPROGRAMS\$StartMenuFolder\BindingTutor.lnk"
   Delete "$SMPROGRAMS\$StartMenuFolder\User Manual.lnk"
   Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"
   RMDir "$SMPROGRAMS\$StartMenuFolder"
   
-  DeleteRegKey HKCU "Software\MTBindingSim"
+  DeleteRegKey HKCU "Software\BindingTutor"
 
 SectionEnd

@@ -4,7 +4,7 @@ Thanks for checking out BindingTutor! Here's a quick-start tutorial designed to 
 
 ## Running BindingTutor for the First Time
 
-To begin, you will need to [download and install BindingTutor](https://github.com/cpence/mtbindingsim/wiki/Download). When you run BindingTutor for the first time, you should see a window that looks like this:
+To begin, you will need to [download and install BindingTutor](http://bindingtutor.org/bindingtutor). When you run BindingTutor for the first time, you should see a window that looks like this:
 
 ![image](${IMAGES}/gettingstarted-open){width=5.127in align=center}
 

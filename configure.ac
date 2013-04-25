@@ -1,7 +1,7 @@
 ###############################################################################
 # Autoconf and Automake
 ###############################################################################
-AC_INIT([MTBindingSim], [0.14], [jphilip@nd.edu], [mtbindingsim], [http://code.google.com/p/mtbindingsim/])
+AC_INIT([BindingTutor], [0.1], [jphilip@nd.edu], [bindingtutor], [http://bindingtutor.org/bindingtutor/])
 AC_PREREQ([2.61])
 
 AC_CONFIG_SRCDIR([src/MTBindingSim.m])
@@ -52,7 +52,7 @@ AC_PROG_GREP
 AM_PATH_PYTHON(,, [:])
 
 # The following just silences an Autoconf warning.  You need not have an
-# Objective-C compiler to build MTBindingSim.
+# Objective-C compiler to build BindingTutor.
 AC_PROG_OBJC
 
 
@@ -68,10 +68,10 @@ AM_CONDITIONAL([SIXTYFOUR], [test "x$MATLABBITS" = "x64"])
 # We have to set the binary name here, not out in Makefile.am, or the
 # substitutions don't work right.
 AS_IF([test "x$os" = "xwindows"],
-  [PROG_NAME="MTBindingSim.exe"],
+  [PROG_NAME="BindingTutor.exe"],
   [AS_IF([test "x$os" = "xmac" -a "x$MATLABBITS" = "x64"],
-     [PROG_NAME="MTBindingSim.app"],
-     [PROG_NAME="MTBindingSim"])])
+     [PROG_NAME="BindingTutor.app"],
+     [PROG_NAME="BindingTutor"])])
 AC_SUBST([PROG_NAME])
 
 # Also, mark here if we're making an application bundle (on OS X 64-bit),
@@ -109,9 +109,9 @@ AM_CONDITIONAL([DOCS],
 AC_CONFIG_FILES([
   Makefile
     build/Makefile
-      build/MTBindingSim.nsi
+      build/BindingTutor.nsi
     doc/Makefile
-      doc/mtbindingsim.tex
+      doc/bindingtutor.tex
     src/Makefile
     tools/Makefile
 ])

@@ -8,15 +8,15 @@ or
 
 ### I can't open your ZIP file
 
-If you are running Windows, there is a bug in the built-in Windows ZIP file extractor that occasionally causes trouble with our releases. Try downloading and installing the free and open source [7-Zip ZIP extractor](http://www.7-zip.org), and extracting MTBindingSim using it instead. If you are not running Windows, or if you have trouble even when using 7-Zip, please file a support ticket (see our specific information about Filing a Support Ticket below).
+If you are running Windows, there is a bug in the built-in Windows ZIP file extractor that occasionally causes trouble with our releases. Try downloading and installing the free and open source [7-Zip ZIP extractor](http://www.7-zip.org), and extracting BindingTutor using it instead. If you are not running Windows, or if you have trouble even when using 7-Zip, please file a support ticket (see our specific information about Filing a Support Ticket below).
 
-### MTBindingSim doesn't run
+### BindingTutor doesn't run
 
-On a Mac, make sure you have downloaded and installed the MATLAB Compiler Runtime (MCR), available at [the MTBindingSim downloads page.](https://github.com/cpence/mtbindingsim/wiki/Download)
+On a Mac, make sure you have downloaded and installed the MATLAB Compiler Runtime (MCR), available at [the BindingTutor downloads page.](http://bindingtutor.org/bindingtutor)
 
-On Windows, the installer should download and install the MATLAB Compiler Runtime (MCR) if you don't already have it. If you get an error that the MCR cannot be found, you probably have an old version of the MCR, which prevents the installer from installing the new version. Uninstall the old version if you don't need it for any other programs and then manually download and install the updated version from [the MTBindingSim downloads page.](https://github.com/cpence/mtbindingsim/wiki/Download)
+On Windows, the installer should download and install the MATLAB Compiler Runtime (MCR) if you don't already have it. If you get an error that the MCR cannot be found, you probably have an old version of the MCR, which prevents the installer from installing the new version. Uninstall the old version if you don't need it for any other programs and then manually download and install the updated version from [the BindingTutor downloads page.](http://bindingtutor.org/bindingtutor)
 
-If you have successfully installed all the prerequisites and still cannot get MTBindingSim to run, try Filing a Support Ticket below.
+If you have successfully installed all the prerequisites and still cannot get BindingTutor to run, try Filing a Support Ticket below.
 
 ## Graphing
 
@@ -30,8 +30,7 @@ Also, if you graph two very nearly identical graphs at the same time, the line f
 
 Your graph looking wrong could have several causes. First, make sure that the x- and y-axis ranges are appropriate for your graph.
 
-If you are confident that you are looking at the graph with appropriate axes and it still looks wrong or strange, it is possible that the program has calculated your graph incorrectly. While we have made every attempt to ensure that MTBindingSim will always calculate the correct graph, it is possible that we missed something. Please submit a bug report on our website and we will attempt to fix the problem. To help us diagnose the issue you are having, it would be very helpful if you can run the graph several times, tweaking the parameters, to determine what parameter or combination of parameters is causing the problem. Thank you
-for helping us keep MTBindingSim working properly!
+If you are confident that you are looking at the graph with appropriate axes and it still looks wrong or strange, it is possible that the program has calculated your graph incorrectly. While we have made every attempt to ensure that BindingTutor will always calculate the correct graph, it is possible that we missed something. Please submit a bug report on our website and we will attempt to fix the problem. To help us diagnose the issue you are having, it would be very helpful if you can run the graph several times, tweaking the parameters, to determine what parameter or combination of parameters is causing the problem. Thank you for helping us keep BindingTutor working properly!
 
 ## Saving Your Results
 
@@ -57,8 +56,8 @@ Head to the next section and learn about Filing a Support Ticket.
 
 ## Filing a Support Ticket
 
-MTBindingSim is hosted on Google Code, and we use its "Issues" system for keeping track of support requests. For your best chance at support, please file a ticket there, rather than e-mailing one of the developers.
+BindingTutor is hosted on GitHub, and we use its "Issues" system for keeping track of support requests. For your best chance at support, please file a ticket there, rather than e-mailing one of the developers.
 
 When should you file a support ticket? In general, if you have a question that you just can't get answered in the documentation, if you have a bug to report, or if you have an idea for a new feature, you should send us a message.
 
-Rather than including it in the documentation, we keep up-to-date information about [how to file a support ticket](https://github.com/cpence/mtbindingsim/wiki/FilingATicket) on the MTBindingSim website. Please visit there for the latest information about how to get MTBindingSim support.
+Rather than including it in the documentation, we keep up-to-date information about [how to file a support ticket](https://github.com/jtophilip/bindingtutor/wiki/FilingATicket) on the BindingTutor website. Please visit there for the latest information about how to get BindingTutor support.

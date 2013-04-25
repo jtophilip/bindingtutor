@@ -19,10 +19,10 @@
 \usepackage{graphicx}
 \DeclareGraphicsExtensions{.pdf,.png}
 
-% MTBindingSim colors
-\definecolor{mtbdarkgreen}{RGB}{18,49,22}
-\definecolor{mtbmedgreen}{RGB}{60,87,36}
-\definecolor{mtblightgreen}{RGB}{101,124,49}
+% BindingTutor colors
+\definecolor{btdarkgreen}{RGB}{18,49,22}
+\definecolor{btmedgreen}{RGB}{60,87,36}
+\definecolor{btlightgreen}{RGB}{101,124,49}
 
 %
 % Very fancy chapter header support
@@ -41,11 +41,11 @@
   {\begin{tikzpicture}[remember picture,overlay]
     \node[yshift=-3cm] at (current page.north west)
       {\begin{tikzpicture}[remember picture, overlay]
-        \draw[fill=mtblightgreen] (0,0) rectangle
+        \draw[fill=btlightgreen] (0,0) rectangle
           (\paperwidth,3cm);
         \node[anchor=east,xshift=.9\paperwidth,rectangle,
               rounded corners=20pt,inner sep=11pt,
-              fill=mtbdarkgreen]
+              fill=btdarkgreen]
               {\color{white}\chapterlabel#1};
        \end{tikzpicture}
       };
@@ -54,22 +54,22 @@
 \titlespacing*{\chapter}{0pt}{80pt}{-60pt}
 
 
-% The MTBindingSim version number
-\newcommand{\mtbversion}{@PACKAGE_VERSION@}
+% The version number
+\newcommand{\btversion}{@PACKAGE_VERSION@}
 
 % Setup the hyperlink package
 \hypersetup{
   pdftex,
   pdfpagemode=UseOutlines,
-  pdftitle={MTBindingSim v@PACKAGE_VERSION@ Manual},
+  pdftitle={BindingTutor v@PACKAGE_VERSION@ Manual},
   pdfauthor={Julia Philip, Charles Pence, Holly Goodson},
   breaklinks=true,
   colorlinks,
-  linkcolor=mtblightgreen,
+  linkcolor=btlightgreen,
   citecolor=black,
-  filecolor=mtblightgreen,
-  menucolor=mtblightgreen,
-  runcolor=mtblightgreen,
+  filecolor=btlightgreen,
+  menucolor=btlightgreen,
+  runcolor=btlightgreen,
   urlcolor=blue
 }
 
@@ -98,7 +98,7 @@
 \clearpage
 
 \input{@top_builddir@/doc/GettingStarted}
-\input{@top_builddir@/doc/RunningMTBindingSim}
+\input{@top_builddir@/doc/RunningBindingTutor}
 \input{@top_builddir@/doc/HowTo}
 \input{@top_builddir@/doc/BindingModels}
 \input{@top_builddir@/doc/Troubleshooting}

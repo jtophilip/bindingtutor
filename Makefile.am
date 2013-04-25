@@ -1,4 +1,4 @@
-# Root Automake file for MTBindingSim #
+# Root Automake file for BindingTutor #
 #######################################
 
 ACLOCAL_AMFLAGS = -I build/m4
@@ -19,7 +19,7 @@ changes:
 if MACBUNDLE
 if DOCS
 dmg:
-	(cd doc && $(MAKE) mtbindingsim.pdf) || exit 1
+	(cd doc && $(MAKE) bindingtutor.pdf) || exit 1
 	(cd src && $(MAKE) $(AM_MAKEFLAGS) $@) || exit 1
 else
 dmg:

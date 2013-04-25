@@ -1,131 +1,27 @@
-MTBindingSim NEWS -- History of user-visible changes.
+BindingTutor NEWS -- History of user-visible changes.
 
 Copyright (C) 2010-2013 University of Notre Dame.
 See the end of the file for license conditions.
 
-* Version 0.14 [beta]
+* Version 0.1 [beta]
 
-** Fixed a bug in the CSV exporter.
-
-** Added more detailed explanation of binding model mathematics to
-documentation.
-
-
-* Version 0.13 [beta]
-
-** Add an info button which opens a box with some information about the current
-selected binding model.
-
-
-* Version 0.12 [beta]
-
-** Fixes to the installation system on Windows and Mac.
-
-
-* Version 0.11 [beta]
-
-** Added back a new pseudo-cooperativity model.
-
-** Added a new two-sites binding model.
-
-
-* Version 0.10 [beta]
-
-** Removed cooperativity binding mode.
-
-** Added Scatchard plotting.
-
-
-* Version 0.9 [beta]
-
-** Updated calculation of binding ratio, this parameter now works differently.
-
-** New interface to save graphs and data.
-
-
-* Version 0.8.1 [beta]
-
-** Fixed an urgent calculation bug.
-
-
-* Version 0.8 [beta]
-
-** Changed terminology for dissociation constants.
-
-** Bug fixes, including a calculation error corrected.
-
-
-* Version 0.7 [beta]
-
-** Complete documentation
-
-** Various bug fixes
-
-
-* Version 0.6.1 [beta]
-
-** Various bug fixes
-
-
-* Version 0.6 [beta]
-
-** Various bug fixes
-
-** Inputs now default to 0 when the experimental mode or model is changed. The 
-ratio always defaults to 1.
-
-** Added a new model where protein A can bind to MT either as a monomer or as a
-dimer with different affinities.
-
-
-* Version 0.5 [beta]
-
-** Currently supported binding models:
-
-*** First order binding of microtubule binding proteins to microtubules
-
-*** "Classical" cooperativity
-
-*** A model where a protein binds the microtuble at the seam and the lattice 
-with different affinities.
-
-*** A model where a microtubule binding protein can bind either the microtubule
-or a microtubule bound protein, allowing two total layers of microtubule 
-bound proteins.
-
-*** A model where a microtubule binding protein can bind either the 
-microtubule or a microtubule bound protein, allowing up to three layers 
-of microtubule binding proteins on the microtubule.
-
-** Three different modes of collecting binding data:
-
-*** Holding the protein of interest constant and varying the microtubule
-concentration
-
-*** Holding the microtubule concentration constant and varying the 
-concentration of the protein of interest
-
-*** An experiment with two different microtubule binding proteins where 
-one microtubule binding protein and microtubule concentration are held 
-constant and the concentration of the other microtubule binding protein 
-is varied. In this mode both microtubule binding proteins are assumed to 
-follow first order binding.
+** Initial release.
 
 
 ----------------------------------------------------------------------
-This file is part of MTBindingSim.
+This file is part of BindingTutor.
 Copyright (C) 2010-2013  University of Notre Dame
 
-MTBindingSim is free software: you can redistribute it and/or modify
+BindingTutor is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-MTBindingSim is distributed in the hope that it will be useful,
+BindingTutor is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with MTBindingSim.  If not, see <http://www.gnu.org/licenses/>.
+along with BindingTutor.  If not, see <http://www.gnu.org/licenses/>.
 
