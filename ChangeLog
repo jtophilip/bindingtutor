@@ -1,10 +1,59 @@
 2013-04-24  Charles Pence  <charles@charlespence.net>
 
+	Fix doc makefile so that we're building.
+
+2013-04-24  Julia Philip  <jtophilip@gmail.com>
+
+	Add Mac icon.
+
+2013-04-24  Charles Pence  <charles@charlespence.net>
+
+	Add massive icon (silly Apple).
+
+	Big doc/image update.
+
+	Fix, I think, all pernicious instances of MTBindingSim.
+
+	First round of renaming leftover MTBindingSims.
+
+	Switch to the VC redist bundled with the Windows SDK 7.1.
+
+	Fix the doc Makefile.
+
+	Update ChangeLog.
+
+2013-04-24  Charles Pence  <charles@charlespence.net>
+
 	Update ChangeLogs, THANKS, NEWS.
+	Conflicts:
+
+		doc/ReleasePolicy.md
+
+2013-04-24  Charles Pence  <charles@charlespence.net>
+
+	Actually, just don't keep developer docs here at all.
+
+	Don't maintain two different release policy documents.
 
 	Add ChangeLogs to distribution builds.
 
+2013-04-24  Charles Pence  <charles@charlespence.net>
+
 	Update copyright year.
+	Conflicts:
+
+		src/MAP2_binding.m
+		src/MAP2_saturation.m
+		src/MAP_binding.m
+		src/MAP_saturation.m
+		src/dimer_binding.m
+		src/dimer_saturation.m
+		src/pseudocooperativity_binding.m
+		src/pseudocooperativity_saturation.m
+		src/seam_lattice_binding.m
+		src/seam_lattice_saturation.m
+
+2013-04-24  Charles Pence  <charles@charlespence.net>
 
 	Fix capitalization.
 
@@ -16,9 +65,25 @@
 
 	Update MCR to R2012B, direct from MathWorks.
 
+2013-03-20  Charles Pence  <charles@charlespence.net>
+
+	Changed the figures that were MTBindingSim-specific to BindingTutor-specific.
+
 2013-03-15  Julia Philip  <jtophilip@gmail.com>
 
 	Added an additional step to the binding model mathematics.
+
+2013-02-10  Julia Philip  <jtophilip@gmail.com>
+
+	Changed docs to account for BindingTutor instead of MTBindingSim.
+
+2013-02-03  Julia Philip  <jtophilip@gmail.com>
+
+	Removed MT and polymer specific models.
+
+2013-01-31  Julia Philip  <jtophilip@gmail.com>
+
+	Changed the title of the GUI window.
 
 2013-01-23  Charles Pence  <charles@charlespence.net>
 
