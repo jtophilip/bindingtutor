@@ -17,16 +17,13 @@ Makefile.in
 *.pyc
 *~
 
-build/Common.nsh
-
 *.tex
 !doc/Introduction.tex
 
-src/MTBindingSim
-src/MTBindingSim.exe
-src/MTBindingSim.app
-src/MTBindingSim.prg
-src/mtbindingsim-*-bin*
+src/BindingTutor
+src/BindingTutor.exe
+src/BindingTutor.app
+src/BindingTutor.prg
 src/*.c
 src/*.txt
 src/*.sh

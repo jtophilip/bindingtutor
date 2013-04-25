@@ -1,34 +1,33 @@
 
-MTBindingSim
+BindingTutor
 ============
 
 
-About MTBindingSim
+About BindingTutor
 ------------------
 
-MTBindingSim is a program to plot binding curves under
-various conditions, particularly those encountered in
-microtubule binding or other polymer binding situations.
+BindingTutor is a program to plot binding curves under
+various conditions.
 
 
 Downloading
 -----------
 
-You can get MTBindingSim from its website:
+You can get BindingTutor from its website:
 
-  http://mtbindingsim.googlecode.com
+  http://bindingtutor.org/bindingtutor
 
 
 Documentation
 -------------
 
-If this is a binary release of MTBindingSim, you should
+If this is a binary release of BindingTutor, you should
 have a copy of the user's manual, in PDF format.  The
 documentation may be built from source, if you have TeX.
 The manual for the current version is also available
 online, at:
 
-  https://github.com/cpence/mtbindingsim/wiki
+  https://github.com/jtophilip/bindingtutor/wiki
 
 
 Installation
@@ -37,26 +36,24 @@ Installation
  - Windows installer:
 
    Run the included Windows installer, which will install
-   MTBindingSim and its dependencies.  If you have trouble
-   getting MTBindingSim to run, make sure you are using
-   the "full installer," not the "update installer."
+   BindingTutor and its dependencies.
 
  - Mac installer:
 
    First, install the MATLAB Compiler Runtime by 
-   downloading it from the MTBindingSim website:
+   downloading it from the BindingTutor website:
 
-     http://code.google.com/p/mtbindingsim/wiki/Download
+     http://bindingtutor.org/bindingtutor
 
    Then, double-click the DMG file, and drag the app
    icon into your Applications folder.  To run, just
-   double-click the MTBindingSim icon.
+   double-click the BindingTutor icon.
 
  - Source
 
    From source, you may either build a binary and run it,
-   or you may run MTBindingSim directly in MATLAB by
-   opening the file src/MTBindingSim.m.
+   or you may run BindingTutor directly in MATLAB by
+   opening the file src/BindingTutor.m.
 
 
 Licensing
@@ -68,10 +65,10 @@ Please see the file called COPYING.
 Development
 -----------
 
-MTBindingSim development is hosted by GitHub.  You can find
+BindingTutor development is hosted by GitHub.  You can find
 our page here:
 
-  https://github.com/cpence/mtbindingsim
+  https://github.com/jtophilip/bindingtutor
 
 
 Bug Reporting
@@ -80,13 +77,13 @@ Bug Reporting
 You can file bug reports using our online development site.
 For more information about filing a bug report, see here:
 
-  https://github.com/cpence/mtbindingsim/wiki/FilingATicket
+  https://github.com/jtophilip/bindingtutor/wiki/FilingATicket
 
 
 Authors
 -------
 
-MTBindingSim was primarily authored by Julia Philip and
+BindingTutor was primarily authored by Julia Philip and
 Charles Pence.  For more information, see the files called
 AUTHORS and THANKS.
 
