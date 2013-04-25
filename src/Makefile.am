@@ -33,13 +33,8 @@ AM_INSTALLCHECK_STD_OPTIONS_EXEMPT = $(EXTRA_SCRIPTS)
 # Get the list of source files we need
 MTBindingSim_MATLAB = \
 	MTBindingSim.m \
-	MAP2_binding.m MAP2_saturation.m \
-	MAP_binding.m MAP_saturation.m \
 	competition.m \
-	dimer_binding.m dimer_saturation.m \
 	first_order_binding.m first_order_saturation.m \
-	pseudocooperativity_binding.m pseudocooperativity_saturation.m \
-	seam_lattice_binding.m seam_lattice_saturation.m \
 	sites_binding.m sites_saturation.m
 MTBindingSim_FIG = MTBindingSim.fig
 
@@ -55,20 +50,20 @@ MTBindingSim.prj: $(MTBindingSim_MATLAB) $(MTBindingSim_FIG)
 	$(MCC) $(MATLABFLAGS) -v -d $(builddir) -m $$MFILES)
 	if test -d $(builddir)/MTBindingSim.app ; then \
 		chmod 644 $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
-		cp $(top_srcdir)/doc/wiki/images/icon/icon.icns $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
-		mv $(builddir)/MTBindingSim.app $(builddir)/BindingTutor.app \
+		cp $(top_srcdir)/doc/images/icon/icon.icns $(builddir)/MTBindingSim.app/Contents/Resources/membrane.icns; \
+		mv $(builddir)/MTBindingSim.app $(builddir)/BindingTutor.app; \
 	fi
 	if test -e $(builddir)/MTBindingSim.exe ; then \
-		cp $(top_srcdir)/doc/wiki/images/icon/icon.ico $(builddir)/out.ico; \
+		cp $(top_srcdir)/doc/images/icon/icon.ico $(builddir)/out.ico; \
 		$(top_srcdir)/tools/ResHacker.exe -add MTBindingSim.exe, out.exe, out.ico, ICONGROUP, AAA,; \
 		if test -e $(builddir)/out.exe ; then \
 			mv -f $(builddir)/out.exe $(builddir)/MTBindingSim.exe; \
 		fi; \
 		rm -f out.exe out.ico; \
-		mv $(builddir)/MTBindingSim.exe $(builddir)/BindingTutor.exe \
+		mv $(builddir)/MTBindingSim.exe $(builddir)/BindingTutor.exe; \
 	fi
 	if test -e $(builddir)/MTBindingSim ; then \
-	    mv $(builddir)/MTBindingSim $(builddir)/BindingTutor \
+	    mv $(builddir)/MTBindingSim $(builddir)/BindingTutor; \
 	fi
 
 # Clean up after MCC
