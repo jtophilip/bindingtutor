@@ -546,6 +546,35 @@ elseif strcmpi(handles.mode1, 'firstorder')
                    yaxis = 'Fraction of P bound';
                    plottitle = 'Vary [L] Binding Assay';
                    legend1 = ['First order, [P] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String')];
+                
+               case 'scatchard'
+                    
+                    % Calculates Abound and Afree
+                    [frac, MTfree] = first_order_binding(xvals, Atot, KAM, 1);
+                    
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Calculates MTbound
+                    MTbound = xvals - MTfree;
+
+                    % Sets the x and y data to plot
+                    y1 = MTbound./MTfree;
+                    x1 = MTbound;
+                    
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[L] bound';
+                    yaxis = '[L] bound/ [L] free';
+                    plottitle = 'Vary [L] Binding Assay';
+                    legend1 = ['First order, [P] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String')];
+                    
+
 
                 otherwise
             end
@@ -623,31 +652,6 @@ elseif strcmpi(handles.mode1, 'firstorder')
                     plottitle = 'Vary [P] Binding Assay';
                     legend1 = ['First order, [L] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String')];
                     
-                case 'scatchard'
-                    
-                    % Calculates Abound and Afree
-                    [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, 1);
-                    
-                    % Checks to make sure the calculation suceeded and
-                    % returns an error if it did not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y data to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-                    
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[P] bound';
-                    yaxis = '[P] bound/ [P] free';
-                    plottitle = 'Vary [P] Binding Assay';
-                    legend1 = ['First order, [L] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String')];
-                    
-
                     
                 otherwise
             end
@@ -721,6 +725,11 @@ elseif strcmpi(handles.mode1, 'sites')
                     yaxis = 'Fraction of P bound';
                     plottitle = 'Vary [L] Binding Assay';
                     legend1 = ['Two sites, [P] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
+
+                case 'scatchard'
+                    
+                    errorbox('The two sites model cannot be graphed as a Scatchard plot.',hObject);
+                
 
                 otherwise
             end
@@ -807,30 +816,6 @@ elseif strcmpi(handles.mode1, 'sites')
                     plottitle = 'Vary [P] Binding Assay';
                     legend1 = ['Two sites, [L] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
    
-                case 'scatchard'
-                    
-                    % Calculates concentration of A bound and MT free
-                    [Abound, Afree] = sites_saturation(MTtot, xvals, KA1, KA2);
-                    
-                    % Checks to make sure the calculation was sucessful and
-                    % returns an error if it was not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-                    
-                    % Sets the x and y values to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[P] bound';
-                    yaxis = '[P] bound/[P] free';
-                    plottitle = 'Vary [P] Binding Assay';
-                    legend1 = ['Two sites, [L] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
-                
                 
                 otherwise
             end
@@ -926,6 +911,35 @@ elseif strcmpi(handles.mode1, 'concerted')
                    plottitle = 'Vary [L] Binding Assay';
                    legend1 = ['Concerted cooperativity, [P] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String') ', n = ' get(handles.input3_1, 'String')];
 
+                   case 'scatchard'
+                    
+                    % Calculates frac and MTfree
+                    [frac, MTfree] = coop_concerted_binding(xvals, Atot, KD, n);
+                    
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Calculates MTbound
+                    MTbound = xvals - MTfree;
+
+                    % Sets the x and y data to plot
+                    y1 = MTbound./MTfree;
+                    x1 = MTbound;
+                    
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[L] bound';
+                    yaxis = '[L] bound/ [L] free';
+                    plottitle = 'Vary [L] Binding Assay';
+                    legend1 = ['Concerted cooperativity, [P] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String') ', n = ' get(handles.input3_1, 'String')];
+                    
+
+                   
                 otherwise
             end
 
@@ -1008,30 +1022,6 @@ elseif strcmpi(handles.mode1, 'concerted')
                     % legend text
                     xaxis = '[P] total';
                     yaxis = '[P] bound';
-                    plottitle = 'Vary [P] Binding Assay';
-                    legend1 = ['Concerted cooperativity, [L] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String') ', n = ' get(handles.input3_1, 'String')];
-                    
-                case 'scatchard'
-                    
-                    % Calculates Abound and Afree
-                    [Abound, Afree] = coop_concerted_saturation(MTtot, xvals, KD, n);
-                    
-                    % Checks to make sure the calculation suceeded and
-                    % returns an error if it did not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y data to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-                    
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[P] bound';
-                    yaxis = '[P] bound/ [P] free';
                     plottitle = 'Vary [P] Binding Assay';
                     legend1 = ['Concerted cooperativity, [L] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String') ', n = ' get(handles.input3_1, 'String')];
                     
@@ -1129,6 +1119,36 @@ elseif strcmpi(handles.mode1, 'coop2')
                    plottitle = 'Vary [L] Binding Assay';
                    legend1 = ['2 site sequential cooperativity, [P] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
 
+                   
+                   case 'scatchard'
+                    
+                   % Calculates the value of frac and MTfree
+                   [frac, MTfree] = coop2_binding(xvals, Atot, KD1, KD2);
+                    
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+
+                    % Calculates MTbound
+                    MTbound = xvals - MTfree;
+                    
+                    % Sets the x and y data to plot
+                    y1 = MTbound./MTfree;
+                    x1 = MTbound;
+                    
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[L] bound';
+                    yaxis = '[L] bound/ [L] free';
+                    plottitle = 'Vary [L] Binding Assay';
+                    legend1 = ['2 site sequential cooperativity, [P] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
+                    
+
+                   
                 otherwise
             end
 
@@ -1211,30 +1231,6 @@ elseif strcmpi(handles.mode1, 'coop2')
                     % legend text
                     xaxis = '[P] total';
                     yaxis = '[P] bound';
-                    plottitle = 'Vary [P] Binding Assay';
-                    legend1 = ['2 site sequential cooperativity, [L] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
-                    
-                case 'scatchard'
-                    
-                    % Calculates Abound and Afree
-                    [Abound, Afree] = coop2_saturation(MTtot, xvals, KD1, KD2);
-                    
-                    % Checks to make sure the calculation suceeded and
-                    % returns an error if it did not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y data to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-                    
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[P] bound';
-                    yaxis = '[P] bound/ [P] free';
                     plottitle = 'Vary [P] Binding Assay';
                     legend1 = ['2 site sequential cooperativity, [L] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String')];
                     
@@ -1350,6 +1346,35 @@ elseif strcmpi(handles.mode1, 'coop2')
                    plottitle = 'Vary [L] Binding Assay';
                    legend1 = ['4 site sequential cooperativity, [P] total = ' get(handles.input1_1, 'String') ', K_{D} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String') ', K_{D3} = ' get(handles.input4_1, 'String') ', K_{D4} = ' get(handles.input5_1, 'String')];
 
+               case 'scatchard'
+                    
+                    % Calculates the value of frac and MTfree
+                   [frac, MTfree] = coop4_binding(xvals, Atot, KD1, KD2, KD3, KD4);
+                    
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Calculates MTbound
+                    MTbound = xvals - MTfree;
+
+                    % Sets the x and y data to plot
+                    y1 = MTbound./MTfree;
+                    x1 = MTbound;
+                    
+                    % Sets the x-axis title, y-axis title, plot title, and
+                    % legend text
+                    xaxis = '[L] bound';
+                    yaxis = '[L] bound/ [L] free';
+                    plottitle = 'Vary [L] Binding Assay';
+                    legend1 = ['4 site sequential coopeativity, [P] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String') ', K_{D3} = ' get(handles.input4_1, 'String') ', K_{D4} = ' get(handles.input5_1, 'String')];
+                    
+
+                   
                 otherwise
             end
 
@@ -1452,31 +1477,7 @@ elseif strcmpi(handles.mode1, 'coop2')
                     plottitle = 'Vary [P] Binding Assay';
                     legend1 = ['4 site sequential cooperativity, [L] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String') ', K_{D3} = ' get(handles.input4_1, 'String') ', K_{D4} = ' get(handles.input5_1, 'String')];
                     
-                case 'scatchard'
-                    
-                    % Calculates Abound and Afree
-                    [Abound, Afree] = coop4_saturation(MTtot, xvals, KD1, KD2, KD3, KD4);
-                    
-                    % Checks to make sure the calculation suceeded and
-                    % returns an error if it did not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y data to plot
-                    y1 = Abound./Afree;
-                    x1 = Abound;
-                    
-                    % Sets the x-axis title, y-axis title, plot title, and
-                    % legend text
-                    xaxis = '[P] bound';
-                    yaxis = '[P] bound/ [P] free';
-                    plottitle = 'Vary [P] Binding Assay';
-                    legend1 = ['4 site sequential coopeativity, [L] total = ' get(handles.input1_1, 'String') ', K_{D1} = ' get(handles.input2_1, 'String') ', K_{D2} = ' get(handles.input3_1, 'String') ', K_{D3} = ' get(handles.input4_1, 'String') ', K_{D4} = ' get(handles.input5_1, 'String')];
-                    
-
+                
                     
                 otherwise
             end
@@ -1619,6 +1620,30 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        % Sets the legend text
                        legend2 = ['First order, [P] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String')];
 
+                   case 'scatchard'
+                        
+                        % Function to get fraction A bound
+                       [frac, MTfree] = first_order_binding(xvals, Atot, KAM, 1);
+                        
+                        % Ensures that the calculation was successful and
+                        % returns an error if it was not
+                        [a,b] = size(frac);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
+                        
+                        % Calculates MTbound
+                        MTbound = xvals - MTfree;
+
+                        % Sets the x and y values to graph
+                        y2 = MTbound./MTfree;
+                        x2 = MTbound;
+
+                        % Sets the legend text
+                        legend2 = ['First order, [P] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String')];
+
+                       
                     otherwise
                 end
 
@@ -1685,26 +1710,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Sets the legend text
                         legend2 = ['First order, [L] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String')];
 
-                    case 'scatchard'
-                        
-                        % Function to get the concentration of A bound
-                        [Abound, Afree] = first_order_saturation(MTtot, xvals, KAM, 1);
-                        
-                        % Ensures that the calculation was successful and
-                        % returns an error if it was not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y values to graph
-                        y2 = Abound./Afree;
-                        x2 = Abound;
-
-                        % Sets the legend text
-                        legend2 = ['First order, [L] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String')];
-
+                    
                     
                     otherwise
                 end
@@ -1776,6 +1782,11 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                             % Sets the legend text
                             legend2 = ['Two sites, [P] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
 
+                        case 'scatchard'
+
+                           errorbox('The two sites model cannot be graphed as a Scatchard plot',hObject);
+                           
+                           
                         otherwise
                     end
 
@@ -1852,27 +1863,7 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                             % Sets the legend text
                             legend2 = ['Two sites, [L] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
 
-                        case 'scatchard'
-
-                            % Function to get the concentration of A bound
-                            [Abound, Afree] = sites_saturation(MTtot, xvals, KA1, KA2);
-
-                            % Ensures that the calculation was successful and
-                            % returns an error if it was not
-                            [a,b] = size(Abound);
-                            if a == 1 && b == 1
-                               errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                               return
-                            end
-
-                            % Sets the x and y values to plot
-                            y2 = Abound./Afree;
-                            x2 = Abound;
-
-                            % Sets the legend text
-                            legend2 = ['Two sites, [L] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
-
-
+                        
                         otherwise
                     end 
                 otherwise
@@ -1956,6 +1947,31 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                    % Sets the legend text
                    legend2 = ['Concerted cooperativity, [P] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String') ', n = ' get(handles.input3_2, 'String')];
 
+               case 'scatchard'
+
+                    % Calculates the value of frac and MTfree
+                   [frac, MTfree] = coop_concerted_binding(xvals, Atot, KD, n);
+                    
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Calculates MTbound
+                    MTbound = xvals - MTfree;
+
+                    % Sets the x and y data to plot
+                    y2 = MTbound./MTfree;
+                    x2 = MTbound;
+                    
+                    % Sets legend text
+                    legend2 = ['Concerted cooperativity, [P] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String') ', n = ' get(handles.input3_2, 'String')];
+                    
+
+                   
                 otherwise
             end
 
@@ -2031,26 +2047,6 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     x2 = xvals;
 
                     % Sets the legend text
-                    legend2 = ['Concerted cooperativity, [L] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String') ', n = ' get(handles.input3_2, 'String')];
-                    
-                case 'scatchard'
-                    
-                    % Calculates Abound and Afree
-                    [Abound, Afree] = coop_concerted_saturation(MTtot, xvals, KD, n);
-                    
-                    % Checks to make sure the calculation suceeded and
-                    % returns an error if it did not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y data to plot
-                    y2 = Abound./Afree;
-                    x2 = Abound;
-                    
-                    % Sets legend text
                     legend2 = ['Concerted cooperativity, [L] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String') ', n = ' get(handles.input3_2, 'String')];
                     
 
@@ -2139,6 +2135,31 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                        % Sets the legend text
                        legend2 = ['2 site sequential cooperativity, [P] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
 
+                   case 'scatchard'
+
+                        % Calculates the value of frac and MTfree
+                       [frac, MTfree] = coop2_binding(xvals, Atot, KD1, KD2);
+
+                        % Checks to make sure the calculation suceeded and
+                        % returns an error if it did not
+                        [a,b] = size(frac);
+                        if a == 1 && b == 1
+                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                           return
+                        end
+                        
+                        % Calculates MTbound
+                        MTbound = xvals - MTfree;
+
+                        % Sets the x and y data to plot
+                        y2 = MTbound./MTfree;
+                        x2 = MTbound;
+
+                        % Sets the legend text
+                        legend2 = ['2 site sequential cooperativity, [P] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
+
+
+                       
                     otherwise
                 end
 
@@ -2212,26 +2233,6 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                         % Sets the x and y data to plot
                         y2 = Abound;
                         x2 = xvals;
-
-                        % Sets the legend text
-                        legend2 = ['2 site sequential cooperativity, [L] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
-
-                    case 'scatchard'
-
-                        % Calculates Abound and Afree
-                        [Abound, Afree] = coop2_saturation(MTtot, xvals, KD1, KD2);
-
-                        % Checks to make sure the calculation suceeded and
-                        % returns an error if it did not
-                        [a,b] = size(Abound);
-                        if a == 1 && b == 1
-                           errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                           return
-                        end
-
-                        % Sets the x and y data to plot
-                        y2 = Abound./Afree;
-                        x2 = Abound;
 
                         % Sets the legend text
                         legend2 = ['2 site sequential cooperativity, [L] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String')];
@@ -2339,6 +2340,32 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
 
                    % Sets the legend text
                    legend2 = ['4 site sequential cooperativity, [P] total = ' get(handles.input1_2, 'String') ', K_{D} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String') ', K_{D3} = ' get(handles.input4_2, 'String') ', K_{D4} = ' get(handles.input5_2, 'String')];
+              
+                
+                case 'scatchard'
+                    
+                    % Calculates the value of frac and MTfree
+                   [frac, MTfree] = coop4_binding(xvals, Atot, KD1, KD2, KD3, KD4);
+                    
+                    % Checks to make sure the calculation suceeded and
+                    % returns an error if it did not
+                    [a,b] = size(frac);
+                    if a == 1 && b == 1
+                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
+                       return
+                    end
+                    
+                    % Calculates MTbound
+                    MTbound = xvals - MTfree;
+
+                    % Sets the x and y data to plot
+                    y2 = MTbound./MTfree;
+                    x2 = MTbound;
+                    
+                    % Sets the legend text
+                    legend2 = ['4 site sequential coopeativity, [P] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String') ', K_{D3} = ' get(handles.input4_2, 'String') ', K_{D4} = ' get(handles.input5_2, 'String')];
+                    
+
 
                 otherwise
             end
@@ -2434,27 +2461,6 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
                     % Sets the legend text
                     legend2 = ['4 site sequential cooperativity, [L] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String') ', K_{D3} = ' get(handles.input4_2, 'String') ', K_{D4} = ' get(handles.input5_2, 'String')];
                     
-                case 'scatchard'
-                    
-                    % Calculates Abound and Afree
-                    [Abound, Afree] = coop4_saturation(MTtot, xvals, KD1, KD2, KD3, KD4);
-                    
-                    % Checks to make sure the calculation suceeded and
-                    % returns an error if it did not
-                    [a,b] = size(Abound);
-                    if a == 1 && b == 1
-                       errorbox('Sorry, that curve cannot be computed. Please report this as a bug.', hObject);
-                       return
-                    end
-
-                    % Sets the x and y data to plot
-                    y2 = Abound./Afree;
-                    x2 = Abound;
-                    
-                    % Sets the legend text
-                    legend2 = ['4 site sequential coopeativity, [L] total = ' get(handles.input1_2, 'String') ', K_{D1} = ' get(handles.input2_2, 'String') ', K_{D2} = ' get(handles.input3_2, 'String') ', K_{D3} = ' get(handles.input4_2, 'String') ', K_{D4} = ' get(handles.input5_2, 'String')];
-                    
-
                     
                 otherwise
             end
@@ -2515,7 +2521,7 @@ elseif rem(handles.color,7) ==6
 end
 handles.color = handles.color +1;
 
-if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding')
+if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding') && not(strcmpi(get(get(handles.tot_free, 'SelectedObject'), 'Tag'), 'scatchard'))
     axis([handles.xmin_all handles.xmax_all 0 1])
 end
 
@@ -2557,7 +2563,9 @@ if strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare')
     end
     handles.color = handles.color +1;
     
-    if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding')
+    % Sets the parameters of the X and Y axes for models where the fraction
+    % of P bound is graphed
+    if strcmp(get(get(handles.exp_mode, 'SelectedObject'), 'Tag'), 'binding') && not(strcmpi(get(get(handles.tot_free, 'SelectedObject'), 'Tag'), 'scatchard'))
     axis([handles.xmin_all handles.xmax_all 0 1])
     end
     
@@ -2995,16 +3003,19 @@ switch get(handles.curve1, 'Value')
 end
 
 % Checks to see if the 2 site mode is selected in binding mode and turns MT
-% free on or off accordingly
+% free and Scatchard plotting on or off accordingly
 if strcmpi(get(get(handles.exp_mode, 'SelectedObject'),'Tag'), 'binding')
     if strcmpi(handles.mode1, 'Sites')
         set(handles.free, 'Visible','off');
+        set(handles.scatchard, 'Visible', 'off');
         set(handles.tot_free, 'SelectedObject', handles.total);
     elseif strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare') && strcmpi(handles.mode2, 'Sites')
         set(handles.free, 'Visible','off');
+        set(handles.scatchard, 'Visible', 'off');
         set(handles.tot_free, 'SelectedObject', handles.total);
     else
         set(handles.free, 'Visible', 'on');
+        set(handles.scatchard, 'Visible','on');
     end
 else
     set(handles.free, 'Visible', 'on');
@@ -3152,16 +3163,19 @@ switch get(handles.curve2, 'Value')
 end
 
 % Checks to see if the 2 site mode is selected in binding mode and turns MT
-% free on or off accordingly
+% free and Scatchard plotting on or off accordingly
 if strcmpi(get(get(handles.exp_mode, 'SelectedObject'),'Tag'), 'binding')
     if strcmpi(handles.mode1, 'Sites')
         set(handles.free, 'Visible','off');
+        set(handles.scatchard, 'Visible', 'off');
         set(handles.tot_free, 'SelectedObject', handles.total)
     elseif strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare') && strcmpi(handles.mode2, 'Sites')
         set(handles.free, 'Visible','off');
+        set(handles.scatchard, 'Visible','off');
         set(handles.tot_free, 'SelectedObject', handles.total)
     else
         set(handles.free, 'Visible', 'on');
+        set(handles.scatchard, 'Visible', 'on');
     end
 else
     set(handles.free, 'Visible', 'on');
@@ -3228,8 +3242,8 @@ switch get(eventdata.NewValue, 'Tag')
         % Makes the X-axis selection box visible
         set(handles.tot_free, 'Visible', 'on');
         
-        % Makes the scatchard radio button invisible
-        set(handles.scatchard, 'Visible', 'off');
+        % Makes the scatchard radio button visible
+        set(handles.scatchard, 'Visible', 'on');
         
         % Determines which model is selected and sets the labels
         % accordingly
@@ -3311,8 +3325,8 @@ switch get(eventdata.NewValue, 'Tag')
         % Makes the X-axis selection box visible
         set(handles.tot_free, 'Visible', 'on');
         
-        % Makes the scatchard radio button visible
-        set(handles.scatchard, 'Visible', 'on');
+        % Makes the scatchard radio button invisible
+        set(handles.scatchard, 'Visible', 'off');
 
         % Gets the current value of the first curve slection box and
         % changes the visible boxes accordingly
@@ -3410,16 +3424,19 @@ end
 
 
 % Checks to see if the 2 site mode is selected in binding mode and turns MT
-% free on or off accordingly
+% free and Scatchard plotting on or off accordingly
 if strcmpi(get(eventdata.NewValue, 'Tag'), 'binding')
     if strcmpi(handles.mode1, 'Sites')
         set(handles.free, 'Visible','off');
+        set(handles.scatchard, 'Visible','off');
         set(handles.tot_free, 'SelectedObject', handles.total)
     elseif strcmp(get(get(handles.plot_mode, 'SelectedObject'), 'Tag'), 'compare') && strcmpi(handles.mode2, 'Sites')
         set(handles.free, 'Visible','off');
+        set(handles.scatchard, 'Visible','off');
         set(handles.tot_free, 'SelectedObject', handles.total)
     else
         set(handles.free, 'Visible', 'on');
+        set(handles.scatchard, 'Visible','on');
     end
 else
     set(handles.free, 'Visible', 'on');
