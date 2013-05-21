@@ -1,4 +1,4 @@
-function [Frac, MTfree] = coop_concerted_binding(MTtot, Atot, KAM, n, N)
+function [Frac, MTfree] = coop_concerted_binding(MTtot, Atot, KAM, n)
 % A function which calculates the biding of A to MT assuming a concerted
 % cooperativity where n MTs bind to one A all at the same time with an
 % overall binding disociation coefficient of KAM. Where the total

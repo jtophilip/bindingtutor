@@ -1,4 +1,4 @@
-function [Abound, Afree] = coop_concerted_saturation(MTtot, Atot, KAM, n, N)
+function [Abound, Afree] = coop_concerted_saturation(MTtot, Atot, KAM, n)
 % A function which calculates the biding of A to MT assuming a concerted
 % cooperative binding in which n molecules of MT bind to a single A at one
 % time with a disociaiton constant of KAM. Here the total concentrations
