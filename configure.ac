@@ -5,7 +5,7 @@ AC_INIT([BindingTutor], [0.1], [jphilip@nd.edu], [bindingtutor], [http://binding
 AC_PREREQ([2.61])
 
 AC_CONFIG_SRCDIR([src/MTBindingSim.m])
-AC_CONFIG_AUX_DIR([build/aux])
+AC_CONFIG_AUX_DIR([build/autotools])
 AC_CONFIG_MACRO_DIR([build/m4])
 
 AM_INIT_AUTOMAKE([1.8.3 -Wall -Werror gnits no-dependencies no-exeext dist-zip])
