@@ -77,3 +77,15 @@ In this model, P can bind to two sites per ligand, site 1 and site 2 with differ
 In this model, you input the total amount of P (or L), the dissociation constant for P binding to L~1~sites, K~D1~and the dissociation constant for P binding to L~2~sites, K~D2~. All inputs must be positive numbers. Note that the total amount of L is the total amount of L~1~and L~2~.
 
 This model cannot be graphed with an x-axis of [L] free.
+
+### Concerted Cooperativity
+
+In this model n L molecules bind to one P at the same time. You input the total amount of P and L, the dissociation constant for n Ls binding to P, and n. All inputs must be positive numbers.
+
+### 2 Site Sequential Cooperativity
+
+In this model, each P contains 2 identical L binding sites. The first L binds to a P with a dissociation constant of K~D1~ and the second L binds to a P with a dissociation constant of K~D2~. You input the total amount of P and L, along with all dissociation constants. All inputs must be positive numbers.
+
+### 4 Site Sequential Cooperativity
+
+In this model, each P contains 4 identical L binding sites. The first L binds to a P with a dissociation constant of K~D1~, the second L binds to a P with a dissociation constant of K~D2~, the third L binds to a P with a dissociation constant of K~D3~, and the fourth L binds to a P with a dissociation constant of K~D4~. You input the total amount of P and L, along with all dissociation constants. All inputs must be positive numbers.
