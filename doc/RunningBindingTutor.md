@@ -28,13 +28,13 @@ For more information about comparing two curves see the [How To section](${DOCS}
 
 ### X-axis
 
-In Vary [L] mode, the X-axis can be set to either [L] total or [L] free.
+In Vary [L] mode, the X-axis can be set to [L] total or [L] free. In addition, the data can be plotted in a Scatchard plot, where the X-axis is [L] bound and the Y-axis is is [L] bound/[L] free. This kind of plot is used to make the binding data linear. Binding data will be linear for simple interactions and a curved line in a Scatchard plot indicates the presence of cooperativity or other kinds of non-simple binding interactions.
 
 ![image](${IMAGES}/running-xaxisMT){width=1.187in align=center}
 
 [L] total is a known quantity in the experiment, while [L] free must be calculated. However, the familiar Langmuir Isotherm equation uses [L] free as its independent variable, and the quick method of determining K ~D~ by looking at the L concentration when the fraction of P bound is 0.5 *only* works if the x-axis is [L] free. In either X-axis mode the Y-axis will be the fraction of P bound.
 
-In Vary [P] mode there are three possible kinds of plots. In the first two the Y-axis is the concentration of P bound to L, and the X-axis can be set to [P] free or [P] total. In addition, the data can be plotted in a Scatchard plot, where the X-axis is [P] bound and the Y-axis is is [P] bound/[P] free. This kind of plot is used to make the binding data linear. Binding data will be linear for simple interactions and a curved line in a Scatchard plot indicates the presence of cooperativity or other kinds of non-simple binding interactions.
+In Vary [P] mode there are two possible kinds of plots. In the first two the Y-axis is the concentration of P bound to L, and the X-axis can be set to [P] free or [P] total. 
 
 ![image](${IMAGES}/running-xaxisA){width=1.233in align=center}
 
