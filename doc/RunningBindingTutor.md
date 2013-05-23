@@ -80,12 +80,24 @@ This model cannot be graphed with an x-axis of [L] free.
 
 ### Concerted Cooperativity
 
-In this model n L molecules bind to one P at the same time. You input the total amount of P and L, the dissociation constant for n Ls binding to P, and n. All inputs must be positive numbers.
+In this model n L molecules bind to one P at the same time. 
+
+![image](${IMAGES}/running-concerted){width=1.707in align=center}
+
+You input the total amount of P and L, the dissociation constant for n Ls binding to P, and n. All inputs must be positive numbers.
 
 ### 2 Site Sequential Cooperativity
 
-In this model, each P contains 2 identical L binding sites. The first L binds to a P with a dissociation constant of K~D1~ and the second L binds to a P with a dissociation constant of K~D2~. You input the total amount of P and L, along with all dissociation constants. All inputs must be positive numbers.
+In this model, each P contains 2 identical L binding sites. The first L binds to a P with a dissociation constant of K~D1~ and the second L binds to a P with a dissociation constant of K~D2~. 
+
+![image](${IMAGES}/running-coop2){width=1.707in align=center}
+
+You input the total amount of P and L, along with all dissociation constants. All inputs must be positive numbers.
 
 ### 4 Site Sequential Cooperativity
 
-In this model, each P contains 4 identical L binding sites. The first L binds to a P with a dissociation constant of K~D1~, the second L binds to a P with a dissociation constant of K~D2~, the third L binds to a P with a dissociation constant of K~D3~, and the fourth L binds to a P with a dissociation constant of K~D4~. You input the total amount of P and L, along with all dissociation constants. All inputs must be positive numbers.
+In this model, each P contains 4 identical L binding sites. The first L binds to a P with a dissociation constant of K~D1~, the second L binds to a P with a dissociation constant of K~D2~, the third L binds to a P with a dissociation constant of K~D3~, and the fourth L binds to a P with a dissociation constant of K~D4~. 
+
+![image](${IMAGES}/running-coop4){width=1.707in align=center}
+
+You input the total amount of P and L, along with all dissociation constants. All inputs must be positive numbers.
