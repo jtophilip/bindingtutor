@@ -128,7 +128,7 @@ This is then used to calculate the amount of free and bound P.
 
 ### 4 Site Sequential Cooperativity
 
-In this model each P contains 4 identical binding sites for L. The first L that binds to a P has a dissociation constant of $K_{D1}$, the second L that binds to a P has a dissociation constant of $K_{D2}$, the third L that binds to a P has a dissociation constant of $K_{D3}$, and the fourth L that binds to a P has a dissociation constant of $K_{D4}$.$
+In this model each P contains 4 identical binding sites for L. The first L that binds to a P has a dissociation constant of $K_{D1}$, the second L that binds to a P has a dissociation constant of $K_{D2}$, the third L that binds to a P has a dissociation constant of $K_{D3}$, and the fourth L that binds to a P has a dissociation constant of $K_{D4}$.
 
 The binding relationships are:
 
@@ -142,13 +142,13 @@ The mass balances for this model are:
 
 $[P]_{\textup{total}} = [P] + [PL] + [PL_2] + [PL_3] + [PL_4] = [P] + 4[P][L]/K_{D1} + 12[P][L]^2/K_{D1}K_{D2} + 24[P][L]^3/K_{D1}K_{D2}K_{D3} + 24[P][L]^4/K_{D1}K_{D2}K_{D3}K_{D4}$
 
-$[P]_{\textup{total}} = [P](1 + 4[L]/K_{D1} + 12[L]^2/K_{D1}K_{D2} + 24[L]^3/K_{D1}K_{D2}K_{D3} + [L]^4/K_{D1}K_{D2}K_{D3}K_{D4}).$
+$[P]_{\textup{total}} = [P](1 + 4[L]/K_{D1} + 12[L]^2/K_{D1}K_{D2} + 24[L]^3/K_{D1}K_{D2}K_{D3} + 24[L]^4/K_{D1}K_{D2}K_{D3}K_{D4}).$
 
 $[L]_{\textup{total}} = [L] + [PL] + 2[PL_2] + 3[PL_3] + 4[PL_4] = [L] + 4[P][L]/K_{D1} + 24[P][L]^2/K_{D1}K_{D2} + 72[P][L]^3/K_{D1}K_{D2}K_{D3} + 96[P][L]^4/K_{D1}K_{D2}K_{D3}K_{D4}.$
 
 The mass balance for P can be solved for free P, then substituted into the mass balance for L as follows:
 
-$[P] = [P]_{\textup{total}}/(1 + 4[L]/K_{D1} + 12[L]^2/K_{D1}K_{D2} + 24[L]^3/K_{D1}K_{D2}K_{D3} + [L]^4/K_{D1}K_{D2}K_{D3}K_{D4}),$
+$[P] = [P]_{\textup{total}}/(1 + 4[L]/K_{D1} + 12[L]^2/K_{D1}K_{D2} + 24[L]^3/K_{D1}K_{D2}K_{D3} + 24[L]^4/K_{D1}K_{D2}K_{D3}K_{D4}),$
 
 $[L]_{\textup{total}} = [L] + \frac{[P]_{\textup{total}}(4[L]/K_{D1} + 24[L]^4/K_{D1}K_{D2} + 72[L]^3/K_{D1}K_{D2}K_{D3} + 96[L]^4/K_{D1}K_{D2}K_{D3}K_{D4})}{1 + 4[L]/K_{D1} + 12[L]^2/K_{D1}K_{D2} + 24[L]^3/K_{D1}K_{D2}K_{D3} + 24[L]^4/K_{D1}K_{D2}K_{D3}K_{D4}}.$
 
