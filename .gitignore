@@ -12,12 +12,12 @@ Makefile.in
 *.aux
 *.log
 *.out
-*.pdf
 *.toc
 *.pyc
 *~
 
 *.tex
+doc/bindingtutor.pdf
 !doc/Introduction.tex
 
 src/BindingTutor
