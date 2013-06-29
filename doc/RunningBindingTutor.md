@@ -28,13 +28,13 @@ For more information about comparing two curves see the [How To section](${DOCS}
 
 ### X-axis
 
-In Vary [L] mode, the X-axis can be set to either [L] total or [L] free.
+In Vary [L] mode, the X-axis can be set to [L] total or [L] free. In addition, the data can be plotted in a Scatchard plot, where the X-axis is [L] bound and the Y-axis is is [L] bound/[L] free. This kind of plot is used to make the binding data linear. Binding data will be linear for simple interactions and a curved line in a Scatchard plot indicates the presence of cooperativity or other kinds of non-simple binding interactions.
 
 ![image](${IMAGES}/running-xaxisMT){width=1.187in align=center}
 
 [L] total is a known quantity in the experiment, while [L] free must be calculated. However, the familiar Langmuir Isotherm equation uses [L] free as its independent variable, and the quick method of determining K ~D~ by looking at the L concentration when the fraction of P bound is 0.5 *only* works if the x-axis is [L] free. In either X-axis mode the Y-axis will be the fraction of P bound.
 
-In Vary [P] mode there are three possible kinds of plots. In the first two the Y-axis is the concentration of P bound to L, and the X-axis can be set to [P] free or [P] total. In addition, the data can be plotted in a Scatchard plot, where the X-axis is [P] bound and the Y-axis is is [P] bound/[P] free. This kind of plot is used to make the binding data linear. Binding data will be linear for simple interactions and a curved line in a Scatchard plot indicates the presence of cooperativity or other kinds of non-simple binding interactions.
+In Vary [P] mode there are two possible kinds of plots. In the first two the Y-axis is the concentration of P bound to L, and the X-axis can be set to [P] free or [P] total. 
 
 ![image](${IMAGES}/running-xaxisA){width=1.233in align=center}
 
@@ -77,3 +77,27 @@ In this model, P can bind to two sites per ligand, site 1 and site 2 with differ
 In this model, you input the total amount of P (or L), the dissociation constant for P binding to L~1~sites, K~D1~and the dissociation constant for P binding to L~2~sites, K~D2~. All inputs must be positive numbers. Note that the total amount of L is the total amount of L~1~and L~2~.
 
 This model cannot be graphed with an x-axis of [L] free.
+
+### Concerted Cooperativity
+
+In this model n L molecules bind to one P at the same time. 
+
+![image](${IMAGES}/running-concerted){width=1.707in align=center}
+
+You input the total amount of P and L, the dissociation constant for n Ls binding to P, and n. All inputs must be positive numbers.
+
+### 2 Site Sequential Cooperativity
+
+In this model, each P contains 2 identical L binding sites. The first L binds to a P with a dissociation constant of K~D1~ and the second L binds to a P with a dissociation constant of K~D2~. 
+
+![image](${IMAGES}/running-coop2){width=1.707in align=center}
+
+You input the total amount of P and L, along with all dissociation constants. All inputs must be positive numbers.
+
+### 4 Site Sequential Cooperativity
+
+In this model, each P contains 4 identical L binding sites. The first L binds to a P with a dissociation constant of K~D1~, the second L binds to a P with a dissociation constant of K~D2~, the third L binds to a P with a dissociation constant of K~D3~, and the fourth L binds to a P with a dissociation constant of K~D4~. 
+
+![image](${IMAGES}/running-coop4){width=1.707in align=center}
+
+You input the total amount of P and L, along with all dissociation constants. All inputs must be positive numbers.
